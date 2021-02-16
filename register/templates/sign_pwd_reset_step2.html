@@ -1,0 +1,226 @@
+{% extends "base_form.html" %}
+{% load socialaccount %}
+
+{% block title %} {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<script>
+  $(document).ready(function(){
+$('.pass_show').append('<span class="ptxt">Show</span>');
+});
+
+
+$(document).on('click','.pass_show .ptxt', function(){
+
+$(this).text($(this).text() == "Show" ? "Hide" : "Show");
+
+$(this).prev().attr('type', function(index, attr){return attr == 'password' ? 'text' : 'password'; });
+
+});
+</script>
+<style>
+body {
+    background-color: #f2f7fb
+}
+
+.login-block {
+    margin: 30px auto;
+    min-height: 93.6vh
+}
+
+.login-block .auth-box {
+    margin: 20px auto 0;
+    max-width: 450px !important
+}
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
+    box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    background-color: #fff
+}
+
+.card .card-block {
+    padding: 1.25rem
+}
+
+.f-80 {
+    font-size: 80px
+}
+
+.form-group {
+    margin-bottom: 1.25em
+}
+
+.form-material .form-control {
+    display: inline-block;
+    height: 43px;
+    width: 100%;
+
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 9px;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc
+}
+
+.input-group {
+    display: inline-block;
+    height: 43px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 9px;
+    background-color: transparent;
+
+
+}
+
+.btn-md {
+    padding: 10px 16px;
+    font-size: 15px;
+    line-height: 23px
+}
+
+.btn-primary {
+    background-color: rgba(0, 124, 255, 1);
+    border-color: #4099ff;
+    color: #fff;
+
+    cursor: pointer;
+    -webkit-transition: all ease-in .3s;
+    transition: all ease-in .3s
+}
+
+.btn {
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 10px 19px;
+    cursor: pointer;
+
+}
+
+.m-b-20 {
+    margin-bottom: 20px
+}
+
+.btn-md {
+    padding: 10px 16px;
+    font-size: 14px;
+    line-height: 23px
+}
+
+
+
+#infoMessage p {
+    color: red !important
+}
+
+.btn-google {
+    color: #545454;
+    background-color: #ffffff;
+    border-radius:4px;
+    box-shadow: 0 1px 2px 1px #ddd;
+    font-weight:bold;
+}
+
+.or-container {
+    align-items: center;
+    color: #ccc;
+    display: flex;
+    margin: 25px 0
+}
+
+.line-separator {
+    background-color: #ccc;
+    flex-grow: 5;
+    height: 1px
+}
+
+.or-label {
+    flex-grow: 1;
+    margin: 0 15px;
+    text-align: center
+}
+.pass_show{position: relative}
+
+.pass_show .ptxt {
+
+position: absolute;
+
+top: 60%;
+
+right: 10px;
+
+z-index: 1;
+
+color: #f36c01;
+
+margin-top: -10px;
+
+cursor: pointer;
+
+transition: .3s ease all;
+
+}
+
+.pass_show .ptxt:hover{color: #333333;}
+</style>
+<section class="login-block">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="md-float-material form-material" action="#" method="POST">
+                    <div class="auth-box card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="text-center heading"><b>Change your password</b></h2><br/>
+                                    
+                                </div>
+                            </div>
+                            <br/>
+
+                            <br/>
+                            <form method="post">
+                              {% csrf_token %}
+
+
+
+
+
+                            {{ form|crispy }}
+
+
+
+
+
+
+
+                            <br/>
+                            <div class="row">
+                                <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" style=" font-weight:bold;"name="submit" value="Log in"> <!-- <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> -->
+                                </div>
+                            </div>
+
+
+
+                            </form>
+
+
+                      </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

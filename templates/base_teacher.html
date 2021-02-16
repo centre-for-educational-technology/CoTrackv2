@@ -1,0 +1,281 @@
+{% load static%}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title> CoTrackV2</title>
+  {% if form.media %}
+  {{ form.media }}
+  {% endif %}
+
+ <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.3.15/cytoscape.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/static/popper.min.js"></script>
+
+  <script src="{% static 'axios.min.js'%}"></script>
+  <script src="{% static 'ServerDate.js'%}"></script>
+
+  <script src="{% static 'my.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'assets/css/templatemo-softy-pinko.css' %}">
+
+
+  <link href="{% static 'bs-step.css' %}" rel="stylesheet">
+
+
+
+  <script language="javascript" src="{% static 'js/ntp.js' %}"></script>
+
+
+  <script src="{% static 'headtrackr.js'%}"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'google_font_robot.css'%}" rel="stylesheet">
+  <script src="{% static 'RecordRTC.js'%}"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="{% static 'chart.min.js'%}"></script>
+  <link rel="stylesheet" href="{% static 'chart.css'%}">
+  <script src="{% static 'js/chartjs-plugin-colorschemes.js' %}"></script>
+
+
+
+
+  <script language="javascript">
+
+
+
+         function autoResizeDiv()
+          {
+              document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
+          }
+          window.onresize = autoResizeDiv;
+          autoResizeDiv();
+
+
+
+
+
+  </script>
+  <style>
+
+  .custom-radio-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  }
+    .form-inline {
+        display: inline-block;
+    }
+    .navbar {
+    		color: #fff;
+    		background:  #0280FF;;
+    		padding: 5px 16px;
+    		border-radius: 0;
+    		border: none;
+    		box-shadow: 0 0 4px rgba(0,0,0,.1);
+    	}
+
+    	.navbar .divider {
+    		background-color: #e9ecef !important;
+    	}
+      .fill {
+    min-height: 100%;
+    height: 100%;
+}
+iframe {
+    display:block;
+    width:100%;
+    height:100%;
+
+}
+</style>
+
+
+
+
+  <script language="javascript">
+
+  NTP.sync();
+
+         function autoResizeDiv()
+          {
+              document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
+          }
+          window.onresize = autoResizeDiv;
+          autoResizeDiv();
+
+
+
+
+
+  </script>
+
+</head>
+
+<body>
+  <!-- Code to change survey title, subtitle, and paragraph on basis of language selection -->
+
+<div id='client'>
+</div>
+<div id='server'>
+</div>
+<script>
+var time = new Date();
+var stime =new Date(NTP.fixTime(time.getTime()));
+ //document.getElementById('client').innerHTML ='<h2>' + time + '</h2>';
+ //document.getElementById('server').innerHTML = '<h2>' + stime + '</h2>';
+</script>
+
+
+
+
+
+  <nav class="navbar navbar-expand-xl navbar-dark">
+    <div class='container'>
+
+  		<a class="navbar-brand" href="{% url 'login'%}"> CoTrack<b>V2</b></a>
+  		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggler">
+  			<span class="navbar-toggler-icon"></span>
+
+  		</button>
+
+  	<!-- Collection of nav links, forms, and other content for toggling -->
+  	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-end">
+
+  		<ul class="nav navbar-nav">
+        {% if request.user.is_authenticated  %}
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{request.user.email}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'project_home'%}"><i class="fa fa-gear"></i> Sessions</a>
+
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>
+        </div>
+      </li>
+
+
+
+        {% else %}
+        <!--
+        <li class='nav-item'><a class='nav-link'  href="{%url 'register'%}"><i class="fa fa-user"></i> <span style="color:white;">Sign-up</span></a></li>
+        <li class='nav-item'><a class='nav-link'  href="{%url 'login'%}"><i class="fa fa-sign-in"></i> <span  style="color:white;">Login</span></a></li>
+
+      -->
+        {% endif %}
+        <!-- Language code
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_language_info for LANGUAGE_CODE as cur_lang %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+
+
+        <li class="nav-item dropdown">
+            {% if LANGUAGE_CODE == 'en' %}
+            <a class="nav-link dropdown-toggle" href="{% url 'change_language' 'en'%}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span> {{ cur_lang.name}}</a>
+            {% else %}
+            <a class="nav-link dropdown-toggle" href="{% url 'change_language' LANGUAGE_CODE%}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-{{LANGUAGE_CODE}}"> </span> {{ cur_lang.name}}</a>
+            {% endif %}
+
+
+
+            <div class="dropdown-menu" aria-labelledby="dropdown09">
+                {% for language in languages %}
+                {% if language.code != LANGUAGE_CODE %}
+
+                 {% if language.code == 'en' %}
+                    <a class="dropdown-item" href="{% url 'change_language' 'en'%}"><span class="flag-icon flag-icon-us"> </span> English</a>
+                 {% else %}
+                    <a class="dropdown-item" href="{% url 'change_language' language.code%}"><span class="flag-icon flag-icon-{{language.code}}"> </span> {{language.name}}</a>
+                 {% endif %}
+                {% endif %}
+
+
+            {% endfor %}
+            </div>
+        </li>
+      -->
+
+  		</ul>
+  	</div>
+  </div>
+  </nav>
+
+
+
+
+  <!-- Page Content -->
+  <div class="container min-vh-100">
+      <br/>
+
+    <h2> {% block title%} {%endblock%} </h2>
+    <hr/>
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error'%}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {%endif%}
+{% endfor %}
+{% endif %}
+
+
+
+    {% block content%}
+
+    {% endblock %}
+    <br/>
+  </div>
+</div>
+  </div>
+
+  <!-- ***** Footer Start ***** -->
+  <footer>
+      <div class="container">
+
+          <div class="d-flex">
+              <div class="p-3">
+                  <p class="copyright">Copyright &copy; 2020 CoTrack</p>
+              </div>
+
+
+          </div>
+
+      </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+
+
+  	<!-- ./Footer -->
+</body>
+
+</html>

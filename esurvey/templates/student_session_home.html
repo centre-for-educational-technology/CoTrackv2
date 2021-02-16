@@ -1,0 +1,45 @@
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+<h2>{{session.name | upper}}</h2>
+<hr/>
+<div>
+<span>Instructor: {{session.owner | upper}}</span>
+
+</div>
+<hr/>
+<a href = "{% url 'leave_session'%}" class='btn btn-warning'> Leave Session </a>
+<br/>
+<br/>
+<div class='row'>
+  <div class='col-md-4'>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Groups</th>
+        <th>Link</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for group in groups %}
+      <tr>
+        <td>Group-{{forloop.counter}}</td>
+        <td><a href='{% url 'student_pad' forloop.counter  %}' class='btn btn-success pl-5 pr-5'>Enter</a></td>
+
+      </tr>
+      {%endfor%}
+
+    </tbody>
+  </table>
+</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load socialaccount %}
+
+{% block title %}{{title}}{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-6">
+    <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <p>Forgot Password? Change  <a href="{%url 'password_reset'%}">here</a></p>
+
+    <p>Don't have an accoount? Create one <a href={% url 'register' %}>here</></p>
+
+    <button type="submit" class='btn btn-primary'>{{button}}</button>
+    <a class="btn btn-outline-danger" href="{% provider_login_url 'google' %}" role="button" style="text-transform:none">
+      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      Login with Google
+    </a>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,170 @@
+{% extends 'survey-base.html' %}
+
+{% block content%}
+<h2>{{title}}</h2>
+
+
+<form method='post'>
+
+{% csrf_token %}
+<div class="table-responsive">
+<table id='survey' class="table table-striped">
+<thead>
+  <tr>
+    <th></th>
+    <th> Strogly disagree </th>
+    <th> Disagree </th>
+    <th> Neutral </th>
+    <th> Agree </th>
+    <th> Strogly agree </th>
+  </tr>
+</thead>
+
+<tbody>
+  <tr>
+    <td> I believe that there could be negative consequences from using {{product}}</td>
+    <td> <input type="radio" value="1" name="q1" required> </td>
+    <td> <input type="radio" value="2" name="q1"> </td>
+    <td> <input type="radio" value="3" name="q1"> </td>
+    <td> <input type="radio" value="4" name="q1"> </td>
+    <td> <input type="radio" value="5" name="q1"> </td>
+  </tr>
+
+
+  <tr>
+    <td> I feel I must be cautious when using  {{product}}</td>
+    <td> <input type="radio" value="1" name="q2" required> </td>
+    <td> <input type="radio" value="2" name="q2"> </td>
+    <td> <input type="radio"  value="3" name="q2"> </td>
+    <td> <input type="radio"  value="4" name="q2"> </td>
+    <td> <input type="radio" value="5"  name="q2"> </td>
+  </tr>
+
+
+  <tr>
+    <td> It is risky to use  {{product}}</td>
+    <td> <input type="radio" value="1"  name="q3" required> </td>
+    <td> <input type="radio" value="2"  name="q3"> </td>
+    <td> <input type="radio" value="3"  name="q3"> </td>
+    <td> <input type="radio" value="4"  name="q3"> </td>
+    <td> <input type="radio" value="5"  name="q3"> </td>
+  </tr>
+
+
+  <tr>
+    <td> I believe {{product}} will act in my best interest </td>
+    <td> <input type="radio" value="1"  name="q4" required> </td>
+    <td> <input type="radio" value="2"  name="q4"> </td>
+    <td> <input type="radio" value="3"  name="q4"> </td>
+    <td> <input type="radio" value="4"  name="q4"> </td>
+    <td> <input type="radio" value="5"  name="q4"> </td>
+  </tr>
+
+
+  <tr>
+    <td> I believe that {{product}} will do its best to help me if I need help </td>
+    <td> <input type="radio" value="1"  name="q5" required> </td>
+    <td> <input type="radio" value="2"  name="q5"> </td>
+    <td> <input type="radio" value="3"  name="q5"> </td>
+    <td> <input type="radio" value="4"  name="q5"> </td>
+    <td> <input type="radio" value="5"  name="q5"> </td>
+  </tr>
+
+  <tr>
+    <td>I believe that {{product}} is interested in understanding my needs and preferences </td>
+    <td> <input type="radio" value="1"  name="q6" required> </td>
+    <td> <input type="radio" value="2"  name="q6"> </td>
+    <td> <input type="radio" value="3"  name="q6"> </td>
+    <td> <input type="radio" value="4"  name="q6"> </td>
+    <td> <input type="radio" value="5"  name="q6"> </td>
+  </tr>
+
+  <tr>
+    <td>{{product}} is competent and effective in providing personal care and  assistance  </td>
+    <td> <input type="radio" value="1"  name="q7" required> </td>
+    <td> <input type="radio" value="2"  name="q7"> </td>
+    <td> <input type="radio" value="3"  name="q7"> </td>
+    <td> <input type="radio" value="4"  name="q7"> </td>
+    <td> <input type="radio" value="5"  name="q7"> </td>
+  </tr>
+
+  <tr>
+    <td> I believe {{product}} has all the functionalities I would expect from an intelligent personal assistant</td>
+    <td> <input type="radio" value="1"  name="q8" required> </td>
+    <td> <input type="radio" value="2"  name="q8"> </td>
+    <td> <input type="radio" value="3"  name="q8"> </td>
+    <td> <input type="radio" value="4"  name="q8"> </td>
+    <td> <input type="radio" value="5"  name="q8"> </td>
+  </tr>
+
+  <tr>
+    <td> {{product}} performs its role as an intelligent personal assistant very well  </td>
+    <td> <input type="radio" value="1"  name="q9" required> </td>
+    <td> <input type="radio" value="2"  name="q9"> </td>
+    <td> <input type="radio" value="3"  name="q9"> </td>
+    <td> <input type="radio" value="4"  name="q9"> </td>
+    <td> <input type="radio" value="5"  name="q9"> </td>
+  </tr>
+
+  <tr>
+    <td> When sharing something with {{product}} I expect to get back a meaningful  and knowledgeable response  </td>
+    <td> <input type="radio" value="1"  name="q10" required> </td>
+    <td> <input type="radio" value="2"  name="q10"> </td>
+    <td> <input type="radio" value="3"  name="q10"> </td>
+    <td> <input type="radio" value="4"  name="q10"> </td>
+    <td> <input type="radio" value="5"  name="q10"> </td>
+  </tr>
+
+  <tr>
+    <td> When sharing something with {{product}} I believe that I will get an answer</td>
+    <td> <input type="radio" value="1"  name="q11" required> </td>
+    <td> <input type="radio" value="2"  name="q11"> </td>
+    <td> <input type="radio" value="3"  name="q11"> </td>
+    <td> <input type="radio" value="4"  name="q11"> </td>
+    <td> <input type="radio" value="5"  name="q11"> </td>
+  </tr>
+
+  <tr>
+    <td>If I use {{product}} I think i would be able to depend on it completely </td>
+    <td> <input type="radio" value="1"  name="q12" required> </td>
+    <td> <input type="radio" value="2"  name="q12"> </td>
+    <td> <input type="radio" value="3"  name="q12"> </td>
+    <td> <input type="radio" value="4"  name="q12"> </td>
+    <td> <input type="radio" value="5"  name="q12"> </td>
+  </tr>
+
+  <tr>
+    <td> I can always rely on {{product}} for personal care and assistance </td>
+    <td> <input type="radio" value="1"  name="q13" required> </td>
+    <td> <input type="radio" value="2"  name="q13"> </td>
+    <td> <input type="radio" value="3"  name="q13"> </td>
+    <td> <input type="radio" value="4"  name="q13"> </td>
+    <td> <input type="radio" value="5"  name="q13"> </td>
+  </tr>
+
+  <tr>
+    <td> I can trust the information presented to me by {{product}}</td>
+    <td> <input type="radio" value="1"  name="q14"  required> </td>
+    <td> <input type="radio" value="2"  name="q14"> </td>
+    <td> <input type="radio" value="3"  name="q14"> </td>
+    <td> <input type="radio" value="4"  name="q14"> </td>
+    <td> <input type="radio" value="5"  name="q14"> </td>
+  </tr>
+
+
+
+</tbody>
+
+
+
+
+
+
+
+
+</table>
+</div>
+<br/>
+<input type='submit' name='Submit' value="Submit" class="btn btn-success btn-block">
+</form>
+{% endblock %}

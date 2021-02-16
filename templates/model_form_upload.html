@@ -1,0 +1,135 @@
+{% load static %}
+<html>
+    <head>
+        <title>Upload example</title>
+        <style>
+            html, body {
+                margin: 0!important;
+                padding: 0!important;
+                overflow: hidden!important;
+                width: 100%;
+            }
+        </style>
+
+        <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Upload example | <a href='/list'>List files</a></h1>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type='submit'/>
+        </form>
+        <br>
+        <button id="btn-start-recording">Start Recording</button>
+        <button id="btn-stop-recording" disabled>Stop Recording</button>
+
+        <hr>
+        <audio controls></audio>
+        <br>
+
+        <button style="margin-top: 10px;" onclick="postData()" id='upload-btn'>Upload</button>
+        <progress id="progress" value="0"></progress>
+        <span id="display"></span>
+
+        <script>
+            var audio = document.querySelector('audio');
+
+            function captureMicrophone(callback) {
+              console.log('capturing microphone ...');
+                navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+                navigator.getUserMedia({audio: true}, callback, function(error) {
+                    alert('Unable to access your microphone.');
+                    console.error(error);
+                });
+            }
+
+            function stopRecordingCallback() {
+                var blob = recorder.getBlob();
+                audio.src = URL.createObjectURL(blob);
+                audio.muted = false;
+                //audio.play();
+                final_blob = new Blob(data,{type:data[0].type});
+                postBlob(final_blob,10);
+                recorder.microphone.stop();
+                //postBlob(blob);
+            }
+
+            data = [];
+            data_type = null;
+            var recorder; // globally accessible
+            var blobcount = 0
+            document.getElementById('btn-start-recording').onclick = function() {
+                this.disabled = true;
+                console.log('start recording');
+                captureMicrophone(function(microphone) {
+
+                    audio.muted = true;
+                    audio.play();
+                    console.log('Creating recordRTC');
+                    recorder = RecordRTC(microphone, {
+                        recorderType: MediaStreamRecorder,
+                        mimeType: 'audio/ogg',
+                        timeSlice: 5000, // pass this parameter
+                        ondataavailable: function(blob) {
+                            blobcount =  blobcount + 1;
+                            console.log('sending data:'+ blobcount);
+                            data.push(blob);
+                            postBlob(blob,blobcount);
+                        }
+                    });
+
+                    console.log('start recording');
+                    recorder.startRecording();
+
+                    // release microphone on stopRecording
+                    recorder.microphone = microphone;
+
+                    document.getElementById('btn-stop-recording').disabled = false;
+                    console.log('function executed');
+                });
+            };
+
+            document.getElementById('btn-stop-recording').onclick = function() {
+                this.disabled = true;
+                recorder.stopRecording(stopRecordingCallback);
+            };
+
+            function postData(){
+
+                    var fd = new FormData();
+                    fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+
+                    fd.append('fl', recorder.blob, + new Date() + '.' + recorder.blob.type.split('/')[1]);
+                    fd.append('description', 'aud');
+
+                    var progressBar = document.getElementById("progress"),
+                      display = document.getElementById("display");
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/audio/', true);
+
+                    xhr.send(fd);
+
+            }
+
+            function postBlob(blob,bcount){
+                    console.log('postBlob called');
+                    var fd = new FormData();
+                    fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+                    fd.append('fl', blob, + new Date() + '.' + blob.type.split('/')[1]);
+                    
+                    console.log(blob, + new Date() + '.' + blob.type.split('/')[1]);
+                    fd.append('description', 'chunks'+bcount);
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', '/audio/', true);
+
+                    xhr.send(fd);
+
+
+            }
+        </script>
+    </body>
+</html>

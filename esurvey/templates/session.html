@@ -1,0 +1,25 @@
+
+{% extends "base_teacher.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Session{% endblock %}
+
+
+
+{% block content %}
+
+
+<br/>
+<form action="" method="post">
+{% csrf_token %}
+
+{{form | crispy}}
+
+
+<input type="submit" class="btn btn-success" value="{% trans "Create Session" %}"/>
+
+</form>
+
+</div>
+{% endblock %}

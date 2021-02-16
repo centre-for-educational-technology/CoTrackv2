@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% endblock %}
+
+
+
+{% block content %}
+<h2 > Join Session</h2>
+<hr/>
+
+<div class='row '>
+
+  <div  class='col-md-6'>
+
+
+  <form action="" method="post">
+  {% csrf_token %}
+  <div class="form-group">
+      <label for="exampleInputEmail1"></label>
+      <input type="text" class="form-control form-control-lg" id="sessionPin" name='pin' aria-describedby="emailHelp" placeholder="Enter session pin">
+      <small id="pinHelp" class="form-text text-muted">If you do not have the pin ask your instructor to provide to join the session.</small>
+    </div>
+    <br/>
+  <input type="submit"   class="btn btn-success btn-block" value="{% trans "Enter" %}"/>
+
+  </form>
+</div>
+  <div class='col col-lg-6'>
+    <h4 style='color:#28a745;'><i  class='fa fa-info-circle'></i> Help </h4>
+    <p> You can join a session created by your teacher/instructor by using secure pin. This pin is shared by the teacher/instructor which allows students to join the session.
+    <p> If you do not have access to secure pin then ask your teacher/instructor. </p>
+
+  </div>
+</div>
+
+
+
+
+
+</div>
+{% endblock %}

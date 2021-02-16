@@ -1,0 +1,237 @@
+{% extends "base_form.html" %}
+
+{%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
+
+{%block content%}
+
+<div clas='col col-4'>
+ Group: {{group | upper}}
+</div>
+<div clas='col col-4'>
+ Instructor: {{session_obj.owner | upper}}
+</div>
+
+<hr/>
+
+
+
+
+
+<button id="btn-start-recording" class='btn btn-success '>Start recording</button>
+<button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
+
+
+<hr>
+
+<br/>
+
+<!--
+<iframe id="aud" style="width:100%; height: 500px; overflow:scroll !important;"  frameBorder='2' scrolling="yes" src="http://localhost:8000/audio">
+</iframe>
+<hr/>
+-->
+
+<form action="" method="post">
+{% csrf_token %}
+
+{{form}}
+
+
+
+
+</form>
+
+
+<div class='card'>
+  <h3 class='card-header text-white bg-info border-info'>
+  Task
+  </h3>
+  <div class='card-body'>
+
+  {{session_obj.problem | safe}}
+
+  </div>
+</div>
+
+
+<br/>
+<br/>
+
+
+
+
+  <div class='card'>
+    <h3 class='card-header text-white bg-info border-info'>
+      Write solution here
+    </h3>
+
+  <div class='cardbody'>
+
+   <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+   </iframe>
+   </div>
+ </div>
+ <canvas id="inputCanvas" width="320" height="240" hidden></canvas>
+ <video id="inputVideo" autoplay loop muted hidden></video>
+
+
+<script>
+  //vad.js start
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  var audioContext = new AudioContext();
+
+  // Define function called by getUserMedia
+  function startUserMedia(stream) {
+    // Create MediaStreamAudioSourceNode
+    var source = audioContext.createMediaStreamSource(stream);
+
+    var voice_start_time = 0;
+
+    // Setup options
+    var options = {
+     source: source,
+     voice_stop: function() {
+       var speak_time = new Date() - voice_start_time;
+
+       console.log('voice_stop');
+       console.log('sending',speak_time);
+       var fd = new FormData();
+       fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+       fd.append('session',{{session}});
+       fd.append('user',{{request.user.id}});
+       fd.append('group',{{group}});
+       fd.append('strDate',ServerDate.now());
+       fd.append('activity',speak_time);
+       var xhr = new XMLHttpRequest();
+
+       xhr.open('POST', '/vad_upload/', true);
+       xhr.send(fd);
+       console.log(' ===> Sent: voice_stop');
+     },
+     voice_start: function() {
+
+       voice_start_time = new Date();
+
+       console.log('voice_start');
+
+     }
+    };
+
+    // Create VAD
+    var vad = new VAD(options);
+  }
+
+  // Ask for audio device
+  navigator.getUserMedia = navigator.getUserMedia ||
+                           navigator.mozGetUserMedia ||
+                           navigator.webkitGetUserMedia;
+  navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+          console.log("No live audio input in this browser: " + e);
+  });
+  //vad.js end
+
+    var videoInput = document.getElementById('inputVideo');
+    var canvasInput = document.getElementById('inputCanvas');
+
+//    var htracker = new headtrackr.Tracker({ui : false});
+//    htracker.init(videoInput, canvasInput);
+//    htracker.start();
+
+function captureMicrophone(callback) {
+              console.log('capturing camera ...');
+                //navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+                navigator.getUserMedia({audio: true, video:true}, callback, function(error) {
+                    alert('Unable to access your camera.');
+                    console.error(error);
+                });
+            }
+
+function stopRecordingCallback() {
+                var blob = recorder.getBlob();
+                //audio.src = URL.createObjectURL(blob);
+                //audio.muted = false;
+                //audio.play();
+
+                //video.src = recorder.getBlob()
+
+                var blob = new File(data,'video.webm',{type:'vide/webm'})
+                //video.src = URL.createObjectURL(blob);
+                postBlob(blob,-1);
+                console.log('Sending final file');
+                recorder.microphone.stop();
+                //postBlob(blob);
+            }
+            data = [];
+            var recorder; // globally accessible
+            var blobcount = 0
+            document.getElementById('btn-start-recording').onclick = function() {
+                this.disabled = true;
+                console.log('start recording');
+                captureMicrophone(function(microphone) {
+
+                    //audio.muted = true;
+                  //  audio.play();
+                    console.log('Creating recordRTC');
+                    recorder = RecordRTC(microphone, {
+                        recorderType: MediaStreamRecorder,
+                        mimeType: 'video/webm',
+                        timeSlice: 10000, // pass this parameter
+                        ondataavailable: function(blob) {
+                            blobcount =  blobcount + 1;
+                            console.log('sending data:'+ blobcount);
+                            data.push(blob);
+                            postBlob(blob,blobcount);
+                        }
+                    });
+
+                    console.log('start recording');
+                    recorder.startRecording();
+
+                    // release microphone on stopRecording
+                    recorder.microphone = microphone;
+
+                    document.getElementById('btn-stop-recording').disabled = false;
+                    console.log('function executed');
+                });
+            };
+
+document.getElementById('btn-stop-recording').onclick = function() {
+    this.disabled = true;
+    var start_button = document.getElementById('btn-start-recording');
+    start_button.disabled = false;
+    recorder.stopRecording(stopRecordingCallback);
+};
+          user = {{request.user.id}};
+          function postBlob(blob,blobcount){
+                    console.log('postBlob called');
+                    var fd = new FormData();
+                    fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+                    //fd.append('data_blob', blob, + new Date() + '.' + blob.type.split('/')[1]);
+                    if (blobcount ==-1) {
+                      fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
+
+                      fd.append('description', 'Final audio file');
+                    }
+                    else {
+                      fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
+
+                      fd.append('description', 'Audio file chunks');
+                    }
+
+                    fd.append('session',{{session}});
+                    fd.append('user',{{request.user.id}});
+                    fd.append('group',{{group}});
+                    fd.append('sequence',blobcount);
+                    console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
+                    //console.log(fd);
+                    var xhr = new XMLHttpRequest();
+                    console.log('opening connection');
+                    xhr.open('POST', '/upload/', true);
+                    console.log('data sending')
+                    xhr.send(fd);
+                    console.log('data sent');
+            }
+</script>
+<br/>
+
+{%endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block content%}
+<br/> <br/>
+<div class="row text-center">
+  <div class="col-md-2 text-center">
+  </div>
+  <div class="col-md-4 text-center">
+    <div class="card">
+    <div class="card-body">
+      <a href="{% url 'student_entry'%}"><i class="fa fa-users fa-5x" aria-hidden="true"></i> </a> <br/><br/>
+
+
+    </div>
+    <div class="card-footer bg-success text-white ">
+      <h2>STUDENT</h2>
+    </div>
+  </div>
+
+
+  </div>
+  <div class="col-md-4 text-center">
+    <div class="card">
+   <div class="card-body">
+     <a href="{% url 'project_home' %}"><i class="fa fa-user fa-5x" aria-hidden="true"></i></a> <br/><br/>
+
+   </div>
+   <div class="card-footer bg-success text-white ">
+     <h2>TEACHER</h2>
+   </div>
+   </div>
+
+
+  </div>
+  <div class="col-md-2 text-center">
+  </div>
+</div>
+{% endblock %}

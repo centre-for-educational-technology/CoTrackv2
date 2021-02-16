@@ -1,0 +1,288 @@
+
+{% extends "base_teacher.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+<h2>{{session.name | upper}} <script>console.log(ServerDate());</script></h2>
+
+<h4>Access Pin: {{session.sessionpin.pin}} </h4>
+<small> This pin can be used to join the session once it is started. </small> <hr/>
+<!--
+{% if not session.status %}
+<a href="{% url 'session_activate' session.id %}" class='btn btn-success pl-5 pr-5 mr-4'>  Start  </a>
+<button class='btn btn-danger pl-5 pr-5 mr-4' disabled>  End  </button>
+{% else %}
+<button class='btn btn-success pl-5 pr-5 mr-4' disabled>  Start  </button>
+<a href="{% url 'session_deactivate' session.id %}" class='btn btn-danger pl-5 pr-5 mr-4'>  End </a>
+
+
+{% endif %}
+-->
+<div>
+<a href="{% url 'download_log' session.id %}" class="btn btn-warning"> Download Logs </a>
+</div>
+<hr/>
+
+
+
+
+<div class='container'>
+  <div class='row'>
+  {% for g in no_group%}
+    <div class='col'>
+      <div class="card">
+        <div class='card-body'>
+          <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
+          <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <br/>
+ <div class='row'>
+   <div class='col col-4'>
+     <div class="card">
+
+       <div class='card-body'>
+         <h4 class='card-title'> Detailed view </h4><hr/>
+ <p>Detailed view presents document history editing and writing activties of group's member in terms of number of characters adde or deleted.</p> <br/><br/>
+
+     {% for g in no_group%}
+
+        <a href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Group-{{forloop.counter}}</a>
+
+     {% endfor %}
+      </div>
+      </div>
+    </div>
+   <div class='col col-8'>
+     <div class="card">
+
+       <div class='card-body'>
+         <h4 class='card-title'> Etherpad activity </h4><hr/>
+         <canvas id="overall"></canvas>
+       </div>
+     </div>
+   </div>
+  </div>
+
+
+
+
+ </div>
+
+
+<script>
+
+  // idea from https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
+  function makeGetRequest(path) {
+      return new Promise(function (resolve, reject) {
+          axios.get(path).then(
+              (response) => {
+                  var result = response.data;
+
+                  console.log('Processing Request');
+                  resolve(result);
+
+              },
+                  (error) => {
+                  reject(error);
+              }
+          );
+      });
+  }
+  var cy = [];
+
+  console.log('Loop starting....');
+  cyt_groups = {{no_group}};
+
+  for (var i=0; i<cyt_groups.length;i++) {
+
+
+  var id_label = 'speak-' + i;
+  console.log(id_label);
+  // cytoscape js
+  cy_tmp = cytoscape({
+  				container: document.getElementById(id_label),
+  				style: [
+          {
+            selector: 'node',
+            css: {
+                  'content': 'data(name)',
+                  'text-valign': 'center',
+                  'color': 'white',
+                  'text-outline-width': 2,
+                  'text-outline-color': '#888'
+            }
+          },
+  					{
+  						selector: '[size]',
+  						css: {
+                'width': 'data(size)',
+                'height': 'data(size)',
+  						}
+  					},
+            {
+  						selector: '[weight]',
+  						css: {
+                'width':'data(weight)',
+                'color': 'black',
+  						}
+  					},
+  				],
+  				layout: {
+              name: 'circle',
+
+  				   /* color: "#ffff00",*/
+  				    fit: true
+  				}
+  			});
+
+    cy.push(cy_tmp);
+  }
+
+
+  var ctx = document.getElementById('overall').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'Etherpad Activity',
+              data: [],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        plugins: {
+          colorschemes: {
+            scheme: 'brewer.Paired12'
+          }
+        },
+          legend: {display:false},
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+
+
+async function main() {
+
+
+  var url2 = 'https://www.cotrack.website/getSpeakingStats/' + {{session.id}} ;
+  var result = await makeGetRequest(url2);
+  console.log('Results from Speaking activity');
+
+  console.log(result);
+
+
+  for(m = 0; m < cyt_groups.length ; m++) {
+
+    cy_tmp = cy[m];
+    cy_tmp.elements().remove();
+    console.log('Before:',cy_tmp.json());
+
+    var updated_graph = [];
+
+    for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
+      var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
+
+      cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
+    }
+
+    for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
+      var edge_id =  result.speaking_data[m].graph.edges[n].id;
+      console.log('Type:',typeof(node_id));
+      cy_tmp.add({ group: 'edges', data: { source: result.speaking_data[m].graph.edges[n].source, target: result.speaking_data[m].graph.edges[n].to, weight:result.speaking_data[m].graph.edges[n].weight } });
+    }
+    cy_tmp.layout()
+    console.log('After:',cy_tmp.json());
+
+  }
+
+
+
+
+
+
+
+var chart = myChart
+var revs = [];
+var groups = [];
+
+var group_list = {{no_group}};
+
+console.log('Dataset--------')
+console.log(chart.data.datasets[0].data);
+/*
+chart.data.datasets[0].data.pop();
+chart.data.datasets[0].data.pop();
+chart.data.datasets[0].data.pop();
+chart.data.datasets[0].data.pop();
+
+
+chart.data.labels.pop();
+chart.data.labels.pop();
+chart.data.labels.pop();
+chart.data.labels.pop();
+*/
+
+for (var i=0; i<group_list.length;i++) {
+
+etherpad_group = '{{eth_group}}';
+session_id = {{session.id}};
+number = parseInt(i) + 1;
+console.log('before:'+i+' after:'+number);
+group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
+
+// sending ajax request
+
+url = 'https://www.cotrack.website/getRevCount/'+group_pad;
+revisions = 0;
+
+
+var result = await makeGetRequest(url);
+
+  revs.push(result.revisions);
+  group = 'group-' + number
+  groups.push(group);
+
+
+  chart.data.datasets[0].data[i]= result.revisions;
+  chart.data.labels[i]=group;
+
+  chart.update();
+  console.log('function called');
+  console.log(result);
+  data = result.revisions;
+  console.log(data);
+//  revisions = data['revisions'];
+  console.log('Recieved:' + data);
+
+
+
+
+
+
+
+
+}
+console.log(revs);
+console.log(groups);
+
+
+}
+setInterval(main,5000,myChart);
+
+</script>
+
+{% endblock %}
