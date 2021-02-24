@@ -34,6 +34,8 @@ class VADForm(forms.ModelForm):
 
 
 class SessionForm(ModelForm):
+    id = forms.IntegerField(required=False)
+    id.widget = forms.HiddenInput()
     class Meta:
         model = Session
         fields = ['name','groups','problem']

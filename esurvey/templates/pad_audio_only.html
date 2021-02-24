@@ -67,8 +67,8 @@
 
   <div class='cardbody'>
 
-   <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
-   </iframe>
+    <iframe id="demo" onload='autoResizeDiv()' allow="camera {{etherpad_url}};microphone {{etherpad_url}}"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{request.site.base_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+    </iframe>
    </div>
  </div>
  <canvas id="inputCanvas" width="320" height="240" hidden></canvas>

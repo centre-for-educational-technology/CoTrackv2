@@ -140,8 +140,10 @@ def perform_changeset_curline (text, c):
 
 def isTeacher(request):
     current_user = request.user
-    role = Role.objects.get(user=current_user)
-    if role == 'teacher':
+    role_obj = Role.objects.get(user=current_user)
+
+    if role_obj.role == 'teacher':
+        print('Passed the test')
         return True
     else:
         return False
@@ -257,7 +259,7 @@ def createSession(request):
             s_name = form.cleaned_data['name']
             s_groups = form.cleaned_data['groups']
             s_description = form.cleaned_data['problem']
-            s = Session.objects.create(owner=current_user,name = s_name,groups = s_groups, problem = s_description)
+            s = Session.objects.create(owner=current_user,name = s_name,groups = s_groups, problem = s_description, status=True)
 
             ######### Creating pads on Etherpad #################
 
@@ -302,7 +304,124 @@ def createSession(request):
     else:
 
         form = SessionForm()
-        return render(request,'session.html',{'form':form})
+        return render(request,'session.html',{'form':form,'edit':False})
+
+
+
+
+
+
+@transaction.atomic
+def editSession(request,session_id):
+    if request.method == "POST":
+        form = SessionForm(request.POST)
+        print(form)
+        if form.is_valid():
+            current_user = request.user
+            s_name = form.cleaned_data['name']
+            s_groups = form.cleaned_data['groups']
+            s_description = form.cleaned_data['problem']
+            s_id = form.cleaned_data['id']
+
+            s_object = Session.objects.get(id=session_id)
+
+            if(s_object.groups > s_groups):
+                messages.error(request,'Reducing the number of groups will results in lost of data if some data has already been collected. Therefore at the moment CoTrack does not save the updation which reduces the number of groups.')
+                return redirect('project_home')
+
+            extra_groups = s_groups - s_object.groups
+
+
+
+            sgm = SessionGroupMap.objects.filter(session=session_id)
+
+            for g in range(extra_groups):
+                g =  g + 1 + s_object.groups
+                pad_name = 'session_'+str(session_id)+'_'+'group'+'_'+str(g)
+                print(' Creating pad:',pad_name,' with Groupid:',sgm[0].eth_groupid)
+                res = call('createGroupPad',{'groupID':sgm[0].eth_groupid,'padName':pad_name},request=request)
+                print(res)
+                if res and res["code"] == 0:
+                    Pad.objects.create(session=session_id,eth_padid=res['data']['padID'],group=g)
+                    print('Pad created:',g)
+                else:
+                    messages.error(request,'Error occurred while creating pads. Check your Etherpad server settings.')
+                    return redirect('project_home')
+
+            s_object.name = s_name
+            s_object.groups = s_groups
+            s_object.problem = s_description
+
+            s_object.save()
+
+
+            messages.success(request, 'Session edited successfully !')
+            return redirect('project_home')
+
+        else:
+            print('invalid data')
+    else:
+        print('Session edit:',session_id)
+        s_object = Session.objects.get(id=session_id)
+
+        if(s_object.owner != request.user):
+            messages.error(request,'You do not have permission for specified session.')
+            return redirect('project_home')
+
+        s_name = s_object.name
+        s_groups = s_object.groups
+        s_description = s_object.problem
+
+
+        form = SessionForm(initial={'name':s_name,'groups':s_groups,'problem':s_description,'id':session_id})
+        return render(request,'session.html',{'form':form,'edit':True})
+
+
+
+
+def sessionFilter(request,filter):
+
+    if filter not in ['all','archived']:
+        messages.error(request,'Incorrect filter applied.')
+        return redirect('project_home')
+    else:
+        projects = []
+        if filter == 'archived':
+            sessions = Session.objects.all().filter(status=False)
+            if sessions.count() == 0:
+                messages.warning(request,'There are no archived project')
+            else:
+                msg = 'Archived sessions are fetched successfully!'
+                messages.success(request,msg)
+            return render(request, "dashboard.html",{'sessions':sessions,'filter':True})
+
+        else:
+            messages.success(request,'All sessions are fetched successfully')
+            return redirect('project_home')
+
+
+
+def sessionAction(request,session_id,type):
+    if type not in ['archived','all']:
+        messages.error(request,'Unsupported action.')
+
+    else:
+        try:
+            s_object = Session.objects.get(id=session_id)
+        except Project.DoesNotExist:
+            messages.error(request,'Session id does not exists.')
+
+        if s_object is not None:
+            if type == 'archive':
+                s_object.archived = True
+            else:
+                s_object.archived = False
+            s_object.save()
+            msg = 'session '+session.name+' has been ' +type+'d successfully!'
+            messages.success(request,msg)
+
+    return redirect('project_home')
+
 
 
 def filterProjects(request,filter):
@@ -415,14 +534,48 @@ def generateSurvey(request,link):
 
 
 
-
+from urllib.parse import quote
 
 
 # Create your views here.
 def overview(request):
-    sessions = Session.objects.all().filter(owner=request.user)
-    print(sessions.count())
-    return render(request, "dashboard.html",{'sessions':sessions})
+    sessions = Session.objects.all().filter(owner=request.user).filter(status=True)
+
+    if isTeacher(request):
+        return render(request, "dashboard.html",{'sessions':sessions})
+    else:
+        messages.warning(request,'You do not have teacher privilege to access this page.')
+        return redirect('student_entry')
+
+def authPad(request):
+    sessionID = request.GET.get('sessionID','')
+    padName = request.GET.get('padName','')
+    slider = request.GET.get('page','')
+    print('Session params')
+    r = '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">' + "\n"
+    r += '<html>' + "\n"
+    r += '<head>' + "\n"
+    r += '<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">' + "\n"
+    r += '</head>' + "\n"
+    r += '<body>' + "\n"
+    r += '<script type="text/javascript">' + "\n"
+    r += 'document.cookie = "sessionID=' + quote(sessionID) + '; path=/; SameSite=None; Secure;";' + "\n"
+    redirectUrl = settings.ETHERPAD_URL + '/p/'
+
+    print(redirectUrl)
+
+
+    redirectUrl += quote(padName)
+    if (slider != ''):
+        redirectUrl += '&page=timeslider'
+
+    r += 'document.location.href="' + redirectUrl + '";' + "\n"
+    r += '</script>' + "\n"
+    r += '</body>' + "\n"
+    r += '</html>' + "\n"
+    return HttpResponse(r)
+
+
 
 def enterForm(request):
     if request.method == "POST":
@@ -463,6 +616,7 @@ def enterForm(request):
 
             request.session['joined'] = session_obj.session.id
             request.session['ethsid'] = res2['data']['sessionID']
+            request.session['sessionID'] = res2['data']['sessionID']
             request.user.backend = 'django.contrib.auth.backends.ModelBackend'
 
             auth_login(request,request.user)
@@ -484,7 +638,7 @@ def enterForm(request):
         print('Get method')
         if 'joined' in request.session.keys():
             print('cookie exists')
-            session_obj = SessionPin.objects.get(id=request.session['joined'])
+            session_obj = SessionPin.objects.get(session=request.session['joined'])
             groups = range(session_obj.session.groups)
             return render(request,'student_session_home.html',{'session':session_obj.session,'groups':groups})
         else:
@@ -865,7 +1019,7 @@ def LeaveSession(request):
 def getPad(request,group_id):
     print('getPad:',request.session.keys())
     if 'joined' in request.session.keys():
-        session_obj = SessionPin.objects.get(id=request.session['joined'])
+        session_obj = SessionPin.objects.get(session=request.session['joined'])
 
         eth_session = request.session['ethsid']
 
@@ -882,7 +1036,7 @@ def getPad(request,group_id):
 
         form = AudioflForm()
 
-        return render(request,'pad_only_no_aud.html',{'group':group_id,'session_obj':session_obj.session,'session':request.session['joined'],'form':form,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':eth_session})
+        return render(request,'pad_audio_only.html',{'group':group_id,'session_obj':session_obj.session,'session':request.session['joined'],'form':form,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':eth_session,'protocol':settings.PROTOCOL})
     else:
 
         messages.error(request,'Session is not authenticated. Enter the access pin.')
@@ -897,8 +1051,8 @@ def activateSession(request,session_id):
         session = Session.objects.get(id=session_id)
         session.status = True
         session.save()
-        messages.success(request,'Session is started.')
-        return render(request,'session_main.html',{'session':session})
+        messages.success(request,'Session is unarchived successfully.')
+        return redirect('project_home')
 
 def deactivateSession(request,session_id):
     session = Session.objects.all().filter(id=session_id)
@@ -909,8 +1063,8 @@ def deactivateSession(request,session_id):
         session = Session.objects.get(id=session_id)
         session.status = False
         session.save()
-        messages.success(request,'Session is stopped.')
-        return render(request,'session_main.html',{'session':session})
+        messages.success(request,'Session is archived successfully.')
+        return redirect('project_home')
 
 
 
@@ -932,7 +1086,7 @@ def getSession(request,session_id):
 
         print('Passing session id:',session)
 
-        return render(request,'session_main_no_aud.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups))})
+        return render(request,'session_main.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL})
 
 
 class CompleteForm(SessionWizardView):

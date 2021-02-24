@@ -63,6 +63,10 @@ def login(request):
             pwd = form.cleaned_data['password']
 
             try:
+                if len(User.objects.all().filter(email=email)) == 0:
+                    messages.error(request, 'User does not exists.')
+                    return redirect('login')
+
                 user = User.objects.get(email=email)
                 print('user exists:',user.username,' pwd:',pwd)
                 if not user.is_active:

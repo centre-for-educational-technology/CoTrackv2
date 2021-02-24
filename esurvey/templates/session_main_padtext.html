@@ -8,10 +8,11 @@
 {% block content %}
 <h1>Group-{{group_id}}</h1>
 <h2>{{session.name | upper}}</h2>
-
+<h2>{{request.site.name}}</h2>
 <hr/>
 <a class='btn btn-success' href="{% url 'session_page' session_id %}">Back </a>
 <hr/>
+
 
 <div class='container'>
 <div class='row'>
@@ -19,7 +20,7 @@
     <div class = 'card'>
       <div class='card-body min-vh-100'>
         <h2 class='card-title'> Written Text  </h2><hr/>
-      <iframe class='min-vh-100' style="width:100%"  frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}&page=timeslider" allow="camera https://www.etherpad.website;microphone https://www.etherpad.website" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>
+      <iframe class='min-vh-100' style="width:100%"  frameBorder='0' src="{{request.site.base_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allow="camera {{etherpad_url}};microphone {{etherpad_url}}" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>
         </iframe>
       </div>
     </div>
@@ -113,7 +114,7 @@ var chart = myChart
 
 // sending ajax request
 
-url = 'https://www.cotrack.website/getStats/{{pad_id}}';
+url = '{{request.site.base_url}}/getStats/{{pad_id}}';
 revisions = 0;
 
 

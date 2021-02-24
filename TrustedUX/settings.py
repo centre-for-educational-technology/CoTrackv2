@@ -15,13 +15,15 @@ from django.utils.translation import ugettext_lazy as _
 
 
 
-ETHERPAD_KEY = "0ea1a7d56410aa8117aee8844bde122575df992844d4715d3fbec2a1e3d113bf"
-ETHERPAD_URL ="https://www.etherpad.website"
+ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
+ETHERPAD_URL ="http://127.0.0.1:9001"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
+
+PROTOCOL = 'http'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -35,7 +37,7 @@ SECRET_KEY = '0abn2aukso9r5!7zuk$tk7q%0%=$jxuocgfm%pu_lsgq!$+*e+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.cotrack.website']
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -122,6 +124,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
+                'django.template.context_processors.request'
             ],
         },
     },

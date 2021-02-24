@@ -26,7 +26,7 @@
 </div>
 <hr/>
 
-
+<h2>Site:{{request.get_host}}</h2>
 
 
 <div class='container'>
@@ -251,7 +251,9 @@ group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
 
 // sending ajax request
 
-url = 'https://www.cotrack.website/getRevCount/'+group_pad;
+
+
+url = '{{protocol}}://{{request.get_host}}/getRevCount/'+group_pad;
 revisions = 0;
 
 

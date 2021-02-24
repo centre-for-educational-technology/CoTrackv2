@@ -178,7 +178,7 @@
 async function main() {
 
 
-  var url2 = 'https://www.cotrack.website/getSpeakingStats/' + {{session.id}} ;
+  var url2 = '{{request.site.base_url}}/getSpeakingStats/' + {{session.id}} ;
   var result = await makeGetRequest(url2);
   console.log('Results from Speaking activity');
 
@@ -246,7 +246,7 @@ group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
 
 // sending ajax request
 
-url = 'https://www.cotrack.website/getRevCount/'+group_pad;
+url = '{{request.site.base_url}}/getRevCount/'+group_pad;
 revisions = 0;
 
 

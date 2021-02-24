@@ -1,4 +1,5 @@
 
+
 {% extends "base_teacher.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
@@ -16,8 +17,11 @@
 
 {{form | crispy}}
 
-
+{% if edit %}
+<input type="submit" class="btn btn-success" value="{% trans "Edit Session" %}"/>
+{% else %}
 <input type="submit" class="btn btn-success" value="{% trans "Create Session" %}"/>
+{% endif %}
 
 </form>
 
