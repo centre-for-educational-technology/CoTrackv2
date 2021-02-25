@@ -7,7 +7,7 @@ import os
 from django.db.models.signals import post_save
 from django.conf import settings
 import requests
-
+from django.contrib import messages
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return os.path.join(
