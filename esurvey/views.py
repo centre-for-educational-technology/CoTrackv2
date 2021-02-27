@@ -853,7 +853,7 @@ def getGroupPadStats(request,padid):
 
 
         #print('--------------',author_obj)
-        author_names[author] = author_obj[0].user.username
+        #author_names[author] = author_obj[0].user.username
 
     for r in range(rev_count['data']['revisions']):
         params = {'padID':padid,'rev':r+1}
