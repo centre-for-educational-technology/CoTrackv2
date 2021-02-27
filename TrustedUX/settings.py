@@ -16,14 +16,14 @@ from django.utils.translation import ugettext_lazy as _
 
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
-ETHERPAD_URL ="http://127.0.0.1:9001"
+ETHERPAD_URL ="https://www.etherpad.website"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
 
-PROTOCOL = 'http'
+PROTOCOL = 'https'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
