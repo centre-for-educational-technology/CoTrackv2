@@ -848,8 +848,10 @@ def getGroupPadStats(request,padid):
         addition[author] = 0
         deletion[author] = 0
 
-        #author_names[author] = call('getAuthorName',{'authorID':author})['data']
-        author_obj = AuthorMap.objects.filter(authorid=author)
+        author_names[author] = call('getAuthorName',{'authorID':author})['data']
+        #author_obj = AuthorMap.objects.filter(authorid=author)
+
+
         #print('--------------',author_obj)
         author_names[author] = author_obj[0].user.username
 
