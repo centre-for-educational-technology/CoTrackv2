@@ -14,7 +14,7 @@
 <br/>
 <form action="" method="post">
 {% csrf_token %}
-
+{{form.media}}
 {{form | crispy}}
 
 {% if edit %}
@@ -24,6 +24,9 @@
 {% endif %}
 
 </form>
+<script>
+document.getElementById("cke_id_problem").style.width = 100%;
 
+</script>
 </div>
 {% endblock %}

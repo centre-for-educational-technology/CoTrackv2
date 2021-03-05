@@ -2,6 +2,7 @@
 {% extends "base_teacher.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
+{% load my_tags %}
 
 {% block title %} {% endblock %}
 
@@ -30,9 +31,12 @@
 
 
 <div class='container'>
+{% for g in no_group%}
+ {% if forloop.counter|modulo:3 == 1%}
   <div class='row'>
-  {% for g in no_group%}
-    <div class='col'>
+ {% endif%}
+
+    <div class='col col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12'>
       <div class="card">
         <div class='card-body'>
           <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
@@ -40,15 +44,19 @@
         </div>
       </div>
     </div>
-    {% endfor %}
-  </div>
+    {% if forloop.last or forloop.counter|modulo:3 == 0 %}
+      </div>
+      <br/>
+    {% endif %}
+  {% endfor %}
+
   <br/>
  <div class='row'>
    <div class='col col-4'>
      <div class="card">
 
        <div class='card-body'>
-         <h4 class='card-title'> Detailed view </h4><hr/>
+        <h4 class='card-title'> Detailed view </h4><hr/>
  <p>Detailed view presents document history editing and writing activties of group's member in terms of number of characters adde or deleted.</p> <br/><br/>
 
      {% for g in no_group%}

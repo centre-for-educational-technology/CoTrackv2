@@ -24,6 +24,10 @@ from django.conf import settings
 from django.utils.translation import gettext as _
 from esurvey import views as esurvey_views
 
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+
 from django.contrib.auth.hashers import check_password
 from esurvey.models import AuthorMap
 
@@ -38,6 +42,30 @@ api_secret = 'e564414aef8ddc313372ed55c2d1c81a'
 mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
 user_number = 1
+
+
+def send_mail(data):
+    #The mail addresses and password
+    sender_address = 'pankajch@tlu.ee'
+    sender_pass = 'hanu23man'
+    receiver_address = data['Messages']['To']['Email']
+    mail_content = data['Messages']['TextPart']
+
+    #Setup the MIME
+    message = MIMEMultipart()
+    message['From'] = 'CoTrack Team'
+    message['To'] = receiver_address
+    message['Subject'] = data['Messages']['Subject']   #The subject line
+    #The body and the attachments for the mail
+    message.attach(MIMEText(mail_content, 'plain'))
+    #Create SMTP session for sending the mail
+    session = smtplib.SMTP('smtp.gmail.com', 587) #use gmail with port
+    session.starttls() #enable security
+    session.login(sender_address, sender_pass) #login with mail_id and password
+    text = message.as_string()
+    session.sendmail(sender_address, receiver_address, text)
+    session.quit()
+    print('Mail Sent')
 
 
 # Etherpad interacting function
@@ -162,30 +190,23 @@ def register(request):
             print('base64 code uid:',urlsafe_base64_encode(force_bytes(user.pk)))
             print(t.account_activation_token.make_token(user))
             data = {
-              'Messages': [
-                {
+              'Messages': {
                   "From": {
                     "Email": "pankajchejara23@gmail.com",
                     "Name": "CoTrack Team "
                   },
-                  "To": [
-                    {
+                  "To": {
                       "Email": user.email,
-                    }
-                  ],
+                    },
                   "Subject": "Activate your CoTrack account.",
                   "TextPart": message,
                 }
-              ]
             }
 
 
 
-            result = mailjet.send.create(data=data)
-            if result.status_code == 200:
+            result = send_mail(data=data)
 
-                print('user saved')
-            print(result.status_code)
             messages.info(request, 'An email with instructions to activate your account has been sent.')
 
             return redirect('login')
@@ -257,23 +278,19 @@ def password_reset_request(request):
                         })
                     try:
                         data = {
-                          'Messages': [
-                            {
+                          'Messages': {
                               "From": {
                                 "Email": "pankajchejara23@gmail.com",
                                 "Name": "CoTrackV2 Team "
                               },
-                              "To": [
-                                {
+                              "To": {
                                   "Email": user.email,
-                                }
-                              ],
+                                },
                               "Subject": "CoTrackV2 Password Reset",
                               "TextPart": message,
                             }
-                          ]
                         }
-                        result = mailjet.send.create(data=data)
+                        result = mail_send(data=data)
                     except:
                         return HttpResponse('Error')
                     messages.info(request,'We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you do not receive an email, please make sure you have entered the address you registered with, and check your spam folder.')

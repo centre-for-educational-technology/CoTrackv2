@@ -4,7 +4,7 @@ from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, An
 from formtools.wizard.views import SessionWizardView
 from django import forms
 from django.db import transaction
-from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD
+from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability
 from django.contrib import messages
 import uuid
 from django.contrib.sites.shortcuts import get_current_site
@@ -471,29 +471,93 @@ def projectAction(request,project_id,type):
 
     return redirect('project_home')
 
-def surveyForm(request,link):
+
+def usabilityForm(request):
     if request.method == "POST":
-        q1 = int(request.POST['q1'])
-        q2 = int(request.POST['q2'])
-        q3 = int(request.POST['q3'])
-        q4 = int(request.POST['q4'])
-        q5 = int(request.POST['q5'])
-        q6 = int(request.POST['q6'])
-        q7 = int(request.POST['q7'])
-        q8 = int(request.POST['q8'])
-        q9 = int(request.POST['q9'])
-        q10 = int(request.POST['q10'])
-        q11 = int(request.POST['q7'])
-        q12 = int(request.POST['q8'])
-        q13 = int(request.POST['q9'])
-        q14 = int(request.POST['q10'])
+        q1 = int(request.POST['survey-q1'])
+        q2 = int(request.POST['survey-q2'])
+        q3 = int(request.POST['survey-q3'])
+        q4 = int(request.POST['survey-q4'])
+        q5 = int(request.POST['survey-q5'])
+        q6 = int(request.POST['survey-q6'])
+        q7 = int(request.POST['survey-q7'])
+        q8 = int(request.POST['survey-q8'])
+        q9 = int(request.POST['survey-q9'])
+        q10 = int(request.POST['survey-q10'])
+        q11 = int(request.POST['survey-q11'])
+        q12 = int(request.POST['survey-q12'])
+        q13 = int(request.POST['survey-q13'])
+        q14 = int(request.POST['survey-q14'])
+        q15 = int(request.POST['survey-q15'])
+        q16 = int(request.POST['survey-q16'])
+        q17 = int(request.POST['survey-q17'])
 
-        link_obj = Link.objects.get(url=link)
-        submission = Submission.objects.create(link=link_obj,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14)
 
-        return getAnonyForm(request)
+
+
+        submission = Usability.objects.create(q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15,q16=q16,q17=q17,submitted_user=request.user)
+        messages.success(request, 'Your responses are saved. Thank you for your submission. It will help us to improve the tool further.')
+        return redirect('project_home')
+
+        #return getAnonyForm(request)
     else:
-        return render(request,"survey_form.html",{'product':'Smartphone','title':'Measure the Trust'})
+        return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
+
+
+
+
+
+def surveyForm(request,session,group):
+    if request.method == "POST":
+        q1 = int(request.POST['survey-q1'])
+        q2 = int(request.POST['survey-q2'])
+        q3 = int(request.POST['survey-q3'])
+        q4 = int(request.POST['survey-q4'])
+        q5 = int(request.POST['survey-q5'])
+        q6 = int(request.POST['survey-q6'])
+        q7 = int(request.POST['survey-q7'])
+        q8 = int(request.POST['survey-q8'])
+        q9 = int(request.POST['survey-q9'])
+        q10 = int(request.POST['survey-q10'])
+        q11 = int(request.POST['survey-q11'])
+        q12 = int(request.POST['survey-q12'])
+        q13 = int(request.POST['survey-q13'])
+        q14 = int(request.POST['survey-q14'])
+        q15 = int(request.POST['survey-q15'])
+        q16 = int(request.POST['survey-q16'])
+        q17 = int(request.POST['survey-q17'])
+        q18 = int(request.POST['survey-q18'])
+        q19 = int(request.POST['survey-q19'])
+        q20 = int(request.POST['survey-q20'])
+        q21 = int(request.POST['survey-q21'])
+        q22 = int(request.POST['survey-q22'])
+        q23 = int(request.POST['survey-q23'])
+        q24 = int(request.POST['survey-q24'])
+        q25 = int(request.POST['survey-q25'])
+        q26 = int(request.POST['survey-q26'])
+        q27 = int(request.POST['survey-q27'])
+        q28 = int(request.POST['survey-q28'])
+        q29 = int(request.POST['survey-q29'])
+        q30 = int(request.POST['survey-q30'])
+        q31 = int(request.POST['survey-q31'])
+        q32 = int(request.POST['survey-q32'])
+        q33 = int(request.POST['survey-q33'])
+        q34 = int(request.POST['survey-q34'])
+        q35 = int(request.POST['survey-q35'])
+        q36 = int(request.POST['survey-q36'])
+        q37 = int(request.POST['survey-q37'])
+
+        session_obj  = Session.objects.get(id=session)
+
+
+
+
+        submission = Submission.objects.create(session=session_obj,group=group,submitted_user=request.user,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15,q16=q16,q17=q17,q18=q18,q19=q19,q20=q20,q21=q21,q22=q22,q23=q23,q24=q24,q25=q25,q26=q26,q27=q27,q28=q28,q29=q29,q30=q30,q31=q31,q32=q32,q33=q33,q34=q34,q35=q35,q36=q36,q37=q37)
+        messages.success(request, 'Your responses are saved. Thank you for the submission.')
+        return redirect('student_entry')
+
+    else:
+        return render(request,"survey_form_updated.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
 
 def generateSurvey(request,link):
     if not is_valid_uuid(link):

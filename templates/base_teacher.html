@@ -107,22 +107,7 @@ iframe {
 
 
 
-  <script language="javascript">
 
-  NTP.sync();
-
-         function autoResizeDiv()
-          {
-              document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
-          }
-          window.onresize = autoResizeDiv;
-          autoResizeDiv();
-
-
-
-
-
-  </script>
 
 </head>
 
@@ -133,12 +118,6 @@ iframe {
 </div>
 <div id='server'>
 </div>
-<script>
-var time = new Date();
-var stime =new Date(NTP.fixTime(time.getTime()));
- //document.getElementById('client').innerHTML ='<h2>' + time + '</h2>';
- //document.getElementById('server').innerHTML = '<h2>' + stime + '</h2>';
-</script>
 
 
 
@@ -164,7 +143,7 @@ var stime =new Date(NTP.fixTime(time.getTime()));
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'project_home'%}"><i class="fa fa-gear"></i> Sessions</a>
-
+          <a class="dropdown-item" href="{% url 'usability_form'%}"><i class="fa fa-edit"></i> Usability Survey</a>
 
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>

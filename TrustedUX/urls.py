@@ -20,6 +20,10 @@ from esurvey import views as sv
 from . import views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.conf.urls.static import static
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,5 +43,6 @@ urlpatterns = [
     path('home/',views.index,name='home'),
     path('accounts/', include('allauth.urls')),
     path('changeLang/<lang_code>',views.changLang,name='change_language'),
-    path('djrichtextfield/', include('djrichtextfield.urls'))
-]
+    path('ckeditor/',include('ckeditor_uploader.urls')),
+    path('djrichtextfield/', include('djrichtextfield.urls')),
+] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

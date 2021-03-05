@@ -5,8 +5,9 @@ from django.contrib.auth.decorators import login_required
 from .views import CompleteForm, CREATE_FORMS
 
 urlpatterns = [
-    path("esurvey/<link>/start", login_required(views.surveyForm), name="survey_form"),
-    path("esurvey/<link>", login_required(views.generateSurvey), name="get_survey"),
+    path("esurvey/collaboration/<session>/<group>", login_required(views.surveyForm), name="survey_form"),
+    path("esurvey/usability/", login_required(views.usabilityForm), name="usability_form"),
+
 
     path("projects/<project_id>/<type>", login_required(views.projectAction), name="project_action"),
     path("projects/filter/<filter>", login_required(views.filterProjects), name="project_filter"),

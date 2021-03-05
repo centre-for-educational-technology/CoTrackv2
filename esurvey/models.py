@@ -8,6 +8,8 @@ from django.db.models.signals import post_save
 from django.conf import settings
 import requests
 from django.contrib import messages
+from ckeditor_uploader.fields import RichTextUploadingField
+
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return os.path.join(
@@ -21,7 +23,7 @@ def call(function,arguments=None,request=None):
         print('Returned:x',x)
         return x
     except:
-        messages.error(request,'The etherpad server is not accessible. Please check your etherpad server and configuration.')
+
         return redirect('project_home')
 
 
@@ -29,9 +31,12 @@ class Session(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     groups = models.IntegerField()
-    problem = models.CharField(max_length=2000,blank=True)
+    problem = RichTextUploadingField()
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
+    #assessment = models.IntegerField()
+    survey = models.BooleanField(default=False)
+
 
 
 class AuthorMap(models.Model):
@@ -125,9 +130,11 @@ class Link(models.Model):
 
 
 class Submission(models.Model):
-    link = models.ForeignKey(Link,on_delete=models.CASCADE)
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
     sub_date = models.DateField(default=datetime.date.today)
+    group = models.IntegerField()
     submitted_user = models.ForeignKey(User,on_delete=models.CASCADE)
+
     q1 = models.IntegerField()
     q2 = models.IntegerField()
     q3 = models.IntegerField()
@@ -166,6 +173,30 @@ class Submission(models.Model):
     q36 = models.IntegerField()
     q37 = models.IntegerField()
 
+class Usability(models.Model):
+
+    sub_date = models.DateField(default=datetime.date.today)
+    submitted_user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    q1 = models.IntegerField()
+    q2 = models.IntegerField()
+    q3 = models.IntegerField()
+    q4 = models.IntegerField()
+    q5 = models.IntegerField()
+    q6 = models.IntegerField()
+    q7 = models.IntegerField()
+    q8 = models.IntegerField()
+    q9 = models.IntegerField()
+    q10 = models.IntegerField()
+    q11 = models.IntegerField()
+    q12 = models.IntegerField()
+    q13 = models.IntegerField()
+    q14 = models.IntegerField()
+    q15 = models.IntegerField()
+    q16 = models.IntegerField()
+    q17 = models.IntegerField()
+
+
 class AnonyData(models.Model):
     submission = models.OneToOneField(Submission,on_delete=models.CASCADE)
     age = models.IntegerField()
@@ -183,3 +214,4 @@ admin.site.register(SessionGroupMap)
 admin.site.register(AuthorMap)
 admin.site.register(Role)
 admin.site.register(SessionPin)
+admin.site.register(Usability)

@@ -3,20 +3,45 @@
 {%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
 
 {%block content%}
+<style>
 
+  .fullCircle
+{
+  width: 20px;
+  height:20px;
+  bordeR: none;
+  border-radius: 50%;
+  background-color: #f00;
+  }
+  .Blink {
+  animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+@keyframes blinker {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+</style>
 <div clas='col col-4'>
  Group: {{group | upper}}
 </div>
 <div clas='col col-4'>
- Instructor: {{session_obj.owner | upper}}
+ Instructor: {{session_obj.owner | upper}} <a class='btn btn-warning float-right' href = "{% url 'survey_form' session_obj.id group %}">Fill survey </a>
 </div>
-
+<br/>
+<div id="record" style="display:none;">
+  <div  class='d-flex'>
+    <div class="fullCircle"></div>
+    <div class=" pl-2 align-self-center">
+      Recording
+    </div>
+  </div>
+</div>
 <hr/>
 
 
 
 
-
+<br/>
 <button id="btn-start-recording" class='btn btn-success '>Start recording</button>
 <button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
 
@@ -164,8 +189,9 @@ function stopRecordingCallback() {
             data = [];
             var recorder; // globally accessible
             var blobcount = 0
-            document.getElementById('btn-start-recording').onclick = function() {
+document.getElementById('btn-start-recording').onclick = function() {
                 this.disabled = true;
+                document.getElementById('record').style.display = "block";
                 console.log('start recording');
                 captureMicrophone(function(microphone) {
 
@@ -197,6 +223,7 @@ function stopRecordingCallback() {
 
 document.getElementById('btn-stop-recording').onclick = function() {
     this.disabled = true;
+    document.getElementById('record').style.display = 'none';
     var start_button = document.getElementById('btn-start-recording');
     start_button.disabled = false;
     recorder.stopRecording(stopRecordingCallback);

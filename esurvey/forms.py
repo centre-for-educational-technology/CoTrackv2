@@ -8,9 +8,11 @@ from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 from .models import Session, Audiofl, VAD
 from django.forms import ModelForm
-from djrichtextfield.models import RichTextField
+#from djrichtextfield.models import RichTextField
 from djrichtextfield.widgets import RichTextWidget
 from quilljs.widgets import QuillEditorWidget
+
+from ckeditor.widgets import CKEditorWidget
 
 setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.CheckboxInput ))
 
@@ -39,9 +41,11 @@ class SessionForm(ModelForm):
     class Meta:
         model = Session
         fields = ['name','groups','problem']
+        """
         widgets = {
-            'problem': RichTextWidget(),
+            'problem': CKEditorWidget(),
         }
+        """
 
 class CreateForm1(forms.Form):
     project_choices = [(1,'Individual'),(2,'Comparision A and B'),(3, 'Comparision A, B and C'),(4, 'Comparision A, B, C and D'),(5, 'Comparision A, B, C, D and E')]
