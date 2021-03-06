@@ -49,7 +49,7 @@ class SessionGroupMap(models.Model):
 
 class Pad(models.Model):
     session = models.ForeignKey(Session,on_delete=models.CASCADE)
-    eth_padid = models.CharField(max_length=20)
+    eth_padid = models.CharField(max_length=50)
     group = models.IntegerField()
     eth_text = models.TextField(blank=True)
 
