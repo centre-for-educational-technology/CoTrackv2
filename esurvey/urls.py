@@ -30,6 +30,7 @@ urlpatterns = [
     path("audiolist/", views.list_files, name='views.list_files'),
     path("leave/",views.LeaveSession, name='leave_session'),
     path("vad_upload/", views.uploadVad, name='upload_vad'),
+    path("upload/", views.uploadAudio, name='upload_audio'),
 
     path("auth_session/",views.authPad,name="auth_pad"),
 
