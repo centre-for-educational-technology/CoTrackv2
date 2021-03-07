@@ -9,6 +9,9 @@ from django.conf import settings
 import requests
 from django.contrib import messages
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.shortcuts import redirect
+
+
 
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
