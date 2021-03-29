@@ -247,6 +247,148 @@ def getReport(request):
     ##################################
     return HttpResponse('Report will be provided here')
 
+def downloadChat(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_chat.csv'
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','authorid','message'])
+
+        ##############################
+
+
+        pad = Pad.objects.all().filter(session=session)
+
+
+        for p in pad:
+
+            padid =  p.eth_padid
+            params = {'padID':padid}
+            print('padid:',padid)
+            authors = call('getChatHistory',params)
+            print(authors)
+            for msg in authors['data']['messages']:
+
+
+                print([datetime.datetime.fromtimestamp(msg["time"]/1000).strftime('%H:%M:%S %d-%m-%Y'),msg["userId"],msg["text"]])
+                #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
+                #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
+                writer.writerow([datetime.datetime.fromtimestamp(msg["time"]/1000).strftime('%H:%M:%S %d-%m-%Y'),msg["userId"],msg["text"]])
+
+            #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
+    return response
+
+
+def downloadMapping(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_mapping.csv'
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+
+        writer = csv.writer(response)
+        writer.writerow(['username','email','authorid'])
+
+        ##############################
+
+
+        pad = Pad.objects.all().filter(session=session)
+
+
+        for p in pad:
+
+            padid =  p.eth_padid
+            params = {'padID':padid}
+            print('padid:',padid)
+            authors = call('listAuthorsOfPad',params)
+            print(authors)
+            for auth in authors['data']['authorIDs']:
+                aid = auth
+                author = AuthorMap.objects.filter(authorid=aid)
+
+                print(author[0].user.username,author[0].user.email,aid)
+                #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
+                #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
+                writer.writerow([author[0].user.username,author[0].user.email,aid])
+
+            #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
+    return response
+
+
+def downloadLog(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_logs.csv'
+
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','author','group','char_bank','source_length','operation','difference','text'])
+
+        ##############################
+
+
+        pad = Pad.objects.all().filter(session=session)
+
+
+        for p in pad:
+
+            padid =  p.eth_padid
+            params = {'padID':padid}
+            rev_count = call('getRevisionsCount',params)
+
+
+
+            for r in range(rev_count['data']['revisions']):
+                if r == 327 or r == 329:
+                    continue
+                params = {'padID':padid,'rev':r+1}
+                rev = call('getRevisionChangeset',params)
+                ath = call('getRevisionAuthor',params)
+
+                d = call('getRevisionDate',params)
+                t = call('getText',params)
+
+                print('Rev:',r,'Changeset:',rev['data'])
+
+                cs = changeset_parse(rev['data'])
+                tp = int(d['data'])
+                text = t['data']['text']['text']
+                char_bank = cs['bank']
+
+                char_bank = "<br/>".join(char_bank.split("\n"))
+                text = "<br/>".join(text.split("\n"))
+
+                #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
+                #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
+                writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,char_bank,cs['source_length'],cs['final_op'],cs['final_diff'],text])
+
+            #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
+    return response
+
+
+
 @transaction.atomic
 def createSession(request):
 
