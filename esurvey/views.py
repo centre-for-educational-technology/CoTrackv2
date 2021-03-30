@@ -346,6 +346,8 @@ def downloadLog(request,session_id):
         writer = csv.writer(response)
         writer.writerow(['timestamp','author','group','char_bank','source_length','operation','difference','text'])
 
+        print('text included')
+
         ##############################
 
 
