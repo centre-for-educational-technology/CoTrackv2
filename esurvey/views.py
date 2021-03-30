@@ -1162,6 +1162,7 @@ def downloadLog(request,session_id):
 
                 cs = changeset_parse(rev['data'])
                 tp = int(d['data'])
+                text = t['data']['text']['text']
                 print(tp,type(tp))
                 print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                 print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
