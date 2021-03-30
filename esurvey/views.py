@@ -1162,11 +1162,15 @@ def downloadLog(request,session_id):
 
                 cs = changeset_parse(rev['data'])
                 tp = int(d['data'])
+                char_bank = cs['bank']
+
                 text = t['data']['text']['text']
-                print(tp,type(tp))
-                print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
-                print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
-                writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,cs['bank'],cs['source_length'],cs['final_op'],cs['final_diff'],text])
+                char_bank = "<br/>".join(char_bank.split("\n"))
+                text = "<br/>".join(text.split("\n"))
+
+                #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
+                #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
+                writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,char_bank,cs['source_length'],cs['final_op'],cs['final_diff'],text])
 
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
