@@ -1,0 +1,52 @@
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %} {% endblock %}
+
+{% block content %}
+<h1>Group-{{group_id}}</h1>
+<h2>{{session.name | upper}}</h2>
+<h2>{{request.site.name}}</h2>
+<hr/>
+<a class='btn btn-success' href="{% url 'session_page' session_id %}">Back </a>
+<hr/>
+
+
+<div class='container'>
+<div class='row'>
+  <div class='col'>
+    <div class = 'card'>
+      <div class='card-body min-vh-100'>
+        <h2 class='card-title'> Written Text  </h2><hr/>
+      <iframe class='min-vh-100' style="width:100%"  frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allow="camera {{etherpad_url}};microphone {{etherpad_url}}" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+<script>
+
+  // idea from https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
+  function makeGetRequest(path) {
+      return new Promise(function (resolve, reject) {
+          axios.get(path).then(
+              (response) => {
+                  var result = response.data;
+
+                  console.log('Processing Request');
+                  resolve(result);
+
+              },
+                  (error) => {
+                  reject(error);
+              }
+          );
+      });
+  }
+</script>
+
+{% endblock %}

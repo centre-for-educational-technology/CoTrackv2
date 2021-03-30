@@ -76,6 +76,7 @@
 
 
 <script>
+    /* Ask for audio device
   //vad.js start
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
   var audioContext = new AudioContext();
@@ -121,7 +122,7 @@
     var vad = new VAD(options);
   }
 
-  /* Ask for audio device
+
   navigator.getUserMedia = navigator.getUserMedia ||
                            navigator.mozGetUserMedia ||
                            navigator.webkitGetUserMedia;
@@ -129,11 +130,11 @@
           console.log("No live audio input in this browser: " + e);
   });
   //vad.js end
-  */
+
 
     var videoInput = document.getElementById('inputVideo');
     var canvasInput = document.getElementById('inputCanvas');
-
+*/
 //    var htracker = new headtrackr.Tracker({ui : false});
 //    htracker.init(videoInput, canvasInput);
 //    htracker.start();
@@ -176,7 +177,7 @@ function stopRecordingCallback() {
                     recorder = RecordRTC(microphone, {
                         recorderType: MediaStreamRecorder,
                         mimeType: 'video/webm',
-                        timeSlice: 10000, // pass this parameter
+                        timeSlice: 60000, // pass this parameter upload for every minute
                         ondataavailable: function(blob) {
                             blobcount =  blobcount + 1;
                             console.log('sending data:'+ blobcount);
