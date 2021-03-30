@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
-ETHERPAD_URL ="http://www.etherpad.website"
+ETHERPAD_URL ="https://www.etherpad.website"
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
