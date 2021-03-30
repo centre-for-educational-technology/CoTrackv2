@@ -276,6 +276,10 @@ def downloadChat(request,session_id):
             print('padid:',padid)
             authors = call('getChatHistory',params)
             print(authors)
+
+            if  authors['data']['messages'] is None:
+                continue
+
             for msg in authors['data']['messages']:
 
 
