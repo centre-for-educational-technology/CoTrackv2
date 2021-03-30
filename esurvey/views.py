@@ -1138,7 +1138,7 @@ def downloadLog(request,session_id):
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
 
         writer = csv.writer(response)
-        writer.writerow(['timestamp','author','group','char_bank','source_length','operation','difference'])
+        writer.writerow(['timestamp','author','group','char_bank','source_length','operation','difference','text'])
 
         ##############################
 
@@ -1158,13 +1158,14 @@ def downloadLog(request,session_id):
                 ath = call('getRevisionAuthor',params)
 
                 d = call('getRevisionDate',params)
+                t = call('getText',params)
 
                 cs = changeset_parse(rev['data'])
                 tp = int(d['data'])
                 print(tp,type(tp))
                 print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                 print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
-                writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,cs['bank'],cs['source_length'],cs['final_op'],cs['final_diff']])
+                writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,cs['bank'],cs['source_length'],cs['final_op'],cs['final_diff'],text])
 
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
