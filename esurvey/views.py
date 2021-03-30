@@ -1306,7 +1306,7 @@ def getSession(request,session_id):
 
         print('Passing session id:',session)
 
-        return render(request,'session_main.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL})
+        return render(request,'session_main_no_aud.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL})
 
 
 class CompleteForm(SessionWizardView):
