@@ -10,16 +10,10 @@
 <div clas='col col-4'>
  Instructor: {{session_obj.owner | upper}} <a class='btn btn-warning float-right' href = "{% url 'survey_form' session_obj.id group %}">Fill survey </a>
 </div>
-Voice Activity Detection
 <hr/>
-<button id="btn-start-vad" class='btn btn-success '>Activate voice activity detection</button>
+Voice acitivity detection uses your audio in real-time to detect speaking time without storing your audio. <button id="btn-start-vad" class='btn btn-success '>Activate voice activity detection</button>
 <hr/>
-
-<br/>
-Vide Recording
-<br/>
-<hr/>
-<button id="btn-start-recording" class='btn btn-success '>Start recording</button>
+<p>Video recordings controls</p> <button id="btn-start-recording" class='btn btn-success '>Start recording</button>
 <button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
 
 
