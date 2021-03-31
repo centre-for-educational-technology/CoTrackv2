@@ -11,10 +11,11 @@
  Instructor: {{session_obj.owner | upper}} <a class='btn btn-warning float-right' href = "{% url 'survey_form' session_obj.id group %}">Fill survey </a>
 </div>
 <hr/>
-Voice acitivity detection uses your audio in real-time to detect speaking time without storing your audio. <button id="btn-start-vad" class='btn btn-success '>Activate voice activity detection</button>
+<button id="btn-start-vad" class='btn btn-success ' title="It will start detecting whenever you speak without storing your audio data.">Activate voice activity detection</button>
 <hr/>
-<p>Video recordings controls</p> <button id="btn-start-recording" class='btn btn-success '>Start recording</button>
-<button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
+
+<button id="btn-start-recording" class='btn btn-success ' title="It will start video recording and save it on the server.">Start video recording</button>
+<button id="btn-stop-recording" disabled class='btn btn-danger float-right' title="It will stop video recording.">Stop video recording</button>
 
 
 <hr>
