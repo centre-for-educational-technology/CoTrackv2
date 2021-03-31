@@ -8,15 +8,17 @@
  Group: {{group | upper}}
 </div>
 <div clas='col col-4'>
- Instructor: {{session_obj.owner | upper}}
+ Instructor: {{session_obj.owner | upper}} <a class='btn btn-warning float-right' href = "{% url 'survey_form' session_obj.id group %}">Fill survey </a>
 </div>
-
+Voice Activity Detection
+<hr/>
+<button id="btn-start-vad" class='btn btn-success '>Activate voice activity detection</button>
 <hr/>
 
-
-
-
-
+<br/>
+Vide Recording
+<br/>
+<hr/>
 <button id="btn-start-recording" class='btn btn-success '>Start recording</button>
 <button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
 
@@ -121,15 +123,14 @@
     var vad = new VAD(options);
   }
 
-  /* Ask for audio device
+document.getElementById('btn-start-vad').onclick = function() {
   navigator.getUserMedia = navigator.getUserMedia ||
                            navigator.mozGetUserMedia ||
                            navigator.webkitGetUserMedia;
   navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
           console.log("No live audio input in this browser: " + e);
   });
-  //vad.js end
-  */
+};
 
     var videoInput = document.getElementById('inputVideo');
     var canvasInput = document.getElementById('inputCanvas');
@@ -165,7 +166,7 @@ function stopRecordingCallback() {
             data = [];
             var recorder; // globally accessible
             var blobcount = 0
-            document.getElementById('btn-start-recording').onclick = function() {
+document.getElementById('btn-start-recording').onclick = function() {
                 this.disabled = true;
                 console.log('start recording');
                 captureMicrophone(function(microphone) {
