@@ -1122,7 +1122,7 @@ def getGroupText(request,session_id,group_id):
     accessSession = call('createSession',{'groupID':eth_group[0].eth_groupid,'authorID':auth_id['data']['authorID'],'validUntil':valid})
     print('Access session',accessSession)
 
-    return render(request,'session_main_padtext.html',{'padtext':res['data']['text'],'session_id':session_id,'session':session,'group_id':group_id,'pad_id':padid,'etherpad_url':settings.ETHERPAD_URL,'padname':read['data']['readOnlyID'],'sessionid':accessSession['data']['sessionID']})
+    return render(request,'session_main_padtext_no_analytics',{'padtext':res['data']['text'],'session_id':session_id,'session':session,'group_id':group_id,'pad_id':padid,'etherpad_url':settings.ETHERPAD_URL,'padname':read['data']['readOnlyID'],'sessionid':accessSession['data']['sessionID']})
 
 
 
