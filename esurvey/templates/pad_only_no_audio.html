@@ -1,239 +1,310 @@
 {% extends "base_form.html" %}
-
 {%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
-
 {%block content%}
+  <style>
 
-<div clas='col col-4'>
- Group: {{group | upper}}
-</div>
-<div clas='col col-4'>
- Instructor: {{session_obj.owner | upper}}
-</div>
-
-<hr/>
-
-
-
-
-
-<button id="btn-start-recording" class='btn btn-success '>Start recording</button>
-<button id="btn-stop-recording" disabled class='btn btn-danger float-right'>Stop recording</button>
-
-
-<hr>
-
-<br/>
+  </style>
 
 <!--
-<iframe id="aud" style="width:100%; height: 500px; overflow:scroll !important;"  frameBorder='2' scrolling="yes" src="http://localhost:8000/audio">
-</iframe>
-<hr/>
+  <h3> Session-{{session_obj.name}} </h3>
+
+
+
+
+<small>
+    Group: {{group | upper}}
+  </small>
+  <small>
+    Instructor: {{session_obj.owner | upper}}
+  </small>
 -->
 
-<form action="" method="post">
-{% csrf_token %}
 
-{{form}}
+ <!--
 
+  <div class="d-flex justify-content-between" >
 
-
-
-</form>
-
-
-<div class='card'>
-  <h3 class='card-header text-white bg-info border-info'>
-  Task
-  </h3>
-  <div class='card-body'>
-
-  {{session_obj.problem | safe}}
-
+  <button id="btn-start-recording" class='btn btn-info ' title="It will start video recording and save it on the server.">Step-1. Start recording</button>
+  <a class='btn btn-info' href = "#space" title="Complete the activity shown below and write your group's responses in the editor.">Step-2. Complete the group activity</a>
+  <button id="btn-stop-recording" disabled class='btn btn-info ' title="It will stop video recording.">3. Step-3. Stop recording</button>
+  <a class='btn btn-info' href = "{% url 'survey_form' session_obj.id group %}" title="Fill self-reorted measure of collaboration.">Step-4. Fill survey </a>
+  <a href = "{% url 'leave_session'%}" class='btn btn-info' title="Exit from the group session"> Step-5. Exit </a>
   </div>
-</div>
-
-
-<br/>
-<br/>
+ -->
 
 
 
+      <div class="row card">
+          <div class="step d-flex justify-content-between align-middle">
+              <div id="div1" class="col-3 activestep text-center" onclick="javascript: resetActive(event, 0, 'step-1');">
+                  <span class="fa fa-camera "></span>
+                  <p>Start recording</p>
+              </div>
+              <div class="col-3 text-center" onclick="javascript: resetActive(event, 20, 'step-2');">
+                  <span class="fa fa-group"></span>
+                  <p>Do activity</p>
+              </div>
+              <div class="col-3 text-center" onclick="javascript: resetActive(event, 40, 'step-3');">
+                  <span class="fa fa-stop-circle"></span>
+                  <p>Stop recording</p>
+              </div>
+              <div class="col-3 text-center" onclick="javascript: resetActive(event, 60, 'step-4');">
+                  <span class="fa fa-edit"></span>
+                  <p>Fill survey</p>
+              </div>
 
-  <div class='card'>
-    <h3 class='card-header text-white bg-info border-info'>
-      Write solution here
-    </h3>
 
-  <div class='cardbody'>
+          </div>
+      </div>
+      <br/>
+      <div class="row setup-content step activeStepInfo" id="step-1">
+          <div class="col-xs-12">
+              <div class="col-md-12 well ">
+                  <h1>STEP 1</h1><hr/>
+                  You need to start the video recording. The recorded video will be saved on the server.<br/><br/>
+                  <button id="btn-start-recording" class='btn btn-success ' title="It will start video recording and save it on the server.">Start recording</button>
+              </div>
+          </div>
+      </div>
 
-   <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
-   </iframe>
-   </div>
- </div>
- <canvas id="inputCanvas" width="320" height="240" hidden></canvas>
- <video id="inputVideo" autoplay loop muted hidden></video>
+
+      <div class="row setup-content step hiddenStepInfo" id="step-2">
+          <div class="col-xs-12">
+              <div class="col-md-12">
+                  <h1>STEP 2</h1><hr/>
+
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    {{form}}
+                  </form>
+                  <div class='card'>
+                    <h3 class='card-header text-white bg-info border-info'>
+                      Task
+                    </h3>
+                    <div class='card-body'>
+                      {{session_obj.problem | safe}}
+                    </div>
+                  </div>
+                  <br/>
+                  <br/>
+                  <div class='card' id='space'>
+                    <h3 class='card-header text-white bg-info border-info'>
+                      Write solution here
+                    </h3>
+                    <div class='cardbody'>
+                      <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+                      </iframe>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row setup-content step hiddenStepInfo" id="step-3">
+          <div class="col-xs-12">
+              <div class="col-md-12 well">
+                  <h1>STEP 3</h1><hr/>
+
+                  After finishing your group activity, you can stop your recording.
+                  The button will be active after you start recording.
+                  <br/><br/>
+                    <button id="btn-stop-recording" disabled class='btn btn-success ' title="It will stop video recording.">Stop recording</button>
+              </div>
+          </div>
+      </div>
+      <div class="row setup-content step hiddenStepInfo" id="step-4">
+          <div class="col-xs-12">
+              <div class="col-md-12 well ">
+                  <h1>STEP 4</h1><hr/>
+                  We will appreciate you if you can fill the survey. It will allow us to better understand the collaboration behavior for your research. <br/><br/>
+                  {% include 'survey_form_updated.html'%}
+              </div>
+          </div>
+      </div>
 
 
-<script>
-    /* Ask for audio device
-  //vad.js start
-  window.AudioContext = window.AudioContext || window.webkitAudioContext;
-  var audioContext = new AudioContext();
 
-  // Define function called by getUserMedia
-  function startUserMedia(stream) {
-    // Create MediaStreamAudioSourceNode
-    var source = audioContext.createMediaStreamSource(stream);
 
-    var voice_start_time = 0;
+  <style>
+  .hiddenStepInfo {
+      display: none;
+  }
 
-    // Setup options
-    var options = {
-     source: source,
-     voice_stop: function() {
-       var speak_time = new Date() - voice_start_time;
+  .activeStepInfo {
+      display: block !important;
+  }
 
-       console.log('voice_stop');
-       console.log('sending',speak_time);
-       var fd = new FormData();
-       fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-       fd.append('session',{{session}});
-       fd.append('user',{{request.user.id}});
-       fd.append('group',{{group}});
-       fd.append('strDate',ServerDate.now());
-       fd.append('activity',speak_time);
-       var xhr = new XMLHttpRequest();
-
-       xhr.open('POST', '/vad_upload/', true);
-       xhr.send(fd);
-       console.log(' ===> Sent: voice_stop');
-     },
-     voice_start: function() {
-
-       voice_start_time = new Date();
-
-       console.log('voice_start');
-
-     }
-    };
-
-    // Create VAD
-    var vad = new VAD(options);
+  .underline {
+      text-decoration: underline;
   }
 
 
-  navigator.getUserMedia = navigator.getUserMedia ||
-                           navigator.mozGetUserMedia ||
-                           navigator.webkitGetUserMedia;
-  navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
-          console.log("No live audio input in this browser: " + e);
-  });
-  //vad.js end
 
 
-    var videoInput = document.getElementById('inputVideo');
-    var canvasInput = document.getElementById('inputCanvas');
-*/
-//    var htracker = new headtrackr.Tracker({ui : false});
-//    htracker.init(videoInput, canvasInput);
-//    htracker.start();
 
-function captureMicrophone(callback) {
-              console.log('capturing camera ...');
-                //navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
-                navigator.getUserMedia({audio: true, video:true}, callback, function(error) {
-                    alert('Unable to access your camera.');
-                    console.error(error);
-                });
-            }
 
-function stopRecordingCallback() {
-                var blob = recorder.getBlob();
-                //audio.src = URL.createObjectURL(blob);
-                //audio.muted = false;
-                //audio.play();
+  .step .col-3 {
+      background-color: #fff;
+      border-right: none;
+  }
 
-                //video.src = recorder.getBlob()
 
-                var blob = new File(data,'video.webm',{type:'vide/webm'})
-                //video.src = URL.createObjectURL(blob);
-                postBlob(blob,-1);
-                console.log('Sending final file');
-                recorder.microphone.stop();
-                //postBlob(blob);
-            }
-            data = [];
-            var recorder; // globally accessible
-            var blobcount = 0
-            document.getElementById('btn-start-recording').onclick = function() {
-                this.disabled = true;
-                console.log('start recording');
-                captureMicrophone(function(microphone) {
 
-                    //audio.muted = true;
-                  //  audio.play();
-                    console.log('Creating recordRTC');
-                    recorder = RecordRTC(microphone, {
-                        recorderType: MediaStreamRecorder,
-                        mimeType: 'video/webm',
-                        timeSlice: 60000, // pass this parameter upload for every minute
-                        ondataavailable: function(blob) {
-                            blobcount =  blobcount + 1;
-                            console.log('sending data:'+ blobcount);
-                            data.push(blob);
-                            postBlob(blob,blobcount);
-                        }
-                    });
 
-                    console.log('start recording');
-                    recorder.startRecording();
 
-                    // release microphone on stopRecording
-                    recorder.microphone = microphone;
 
-                    document.getElementById('btn-stop-recording').disabled = false;
-                    console.log('function executed');
-                });
-            };
+  .step .col-3:hover {
+      color: #F58723;
+      cursor: pointer;
+  }
 
-document.getElementById('btn-stop-recording').onclick = function() {
-    this.disabled = true;
-    var start_button = document.getElementById('btn-start-recording');
-    start_button.disabled = false;
-    recorder.stopRecording(stopRecordingCallback);
-};
-          user = {{request.user.id}};
-          function postBlob(blob,blobcount){
-                    console.log('postBlob called');
-                    var fd = new FormData();
-                    fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-                    //fd.append('data_blob', blob, + new Date() + '.' + blob.type.split('/')[1]);
-                    if (blobcount ==-1) {
-                      fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
+  .step .activestep {
+      color: #F58723;
+      vertical-align: central;
+  }
 
-                      fd.append('description', 'Final audio file');
-                    }
-                    else {
-                      fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
+  .step .fa {
+      padding-top: 30px;
+      font-size: 30px;
+  }
+  </style>
 
-                      fd.append('description', 'Audio file chunks');
-                    }
+  <script type="text/javascript">
+      function resetActive(event, percent, step) {
+          $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
+          $(".progress-completed").text(percent + "%");
 
-                    fd.append('session',{{session}});
-                    fd.append('user',{{request.user.id}});
-                    fd.append('group',{{group}});
-                    fd.append('sequence',blobcount);
-                    console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
-                    //console.log(fd);
-                    var xhr = new XMLHttpRequest();
-                    console.log('opening connection');
-                    xhr.open('POST', '/upload/', true);
-                    console.log('data sending')
-                    xhr.send(fd);
-                    console.log('data sent');
-            }
-</script>
-<br/>
+          $("div").each(function () {
+              if ($(this).hasClass("activestep")) {
+                  $(this).removeClass("activestep");
+              }
+          });
 
+          if (event.target.className == "col-md-2") {
+              $(event.target).addClass("activestep");
+          }
+          else {
+              $(event.target.parentNode).addClass("activestep");
+          }
+
+          hideSteps();
+          showCurrentStepInfo(step);
+      }
+
+      function hideSteps() {
+          $("div").each(function () {
+              if ($(this).hasClass("activeStepInfo")) {
+                  $(this).removeClass("activeStepInfo");
+                  $(this).addClass("hiddenStepInfo");
+              }
+          });
+      }
+
+      function showCurrentStepInfo(step) {
+          var id = "#" + step;
+          $(id).addClass("activeStepInfo");
+      }
+  </script>
+
+
+
+  <script>
+    data = [];
+    var recorder; // globally accessible
+    var blobcount = 0
+
+    user = {{request.user.id}};
+
+
+
+    function captureMicrophone(callback) {
+      console.log('capturing camera ...');
+      //navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+      navigator.getUserMedia({audio: true, video:true}, callback, function(error) {
+        alert('Unable to access your camera.');
+        console.error(error);
+        });
+      }
+
+
+    function postBlob(blob,blobcount){
+      console.log('postBlob called');
+      var fd = new FormData();
+      fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+      if (blobcount ==-1) {
+        fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
+        fd.append('description', 'Final audio file');
+      }
+      else {
+        fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
+        fd.append('description', 'Audio file chunks');
+      }
+      fd.append('session',{{session}});
+      fd.append('user',{{request.user.id}});
+      fd.append('group',{{group}});
+      fd.append('sequence',blobcount);
+      console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
+      //console.log(fd);
+      var xhr = new XMLHttpRequest();
+      console.log('opening connection');
+      xhr.open('POST', '/upload/', true);
+      console.log('data sending')
+      xhr.send(fd);
+      console.log('data sent');
+      }
+
+
+    function stopRecordingCallback() {
+      var blob = recorder.getBlob();
+      var blob = new File(data,'video.webm',{type:'vide/webm'})
+      postBlob(blob,-1);
+      console.log('Sending final file');
+      recorder.microphone.stop();
+    }
+
+
+    function sendToServer(blob) {
+      blobcount =  blobcount + 1;
+      console.log('sending data:'+ blobcount);
+      data.push(blob);
+      postBlob(blob,blobcount);
+    }
+
+    function startRecording()
+    {
+     this.disabled = true;
+     console.log('start recording');
+     captureMicrophone(function(microphone) {
+       console.log('Creating recordRTC');
+       recorder = RecordRTC(microphone, {
+         recorderType: MediaStreamRecorder,
+         mimeType: 'video/webm',
+         timeSlice: 60000, // pass this parameter upload for every minute
+         ondataavailable: function(blob) {
+           blobcount =  blobcount + 1;
+           console.log('sending data:'+ blobcount);
+           data.push(blob);
+           postBlob(blob,blobcount);
+           }
+         });
+       console.log('start recording');
+       recorder.startRecording();
+       recorder.microphone = microphone;
+       document.getElementById('btn-stop-recording').disabled = false;
+       console.log('function executed');
+       });
+     }
+
+
+    function stopRecording() {
+      this.disabled = true;
+      var start_button = document.getElementById('btn-start-recording');
+      start_button.disabled = false;
+      recorder.stopRecording(stopRecordingCallback);
+    };
+    document.getElementById('btn-start-recording').onclick = startRecording;
+    document.getElementById('btn-stop-recording').onclick = stopRecording;
+
+
+  </script>
+  <br/>
 {%endblock %}
