@@ -206,6 +206,14 @@
       function showCurrentStepInfo(step) {
           var id = "#" + step;
           $(id).addClass("activeStepInfo");
+
+          if(step == 'step-2') {
+            $("#space").html("<iframe id='demo' onload='autoResizeDiv()' allow='camera https://www.etherpad.website;microphone https://www.etherpad.website'  style='width:100%; height: 100%; position:relative; overflow:hidden; ' frameBorder='0' src='{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}' allowfullscreen></iframe>");
+          }
+          else {
+            $("#space").html("");
+          }
+
       }
   </script>
 
