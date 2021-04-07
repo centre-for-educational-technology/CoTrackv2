@@ -1256,7 +1256,7 @@ def getPad(request,group_id):
 
         form = AudioflForm()
 
-        return render(request,'pad_only_no_aud.html',{'group':group_id,'session_obj':session_obj.session,'session':request.session['joined'],'form':form,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':eth_session,'protocol':settings.PROTOCOL})
+        return render(request,'pad_only_no_audio.html',{'group':group_id,'session_obj':session_obj.session,'session':request.session['joined'],'form':form,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':eth_session,'protocol':settings.PROTOCOL})
     else:
 
         messages.error(request,'Session is not authenticated. Enter the access pin.')
