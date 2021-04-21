@@ -37,8 +37,8 @@ from . import tokens as t
 from mailjet_rest import Client
 import os
 import requests
-api_key = '55286d691dca3cf4cb8f0a6db87a5fe5'
-api_secret = 'e564414aef8ddc313372ed55c2d1c81a'
+api_key = '490b3c2a909478327e52ad2c921495b4'
+api_secret = '5f97d6d72439c79fd395b2a27cdc2955'
 mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
 user_number = 1
@@ -192,7 +192,7 @@ def register(request):
             data = {
               'Messages': {
                   "From": {
-                    "Email": "pankajchejara23@gmail.com",
+                    "Email": "reetkase@tlu.ee",
                     "Name": "CoTrack Team "
                   },
                   "To": {
@@ -205,7 +205,7 @@ def register(request):
 
 
 
-            result = send_mail(data=data)
+            result = mailjet.send.create(data=data)
 
             messages.info(request, 'An email with instructions to activate your account has been sent.')
 
@@ -280,7 +280,7 @@ def password_reset_request(request):
                         data = {
                           'Messages': {
                               "From": {
-                                "Email": "pankajchejara23@gmail.com",
+                                "Email": "reetkase@tlu.ee",
                                 "Name": "CoTrackV2 Team "
                               },
                               "To": {
@@ -290,7 +290,7 @@ def password_reset_request(request):
                               "TextPart": message,
                             }
                         }
-                        result = mail_send(data=data)
+                        result = mailjet.send.create(data=data)
                     except:
                         return HttpResponse('Error')
                     messages.info(request,'We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you do not receive an email, please make sure you have entered the address you registered with, and check your spam folder.')
