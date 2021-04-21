@@ -138,11 +138,6 @@
       text-decoration: underline;
   }
 
-
-
-
-
-
   .step .col-3 {
       background-color: #fff;
       border-right: none;
@@ -170,6 +165,56 @@
   </style>
 
   <script type="text/javascript">
+    //vad.js start
+    window.AudioContext = window.AudioContext || window.webkitAudioContext;
+    var audioContext = new AudioContext();
+
+    // Define function called by getUserMedia
+    function startUserMedia(stream) {
+      // Create MediaStreamAudioSourceNode
+      var source = audioContext.createMediaStreamSource(stream);
+      var voice_start_time = 0;
+      // Setup options
+      var options = {
+       source: source,
+       voice_stop: function() {
+         var speak_time = new Date() - voice_start_time;
+         console.log('voice_stop');
+         console.log('sending',speak_time);
+         var fd = new FormData();
+         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+         fd.append('session',{{session}});
+         fd.append('user',{{request.user.id}});
+         fd.append('group',{{group}});
+         fd.append('strDate',ServerDate.now());
+         fd.append('activity',speak_time);
+         var xhr = new XMLHttpRequest();
+         xhr.open('POST', '/vad_upload/', true);
+         xhr.send(fd);
+         console.log(' ===> Sent: voice_stop');
+       },
+       voice_start: function() {
+         voice_start_time = new Date();
+         console.log('voice_start');
+       }
+      };
+
+      // Create VAD
+      var vad = new VAD(options);
+    }
+    // Ask for audio device
+    navigator.getUserMedia = navigator.getUserMedia ||
+                             navigator.mozGetUserMedia ||
+                             navigator.webkitGetUserMedia;
+    navigator.getUserMedia({audio: true}, startUserMedia, function(e) {
+            console.log("No live audio input in this browser: " + e);
+    });
+
+
+
+
+
+
       function resetActive(event, percent, step) {
           $(".progress-bar").css("width", percent + "%").attr("aria-valuenow", percent);
           $(".progress-completed").text(percent + "%");
