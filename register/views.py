@@ -276,6 +276,7 @@ def password_reset_request(request):
                         'token': default_token_generator.make_token(user),
                         'protocol': 'https'
                         })
+                    """
                     try:
                         data = {
                           'Messages': [{
@@ -294,6 +295,27 @@ def password_reset_request(request):
                         result = mailjet.send.create(data=data)
                     except Exception as e:
                         return HttpResponse(e)
+                    """
+                    data = {
+                      'Messages': [
+                        {
+                          "From": {
+                            "Email": "reetkase@tlu.ee",
+                            "Name": "CoTrack Team"
+                          },
+                          "To": [
+                            {
+                              "Email": user.email,
+                              "Name": "Pankaj"
+                            }
+                          ],
+                          "Subject": "Greetings from Mailjet.",
+                          "TextPart": "My first Mailjet email",
+                          "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
+                          "CustomID": "AppGettingStartedTest"
+                        }
+                      ]
+                    }
                     messages.info(request,user.email)
                     messages.info(request,result.json())
                     #messages.info(request,'We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you do not receive an email, please make sure you have entered the address you registered with, and check your spam folder.')
