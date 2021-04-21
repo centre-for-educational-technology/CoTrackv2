@@ -284,7 +284,7 @@ def password_reset_request(request):
                                 "Name": "CoTrackV2 Team",
                               },
                               "To": {
-                                  "Email": user.email,
+                                  "Email": str(user.email),
                                   "Name": user.username,
                                 },
                               "Subject": "CoTrackV2 Password Reset",
