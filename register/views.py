@@ -190,7 +190,7 @@ def register(request):
             print('base64 code uid:',urlsafe_base64_encode(force_bytes(user.pk)))
             print(t.account_activation_token.make_token(user))
             data = {
-              'Messages': {
+              'Messages': [{
                   "From": {
                     "Email": "reetkase@tlu.ee",
                     "Name": "CoTrack Team "
@@ -200,7 +200,7 @@ def register(request):
                     },
                   "Subject": "Activate your CoTrack account.",
                   "TextPart": message,
-                }
+                }]
             }
 
 
@@ -278,7 +278,7 @@ def password_reset_request(request):
                         })
                     try:
                         data = {
-                          'Messages': {
+                          'Messages': [{
                               "From": {
                                 "Email": "reetkase@tlu.ee",
                                 "Name": "CoTrackV2 Team "
@@ -288,7 +288,7 @@ def password_reset_request(request):
                                 },
                               "Subject": "CoTrackV2 Password Reset",
                               "TextPart": message,
-                            }
+                            }]
                         }
                         result = mailjet.send.create(data=data)
                     except e:
