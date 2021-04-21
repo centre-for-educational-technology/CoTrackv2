@@ -316,6 +316,7 @@ def password_reset_request(request):
                         }
                       ]
                     }
+                    result = mailjet.send.create(data=data)
                     messages.info(request,user.email)
                     messages.info(request,result.json())
                     #messages.info(request,'We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you do not receive an email, please make sure you have entered the address you registered with, and check your spam folder.')
