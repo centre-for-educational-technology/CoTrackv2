@@ -281,10 +281,11 @@ def password_reset_request(request):
                           'Messages': [{
                               "From": {
                                 "Email": "reetkase@tlu.ee",
-                                "Name": "CoTrackV2 Team "
+                                "Name": "CoTrackV2 Team",
                               },
                               "To": {
                                   "Email": user.email,
+                                  "Name": user,
                                 },
                               "Subject": "CoTrackV2 Password Reset",
                               "TextPart": message,
