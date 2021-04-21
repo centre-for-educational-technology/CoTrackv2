@@ -291,8 +291,8 @@ def password_reset_request(request):
                             }
                         }
                         result = mailjet.send.create(data=data)
-                    except:
-                        return HttpResponse('Error')
+                    except e:
+                        return HttpResponse(e)
                     messages.info(request,'We have emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly. If you do not receive an email, please make sure you have entered the address you registered with, and check your spam folder.')
                     return redirect('login')
     else:
