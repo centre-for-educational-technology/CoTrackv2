@@ -285,14 +285,14 @@ def password_reset_request(request):
                               },
                               "To": {
                                   "Email": user.email,
-                                  "Name": user,
+                                  "Name": user.name,
                                 },
                               "Subject": "CoTrackV2 Password Reset",
                               "TextPart": message,
                             }]
                         }
                         result = mailjet.send.create(data=data)
-                    except e:
+                    except Exception as e:
                         return HttpResponse(e)
                     messages.info(request,user.email)
                     messages.info(request,result.json())
