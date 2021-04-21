@@ -1225,7 +1225,7 @@ def getPad(request,group_id):
 
         # If submitted the questionnaire
         if request.method == "POST":
-            surveyForm(request,request.session['joined'],group_id)
+            return surveyForm(request,request.session['joined'],group_id)
 
 
         session_obj = SessionPin.objects.get(session=request.session['joined'])
