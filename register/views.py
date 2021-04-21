@@ -189,6 +189,7 @@ def register(request):
             print('user pk',user.pk)
             print('base64 code uid:',urlsafe_base64_encode(force_bytes(user.pk)))
             print(t.account_activation_token.make_token(user))
+            """
             data = {
               'Messages': [{
                   "From": {
@@ -202,11 +203,27 @@ def register(request):
                   "TextPart": message,
                 }]
             }
+            """
+            data = {
+              'Messages': [
+                {
+                  "From": {
+                    "Email": "reetkase@tlu.ee",
+                    "Name": "CoTrack Team",
+                  },
+                  "To": [
+                    {
+                      "Email": user.email,
+                      "Name": user.username,
+                    }
+                  ],
+                  "Subject": "Activate your CoTrack account.",
+                  "TextPart": message,
 
-
-
+                }
+              ]
+            }
             result = mailjet.send.create(data=data)
-
             messages.info(request, 'An email with instructions to activate your account has been sent.')
 
             return redirect('login')
