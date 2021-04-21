@@ -640,19 +640,12 @@ def usabilityForm(request):
         q16 = int(request.POST['survey-q16'])
         q17 = int(request.POST['survey-q17'])
 
-
-
-
         submission = Usability.objects.create(q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15,q16=q16,q17=q17,submitted_user=request.user)
         messages.success(request, 'Your responses are saved. Thank you for your submission. It will help us to improve the tool further.')
         return redirect('project_home')
-
         #return getAnonyForm(request)
     else:
         return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
-
-
-
 
 
 def surveyForm(request,session,group):
@@ -697,22 +690,18 @@ def surveyForm(request,session,group):
 
         session_obj  = Session.objects.get(id=session)
 
-
-
-
         submission = Submission.objects.create(session=session_obj,group=group,submitted_user=request.user,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15,q16=q16,q17=q17,q18=q18,q19=q19,q20=q20,q21=q21,q22=q22,q23=q23,q24=q24,q25=q25,q26=q26,q27=q27,q28=q28,q29=q29,q30=q30,q31=q31,q32=q32,q33=q33,q34=q34,q35=q35,q36=q36,q37=q37)
         messages.success(request, 'Your responses are saved. Thank you for the submission.')
+        if 'joined' in request.session.keys():
+            del request.session['joined']
         return redirect('student_entry')
-
     else:
         return render(request,"survey_form_updated.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
 
 def generateSurvey(request,link):
     if not is_valid_uuid(link):
         return render(request, "survey_msg.html",{'msg_title':'Invalid Link','msg_body':'The survey link is invalid.'})
-
     survey_url = Link.objects.all().filter(url=link)
-
     if survey_url.count() == 0:
         return render(request, "survey_msg.html",{'msg_title':'Invalid Link','msg_body':'The survey link is invalid.'})
     else:
@@ -739,12 +728,6 @@ def generateSurvey(request,link):
             return render(request,"survey_front.html",{'project_title':title,'subtitle':subtitle,'paragraph':paragraph,'link':survey_url.url})
         else:
             return render(request, "survey_msg.html",{'msg_title':'Not active','msg_body':'The survey is not active.'})
-
-
-
-
-
-
 
 from urllib.parse import quote
 
@@ -1239,6 +1222,12 @@ def LeaveSession(request):
 def getPad(request,group_id):
     print('getPad:',request.session.keys())
     if 'joined' in request.session.keys():
+
+        # If submitted the questionnaire
+        if request.method == "POST":
+            surveyForm(request,request.session['joined'],group_id)
+
+
         session_obj = SessionPin.objects.get(session=request.session['joined'])
 
         eth_session = request.session['ethsid']
