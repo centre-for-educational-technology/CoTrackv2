@@ -241,8 +241,6 @@ msgstr ""
 "Jagasin ülesande jaoks vajalikke materjale ja infot teiste osalejatega."
 
 #: esurvey/templates/survey_form_updated.html:143
-#, fuzzy
-#| msgid "I felt responsible for the participants in the discussion forum."
 msgid " I felt responsible for the participants in the discussion forum."
 msgstr "Tundsin rühmatöös vastutust teiste osalejate eest."
 
@@ -262,18 +260,13 @@ msgstr ""
 "Osalejate ideed ja arvamused ülesande kohta ei olnud minu jaoks huvitavad."
 
 #: esurvey/templates/survey_form_updated.html:251
-#, fuzzy
-#| msgid ""
-#| "We helped each other out whenever necessary while working on the project. "
+
 msgid ""
 " We helped each other out whenever necessary while working on the project. "
 msgstr "Ülesande kallal töötades aitasime vajadusel üksteist."
 
 #: esurvey/templates/survey_form_updated.html:278
-#, fuzzy
-#| msgid ""
-#| "I didn't feel responsible for the success of each participant in the "
-#| "discussion forum."
+
 msgid ""
 "I didn't feelresponsible for the success of each participant in the "
 "discussion forum."
@@ -308,8 +301,6 @@ msgid "I felt responsible to complete my work on time."
 msgstr "Tundsin end vastutavana, et oma töö õigeaegselt valmis jõuda."
 
 #: esurvey/templates/survey_form_updated.html:468
-#, fuzzy
-#| msgid " I helped others to solve group problems."
 msgid "  I helped others to solve group problems. "
 msgstr "Ma aitasin teistel lahendada grupiprobleeme."
 
