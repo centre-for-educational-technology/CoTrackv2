@@ -1,5 +1,4 @@
 
-
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block content%}
@@ -79,7 +78,7 @@
 <input type='hidden' name='group' value={{group}}/>
 
 
-<div class='card bg-white'>
+<div class='card bg-white' style="border-style: none;">
   <div class='card-body'>
     <div class='row pb-4'>
 
@@ -114,7 +113,7 @@
     <br/>
     <!-- Question 2 -->
     <div class='row'>
-      <p class='first-cap'>2. {% blocktrans %}I shared necessary materials and information for the collaborative activity with other participants{%endblocktrans%}</p>
+      <p class='first-cap'>2. {% blocktrans %}I shared necessary materials and information for the project with other participants{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -141,10 +140,10 @@
     <br/>
     <!-- Question 3 -->
     <div class='row'>
-       <p class='first-cap'>3. {% blocktrans %} I felt responsible for the participants during the collaborative activity. {{product}}{%endblocktrans%}</p>
+       <p class='first-cap'>3. {% blocktrans %} I felt responsible for the participants in the discussion forum.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %}</small>
       <div class="radio-toolbar">
         <input id='survey-q3_1' type="radio" name="survey-q3" value="1" required>
         <label class='mr-3' for='survey-q3_1'>1</label>
@@ -195,7 +194,7 @@
     <br/>
     <!-- Question 5 -->
     <div class='row'>
-       <p class='first-cap'>5. {% blocktrans %}We had discussions in order to specify the goals of the collaborative activity.  {%endblocktrans%}</p>
+       <p class='first-cap'>5. {% blocktrans %}We had discussions in order to specify the goals of the project.  {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -222,7 +221,7 @@
     <br/>
     <!-- Question 6 -->
     <div class='row'>
-       <p class='first-cap'>6. {% blocktrans %}Participants' ideas and opinions regarding the acitivity were not interesting for me.{%endblocktrans%}</p>
+       <p class='first-cap'>6. {% blocktrans %}Participants' ideas and opinions regarding the project were not interesting for me.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -249,7 +248,7 @@
     <br/>
     <!-- Question 7 -->
     <div class='row'>
-       <p class='first-cap'>7. {% blocktrans %} We helped each other out whenever necessary while working on the collaborative activity. {%endblocktrans%}</p>
+       <p class='first-cap'>7. {% blocktrans %} We helped each other out whenever necessary while working on the project. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -276,7 +275,7 @@
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>8. {% blocktrans %}I didn't feel responsible for the success of each participant in the collaborative activity.{%endblocktrans%}</p>
+        <p class='first-cap'>8. {% blocktrans %}I didn't feelresponsible for the success of each participant in the discussion forum.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -332,7 +331,7 @@
 
 
     <div class='row'>
-       <p class='first-cap'>10. {% blocktrans %}The participants of the collaborative activity tried to find ways in order to solve group problems. {%endblocktrans%} </p>
+       <p class='first-cap'>10. {% blocktrans %}The participants of the discussion forum tried to find ways in order to solve group problems. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -386,7 +385,7 @@
   <br/>
 
     <div class='row'>
-       <p class='first-cap'>12. {% blocktrans %}I benefited from working with others in this collaborative activity. {%endblocktrans%}</p>
+       <p class='first-cap'>12. {% blocktrans %}I benefited from working with others in this discussion forum. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -466,7 +465,7 @@
   <br/>
 
     <div class='row'>
-       <p class='first-cap'>15. {% blocktrans %}  I helped others to solve group problem. {{product}}{%endblocktrans%}</p>
+       <p class='first-cap'>15. {% blocktrans %}  I helped others to solve group problems. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -493,7 +492,7 @@
     <br/>
     <!-- Question 2 -->
     <div class='row'>
-      <p class='first-cap'>16. {% blocktrans %}We discussed the achievement of the goals of the collaborative activity.{%endblocktrans%}</p>
+      <p class='first-cap'>16. {% blocktrans %}We discussed the achievement of the goals of the course project.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -520,7 +519,7 @@
     <br/>
     <!-- Question 3 -->
     <div class='row'>
-       <p class='first-cap'>17. {% blocktrans %} I think that my success in the collaborative activity is related only to my own work.{%endblocktrans%}</p>
+       <p class='first-cap'>17. {% blocktrans %} I think that my success in the course project is related only to my own work.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -655,7 +654,7 @@
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>22. {% blocktrans %}The participants of the discussion forum provided helpful feedback to each other regarding the collaborative activity.{%endblocktrans%}</p>
+        <p class='first-cap'>22. {% blocktrans %}The participants of the discussion forum provided helpful feedback to each other regarding the course project.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -682,7 +681,7 @@
     <br/>
     <!-- Question 9 -->
     <div class='row'>
-       <p class='first-cap'>23. {% blocktrans %} I kept necessary materials and information for the collaborative activity for myself. {%endblocktrans%} </p>
+       <p class='first-cap'>23. {% blocktrans %} I kept necessary materials and information for the project for myself. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -872,7 +871,7 @@
     <br/>
     <!-- Question 6 -->
     <div class='row'>
-       <p class='first-cap'>30. {% blocktrans %}We monitored each other's work in order to ensure high quality of the group's work. {%endblocktrans%}</p>
+       <p class='first-cap'>30. {% blocktrans %}We monitored each other's work in order to ensure high quality of the course project. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
         <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -899,7 +898,7 @@
     <br/>
     <!-- Question 7 -->
     <div class='row'>
-       <p class='first-cap'>31. {% blocktrans %}I felt that we depended on each other while working on the collaborative activity.{%endblocktrans%}</p>
+       <p class='first-cap'>31. {% blocktrans %}I felt that we depended on each other while working on the course project.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
         <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -926,7 +925,7 @@
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>32. {% blocktrans %}Working with others in this collaborative activity was a waste of time.{%endblocktrans%}</p>
+        <p class='first-cap'>32. {% blocktrans %}Working with others in this discussion forum was a waste of time.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
     <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -982,7 +981,7 @@
 
 
     <div class='row'>
-       <p class='first-cap'>34. {% blocktrans %}The achievement of the goals of the collaborative activity was not discussed by the participants. {%endblocktrans%} </p>
+       <p class='first-cap'>34. {% blocktrans %}The achievement of the goals of the course project was not discussed by the participants. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -1009,7 +1008,7 @@
     <br/>
 
     <div class='row'>
-       <p class='first-cap'>35. {% blocktrans %}I was initiative in dividing tasks of the collaborative activity among the participants.{%endblocktrans%}</p>
+       <p class='first-cap'>35. {% blocktrans %}I was initiative in dividing tasks of the project among the participants.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
       <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -1036,7 +1035,7 @@
 
 <br/>
     <div class='row'>
-       <p class='first-cap'>36. {% blocktrans %}I think that my success in the collaborative activity is also related to the contributions of others. {%endblocktrans%}</p>
+       <p class='first-cap'>36. {% blocktrans %}I think that my success in the Project is also related to the contributions of others. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
         <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
@@ -1259,7 +1258,7 @@
 
 <button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
 {% endif %}
-<input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit" %}" />
+<input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit & Exit" %}" />
 
 <!-- old format
 <input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit" %}" />
