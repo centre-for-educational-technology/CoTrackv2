@@ -3,14 +3,22 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load my_tags %}
-
 {% block title %} {% endblock %}
-
 {% block content %}
-<h2>{{session.name | upper}} <script>console.log(ServerDate());</script></h2>
 
-<h4>Access Pin: {{session.sessionpin.pin}} </h4>
-<small> This pin can be used to join the session once it is started. </small> <hr/>
+  <h2>
+    {{session.name | upper}}
+  </h2>
+  <h4>
+    Access Pin: {{session.sessionpin.pin}}
+  </h4>
+  <small>
+    This pin can be used to join the session once it is started.
+  </small> <br/><br/>
+  <button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">
+    Show dashboard
+  </button>
+  <hr/>
 <!--
 {% if not session.status %}
 <a href="{% url 'session_activate' session.id %}" class='btn btn-success pl-5 pr-5 mr-4'>  Start  </a>
@@ -27,111 +35,107 @@
 </div>
 -->
 
-<div class="dropdown">
-  <button class="btn btn-warning dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Download Data
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">Etherpad logs</a>
-    <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">Etherpad Chat</a>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">User mapping</a>
+  <div class="dropdown">
+    <button class="btn btn-warning dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Download Data
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">Etherpad logs</a>
+      <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">Etherpad Chat</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">User mapping</a>
+    </div>
   </div>
-</div>
-<br/>
-<br/>
-<hr/>
-
-
-
-
-<div class='container'>
-{% for g in no_group%}
- {% if forloop.counter|modulo:3 == 1%}
-  <div class='row'>
- {% endif%}
-
-    <div class='col col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12'>
-      <div class="card">
-        <div class='card-body'>
-          <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
-          <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+  <br/>
+  <br/>
+  <hr/>
+  <h2>
+    Hello
+  </h2>
+  <div class='container'>
+    {% for g in no_group%}
+      {% if forloop.counter|modulo:3 == 1%}
+        <div id='audio_dash' class='row'>
+      {% endif%}
+      <div class='col col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12'>
+        <div class="card">
+          <div class='card-body'>
+            <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
+            <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+          </div>
+        </div>
+      </div>
+      {% if forloop.last or forloop.counter|modulo:3 == 0 %}
+        </div>
+        <br/>
+      {% endif %}
+    {% endfor %}
+    <br/>
+    <div class='row'>
+      <div class='col col-4'>
+        <div class="card">
+          <div class='card-body'>
+            <h4 class='card-title'> Detailed view </h4><hr/>
+            <p>Detailed view presents document history editing and writing activties of group's member in terms of number of characters adde or deleted.</p> <br/><br/>
+            {% for g in no_group%}
+              <a href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Group-{{forloop.counter}}</a>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div id='eth_dash' class='col col-8'>
+        <div class="card">
+          <div class='card-body'>
+            <h4 class='card-title'> Etherpad activity </h4><hr/>
+            <canvas id="overall"></canvas>
+          </div>
         </div>
       </div>
     </div>
-    {% if forloop.last or forloop.counter|modulo:3 == 0 %}
-      </div>
-      <br/>
-    {% endif %}
-  {% endfor %}
-
-  <br/>
- <div class='row'>
-   <div class='col col-4'>
-     <div class="card">
-
-       <div class='card-body'>
-        <h4 class='card-title'> Detailed view </h4><hr/>
- <p>Detailed view presents document history editing and writing activties of group's member in terms of number of characters adde or deleted.</p> <br/><br/>
-
-     {% for g in no_group%}
-
-        <a href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Group-{{forloop.counter}}</a>
-
-     {% endfor %}
-      </div>
-      </div>
-    </div>
-   <div class='col col-8'>
-     <div class="card">
-
-       <div class='card-body'>
-         <h4 class='card-title'> Etherpad activity </h4><hr/>
-         <canvas id="overall"></canvas>
-       </div>
-     </div>
-   </div>
   </div>
 
 
-
-
- </div>
-
-
 <script>
-
+  $('#dash_vis').click(function(event){
+    var button_text = $('#dash_vis').text();
+    if (button_text == 'Show dashboard') {
+      $('#audio_dash').show();
+      $('#eth_dash').show();
+      $('#dash_vis').html('Hide dashboard');
+    } else {
+      console.log('Hide button clicked');
+      $('#audio_dash').hide();
+      $('#eth_dash').hide();
+      $('#dash_vis').html('Show dashboard');
+    }
+  });
   // idea from https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
   function makeGetRequest(path) {
-      return new Promise(function (resolve, reject) {
-          axios.get(path).then(
-              (response) => {
-                  var result = response.data;
-
-                  console.log('Processing Request');
-                  resolve(result);
-
-              },
-                  (error) => {
-                  reject(error);
-              }
-          );
-      });
+    return new Promise(function (resolve, reject) {
+      axios.get(path).then(
+        (response) => {
+          var result = response.data;
+          console.log('Processing Request');
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
   }
-  var cy = [];
 
+
+  var cy = [];
   console.log('Loop starting....');
   cyt_groups = {{no_group}};
-
   for (var i=0; i<cyt_groups.length;i++) {
-
-
-  var id_label = 'speak-' + i;
-  console.log(id_label);
-  // cytoscape js
-  cy_tmp = cytoscape({
-  				container: document.getElementById(id_label),
-  				style: [
+    var id_label = 'speak-' + i;
+    console.log(id_label);
+    // cytoscape js
+    cy_tmp = cytoscape({
+  	   container: document.getElementById(id_label),
+       style: [
           {
             selector: 'node',
             css: {
@@ -142,33 +146,29 @@
                   'text-outline-color': '#888'
             }
           },
-  					{
-  						selector: '[size]',
-  						css: {
+  				{
+  					selector: '[size]',
+  					css: {
                 'width': 'data(size)',
                 'height': 'data(size)',
-  						}
-  					},
-            {
-  						selector: '[weight]',
-  						css: {
+  				  }
+  				},
+          {
+  					selector: '[weight]',
+  					css: {
                 'width':'data(weight)',
                 'color': 'black',
-  						}
-  					},
-  				],
-  				layout: {
-              name: 'circle',
-
+  					}
+  				},
+        ],
+        layout: {
+            name: 'circle',
   				   /* color: "#ffff00",*/
-  				    fit: true
+  				  fit: true
   				}
   			});
-
     cy.push(cy_tmp);
   }
-
-
   var ctx = document.getElementById('overall').getContext('2d');
   var myChart = new Chart(ctx, {
       type: 'bar',
@@ -186,42 +186,32 @@
             scheme: 'brewer.Paired12'
           }
         },
-          legend: {display:false},
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero: true
-                  }
-              }]
-          }
+        legend: {display:false},
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
       }
   });
 
 
 async function main() {
-
-
   var url2 = '{{request.site.base_url}}/getSpeakingStats/' + {{session.id}} ;
   var result = await makeGetRequest(url2);
   console.log('Results from Speaking activity');
-
   console.log(result);
-
-
   for(m = 0; m < cyt_groups.length ; m++) {
-
     cy_tmp = cy[m];
     cy_tmp.elements().remove();
     console.log('Before:',cy_tmp.json());
-
     var updated_graph = [];
-
     for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
       var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
-
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
     }
-
     for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
       var edge_id =  result.speaking_data[m].graph.edges[n].id;
       console.log('Type:',typeof(node_id));
@@ -229,83 +219,40 @@ async function main() {
     }
     cy_tmp.layout()
     console.log('After:',cy_tmp.json());
-
   }
 
-
-
-
-
-
-
-var chart = myChart
-var revs = [];
-var groups = [];
-
-var group_list = {{no_group}};
-
-console.log('Dataset--------')
-console.log(chart.data.datasets[0].data);
-/*
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-
-
-chart.data.labels.pop();
-chart.data.labels.pop();
-chart.data.labels.pop();
-chart.data.labels.pop();
-*/
-
-for (var i=0; i<group_list.length;i++) {
-
-etherpad_group = '{{eth_group}}';
-session_id = {{session.id}};
-number = parseInt(i) + 1;
-console.log('before:'+i+' after:'+number);
-group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
-
-// sending ajax request
-
-url = '{{request.site.base_url}}/getRevCount/'+group_pad;
-revisions = 0;
-
-
-var result = await makeGetRequest(url);
-
-  revs.push(result.revisions);
-  group = 'group-' + number
-  groups.push(group);
-
-
-  chart.data.datasets[0].data[i]= result.revisions;
-  chart.data.labels[i]=group;
-
-  chart.update();
-  console.log('function called');
-  console.log(result);
-  data = result.revisions;
-  console.log(data);
-//  revisions = data['revisions'];
-  console.log('Recieved:' + data);
-
-
-
-
-
-
-
-
-}
-console.log(revs);
-console.log(groups);
-
-
+  var chart = myChart
+  var revs = [];
+  var groups = [];
+  var group_list = {{no_group}};
+  console.log('Dataset--------')
+  console.log(chart.data.datasets[0].data);
+  for (var i=0; i<group_list.length;i++) {
+    etherpad_group = '{{eth_group}}';
+    session_id = {{session.id}};
+    number = parseInt(i) + 1;
+    console.log('before:'+i+' after:'+number);
+    group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
+    // sending ajax request
+    url = '{{request.site.base_url}}/getRevCount/'+group_pad;
+    revisions = 0;
+    var result = await makeGetRequest(url);
+    revs.push(result.revisions);
+    group = 'group-' + number
+    groups.push(group);
+    chart.data.datasets[0].data[i]= result.revisions;
+    chart.data.labels[i]=group;
+    chart.update();
+    console.log('function called');
+    console.log(result);
+    data = result.revisions;
+    console.log(data);
+    //  revisions = data['revisions'];
+    console.log('Recieved:' + data);
+  }
+  console.log(revs);
+  console.log(groups);
 }
 setInterval(main,5000,myChart);
-
 </script>
-
 {% endblock %}
