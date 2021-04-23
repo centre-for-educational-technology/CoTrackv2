@@ -285,18 +285,19 @@
       var fd = new FormData();
       fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
       if (blobcount ==-1) {
+        console.log(blob.type);
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
         fd.append('description', startRecordingTime);
       }
       else {
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
-        fd.append('description', ServerDate.now());
+        fd.append('description', ServerDate());
       }
       fd.append('session',{{session}});
       fd.append('user',{{request.user.id}});
       fd.append('group',{{group}});
       fd.append('sequence',blobcount);
-      console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
+      //console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
       //console.log(fd);
       var xhr = new XMLHttpRequest();
       console.log('opening connection');
@@ -310,17 +311,10 @@
     function stopRecordingCallback() {
       var blob = recorder.getBlob();
       var blob = new File(data,'video.webm',{type:'vide/webm'})
+      console.log('Final file sending...');
       postBlob(blob,-1);
       console.log('Sending final file');
       recorder.microphone.stop();
-    }
-
-
-    function sendToServer(blob) {
-      blobcount =  blobcount + 1;
-      console.log('sending data:'+ blobcount);
-      data.push(blob);
-      postBlob(blob,blobcount);
     }
 
     function startRecording()
@@ -329,7 +323,8 @@
      console.log('start recording');
      captureMicrophone(function(microphone) {
        console.log('Creating recordRTC');
-       startRecordingTime = ServerDate.now();
+       startRecordingTime = ServerDate();
+       console.log(startRecordingTime);
        recorder = RecordRTC(microphone, {
          recorderType: MediaStreamRecorder,
          mimeType: 'video/webm',
@@ -352,10 +347,10 @@
 
     function stopRecording() {
       this.disabled = true;
-      startRecordingTime = null;
       var start_button = document.getElementById('btn-start-recording');
       start_button.disabled = false;
       recorder.stopRecording(stopRecordingCallback);
+      startRecordingTime = null;
     };
     document.getElementById('btn-start-recording').onclick = startRecording;
     document.getElementById('btn-stop-recording').onclick = stopRecording;
