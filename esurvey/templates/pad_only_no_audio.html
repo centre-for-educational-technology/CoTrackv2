@@ -1,4 +1,5 @@
 {% extends "base_form.html" %}
+{% load i18n %}
 {%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
 {%block content%}
   <style>
@@ -32,7 +33,7 @@
   </div>
  -->
 
-
+ {% language 'et' %}
 
       <div class="row card">
           <div class="step d-flex justify-content-between align-middle">
@@ -116,13 +117,13 @@
           <div class="col-xs-12">
               <div class="col-md-12 well ">
                   <h1>STEP 4</h1><hr/>
-                  We will appreciate you if you can fill the survey. It will allow us to better understand the collaboration behavior for your research. <br/><br/>
+                  {% trans 'We will appreciate you if you can fill the survey. It will allow us to better understand the collaboration behavior for your research.'%} <br/><br/>
                   {% include 'survey_form_updated.html'%}
               </div>
           </div>
       </div>
 
-
+      {% endlanguage%}
 
 
   <style>

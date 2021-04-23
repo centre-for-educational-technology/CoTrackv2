@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-23 11:26+0300\n"
+"POT-Creation-Date: 2021-04-23 12:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,21 +40,76 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:4 esurvey/templates/dashboard.html:10
+#: esurvey/templates/dashboard.html:4 templates/base_teacher.html:145
 msgid "Sessions"
 msgstr "Seansid"
 
-#: esurvey/templates/dashboard.html:20
+#: esurvey/templates/dashboard.html:13
 msgid "Active"
 msgstr "Aktiivne"
 
-#: esurvey/templates/dashboard.html:22 esurvey/templates/dashboard.html:24
+#: esurvey/templates/dashboard.html:15 esurvey/templates/dashboard.html:17
 msgid "Archived"
 msgstr "Arhiivitud"
 
-#: esurvey/templates/dashboard.html:29
+#: esurvey/templates/dashboard.html:22
 msgid "New session"
 msgstr "Uus seanss"
+
+#: esurvey/templates/pad_only_no_audio.html:43
+msgid "Consent"
+msgstr "Nõusolek"
+
+#: esurvey/templates/pad_only_no_audio.html:47
+msgid "Start recording"
+msgstr "Alusta salvestamist"
+
+#: esurvey/templates/pad_only_no_audio.html:51
+msgid "Do activity"
+msgstr "Tehke tegevust"
+
+#: esurvey/templates/pad_only_no_audio.html:55
+msgid "Stop recording"
+msgstr "Lõpeta salvestamine"
+
+#: esurvey/templates/pad_only_no_audio.html:59
+msgid "Fill survey"
+msgstr "Täitke küsitlus"
+
+#: esurvey/templates/pad_only_no_audio.html:69
+msgid "STEP"
+msgstr "SAMM"
+
+#: esurvey/templates/pad_only_no_audio.html:72
+msgid "Dear Participant"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:120
+msgid ""
+"You need to start the video recording. The recorded video will be saved on "
+"the server."
+msgstr ""
+"Peate alustama videosalvestust. Salvestatud video salvestatakse serverisse."
+
+#: esurvey/templates/pad_only_no_audio.html:151
+msgid "Write solution here"
+msgstr "Kirjutage lahendus siia"
+
+#: esurvey/templates/pad_only_no_audio.html:166
+msgid ""
+"After finishing your group activity, you can stop your recording. <br/>The "
+"button will be active after you start recording."
+msgstr ""
+"Pärast grupitegevuse lõpetamist saate salvestamise peatada. <br/>nupp on "
+"aktiivne pärast salvestamise alustamist."
+
+#: esurvey/templates/pad_only_no_audio.html:176
+msgid ""
+"We will appreciate you if you can fill the survey. It will allow us to "
+"better understand the collaboration behavior for your research."
+msgstr ""
+"Hindame teid, kui saate uuringu täita. See võimaldab meil seda teha paremini "
+"mõista oma uurimistöö koostöökäitumist."
 
 #: esurvey/templates/session.html:21
 msgid "Edit Session"
@@ -65,26 +120,33 @@ msgid "Create Session"
 msgstr "Loo seanss"
 
 #: esurvey/templates/session_student_entry.html:28
-#: esurvey/templates/student_session_home.html:33
+#: esurvey/templates/student_session_home.html:34
 msgid "Enter"
 msgstr "Sisenema"
 
-#: esurvey/templates/student_session_home.html:16
+#: esurvey/templates/student_session_home.html:13
+msgid "Instructor:"
+msgstr "Juhendaja:"
+
+#: esurvey/templates/student_session_home.html:17
 msgid "Leave session"
 msgstr "Seansist lahkumine"
 
-#: esurvey/templates/student_session_home.html:24
+#: esurvey/templates/student_session_home.html:25
 msgid "Groups"
 msgstr "Grupid"
 
-#: esurvey/templates/student_session_home.html:25
+#: esurvey/templates/student_session_home.html:26
 msgid "Link"
 msgstr "Link"
 
 #: esurvey/templates/survey_form_updated.html:85
 msgid ""
-"For the following questions, just indicate how much do you agree with the statement, from (1) strongly disagree to (5) strongly agree."
-msgstr "Järgmiste küsimuste korral märkige lihtsalt, kui palju olete nõus avaldus, alates (1) ei nõustu täielikult (5) olen täiesti nõus."
+"For the following questions, just indicate how much do you agree with the "
+"statement, from (1) strongly disagree to (5) strongly agree."
+msgstr ""
+"Järgmiste küsimuste korral märkige lihtsalt, kui palju olete nõus avaldus, "
+"alates (1) ei nõustu täielikult (5) olen täiesti nõus."
 
 #: esurvey/templates/survey_form_updated.html:89
 msgid ""
@@ -131,13 +193,7 @@ msgstr "Ma arvan, et grupis töötades õpime rohkem kui individuaalselt."
 msgid "Strongly Disagree"
 msgstr "Ei nõustu üldse"
 
-
-
-#: esurvey/templates/survey_form_updated.html:116
-msgid ""
-"I shared necessary materials and information for the project with other participants"
-msgstr "Jagasin ülesande jaoks vajalikke materjale ja infot teiste osalejatega."
-
+#: esurvey/templates/survey_form_updated.html:110
 #: esurvey/templates/survey_form_updated.html:137
 #: esurvey/templates/survey_form_updated.html:164
 #: esurvey/templates/survey_form_updated.html:191
@@ -177,10 +233,18 @@ msgstr "Jagasin ülesande jaoks vajalikke materjale ja infot teiste osalejatega.
 msgid "Strongly Agree"
 msgstr "Nõustun täielikult"
 
-#: esurvey/templates/survey_form_updated.html:143
-#, python-format
+#: esurvey/templates/survey_form_updated.html:116
 msgid ""
-" I felt responsible for the participants in the discussion forum."
+"I shared necessary materials and information for the project with other "
+"participants"
+msgstr ""
+"Jagasin ülesande jaoks vajalikke materjale ja infot teiste osalejatega."
+
+#: esurvey/templates/survey_form_updated.html:143
+#, fuzzy, python-format
+#| msgid " I felt responsible for the participants in the discussion forum."
+msgid ""
+" I felt responsible for the participants in the discussion forum. %(product)s"
 msgstr "Tundsin rühmatöös vastutust teiste osalejate eest."
 
 #: esurvey/templates/survey_form_updated.html:170
@@ -193,8 +257,10 @@ msgstr "Arutasime rühmakaaslastega, et täpsustada ülesande eesmärke."
 
 #: esurvey/templates/survey_form_updated.html:224
 msgid ""
-"Participants' ideas and opinions regarding the project were not interesting for me."
-msgstr "Osalejate ideed ja arvamused ülesande kohta ei olnud minu jaoks huvitavad."
+"Participants' ideas and opinions regarding the project were not interesting "
+"for me."
+msgstr ""
+"Osalejate ideed ja arvamused ülesande kohta ei olnud minu jaoks huvitavad."
 
 #: esurvey/templates/survey_form_updated.html:251
 msgid ""
@@ -236,8 +302,9 @@ msgid "I felt responsible to complete my work on time."
 msgstr "Tundsin end vastutavana, et oma töö õigeaegselt valmis jõuda."
 
 #: esurvey/templates/survey_form_updated.html:468
-#, python-format
-msgid "  I helped others to solve group problems."
+#, fuzzy, python-format
+#| msgid "  I helped others to solve group problems."
+msgid "  I helped others to solve group problems. %(product)s"
 msgstr "Ma aitasin teistel lahendada grupiprobleeme."
 
 #: esurvey/templates/survey_form_updated.html:495
@@ -262,7 +329,8 @@ msgstr "Ma arutasin teiste osalejate ideid."
 
 #: esurvey/templates/survey_form_updated.html:603
 msgid "I felt responsible to complete my work on the best way possible.  "
-msgstr "Tundsin end vastutavana, et lõpetada oma töö parimal võimalikul viisil."
+msgstr ""
+"Tundsin end vastutavana, et lõpetada oma töö parimal võimalikul viisil."
 
 #: esurvey/templates/survey_form_updated.html:630
 msgid "I demanded participants' ideas and opinions.  "
@@ -272,7 +340,8 @@ msgstr "Nõudsin osalejatelt ideid ja arvamusi seoses ülesandega."
 msgid ""
 "The participants of the discussion forum provided helpful feedback to each "
 "other regarding the course project."
-msgstr "Rühmatöös osalejad andsid üksteisele ülesande kohta kasulikku tagasisidet."
+msgstr ""
+"Rühmatöös osalejad andsid üksteisele ülesande kohta kasulikku tagasisidet."
 
 #: esurvey/templates/survey_form_updated.html:684
 msgid ""
@@ -301,7 +370,9 @@ msgstr "Püüdsin anda teistele kasulikku tagasisidet."
 
 #: esurvey/templates/survey_form_updated.html:847
 msgid "I tried to compliment people when I liked something they have done. "
-msgstr "Ma üritasin inimestele komplimente teha, kui mulle meeldis midagi, mida nad on teinud."
+msgstr ""
+"Ma üritasin inimestele komplimente teha, kui mulle meeldis midagi, mida nad "
+"on teinud."
 
 #: esurvey/templates/survey_form_updated.html:874
 msgid ""
@@ -337,7 +408,8 @@ msgstr "Ma näitasin üles initsiatiivi, jagades ülesanded osalejate vahel."
 msgid ""
 "I think that my success in the Project is also related to the contributions "
 "of others. "
-msgstr "Arvan, et minu edu rühmatöös on seotud ka teiste osalejate panusega töösse."
+msgstr ""
+"Arvan, et minu edu rühmatöös on seotud ka teiste osalejate panusega töösse."
 
 #: esurvey/templates/survey_form_updated.html:1063
 msgid "The participants always discussed my contributions. "
@@ -495,11 +567,14 @@ msgstr "Mul on lihtne panna CoTrackV2 tegema seda, mida ma tahan."
 msgid ""
 " Using CoTrackV2 in my class helps me to track activities during "
 "collaborative learning.  "
-msgstr "CoTrackV2 kasutamine oma klassis aitab mul jälgida tegevusi ajalkoostöös õppimine."
+msgstr ""
+"CoTrackV2 kasutamine oma klassis aitab mul jälgida tegevusi ajalkoostöös "
+"õppimine."
 
 #: esurvey/templates/survey_form_usability.html:223
 msgid " Using CoTrackV2 in my class enhances my teaching performance."
-msgstr "CoTrackV2 kasutamine minu klassis suurendab minu õpetamise tulemuslikkust."
+msgstr ""
+"CoTrackV2 kasutamine minu klassis suurendab minu õpetamise tulemuslikkust."
 
 #: esurvey/templates/survey_form_usability.html:250
 msgid " I find CoTrackV2 useful in my class. "
@@ -513,7 +588,9 @@ msgstr "CoTrackV2 kasutamine hõlbustab abivajavate rühmade tuvastamist."
 msgid ""
 " Using CoTrackV2 would make it easier to track group's activities in digital "
 "and physical settings. "
-msgstr "CoTrackV2 kasutamine hõlbustaks grupi tegevuste jälgimist digitaalses vormis ja füüsilised seaded."
+msgstr ""
+"CoTrackV2 kasutamine hõlbustaks grupi tegevuste jälgimist digitaalses vormis "
+"ja füüsilised seaded."
 
 #: esurvey/templates/survey_form_usability.html:333
 msgid "My using of CoTrackV2 is class is favourable. "
@@ -547,4 +624,13 @@ msgstr "Mulle meeldiks kasutada oma klassis CoTrackV2."
 msgid ""
 " I use CoTrackV2 to be informed about students' activities during "
 "collaborative learning."
-msgstr "Kasutan CoTrackV2-d, et olla kursis õpilaste tegevustega koostöös õppimine. "
+msgstr ""
+"Kasutan CoTrackV2-d, et olla kursis õpilaste tegevustega koostöös õppimine. "
+
+#: templates/base_teacher.html:146
+msgid "Usability Survey"
+msgstr ""
+
+#: templates/base_teacher.html:149
+msgid "Logout"
+msgstr "Logi välja"
