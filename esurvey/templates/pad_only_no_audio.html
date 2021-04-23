@@ -284,6 +284,8 @@
       console.log('postBlob called');
       var fd = new FormData();
       fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+
+      description = String(ServerDate()) + ';' + ServerDate.now();
       if (blobcount ==-1) {
         console.log(blob.type);
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
@@ -291,7 +293,7 @@
       }
       else {
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
-        fd.append('description', ServerDate());
+        fd.append('description', description);
       }
       fd.append('session',{{session}});
       fd.append('user',{{request.user.id}});
@@ -350,7 +352,7 @@
       var start_button = document.getElementById('btn-start-recording');
       start_button.disabled = false;
       recorder.stopRecording(stopRecordingCallback);
-      
+
     };
     document.getElementById('btn-start-recording').onclick = startRecording;
     document.getElementById('btn-stop-recording').onclick = stopRecording;
