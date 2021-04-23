@@ -265,7 +265,7 @@
     data = [];
     var recorder; // globally accessible
     var blobcount = 0
-
+    var startRecordingTime;
     user = {{request.user.id}};
 
 
@@ -286,11 +286,11 @@
       fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
       if (blobcount ==-1) {
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
-        fd.append('description', 'Final audio file');
+        fd.append('description', startRecordingTime);
       }
       else {
         fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
-        fd.append('description', 'Audio file chunks');
+        fd.append('description', ServerDate.now());
       }
       fd.append('session',{{session}});
       fd.append('user',{{request.user.id}});
@@ -329,6 +329,7 @@
      console.log('start recording');
      captureMicrophone(function(microphone) {
        console.log('Creating recordRTC');
+       startRecordingTime = ServerDate.now();
        recorder = RecordRTC(microphone, {
          recorderType: MediaStreamRecorder,
          mimeType: 'video/webm',
@@ -351,6 +352,7 @@
 
     function stopRecording() {
       this.disabled = true;
+      startRecordingTime = null;
       var start_button = document.getElementById('btn-start-recording');
       start_button.disabled = false;
       recorder.stopRecording(stopRecordingCallback);
