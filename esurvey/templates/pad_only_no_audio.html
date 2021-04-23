@@ -39,19 +39,19 @@
           <div class="step d-flex justify-content-between align-middle">
               <div id="div1" class="col-3 activestep text-center" onclick="javascript: resetActive(event, 0, 'step-1');">
                   <span class="fa fa-camera "></span>
-                  <p>Start recording</p>
+                  <p>{% trans 'Start recording'%}</p>
               </div>
               <div class="col-3 text-center" onclick="javascript: resetActive(event, 20, 'step-2');">
                   <span class="fa fa-group"></span>
-                  <p>Do activity</p>
+                  <p>{% trans 'Do activity'%}</p>
               </div>
               <div class="col-3 text-center" onclick="javascript: resetActive(event, 40, 'step-3');">
                   <span class="fa fa-stop-circle"></span>
-                  <p>Stop recording</p>
+                  <p>{% trans 'Stop recording'%}</p>
               </div>
               <div class="col-3 text-center" onclick="javascript: resetActive(event, 60, 'step-4');">
                   <span class="fa fa-edit"></span>
-                  <p>Fill survey</p>
+                  <p>{% trans 'Fill survey'%}</p>
               </div>
 
 
@@ -61,8 +61,8 @@
       <div class="row setup-content step activeStepInfo" id="step-1">
           <div class="col-xs-12">
               <div class="col-md-12 well ">
-                  <h1>STEP 1</h1><hr/>
-                  You need to start the video recording. The recorded video will be saved on the server.<br/><br/>
+                  <h1>{% trans 'STEP'%} 1</h1><hr/>
+                  {% trans 'You need to start the video recording. The recorded video will be saved on the server.'%}<br/><br/>
                   <button id="btn-start-recording" class='btn btn-success ' title="It will start video recording and save it on the server.">Start recording</button>
 
               </div>
@@ -73,7 +73,7 @@
       <div class="row setup-content step hiddenStepInfo" id="step-2">
           <div class="col-xs-12">
               <div class="col-md-12">
-                  <h1>STEP 2</h1><hr/>
+                  <h1>{% trans 'STEP'%} 2</h1><hr/>
 
                   <form action="" method="post">
                     {% csrf_token %}
@@ -81,7 +81,7 @@
                   </form>
                   <div class='card'>
                     <h3 class='card-header text-white bg-info border-info'>
-                      Task
+                      {% trans 'Task'%}
                     </h3>
                     <div class='card-body'>
                       {{session_obj.problem | safe}}
@@ -91,7 +91,7 @@
                   <br/>
                   <div class='card'>
                     <h3 class='card-header text-white bg-info border-info'>
-                      Write solution here
+                      {% trans 'Write solution here'%}
                     </h3>
                     <div class='cardbody' id='space'>
                       <!--<iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
@@ -104,10 +104,9 @@
       <div class="row setup-content step hiddenStepInfo" id="step-3">
           <div class="col-xs-12">
               <div class="col-md-12 well">
-                  <h1>STEP 3</h1><hr/>
+                  <h1>{% trans 'STEP'%} 3</h1><hr/>
 
-                  After finishing your group activity, you can stop your recording.
-                  The button will be active after you start recording.
+                  {% trans 'After finishing your group activity, you can stop your recording.<br/>The button will be active after you start recording.'%}
                   <br/><br/>
                     <button id="btn-stop-recording" disabled class='btn btn-success ' title="It will stop video recording.">Stop recording</button>
               </div>
