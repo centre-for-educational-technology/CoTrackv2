@@ -49,13 +49,11 @@
   <br/>
   <br/>
   <hr/>
-  <h2>
-    Hello
-  </h2>
+
   <div class='container'>
     {% for g in no_group%}
       {% if forloop.counter|modulo:3 == 1%}
-        <div id='audio_dash' class='row'>
+        <div id='audio_dash' style="display:none;" class='row'>
       {% endif%}
       <div class='col col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12'>
         <div class="card">
@@ -83,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div id='eth_dash' class='col col-8'>
+      <div id='eth_dash' style="display:none;" class='col col-8'>
         <div class="card">
           <div class='card-body'>
             <h4 class='card-title'> Etherpad activity </h4><hr/>
