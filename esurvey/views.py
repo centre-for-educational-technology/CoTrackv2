@@ -535,7 +535,7 @@ def sessionFilter(request,filter):
     else:
         projects = []
         if filter == 'archived':
-            sessions = Session.objects.all().filter(status=False)
+            sessions = Session.objects.all().filter(owner=request.user).filter(status=False)
             if sessions.count() == 0:
                 messages.warning(request,'There are no archived project')
             else:
