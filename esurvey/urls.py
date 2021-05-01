@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth.decorators import login_required
 from .views import CompleteForm, CREATE_FORMS
+initial = {'activity_info':{'new':False}}
 
 urlpatterns = [
     path("esurvey/collaboration/<session>/<group>", login_required(views.surveyForm), name="survey_form"),
@@ -12,9 +13,9 @@ urlpatterns = [
     path("projects/<project_id>/<type>", login_required(views.projectAction), name="project_action"),
     path("projects/filter/<filter>", login_required(views.filterProjects), name="project_filter"),
     path("sessions/filter/<filter>", login_required(views.sessionFilter), name="session_filter"),
-    path("session/<session_id>/edit", login_required(views.editSession),name="edit_session"),
+    path("session/<session_id>/edit", login_required(views.edit),name="edit_session"),
 
-    path("sessions/new", login_required(views.createSession), name='create_session'),
+    path("sessions/new", login_required(CompleteForm.as_view(CREATE_FORMS)), name='create_session'),
     path("sessions/", login_required(views.overview), name="project_home"),  # <-- added
 
     path("sessions/activate/<session_id>", login_required(views.activateSession), name="session_activate"),

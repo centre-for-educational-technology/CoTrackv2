@@ -1,0 +1,224 @@
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <br/>
+  <style>
+    .django-toggle-switch-success input:checked + .django-toggle-switch-slider, input:checked + .django-toggle-switch-slider {
+      background-color: #06ad3d;
+      boarder-radius: 25px;
+    }
+    .django-toggle-switch-slider::before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 10px;
+    }
+    .django-toggle-switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 25px;
+    }
+  </style>
+  <form action="" method="post">{% csrf_token %}
+    <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} session </h2>
+    <hr/><br/>
+    {{ wizard.management_form }}
+    {% include 'create_session_process_step.html'%}
+    <br/><br/>
+    <div class='row'>
+      <div class='col col-lg-8 col-md-8'>
+        {% if wizard.form.forms %}
+          {{ wizard.form.management_form }}
+          {% for form in wizard.form.forms %}
+          {% endfor %}
+        {% else %}
+        <div class="card bg-white">
+          <div class="card-body">
+            <h4 class='card-title'>Configuration</h4><br/>
+            <div class='row '> <div class='col'>Add Etherpad <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useEtherpad"></i></span></div> <div class='col'> {{form.useEtherpad}}</div></div>
+            <div class='row '> <div class='col'>Add Audio-Video Chat <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useAVchat"></i></span> </div> <div class='col'> {{form.useAVchat}}</div></div>
+          </div>
+        </div> <br/>
+        <div class="card bg-white">
+          <div class="card-body">
+            <h4 class='card-title'>Recording <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#audio_video"></i></span></h4><br/>
+            <div class='row '> <div class='col'>Audio only </div> <div class='col'> {{form.record_audio}}</div></div>
+            <div class='row '> <div class='col'>Audio and Video  </div> <div class='col'> {{form.record_audio_video}}</div></div>
+          </div>
+        </div>
+
+            <div class="modal fade" id="useEtherpad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Etherpad: A collaborative text editor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    Etherpad is a collaborative text editor just like Google docs. However, it allows instructor to track and see participants' contribution in terms of who wrote what at what time.<br/> Therefore, it comes with participants' activities tracking capabilities.
+                    <br/><br/>
+                    <b> A small demo is given below </b> <br/><br/>
+                    <img class='img-thumbnail' src="{% static 'assets/images/etherpad_demo.gif'%}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="useAVchat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Audio & Video chat</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    This support will add audio-video chat feature to your learning space. <br/>
+                    So, when the participants join, they will be able to communicate throught audio-video channels.
+                    <br/><br/>
+                    If the session is happening in face-to-face settings in that case this feature is not needed, hence, can be disabled for those sessions.
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="audio_video" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Tracking/Recording</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    This feature enable CoTrack to track and record audio & video data from learning activity. <br/>
+                    It will also instructor to monitor participants' behavior in terms of the following
+                    <ul>
+                      <li>Social dynamics: Who is talking after whom and how much are they talking.</li>
+                      <li>Emotion swing: How participant's emotions are changing.</li>
+                      <li>Body movement: How active participants are during the learning activity.</li>
+                      <li>Collaboration: How well groups are collaborating.</li>
+                      <li>Engagement: How engaged participants are during the activity.</li>
+                    </ul>
+                    <br/><br/>
+                    Some of the above mentioned features are already available in the CoTrackv2. <br/>The collected data will help to add remaining featuers in the CoTrackV2.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+      <!--Form end -->
+
+
+
+
+
+{% endif %}
+ </div>
+
+</div>
+<br/>
+<a class='mr-2'   href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+{% if wizard.steps.prev %}
+
+<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input id='submitButton' type="submit" class='btn btn-primary'  value="{% trans "Continue" %}" />
+
+</form>
+
+</div>
+<script>
+
+
+
+
+  $('#submitButton').click(function () {
+      $('input:invalid').each(function () {
+          // Find the tab-pane that this element is inside, and get the id
+          var $closest = $(this).closest('.tab-pane');
+          var id = $closest.attr('id');
+
+          // Find the link that corresponds to the pane and have it show
+          $('.nav a[href="#' + id + '"]').tab('show');
+
+          // Only want to do it once
+          return false;
+      });
+  });
+
+
+
+
+
+  $(document).ready(function() {
+    var d = new Date();
+    var today = d.getFullYear() +"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+ ("0" + d.getDate()).slice(-2);
+    var tomorrow = d.getFullYear()+1 +"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+ ("0" + d.getDate()).slice(-2);
+
+
+    var type = {{type}};
+
+    for(i=type+1;i<=5;i++){
+
+      console.log('calling '+i);
+
+
+          //$("#id_survey-name_of_survey"+i).val("lemo");
+          $("#id_survey-questionnaire_language"+i).val("En");
+          $("#id_survey-start_date"+i).val(today);
+          $("#id_survey-end_date"+i).val(tomorrow);
+          $("#id_survey-product_name"+i).val('dd');
+          $("#id_survey-survey_owner"+i).val('demo');
+          $("#id_survey-survey_owner_email"+i).val('c@gmail.com');
+          $("#id_survey-title"+i).val("demo");
+          $("#id_survey-paragraph"+i).val("demo");
+
+
+    }
+
+
+    console.log(today);
+    console.log(tomorrow);
+
+
+
+
+
+
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
+</script>
+{% endblock %}

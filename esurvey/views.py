@@ -1,38 +1,49 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, AnonyForm, SessionForm, AudioflForm, VADForm
-from formtools.wizard.views import SessionWizardView
-from django import forms
-from django.db import transaction
-from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability
-from django.contrib import messages
-import uuid
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.db.models import Count
 from django.db.models import Sum
-from datetime import date
-from django.db import transaction
-import uuid
+from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
-from .models import Audiofl
-import datetime
-import re
 from django.conf import settings
-import time
-import csv
-
-from esurvey.models import Role
-
-
+from django import forms
+from django.db import transaction
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
-
-
+from django.db import transaction
 
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+import datetime
+import re
+import time
+import csv
+import uuid
+from datetime import date, timedelta
+from formtools.wizard.views import SessionWizardView
+
+from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, AnonyForm, SessionForm, AudioflForm, VADForm
+from .models import  Pad,Session,  SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ
+from .models import Audiofl
+from esurvey.models import Role
+
+
+
+CREATE_FORMS = (
+    ("activity_info", CreateForm1),
+    ("task", CreateForm2),
+    ("config", CreateForm3),
+    ("overview",lastForm))
+
+TEMPLATES = {"activity_info": "create_activity_info.html",
+             "task": "create_task.html",
+             "config": "create_config.html",
+             "overview": "create_summary.html"}
+
+
+
 ################### Changeset Processing ######################
 def changeset_parse (c) :
     changeset_pat = re.compile(r'^Z:([0-9a-z]+)([><])([0-9a-z]+)(.+?)\$')
@@ -148,19 +159,9 @@ def isTeacher(request):
     else:
         return False
 
-
-CREATE_FORMS = (
-    ("questionnaire", CreateForm1),
-    ("product", CreateForm2),
-    ("participants", CreateForm3),
-    ("editq", CreateForm4),
-    ("overview",lastForm))
-
-TEMPLATES = {"questionnaire": "create.html",
-             "product": "create.html",
-             "participants": "create.html",
-             "editq": "create.html",
-             "overview": "overview.html"}
+def isAdmin(request):
+    current_user = request.user
+    return current_user.is_staff
 
 
 
@@ -456,7 +457,48 @@ def createSession(request):
 
 
 
+def edit(request,session_id):
+    print('edit called')
+    sessions = Session.objects.all().filter(id=session_id)
+    if sessions.count() ==0:
+        messages.error(request,'Invalid project id')
+        return redirect('project_home')
+    session = sessions.first()
+    if  (session.owner != request.user) and (not request.current_user.is_staff):
+        messages.error(request,'You do not have edit rights for this session')
+        return redirect('project_home')
+    form1 = {}
+    form2 = {}
+    form3 = {}
+    form4 = {}
 
+    # form1 data
+    form1['edit_session'] = str(session.id)
+    form1['s_id'] = session.id
+    form1['name'] = session.name
+    form1['groups'] = session.groups
+    form1['language'] = session.language
+    form1['duration_days'] = session.duration.days
+    form1['duration_hours'] = session.duration.seconds // 3600
+    form1['duration_minutes'] =  ( session.duration.seconds // 60) % 60
+    form1['new'] = int(session.id)
+
+
+
+    # form2 data
+    form2['learning_problem'] = session.learning_problem
+
+    # form3 data
+    form3['useEtherpad'] = session.useEtherpad
+    form3['useAVchat'] = session.useAVchat
+    form3['record_audio'] = session.record_audio
+    form3['record_audio_video'] = session.record_audio_video
+
+    #form4 data
+    form4['allow_access'] = session.access_allowed
+    initial = {'activity_info':form1,'task':form2,'config':form3,'overview':form4}
+    print('Initial:',initial)
+    return CompleteForm.as_view(CREATE_FORMS,initial_dict=initial)(request)
 
 
 @transaction.atomic
@@ -736,7 +778,7 @@ from urllib.parse import quote
 def overview(request):
     sessions = Session.objects.all().filter(owner=request.user).filter(status=True)
 
-    if isTeacher(request):
+    if isTeacher(request) or isAdmin(request):
         return render(request, "dashboard.html",{'sessions':sessions})
     else:
         messages.warning(request,'You do not have teacher privilege to access this page.')
@@ -1284,43 +1326,161 @@ def getSession(request,session_id):
         return redirect('project_home')
     else:
         session = Session.objects.get(id=session_id)
-
         session_group = SessionGroupMap.objects.get(session=session)
-
-
-
         eth_group = session_group.eth_groupid
-
         request.session['ethsid'] = eth_group
-
         print('Passing session id:',session)
-
         return render(request,'session_main.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL})
 
 
+
+
+
+
+
 class CompleteForm(SessionWizardView):
+    type_of_study = -1
+
+    def updateEtherpad(self,s,old_groups,new_groups,old_use,new_use):
+        """
+        function to update the groups and pads in Etherpad.
+        s : session object
+        old_groups: number of groups before change
+        new_groups: number of groups after change
+        old_use: setting of useEtherpad before change
+        new_use: setting of useEtherpad after change
+        """
+        group_diff = new_groups - old_groups
+        if (not old_use) and (new_use):
+            self.prepareEtherpad(s,new_groups)
+        if (old_use) and (not new_use):
+            self.deleteEtherpad(s)
+        if (old_use and new_use):
+            if (group_diff > 0):
+                sgm = SessionGroupMap.objects.filter(session=s)
+                print('group-diff',group_diff)
+                for g in range(group_diff):
+                    g =  g +  old_groups + 1
+                    print('Creating pad for group-',g)
+                    pad_name = 'session_'+str(s.id)+'_'+'group'+'_'+str(g)
+                    print(' Creating pad:',pad_name,' with Groupid:',sgm[0].eth_groupid)
+                    res = call('createGroupPad',{'groupID':sgm[0].eth_groupid,'padName':pad_name},request=self.request)
+                    print(res)
+                    if res["code"] == 0:
+                        Pad.objects.create(session=s,eth_padid=res['data']['padID'],group=g)
+                        #@todo: add code to handle etherpad exception is call gets failed
+                    else:
+                        messages.error(self.request,'Error occurred while creating pads. Check Etherpad server settings.')
+                        return redirect('project_home')
+            else:
+                group_diff = abs(group_diff)
+                for g in range(group_diff):
+                    del_group = g + new_groups + 1
+                    Pad.objects.filter(group=del_group).delete()
+        messages.success(self.request,'Session is successfully updated.')
+
+    @transaction.atomic
+    def deleteEtherpad(self,s):
+        print('Deleting pads')
+        sgm_objects = SessionGroupMap.objects.filter(session=s)
+        if sgm_objects.count() > 0:
+            sgm_object = sgm_objects.first()
+            x = call('deleteGroup',{'groupID':sgm_object.eth_groupid},request=self.request)
+            Pad.objects.filter(session=s).delete()
+            SessionGroupMap.objects.filter(session=s).delete()
+            print('Etherpad group in deleted')
+    @transaction.atomic
+    def prepareEtherpad(self,s,groups):
+        x = call('createGroup',request=self.request)
+        if ( x["code"] == 0):
+            groupid = x["data"]["groupID"]
+            print('Group created successfully:',groupid)
+            sgm = SessionGroupMap.objects.create(session=s,eth_groupid=x["data"]["groupID"])
+            for g in range(groups):
+                g =  g + 1
+                pad_name = 'session_'+str(s.id)+'_'+'group'+'_'+str(g)
+                print(' Creating pad:',pad_name,' with Groupid:',groupid)
+                res = call('createGroupPad',{'groupID':groupid,'padName':pad_name},request=self.request)
+                print(res)
+                if  res["code"] == 0:
+                    Pad.objects.create(session=s,eth_padid=res['data']['padID'],group=g)
+                    print('Pad created:',g)
+                else:
+                    messages.error(self.request,'Error occurred while creating pads. Check your Etherpad server settings.')
+                    return redirect('project_home')
+
     def get_template_names(self):
         return [TEMPLATES[self.steps.current]]
 
+    def get_form(self, step=None, data=None, files=None):
+        form = super().get_form(step, data, files)
+
+        if step is None:
+            step = self.steps.current
+        return form
+
     def get_context_data(self, form, **kwargs):
         context = super(CompleteForm, self).get_context_data(form=form, **kwargs)
-        if self.steps.current == 'overview':
+        data = self.get_all_cleaned_data()
+        if self.steps.current == 'activity_info':
+            print('Step-1')
+            print(data)
+        if self.steps.current == 'task':
+            print('Step-2')
+            print(data)
+
+        if self.steps.current =='overview':
+            data = self.get_all_cleaned_data()
+            new = data['new']
             context.update({'all_data': self.get_all_cleaned_data()})
         return context
-
 
     @transaction.atomic
     def done(self, form_list, **kwargs):
         print('done called')
         all_data = self.get_all_cleaned_data()
-        print(all_data)
         current_user = self.request.user
-        project = Project.objects.create(user=current_user,questionnaire_type=all_data['type_questionnaire'],project_name=all_data['project_name'],project_type=all_data['project_type'],test_project=all_data['test_project'],project_status=all_data['project_status'])
-        survey = Survey.objects.create(project=project,start_date = all_data['start_date'],end_date=all_data['end_date'],survey_name = all_data['name_of_survey'],product_name=all_data['product_name'],product_type=all_data['project_type'],product_industry=all_data['product_industry'], title=all_data['title'],subtitle=all_data['subtitle'],paragraph=all_data['paragraph'])
+        if all_data['new'] == -1:
+            print('New project')
+            while True:
+                u_pin = uuid.uuid4().hex[:6].upper()
+                objs = Session.objects.filter(pin = u_pin)
+                if objs.count() == 0:
+                    break
+            duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
+            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=all_data['learning_problem'],language=all_data['language'],access_allowed=all_data['session_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration,pin=u_pin)
 
-        for i in range(int(all_data['project_type'])):
-            survey_url = Link.objects.create(survey=survey,sequence=(i+1))
+            if all_data['useEtherpad']:
+                self.prepareEtherpad(s,all_data['groups'])
+            else:
+                messages.error(self.request,'Error occurred while creating session. Check your Etherpad server settings.')
+                return redirect('project_home')
+            messages.success(self.request, 'Session is created successfully !')
+        else:
+            print('Edit handler called')
+            session_id = int(all_data['new'])
+            session = Session.objects.get(id=session_id)
+            org_groups = session.groups # existing group number
+            org_useEtherpad = session.useEtherpad
+            updated_groups = all_data['groups']
+            updated_useEtherpad = all_data['useEtherpad']
 
+            duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
+            session.owner=current_user
+            session.name=all_data['name']
+            session.groups=all_data['groups']
+            session.learning_problem=all_data['learning_problem']
+            session.language=all_data['language']
+            session.access_allowed=all_data['session_access']
+            session.status=True
+            session.assessment_score=0
+            session.useEtherpad=all_data['useEtherpad']
+            session.useAVchat=all_data['useAVchat']
+            session.record_audio=all_data['record_audio']
+            session.record_audio_video=all_data['record_audio_video']
+            session.data_recording_session=False
+            session.duration=duration
+            self.updateEtherpad(session,org_groups,updated_groups,org_useEtherpad,updated_useEtherpad)
+            session.save()
 
-        messages.success(self.request, 'Project created successfully !')
         return redirect('project_home')

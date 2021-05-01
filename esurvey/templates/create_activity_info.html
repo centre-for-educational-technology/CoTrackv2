@@ -1,0 +1,167 @@
+
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}   {% endblock %}
+
+
+
+{% block content %}
+<br/>
+<style>
+
+</style>
+<form action="" method="post">{% csrf_token %}
+  <h2> {%if form.new.value == False %}Edit {% else %} New {% endif %} session </h2>
+  <hr/><br/>
+  {{ wizard.management_form }}
+  {% include 'create_session_process_step.html'%}
+
+
+<br/>
+<br/>
+<div class='row'>
+ <div class='col col-lg-6 col-md-6 col-sm-12 card'>
+   <div class="card-body">
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    {% endfor %}
+{% else %}
+  <div class='row'>{{form.name.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_name"></i></span>{{form.name}}</div> <br/>
+  <div class='row'>  {{form.groups.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_type"></i></span>{{form.groups}}</div> <br/>
+  <div class='row'>{{form.language.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#product_type"></i></span>{{form.language}}</div> <br/>
+  <div class='row'>  Activity duration<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#industry"></i></span> </div>
+    <div class='row pl-0'>
+      <div class='col pl-0'>
+        {{form.duration_days}}
+      </div>
+      <div class='col'>
+        {{form.duration_hours}}
+      </div>
+      <div class='col pr-0'>
+        {{form.duration_minutes}}
+      </div>
+    </div>
+
+  {{form.new}}
+  {{form.project_id}}
+
+{% endif %}
+
+  </div>
+
+ </div>
+  <div class='col'>
+    <div class="modal fade" id="study_name" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Session name</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>This is the title of session. Here, session refers to a learning activity which can be for individual or groups. </p>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+
+    <div class="modal fade" id="study_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Number of groups</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+            <b> Individual </b> <br/>
+            <p> If you are creating a session for entire class then you can simply specify number of groups as one.</p><br/>
+            <b> Collaborative learning </b> <br/>
+            <p> If you are creating a session for group learning then you can specify the number of groups which will be in the session. You can later change the number of groups. </p><br/>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+    <div class="modal fade" id="product_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Language</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>Specify the language of instructions. The participants will see all the instructions in the specified langauge.</p>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+    <div class="modal fade" id="industry" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Duration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>This is the time duration of the planned activity.</p>
+              </div>
+
+        </div>
+      </div>
+    <!-- End -->
+
+    </div>
+  </div>
+
+  </div>
+
+
+<br/><br/>
+<a class='mr-2'   href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+{% if wizard.steps.prev %}
+
+<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input type="submit" class='btn btn-primary'  value="{% trans "Continue" %}" />
+
+</form>
+
+</div>
+<script>
+  $(document).ready(function() {
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
+</script>
+{% endblock %}

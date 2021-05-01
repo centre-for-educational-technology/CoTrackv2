@@ -1,0 +1,66 @@
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br/>
+<form action="" method="post">{% csrf_token %}
+  <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} Session </h2>
+  <hr/><br/>
+  {{ wizard.management_form }}
+  {% include 'create_session_process_step.html'%}
+  <br/><br/>
+  <div class='row'>
+    <div class='col col-lg-12 col-md-12 col-sm-12'>
+      {% if wizard.form.forms %}
+        {{ wizard.form.management_form }}
+        {% for form in wizard.form.forms %}
+
+        {% endfor %}
+      {% else %}
+      <div class='card'>
+        <div class='card-body bg-white'>
+          <div class='row'>Learning task <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#invite"></i></span>
+            {{form.learning_problem}}</div> <br/><br/>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div class='col'>
+      <div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Specify task/activity</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              <b> Learning task </b><br/>
+               Learning task is what participants are supposed to do during the activity. You can specify the task or activity here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/><br/>
+  <a class='mr-2' style='text-decoration:underline;'   href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+  {% if wizard.steps.prev %}
+    <button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+  {% endif %}
+  <input type="submit" class='btn btn-primary'  value="{% trans "Continue" %}" />
+</form>
+
+<script>
+  $(document).ready(function() {
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
+</script>
+{% endblock %}
