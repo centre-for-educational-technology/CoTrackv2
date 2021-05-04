@@ -1,7 +1,9 @@
+{% extends "base_form.html" %}
 
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% block content%}
+{% block content %}
+<div class='container'>
 <div class="d-flex justify-content-center">  <h2 class='text-primary' > Self-Reported Questionnaire </h2> </div>
 <br/><br/>
 
@@ -78,7 +80,7 @@
 <input type='hidden' name='group' value={{group}}/>
 
 
-<div class='card bg-white' style="border-style: none;">
+<div class='card bg-white shadow-lg' style="border-style: none;">
   <div class='card-body'>
     <div class='row pb-4'>
 
@@ -1253,17 +1255,12 @@
 </div>
 -->
 <br/>
-
-{% if wizard.steps.prev %}
-
-<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
-{% endif %}
-<input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit & Exit" %}" />
+<input type="submit" class='btn btn-info btn-lg pr-5 pl-5 mb-5 float-right'  value="{% trans "Submit & Exit" %}" />
 
 <!-- old format
 <input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit" %}" />
 -->
 </form>
 <br/><br/>
-
+</div>
 {% endblock %}

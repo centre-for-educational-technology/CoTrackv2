@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <br/>
+<div class='container min-vh-100'>
 <form action="" method="post">{% csrf_token %}
   <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} Session </h2>
   <hr/><br/>
@@ -63,4 +64,5 @@
   })
 });
 </script>
+</div>
 {% endblock %}

@@ -47,7 +47,14 @@ class Session(models.Model):
     record_audio_video = models.BooleanField(default=False)     #whether to record audio and video both during the activity
     data_recording_session = models.BooleanField(default=False) #whether the session is just for data collection purposes
     pin = models.CharField(max_length=6)
-                          #to access the session
+
+# Consents
+class Consent(models.Model):
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    given_at = models.DateTimeField(auto_now_add=True)
+
+                      #to access the session
 # Model for storing mapping for Etherpad users
 class AuthorMap(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)  #user
@@ -119,15 +126,17 @@ class Speech(models.Model):
 class activityLog(models.Model):
     session = models.ForeignKey(Session,on_delete=models.CASCADE)
     actor = models.ForeignKey(User,on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(blank=True)
+    timestamp = models.DateTimeField(auto_now=True)
     verb = models.TextField(blank=True)
     object = models.TextField(blank=True)
 
 # To store observation data
 class observationData(models.Model):
     session = models.ForeignKey(Session,on_delete=models.CASCADE)
-    timestamp = models.DateTimeField(blank=True)
+    timestamp = models.DateTimeField(auto_now=True)
     observation = models.TextField(blank=True)
+
+
 
 # Collaboration questionnaire based on jhonson & jhonson work
 class CollaborationQ(models.Model):
@@ -211,3 +220,5 @@ admin.site.register(SessionGroupMap)
 admin.site.register(AuthorMap)
 admin.site.register(Role)
 admin.site.register(UsabilityQ)
+admin.site.register(activityLog)
+admin.site.register(VAD)

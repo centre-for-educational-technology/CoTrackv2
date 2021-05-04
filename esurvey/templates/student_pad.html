@@ -1,0 +1,242 @@
+{% extends "base_form.html" %}
+{% load i18n %}
+{%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
+{%block content%}
+
+    <div class='row' id='teacher_msg'>
+    </div>
+    <div class='row' id='record_status'>
+    </div>
+    <div class="d-flex flex-row-reverse">
+      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording(); alert('Recording is stopped.'); return true" href="{% url 'survey_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> Exit</a>
+      <div class="btn btn-warning btn-lg m-2"> <span class="fa fa-hand-paper-o"></span> Ask teacher for help</div>
+
+    </div>
+
+    <div class="row" >
+      <div id='avchat'  class='col col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 card shadow-lg' >
+      <!--  <iframe class='sticky-top' allow="camera https://www.cojitsi.website; microphone https://www.cojitsi.website; " style="height:40vh;"   frameBorder='0' src="https://www.cojitsi.website/{{padname}}" allowfullscreen>
+        </iframe> -->
+      </div>
+
+      <div id='etherpad' class="col  card  shadow-lg p-5 col-12 col-lg-8 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
+          <h1>Learning sapce</h1><hr/>
+          <div class='card'>
+            <h3 class='card-header text-white bg-info border-info'>
+              Task
+            </h3>
+            <div class='card-body'>
+              {{session.learning_problem | safe}}
+            </div>
+          </div>
+          <br/>
+          <br/>
+          <div class='card' id='space'>
+            <h3 class='card-header text-white bg-info border-info'>
+              {% trans 'Write solution here'%}
+            </h3>
+            <div class='cardbody'>
+              <!--<iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+              </iframe> -->
+            </div>
+          </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+      $("#exit").click(function(e){
+        e.preventDefault();
+        var href = $(this).attr("href"),
+        message = $(this).attr("data-message");
+        stopRecording();
+        alert("Recording will be stopped before exiting.");
+        window.location.href = href;
+      });
+
+
+      data = [];
+      var recorder; // globally accessible
+      var blobcount = 0;
+
+      var audio_video_chat = {{session_obj.useAVchat | lower}};
+      var record_audio = {{session_obj.record_audio | lower}};
+      var record_audio_video = {{session_obj.record_audio_video | lower}};
+
+      console.log(audio_video_chat,record_audio,record_audio_video);
+
+      var startRecordingTime;
+      user = {{request.user.id}};
+      var video_stream, audio_stream;
+      //vad.js start
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      var audioContext = new AudioContext();
+
+      // Hide audio/video chat if chat option is disabled
+
+      if (! audio_video_chat) {
+        console.log('removing div');
+        $("#avchat").hide();
+        $("#etherpad").attr('class', '');
+        $("#etherpad").addClass("col  card  shadow-lg col-12");
+
+        $("#container").attr('class', '');
+        $("#container").addClass("container min-vh-100");
+      }
+
+
+      if (audio_video_chat || record_audio_video) {
+        console.log('Caputing media');
+        navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+        navigator.getUserMedia({audio: true, video:true}, getStream, function(e) {
+                console.log("No live audio input in this browser: " + e);
+        });
+      }
+
+      function getStream(stream) {
+        console.log('Capturing video stream');
+        video_stream = stream;
+        audio_stream = new MediaStream(stream.getAudioTracks());
+        startVAD(audio_stream);
+      }
+
+      function getAudioStream(stream) {
+        console.log('Capturing audio stream');
+        audio_stream = stream;
+        startVAD(audio_stream);
+      }
+
+      if (typeof audio_stream == 'undefined' && record_audio){
+        console.log('Chat is disablbed and capturing media for audio');
+        navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+        navigator.getUserMedia({audio: true}, getAudioStream, function(e) {
+                console.log("No live audio input in this browser: " + e);
+        });
+      }
+      function startVAD(stream)
+      {
+        console.log('Running VAD');
+        // Create MediaStreamAudioSourceNode
+        var source = audioContext.createMediaStreamSource(stream);
+        var voice_start_time = 0;
+        // Setup options
+        var options = {
+         source: source,
+         voice_stop: function() {
+           var speak_time = new Date() - voice_start_time;
+
+           console.log('voice_stop');
+           console.log('sending',speak_time);
+
+           var fd = new FormData();
+           fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+           fd.append('session',{{session}});
+           fd.append('user',{{request.user.id}});
+           fd.append('group',{{group}});
+           fd.append('strDate',ServerDate.now());
+           fd.append('activity',speak_time);
+           var xhr = new XMLHttpRequest();
+
+           xhr.open('POST', '/vad_upload/', true);
+           xhr.send(fd);
+           console.log(' ===> Sent: voice_stop');
+         },
+         voice_start: function() {
+           voice_start_time = new Date();
+           console.log('voice_start');
+         }
+        };
+
+        // Create VAD
+        var vad = new VAD(options);
+      }
+
+      if (record_audio && audio_stream) {
+        startRecording(audio_stream);
+        console.log('Started audio recording');
+      } else if (record_audio_video && video_stream) {
+        startRecording(video_stream);
+        console.log('Started video recording');
+      }
+
+      function captureMicrophone(callback) {
+        console.log('capturing camera ...');
+        //navigator.getUserMedia = navigator.getUserMedia || navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia;
+        navigator.getUserMedia({audio: true, video:true}, callback, function(error) {
+          alert('Unable to access your camera.');
+          console.error(error);
+          });
+        }
+
+
+      function postBlob(blob,blobcount){
+        console.log('postBlob called');
+        var fd = new FormData();
+        fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+
+        description = String(ServerDate()) + ';' + ServerDate.now();
+        if (blobcount ==-1) {
+          console.log(blob.type);
+          fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_Final_file.' + blob.type.split('/')[1]);
+          fd.append('description', startRecordingTime);
+        }
+        else {
+          fd.append('data_blob', blob, + {{session}} + '_' + {{group}}+'_'+ user + '_' + blobcount +'.' + blob.type.split('/')[1]);
+          fd.append('description', description);
+        }
+        fd.append('session',{{session}});
+        fd.append('user',{{request.user.id}});
+        fd.append('group',{{group}});
+        fd.append('sequence',blobcount);
+        //console.log( {{session}} + '_' + {{group}}+'_'+ user + '.' + blob.type.split('/')[1]);
+        //console.log(fd);
+        var xhr = new XMLHttpRequest();
+        console.log('opening connection');
+        xhr.open('POST', '/upload/', true);
+        console.log('data sending')
+        xhr.send(fd);
+        console.log('data sent');
+        }
+
+      function stopRecordingCallback() {
+        var blob = recorder.getBlob();
+        var blob = new File(data,'video.webm',{type:'vide/webm'})
+        console.log('Final file sending...');
+        postBlob(blob,-1);
+        console.log('Sending final file');
+        recorder.microphone.stop();
+      }
+
+      function startRecording(stream)
+      {
+       this.disabled = true;
+       console.log('start recording');
+       recorder = RecordRTC(stream, {
+         recorderType: MediaStreamRecorder,
+         mimeType: 'video/webm',
+         timeSlice: 60000, // pass this parameter upload for every minute
+         ondataavailable: function(blob) {
+           blobcount =  blobcount + 1;
+           console.log('sending data:'+ blobcount);
+           data.push(blob);
+           postBlob(blob,blobcount);
+         }
+       });
+      console.log('start recording');
+      recorder.startRecording();
+      recorder.microphone = microphone;
+      document.getElementById('btn-stop-recording').disabled = false;
+      console.log('function executed');
+       }
+
+      function stopRecording() {
+        this.disabled = true;
+        var start_button = document.getElementById('btn-start-recording');
+        start_button.disabled = false;
+        recorder.stopRecording(stopRecordingCallback);
+      };
+      //document.getElementById('btn-start-recording').onclick = startRecording;
+      //document.getElementById('btn-stop-recording').onclick = stopRecording;
+
+    </script>
+
+{%endblock %}

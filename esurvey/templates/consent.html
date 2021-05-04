@@ -1,0 +1,57 @@
+{% extends "base_form.html" %}
+{% load i18n %}
+{%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
+{%block content%}
+<form action="" method="post">
+  {% csrf_token %}
+
+  {% language lang %}
+      <br/>
+      <div class="row setup-content step activeStepInfo" id="step-1">
+          <div class="col-xs-12 ">
+              <div class="col-md-12  shadow-lg p-5">
+                  <h2 class='text-muted'>{% trans 'Informed consent for participant.'%}</h2><hr/>
+                  {% blocktrans %}
+                    <h6 >Dear Participant </h6><br/>
+                    With your permission, we would like to record audio and video during collaborative activity session so that we can analyze it in detail later on.
+                    The recording will be saved in  files- in WEBM format on server.
+                    <br/><br/>
+                    It should be noticed that:<br/>
+                    All kinds of data will be stored securely on Google drive (under a password-protected TLU account), and backed up in a password-protected server at TLU, accessible only to the research team.
+                    This data will be stored not longer than 5 years. <br/>
+                    The data may be re-used by members of the <a href="http://ceiter.tlu.ee/" target="_blank">CEITER research team</a>, or in later projects by students of the School of Educational Technologies and School of Educational Sciences.
+                    <br/><br/>No personal information about you will be shared or made public, and any information you provide will be anonymized before publication. <br/>
+                    At any point, you can request to withdraw your data from the study, or from this storage. <br/>
+                    <br/><br/>
+                    <b>GDPR art. 13</b> requirements: <br/>
+                    Data Protection Officer (at Tallinn University): andmekaitsespetsialist@tlu.ee<br/>
+                    <br/>
+                    <b>Please read carefully the following points and ask for clarifications in case of doubts:</b><br/><br/>
+
+                    <ul>
+                      <li>  The collaboration activity is designed to gather information for research purposes and further development of data collection and visualization technologies to understand collaborative learning activities across spaces.</li>
+                      <li>  I may withdraw and discontinue my participation at any time.</li>
+                      <li> My audio and video will be recorded.</li>
+                      <li> The researcher will not identify me by name in any report using information obtained from this dataset, and my confidentiality as a participant in this study will remain secure. </li>
+                      <li> Anonymized extracts from the dataset may be used in research publications.  </li>
+                      <li> I have the right to ask access, rectification, or erasure of my data (as long as it is possible to pinpoint my identity from that data)</li>
+                    </ul>
+                  {% endblocktrans %}
+                  <br/><hr/><br/>
+                  <div class="form-check pb-5 flex">
+                    {{form.permission}}
+                    <label class="form-check-label" for="exampleCheck1">
+                      I confirm that I have read and understood the explanation provided to me.
+                      I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this study.
+                    </label><br/>
+                  </div>
+                  <input type="submit" class="btn btn-success" value="{% trans "Consent" %}" required/>
+              </div>
+          </div>
+      </div>
+      <script type="text/javascript">
+        $("#container").attr('class', '');
+        $("#container").addClass("container min-vh-100");
+      </script>
+      {% endlanguage%}
+{%endblock %}

@@ -54,7 +54,6 @@ class CreateForm1(forms.Form):
     duration_minutes = forms.IntegerField(label='Minutes',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Minutes'}))
     new = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=-1) # store -1 if session is new otherwise contains session id
 
-
 class CreateForm2(forms.Form):
     learning_problem = forms.CharField(label='Learning activity',widget=CKEditorWidget(attrs={'class':'form-control'}),required=False)
 
@@ -69,9 +68,8 @@ class CreateForm4(forms.Form):
     CHOICES=[(True,'Enable'),(False,'Disabble')]
     allow_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
 
-class lastForm(forms.Form):
-    CHOICES=[(True,'Enable access'),(False,'Disable access')]
-    session_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
+class consentForm(forms.Form):
+    permission = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': "form-check-input"}),initial=False,required=True)
 
 class AnonyForm(forms.Form):
     CHOICES=[(1,'Below 20'),(2,'20 - 30'),(3,'30 - 40'),(4,'40 - 50'),(5,'Above 50 ')]

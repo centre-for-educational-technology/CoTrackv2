@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% block content %}
+<div class='container min-vh-100'>
   <form action="" method="post">{% csrf_token %}
     <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} session </h2>
     <hr/><br/>
@@ -71,4 +72,5 @@
       <input type="submit" class='btn btn-primary'  value="{% trans "Update" %}" />
     {% endif %}
   </form>
+</div>
 {% endblock %}

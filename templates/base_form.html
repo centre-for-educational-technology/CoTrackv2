@@ -30,6 +30,7 @@
   <script src="{% static 'js/chartjs-plugin-colorschemes.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
   <link href="{% static 'bs-step.css' %}" rel="stylesheet">
+  <!--<script src='https://www.cojitsi.website/external_api.js'></script>-->
   </head>
 
   <body class="bg-light">
@@ -61,7 +62,7 @@
       {
         document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
       }
-      f($('#div1').length)
+      if($('#div1').length)
       {
         window.onresize = autoResizeDiv;
         autoResizeDiv();
@@ -119,7 +120,7 @@
     </div>
   </nav>
   <!-- Page Content -->
-  <div class="container min-vh-100">
+  <div class="container">
     <br/>
     {% if messages %}
       {% for message in messages %}
@@ -140,11 +141,13 @@
         {%endif%}
       {% endfor %}
     {% endif %}
+  </div>
+  <div id='container' class='container-fluid min-vh-100'>
     {% block content%}
     <!-- Page body here -->
     {% endblock %}
-    <br/>
   </div>
+
   <!-- ***** Footer Start ***** -->
   <footer>
       <div class="container">
