@@ -26,6 +26,7 @@ urlpatterns = [
     path("audiolist/", views.list_files, name='views.list_files'),
     path("leave/",views.LeaveSession, name='leave_session'),
     path("vad_upload/", views.uploadVad, name='upload_vad'),
+    path("speech_upload/", views.uploadSpeech, name='upload_speech'),
     path("upload/", views.uploadAudio, name='upload_audio'),
     #restapi
     path("getStats/<padid>", views.getGroupPadStats),

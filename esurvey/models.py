@@ -103,7 +103,6 @@ class Audiofl(models.Model):
     user = models.ForeignKey(User,on_delete=models)
     sequence = models.IntegerField(blank=True)
     description = models.TextField(blank=True)
-    started_at = models.DateTimeField(blank=True)
     fl = models.FileField(upload_to=user_directory_path, blank=True, )
 
 # Model to store voice activity detection data
@@ -222,3 +221,4 @@ admin.site.register(Role)
 admin.site.register(UsabilityQ)
 admin.site.register(activityLog)
 admin.site.register(VAD)
+admin.site.register(Speech)

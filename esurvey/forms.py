@@ -6,7 +6,7 @@ from django.forms.fields import Field
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
-from .models import Session, Audiofl, VAD
+from .models import Session, Audiofl, VAD, Speech
 from django.forms import ModelForm
 from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
@@ -15,9 +15,10 @@ setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.Checkbo
 
 
 class AudioflForm(forms.ModelForm):
+    strDate = forms.CharField(max_length=50,required=False,widget=forms.HiddenInput())
     class Meta:
         model = Audiofl
-        fields = ('description', 'fl', 'session','user','group','sequence' )
+        fields = ('description', 'fl', 'session','user','group','sequence')
         widgets = {'description':forms.HiddenInput(),'fl': forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'sequence':forms.HiddenInput()}
 
 
@@ -29,6 +30,16 @@ class VADForm(forms.ModelForm):
         model = VAD
         fields = ( 'session','user','group','activity')
         widgets = {'strDate':forms.HiddenInput(),'milli':forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'activity':forms.HiddenInput()}
+
+class SpeechForm(forms.ModelForm):
+    strDate = forms.CharField(max_length=20,required=False,widget=forms.HiddenInput())
+
+    class Meta:
+        model = Speech
+        fields = ( 'session','user','group','TextField')
+        widgets = {'strDate':forms.HiddenInput(),'milli':forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'TextField':forms.HiddenInput()}
+
+
 
 
 

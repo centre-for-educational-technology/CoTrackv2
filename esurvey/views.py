@@ -24,8 +24,8 @@ import uuid
 from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
 
-from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm
-from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, Consent, activityLog
+from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm
+from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, Consent, activityLog, Speech
 from .models import Audiofl
 from esurvey.models import Role
 import os
@@ -944,9 +944,23 @@ def uploadAudio(request):
         print(form)
         if form.is_valid():
             print('Form is valid')
+            strDate = form.cleaned_data.get("strDate")
+            print(strDate)
+            strDate = (int)(float(strDate)/1000)
+
+            dt = datetime.datetime.fromtimestamp(strDate)
+            print('Datetime:',dt)
+
             newform = form.save(commit=False)
+            newform.started_at = dt
             djfile = File(request.FILES['data_blob'])
             newform.fl.save(request.FILES['data_blob'].name,djfile)
+
+            strDate = (int)(float(strDate)/1000)
+
+            dt = datetime.datetime.fromtimestamp(strDate)
+            print('Datetime:',dt)
+            newform.started_at = dt
             newform.save()
             return HttpResponse('Done')
         else:
@@ -968,14 +982,40 @@ def uploadVad(request):
             user = form.cleaned_data.get("user")
             group = form.cleaned_data.get("group")
             strDate = form.cleaned_data.get("strDate")
+            print('Getting Vad data',strDate)
             milli = form.cleaned_data.get("milli")
             activity = form.cleaned_data.get("activity")
 
             strDate = (int)(float(strDate)/1000)
 
             dt = datetime.datetime.fromtimestamp(strDate)
-
+            print('Converted datetime:',dt)
             vad_object = VAD.objects.create(session=session,user=user,group=group,timestamp=dt,activity=activity)
+
+            return HttpResponse('Done')
+        else:
+            print('Form not valid')
+            return HttpResponse('Form not valid')
+    else:
+
+        return HttpResponse('Not done')
+
+def uploadSpeech(request):
+    if request.method == 'POST':
+        form = SpeechForm(request.POST,request.FILES)
+        print(form)
+        if form.is_valid():
+            print('Form is valid')
+            session = form.cleaned_data.get("session")
+            user = form.cleaned_data.get("user")
+            group = form.cleaned_data.get("group")
+            strDate = form.cleaned_data.get("strDate")
+            speech = form.cleaned_data.get("TextField")
+
+            strDate = (int)(float(strDate)/1000)
+            dt = datetime.datetime.fromtimestamp(strDate)
+
+            speech_object = Speech.objects.create(session=session,user=user,group=group,timestamp=dt,TextField=speech)
 
             return HttpResponse('Done')
         else:
@@ -1149,7 +1189,7 @@ class CompleteForm(SessionWizardView):
                 if objs.count() == 0:
                     break
             duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
-            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=all_data['learning_problem'],language=all_data['language'],access_allowed=all_data['session_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration,pin=u_pin)
+            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=all_data['learning_problem'],language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration,pin=u_pin)
 
             if all_data['useEtherpad']:
                 self.prepareEtherpad(s,all_data['groups'])
@@ -1172,7 +1212,7 @@ class CompleteForm(SessionWizardView):
             session.groups=all_data['groups']
             session.learning_problem=all_data['learning_problem']
             session.language=all_data['language']
-            session.access_allowed=all_data['session_access']
+            session.access_allowed=all_data['allow_access']
             session.status=True
             session.assessment_score=0
             session.useEtherpad=all_data['useEtherpad']
