@@ -6,10 +6,11 @@ from django.forms.fields import Field
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
-from .models import Session, Audiofl, VAD, Speech
+from .models import Session, Audiofl, VAD, Speech, Help
 from django.forms import ModelForm
 from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.CheckboxInput ))
 
@@ -39,6 +40,11 @@ class SpeechForm(forms.ModelForm):
         fields = ( 'session','user','group','TextField')
         widgets = {'strDate':forms.HiddenInput(),'milli':forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'TextField':forms.HiddenInput()}
 
+class HelpForm(forms.ModelForm):
+    class Meta:
+        model = Speech
+        fields = ( 'session','user','group')
+        widgets = {'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput()}
 
 
 
@@ -66,7 +72,7 @@ class CreateForm1(forms.Form):
     new = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=-1) # store -1 if session is new otherwise contains session id
 
 class CreateForm2(forms.Form):
-    learning_problem = forms.CharField(label='Learning activity',widget=CKEditorWidget(attrs={'class':'form-control'}),required=False)
+    learning_problem = forms.CharField(label='Learning activity',widget=CKEditorUploadingWidget(attrs={'class':'form-control'}),required=False)
 
 class CreateForm3(forms.Form):
     useEtherpad = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))

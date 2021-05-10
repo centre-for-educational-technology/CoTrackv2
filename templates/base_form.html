@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title> CoTrack v2</title>
+  <title> CoTrack</title>
   {% if form.media %}
   {{ form.media }}
   {% endif %}
@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
   <script src="/static/popper.min.js"></script>
   <script src="{% static 'vad.js'%}"></script>
-  <script src="{% static 'ServerDate.js'%}"></script> 
+  <script src="{% static 'ServerDate.js'%}"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="{% static 'RecordRTC.js'%}"></script>
   <script src="{% static 'my.js' %}"></script>
@@ -62,7 +62,7 @@
       {
         document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
       }
-      if($('#div1').length)
+      if($('#demo').length)
       {
         window.onresize = autoResizeDiv;
         autoResizeDiv();
@@ -71,7 +71,7 @@
 
   <nav class="navbar navbar-expand-xl navbar-dark">
     <div class='container'>
-  		<a class="navbar-brand" href="{% url 'login'%}"> CoTrack<b>V2</b></a>
+  		<a class="navbar-brand" href="{% url 'index'%}"> <b> CoTrack</b></a>
   		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggler">
   			<span class="navbar-toggler-icon"></span>
   		</button>

@@ -27,17 +27,25 @@
               <i class="fa fa-gears"> </i>
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'edit_session' session_id=session.id %}"><i class="fa fa-edit"></i> Edit</a>
+              <a class="dropdown-item" href="{% url 'edit_session' session_id=session.id %}" data-toggle="tooltip" title="Edit the settings"><i class="fa fa-edit"></i> Edit</a>
+              <a class="dropdown-item" href="{% url 'duplicate_session' session_id=session.id %}" data-toggle="tooltip" title="Create another session with same settings."><i class="fa fa-copy"></i> Duplicate</a>
               {% if session.status  %}
-                <a class="dropdown-item" href="{% url 'session_deactivate' session_id=session.id  %}"><i class="fa fa-check"></i> Archive</a>
+                <a class="dropdown-item" href="{% url 'session_deactivate' session_id=session.id  %}" data-toggle="tooltip" title="Archive this session."><i class="fa fa-check"></i> Archive</a>
               {% else %}
-                <a class="dropdown-item" href="{% url 'session_activate' session_id=session.id %}"><i class="fa fa-archive"></i> Unarchive</a>
+                <a class="dropdown-item" href="{% url 'session_activate' session_id=session.id %}" data-toggle="tooltip" title="Unarchive this session."><i class="fa fa-archive"></i> Unarchive</a>
               {% endif %}
             </div>
           </div>
         </div>
         <div class="card-body">
-          <h3>Access pin: {{ session.pin }}</h3>
+
+          <div class='d-flex'>
+          <p><b class='text-muted'>Access pin: </b>
+            {% for g_pin in session.grouppin_set.all  %}
+
+             <span class='mr-2'> Group-{{forloop.counter}}: {{ g_pin.pin }} </span>
+             {% endfor %}
+          </div>
           <p>
             <b class='text-muted'>No. of groups: </b> {{ session.groups }} <br/>
             <b class='text-muted'>Language: </b>{{ session.language }} <br/>
@@ -52,7 +60,7 @@
           $('[data-toggle="popover"]').popover();
         });
         $(function () {
-          $('[data-toggle="tooltip"]').tooltip({ trigger: 'click' });
+          $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
         });
       </script>
      <!-- End code -->

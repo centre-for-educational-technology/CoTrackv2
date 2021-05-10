@@ -37,8 +37,9 @@ urlpatterns = [
 
     path('account_activation_sent/', v.account_activation_sent, name='account_activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>/',v.activate, name='activate'),
-    path('',include("esurvey.urls")),  # <-- added
-    path('', v.login,name='login'),
+    path('',include("esurvey.urls")),
+    path('',views.index,name='index'),  # <-- added
+    path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),
     path('home/',views.index,name='home'),
     path('accounts/', include('allauth.urls')),

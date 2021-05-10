@@ -4,7 +4,7 @@
 {% block content %}
 <div class='container min-vh-100'>
   <form action="" method="post">{% csrf_token %}
-    <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} session </h2>
+    <h2>{%if all_data.new != -1 %}Edit {% else %} New {% endif %} session </h2>
     <hr/><br/>
     {% include 'create_session_process_step.html'%}
     <br/>
@@ -66,11 +66,12 @@
     {% if wizard.steps.prev %}
       <button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
     {% endif %}
-    {%if NewOrEdit %}
+    {%if  all_data.new == -1 %}
       <input type="submit" class='btn btn-primary'  value="{% trans "Create" %}" />
     {% else %}
       <input type="submit" class='btn btn-primary'  value="{% trans "Update" %}" />
     {% endif %}
   </form>
+  <br/><br/>
 </div>
 {% endblock %}

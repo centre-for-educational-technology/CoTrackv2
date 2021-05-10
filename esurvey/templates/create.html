@@ -37,7 +37,7 @@
   <form action="" method="post">{% csrf_token %}
     {{ wizard.management_form }}
     <div class="row">
-      <div class="col-8">
+      <div class="col col-12 col-sm-12 col-lg-8 col-md-12">
         {% if wizard.form.forms %}
           {{ wizard.form.management_form }}
           {% for form in wizard.form.forms %}

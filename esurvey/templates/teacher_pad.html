@@ -3,21 +3,14 @@
 {%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
 {%block content%}
 
-    <span id='teacher_msg'>
-    </span>
     <div class='row' id='record_status'>
-    </div>
-    <div class="d-flex flex-row-reverse">
-      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="{% url 'survey_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> Exit</a>
-      <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> Ask teacher for help</a>
-
     </div>
     <form action="" method="post">
       {% csrf_token %}
       {{form}}
     </form>
     <div class="row" >
-      <div id='avchat'  class='col col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 card shadow-lg' >
+      <div id='avchat'  class='col col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 card shadow-lg'>
        <iframe id="jitsi" class='sticky-top' allow="camera https://www.cojitsi.website; microphone https://www.cojitsi.website; " style="height:40vh;"   frameBorder='0' src="" allowfullscreen>
         </iframe>
       </div>
@@ -39,8 +32,8 @@
               {% trans 'Write solution here'%}
             </h3>
             <div class='cardbody'>
-              <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
-              </iframe> 
+              <!-- <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+              </iframe> -->
             </div>
           </div>
         </div>
@@ -75,30 +68,6 @@
 
       window.onload = setTimeout(loadFrame, 10000);
 
-      function notifyRecording() {
-        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Notification sent!</strong> A notification has been sent to the teacher. Teacher will join soon.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-        $('#teacher_msg').html(notification);
-      }
-      function notifyAlertSent() {
-        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Notification sent!</strong> A notification has been sent to the teacher. Teacher will join soon.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
-        $('#teacher_msg').html(notification);
-      }
-
-
-      $("#notify").click(function(e){
-        e.preventDefault();
-        var fd = new FormData();
-        fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-        fd.append('session',{{session.id}});
-        fd.append('user',{{request.user.id}});
-        fd.append('group',{{group}});
-        var xhr = new XMLHttpRequest();
-
-        xhr.open('POST', '/help_upload/', true);
-        xhr.send(fd);
-        notifyAlertSent();
-
-      });
 
       // Web Speech API code
       var final_transcript = '';
@@ -145,16 +114,6 @@
       }
 
 
-      $("#exit").click(function(e){
-        e.preventDefault();
-        var href = $(this).attr("href"),
-        message = $(this).attr("data-message");
-        if (confirm('Exiting will stop recording. Select ok if you are done with the activity.')) {
-
-        }
-        window.location.href = href;
-      });
-
       if (! use_etherpad ) {
         console.log('-------------> Hiding etherpad');
 
@@ -194,7 +153,6 @@
         if (record_audio_video){
           record_status = true;
           startRecording(video_stream);
-          notifyRecording();
         }
 
         audio_stream = new MediaStream(stream.getAudioTracks());
@@ -211,7 +169,6 @@
         if (record_audio && ! record_status){
           record_status = true;
           startRecording(audio_stream);
-          notifyRecording();
         }
         startVAD(audio_stream);
 

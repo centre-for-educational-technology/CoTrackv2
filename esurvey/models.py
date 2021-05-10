@@ -46,7 +46,11 @@ class Session(models.Model):
     record_audio = models.BooleanField(default=False)           #whether to record audio during activity
     record_audio_video = models.BooleanField(default=False)     #whether to record audio and video both during the activity
     data_recording_session = models.BooleanField(default=False) #whether the session is just for data collection purposes
+
+class GroupPin(models.Model):
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
     pin = models.CharField(max_length=6)
+    group = models.IntegerField()
 
 # Consents
 class Consent(models.Model):
@@ -54,7 +58,6 @@ class Consent(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     given_at = models.DateTimeField(auto_now_add=True)
 
-                      #to access the session
 # Model for storing mapping for Etherpad users
 class AuthorMap(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)  #user
@@ -135,6 +138,12 @@ class observationData(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     observation = models.TextField(blank=True)
 
+class Help(models.Model):
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    group = models.IntegerField(blank=True)
+    seen = models.BooleanField(default=False) # whether teacher has seen the alert or not
 
 
 # Collaboration questionnaire based on jhonson & jhonson work
@@ -181,6 +190,29 @@ class CollaborationQ(models.Model):
     q36 = models.IntegerField()
     q37 = models.IntegerField()
 
+# Collaboration questionnaire based on jhonson & jhonson work
+class EngagementQ(models.Model):
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
+    sub_date = models.DateField(default=datetime.date.today)
+    group = models.IntegerField()
+    submitted_user = models.ForeignKey(User,on_delete=models.CASCADE)
+    q1 = models.IntegerField()
+    q2 = models.IntegerField()
+    q3 = models.IntegerField()
+    q4 = models.IntegerField()
+    q5 = models.IntegerField()
+    q6 = models.IntegerField()
+    q7 = models.IntegerField()
+    q8 = models.IntegerField()
+    q9 = models.IntegerField()
+    q10 = models.IntegerField()
+    q11 = models.IntegerField()
+    q12 = models.IntegerField()
+    q13 = models.IntegerField()
+    q14 = models.IntegerField()
+    q15 = models.IntegerField()
+
+
 # Model to store responses to SUS questionnaire
 class UsabilityQ(models.Model):
     sub_date = models.DateField(default=datetime.date.today)
@@ -209,8 +241,6 @@ class AnonyData(models.Model):
     age = models.IntegerField()
     gender = models.CharField(max_length=10)
 
-
-
 admin.site.register(CollaborationQ)
 admin.site.register(Audiofl)
 admin.site.register(Session)
@@ -222,3 +252,5 @@ admin.site.register(UsabilityQ)
 admin.site.register(activityLog)
 admin.site.register(VAD)
 admin.site.register(Speech)
+admin.site.register(GroupPin)
+admin.site.register(Help)

@@ -16,6 +16,7 @@ from django.db import transaction
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from bs4 import BeautifulSoup
 import datetime
 import re
 import time
@@ -24,8 +25,8 @@ import uuid
 from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
 
-from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm
-from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, Consent, activityLog, Speech
+from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm
+from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, Consent, activityLog, Speech, GroupPin, Help
 from .models import Audiofl
 from esurvey.models import Role
 import os
@@ -33,6 +34,7 @@ from django.core.files.base import File
 from django.shortcuts import render, redirect
 import requests
 
+import jwt
 
 CREATE_FORMS = (
     ("activity_info", CreateForm1),
@@ -157,8 +159,6 @@ def recordLog(session,actor,verb,object):
     activityLog.objects.create(session=session,actor=actor,verb=verb,object=object)
     return True
 
-
-
 def isTeacher(request):
     current_user = request.user
     role_obj = Role.objects.get(user=current_user)
@@ -185,9 +185,6 @@ def call(function,arguments=None,request=None):
         messages.error(request,'The etherpad server is not accessible. Please check your etherpad server and configuration.')
         return redirect('project_home')
 
-
-
-
 def model_form_upload(request):
     if request.method == 'POST':
         form = AudioflForm(request.POST, request.FILES)
@@ -199,19 +196,16 @@ def model_form_upload(request):
             newform.fl.save(request.FILES['fl'].name, djfile)
             newform.save()
             print('data saved')
-
             # convert to fix the duration of audio
             file_path = newform.fl.path
             #os.system("/usr/bin/mv %s %s" % (file_path, (file_path + '.original')))
             #os.system("/usr/bin/ffmpeg -i %s -c copy -fflags +genpts %s" % ((file_path + '.original'), file_path))
-
             return redirect('/')
     else:
         form = AudioflForm()
     return render(request, 'model_form_upload.html', {
         'form': form
     })
-
 
 def list_files(request):
     files = Audiofl.objects.all().order_by('uploaded_at')
@@ -220,9 +214,6 @@ def list_files(request):
         'files': files
     })
 
-
-
-
 def is_valid_uuid(val):
     try:
         uuid.UUID(str(val))
@@ -230,9 +221,59 @@ def is_valid_uuid(val):
     except ValueError:
         return False
 
+def downloadFileTimestamp(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_vad.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','user','group','sequence','filename'])
+        vads = Audiofl.objects.all().filter(session=session)
+        for v in vads:
+            writer.writerow([v.description,v.user.email,v.group,v.sequence,v.fl.name])
+    return response
 
+def downloadVad(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_vad.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
+        vads = VAD.objects.all().filter(session=session)
+        for v in vads:
+            writer.writerow([v.timestamp,v.user.email,v.group,(v.activity/1000)])
+    return response
 
-
+def downloadSpeech(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_speech.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','user','group','speech'])
+        objs = Speech.objects.all().filter(session=session)
+        for obj in objs:
+            writer.writerow([obj.timestamp,obj.user.email,obj.group,obj.TextField])
+    return response
 
 def downloadChat(request,session_id):
     session = Session.objects.all().filter(id=session_id)
@@ -249,32 +290,22 @@ def downloadChat(request,session_id):
 
         writer = csv.writer(response)
         writer.writerow(['timestamp','authorid','message'])
-
         ##############################
-
-
         pad = Pad.objects.all().filter(session=session)
-
-
         for p in pad:
-
             padid =  p.eth_padid
             params = {'padID':padid}
             print('padid:',padid)
             authors = call('getChatHistory',params)
             print(authors)
-
             if  authors['data'] is None:
                 continue
 
             for msg in authors['data']['messages']:
-
-
                 print([datetime.datetime.fromtimestamp(msg["time"]/1000).strftime('%H:%M:%S %d-%m-%Y'),msg["userId"],msg["text"]])
                 #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                 #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
                 writer.writerow([datetime.datetime.fromtimestamp(msg["time"]/1000).strftime('%H:%M:%S %d-%m-%Y'),msg["userId"],msg["text"]])
-
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
 
@@ -288,21 +319,13 @@ def downloadMapping(request,session_id):
         session = Session.objects.get(id=session_id)
         # Preparing csv data File#####
         fname = session.name + '_mapping.csv'
-
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
-
         writer = csv.writer(response)
         writer.writerow(['username','email','authorid'])
-
         ##############################
-
-
         pad = Pad.objects.all().filter(session=session)
-
-
         for p in pad:
-
             padid =  p.eth_padid
             params = {'padID':padid}
             print('padid:',padid)
@@ -311,12 +334,10 @@ def downloadMapping(request,session_id):
             for auth in authors['data']['authorIDs']:
                 aid = auth
                 author = AuthorMap.objects.filter(authorid=aid)
-
                 print(author[0].user.username,author[0].user.email,aid)
                 #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                 #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
                 writer.writerow([author[0].user.username,author[0].user.email,aid])
-
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
 
@@ -379,6 +400,44 @@ def downloadLog(request,session_id):
 
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
+
+def duplicate(request,session_id):
+    print('duplicate called')
+    sessions = Session.objects.all().filter(id=session_id)
+    if sessions.count() ==0:
+        messages.error(request,'Invalid project id')
+        return redirect('project_home')
+    session = sessions.first()
+    if  (session.owner != request.user) and (not request.current_user.is_staff):
+        messages.error(request,'You do not have edit rights for this session')
+        return redirect('project_home')
+    form1 = {}
+    form2 = {}
+    form3 = {}
+    form4 = {}
+
+    # form1 data
+    form1['name'] = session.name
+    form1['groups'] = session.groups
+    form1['language'] = session.language
+    form1['duration_days'] = session.duration.days
+    form1['duration_hours'] = session.duration.seconds // 3600
+    form1['duration_minutes'] =  ( session.duration.seconds // 60) % 60
+
+    # form2 data
+    form2['learning_problem'] = session.learning_problem
+
+    # form3 data
+    form3['useEtherpad'] = session.useEtherpad
+    form3['useAVchat'] = session.useAVchat
+    form3['record_audio'] = session.record_audio
+    form3['record_audio_video'] = session.record_audio_video
+
+    #form4 data
+    form4['allow_access'] = session.access_allowed
+    initial = {'activity_info':form1,'task':form2,'config':form3,'overview':form4}
+    print('Initial:',initial)
+    return CompleteForm.as_view(CREATE_FORMS,initial_dict=initial)(request)
 
 
 
@@ -535,10 +594,13 @@ from urllib.parse import quote
 
 # Create your views here.
 def overview(request):
-    sessions = Session.objects.all().filter(owner=request.user).filter(status=True)
 
     if isTeacher(request) or isAdmin(request):
-        return render(request, "dashboard.html",{'sessions':sessions})
+        sessions = Session.objects.all().filter(owner=request.user).filter(status=True)
+        groups_pin = {}
+        for session in sessions:
+            groups_pin[session.id] = GroupPin.objects.all().filter(session=session)
+        return render(request, "dashboard.html",{'sessions':sessions,'groups_pin':groups_pin})
     else:
         messages.warning(request,'You do not have teacher privilege to access this page.')
         return redirect('student_entry')
@@ -550,38 +612,55 @@ def overview(request):
 def enterForm(request):
     if request.method == "POST":
         s_pin = request.POST['pin']
-        session = Session.objects.all().filter(pin=s_pin)
-        if session.count() == 0:
+        print('Entered pin:',s_pin)
+        group_pin = GroupPin.objects.all().filter(pin=s_pin)
+        if group_pin.count() == 0:
             messages.error(request,'Entered pin is invalid.')
             return render(request,"session_student_entry_v2.html",{})
         else:
-            session_obj = Session.objects.all().get(pin=s_pin)
+            session_obj = group_pin[0].session
+            print('Session:',session_obj)
             user = request.user
             res = call('createAuthorIfNotExistsFor',{'authorMapper':user.id,'name':user.first_name})
             authorid = res['data']['authorID']
-            group = SessionGroupMap.objects.get(session=session_obj)
-            groupid = group.eth_groupid
-            NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
-            res2 = call('createSession',{'authorID':authorid,'groupID':groupid,'validUntil':NextDay_Date.timestamp()})
-            request.session['joined'] = session_obj.id
-            request.session['ethsid'] = res2['data']['sessionID']
-            #request.session['sessionID'] = res2['data']['sessionID']
-            request.user.backend = 'django.contrib.auth.backends.ModelBackend'
-            #auth_login(request,request.user)
-            #response.set_cookie('joined_session',session_obj.session.id)
-            #response.set_cookie('sessionID',res2['data']['sessionID'])
 
+            group = grouppin = None
+
+            if session_obj.useEtherpad:
+                group = SessionGroupMap.objects.get(session=session_obj)
+                groupid = group.eth_groupid
+                NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
+                res2 = call('createSession',{'authorID':authorid,'groupID':groupid,'validUntil':NextDay_Date.timestamp()})
+                request.session['ethsid'] = res2['data']['sessionID']
+
+            # Creating a session variable storing joined session and group
+            payload = {
+              "session": session_obj.id,
+              "group": group_pin[0].group
+            }
+            token = jwt.encode(payload,settings.JW_SEC,algorithm="HS256")
+            token = token.decode('utf-8')
+            request.session['joined'] = token
+
+            request.user.backend = 'django.contrib.auth.backends.ModelBackend'
             return redirect('student_consent')
     else:
         user_role = Role.objects.all().filter(user=request.user)
-        if user_role[0].role == 'teacher' and not request.user.is_staff():
-            return redirect('project_home')
+        if user_role.count() > 0:
+            if  user_role[0].role == 'teacher' and not request.user.is_staff():
+                return redirect('project_home')
         if 'joined' in request.session.keys():
-            if Session.objects.filter(id=request.session['joined']).count() == 0:
-                messages.error(request,'The cookie is corrupted.')
-                return render(request,"session_student_entry_v2.html",{})
+            print('Jioned session exists:',request.session['joined'])
 
-            session_obj = Session.objects.get(id=request.session['joined'])
+            token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
+
+            print('Fetched token:',token)
+
+            if Session.objects.filter(id=token['session']).count() == 0:
+                messages.error(request,'The session is corrupted. Please enter your access pin again.')
+                del request.session['joined']
+                return render(request,"session_student_entry_v2.html",{})
+            session_obj = Session.objects.get(id=token["session"])
             groups = range(session_obj.groups)
             return redirect('student_consent')
         else:
@@ -593,28 +672,33 @@ def consentView(request):
     if user_role[0].role == 'teacher' and not request.user.is_staff():
         return redirect('project_home')
     if 'joined' in request.session.keys():
-        if Session.objects.filter(id=request.session['joined']).count() == 0:
+        token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
+        if Session.objects.filter(id=token['session']).count() == 0:
             messages.error(request,'The cookie is corrupted.')
+            del request.session['joined']
             return render(request,"session_student_entry_v2.html",{})
         else:
-            session = Session.objects.get(id=request.session['joined'])
+            session = Session.objects.get(id=token["session"])
             pad = Pad.objects.filter(session=session).first()
             if request.method == 'POST':
                 permission = request.POST['permission']
                 Consent.objects.create(session = session, user = request.user)
                 recordLog(session,request.user,'entered','learning_space')
-                return getPad(request,session,request.session['joined'])
+                return getPad(request,session,token['group'])
                 #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':request.session['ethsid'],'protocol':settings.PROTOCOL})
             else:
                 if Consent.objects.filter(session=session).filter(user=request.user).count() > 0:
+                    if session.useEtherpad and 'ethsid' not in request.session:
+                        del request.session['joined']
+                        return render(request,"session_student_entry_v2.html",{})
                     recordLog(session,request.user,'entered','learning_space')
-                    return getPad(request,session,request.session['joined'])
+                    return getPad(request,session,token['group'])
                     #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid})
                 else:
                     return render(request,'consent.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'user':request.user})
     else:
-        message.error(request,'Configuration has been corrupted.')
-        return redirect('student_entry')
+        message.error(request,'Please enter your access pin.')
+        return redirect('session_student_entry_v2.html')
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -652,11 +736,12 @@ def edgeExist(edge_list,edge):
         if e[0] == edge[1] and e[1] == edge[0]:
             return True
     return False
+
 def updateWeight(edge_list, edge):
     updated = list()
     for i,e in enumerate(edge_list):
-        if edgeExist(edge_list,e):
-            w = edge_list[i][2] + .01
+        if edgeExist(updated,e):
+            w = edge_list[i][2] + .001
             updated.append((e[0],e[1],w))
         else:
             updated.append(e)
@@ -664,52 +749,29 @@ def updateWeight(edge_list, edge):
 
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
-
     total_speaking = sum(speaking_data)
-
     #### create edge list_files
     edge_list = list()
-
     # Create two variable node1 and node2 and set them to zero.
     node1=node2=0
-
     # Iterate over resultant users sequences
     for i in range(len(user_sequence)):
-
         # For the first element
         if node1==0:
             # set node1 to the first element
             node1=user_sequence[i]
-
         # For rest of the elements
         else:
-
             # Set the current element to node2
             node2=user_sequence[i]
-
             if node1 != node2:
                 # Append the edge node1, node2 to the edge list
                 if edgeExist(edge_list,(node1,node2)):
                     edge_list = updateWeight(edge_list,(node1,node2))
                 else:
                     edge_list.append((node1,node2,5))
-
-                # Print the edge
-                #print("{},{}".format(node1,node2))
-
-                # Set the node1 as node2
             node1=node2
-
-
-    ###########################
-
-
-
-
-
     ele_nodes=[]
-
-
     total_edges = len(edge_list)
     for n in set(user_sequence):
         user_obj = User.objects.get(pk = n)
@@ -721,77 +783,64 @@ def generateElements(user_sequence,speaking_data):
     for e in edge_list:
         t = {'source':e[0],'to':e[1],'weight':e[2]}
         ele_edges.append(t)
-
     elements = {'nodes':ele_nodes,'edges':ele_edges}
-
-
-    #elements = {'nodes':[{'id':1,'name':'pankaj'},{'id':2,'name':'chintu'},{'id':3, 'name': 'priya'}],'edges':[{'source':1,'to':2}, {'source':1,'to':3}, {'source':2,'to':3}]}
-
     return elements
 
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-def getSpeakingStats(request,session_id):
-
+def getHelpQueries(request,session_id):
     s = Session.objects.get(id=session_id)
-
     groups = s.groups
+    groups_queries = []
+    for group in range(groups):
+        group_query = {}
+        group = group + 1
+        helps = Help.objects.all().filter(session=session_id,group=group,seen=False)
+
+        group_query['group'] = group
+        group_query['help'] = False
+        if helps.count() > 0:
+            group_query['help'] = True
+        groups_queries.append(group_query)
+    return Response({'queries':groups_queries})
 
 
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def getSpeakingStats(request,session_id):
+    s = Session.objects.get(id=session_id)
+    groups = s.groups
     groups_speaking = []
-
     for group in range(groups):
         group = group + 1
-
         vads = VAD.objects.all().filter(session=session_id)
-
-
-
 
         group_speaking = {}
         group_speaking['group'] = group
 
-
-
         tmp_users = vads.filter(group = group).values('user').distinct()
-
         users = [user['user'] for user in tmp_users]
-
         user_sequence = vads.filter(group = group).values_list('user',flat=True)
-
-
-
         print('User sequence:',list(user_sequence))
-
         data = []
-
         speaking_data = {}
 
-
         for user in users:
-
             user_vads = vads.filter(group = group).filter(user = user).aggregate(Sum('activity'))
-
-
             speak_data = {}
             user_obj = User.objects.get(pk = user)
             speak_data['id'] = user
-            speak_data['name'] = user_obj.first_name
+            speak_data['name'] = user_obj.first_name if user_obj.first_name else user_obj.username
             speak_data['speaking'] = user_vads['activity__sum']
-
             speaking_data[user] = user_vads['activity__sum'] * .001
-
             data.append(speak_data)
-
 
         group_speaking['data'] = data
         group_speaking['graph'] = generateElements(user_sequence,speaking_data)
-
         groups_speaking.append(group_speaking)
-
-
-
+        print('Sending:',groups_speaking)
     return Response({'speaking_data':groups_speaking})
 
 
@@ -853,34 +902,55 @@ def getGroupPadStats(request,padid):
 
 def getGroupText(request,session_id,group_id):
     session = Session.objects.get(id=session_id)
-    pad = Pad.objects.all().filter(session=session).filter(group=group_id)
+    payload = {}
+    token = ''
 
-    eth_group = SessionGroupMap.objects.all().filter(session=session)
+    if (Help.objects.filter(session=session_id,group=group_id).count() > 0):
+        help_objs = Help.objects.filter(session=session_id,group=group_id,seen=False)
+        for help_obj in help_objs:
+            help_obj.seen = True
+        Help.objects.bulk_update(help_objs,['seen'])
 
-    padid = pad[0].eth_padid
+    room_name = 'S' + str(session.id) + 'G' + str(group_id)
+    context_data = {'group':group_id,'room':room_name,'session_obj':session,'session':session,'etherpad_url':settings.ETHERPAD_URL,'protocol':settings.PROTOCOL}
+    if session.useAVchat:
+        print('Adding token for Jitsi')
+        payload = {
+          "context": {
+            "user": {
+              "name": request.user.first_name,
+              "email": request.user.email
+            }
+          },
+          "aud": "47AA9",
+          "iss": "47AA9",
+          "sub": "jitsi.cojitsi.website",
+          "moderator": True,
+          "room": room_name
+        }
+        token = jwt.encode(payload,"59588BE1510B6AA3488ACADF88967F80",algorithm="HS256")
+        token = token.decode('utf-8')
+        context_data['token'] = token
 
-    res = call('getText',{'padID':padid})
+    if session.useEtherpad:
+        pad = Pad.objects.all().filter(session=session).filter(group=group_id)
+        eth_group = SessionGroupMap.objects.all().filter(session=session)
+        padid = pad[0].eth_padid
+        res = call('getText',{'padID':padid})
+        read = call('getReadOnlyID',{'padID':padid})
+        context_data['padname'] = read['data']['readOnlyID']
+        context_data['session_id'] = session_id
+        context_data['session'] = session
+        print('Get readonly',read)
+        valid = int(datetime.datetime.today().timestamp() + 24 * 60 * 60)
+        print(valid,' ',type(valid))
+        auth_id = call('createAuthorIfNotExistsFor',{'authorMapper':request.user.id})
+        print('Create author',auth_id)
+        accessSession = call('createSession',{'groupID':eth_group[0].eth_groupid,'authorID':auth_id['data']['authorID'],'validUntil':valid})
+        print('Access session',accessSession)
+        context_data['sessionid'] = accessSession['data']['sessionID']
 
-    print('Get text:',res)
-
-    read = call('getReadOnlyID',{'padID':padid})
-    print('Get readonly',read)
-
-    eth_session = request.session['ethsid']
-
-    valid = int(datetime.datetime.today().timestamp() + 24 * 60 * 60)
-
-    print(valid,' ',type(valid))
-
-    auth_id = call('createAuthorIfNotExistsFor',{'authorMapper':request.user.id})
-    print('Create author',auth_id)
-
-    print('Group Id:---------------',eth_session)
-
-    accessSession = call('createSession',{'groupID':eth_group[0].eth_groupid,'authorID':auth_id['data']['authorID'],'validUntil':valid})
-    print('Access session',accessSession)
-
-    return render(request,'session_main_padtext_no_analytics.html',{'padtext':res['data']['text'],'session_id':session_id,'session':session,'group_id':group_id,'pad_id':padid,'etherpad_url':settings.ETHERPAD_URL,'padname':read['data']['readOnlyID'],'sessionid':accessSession['data']['sessionID']})
+    return render(request,'teacher_pad.html',context_data)
 
 
 
@@ -1025,7 +1095,22 @@ def uploadSpeech(request):
 
         return HttpResponse('Not done')
 
+def uploadHelp(request):
+    if request.method == 'POST':
+        form = HelpForm(request.POST)
+        if form.is_valid():
+            print('Form is valid')
+            session = form.cleaned_data.get("session")
+            user = form.cleaned_data.get("user")
+            group = form.cleaned_data.get("group")
+            speech_object = Help.objects.create(session=session,user=user,group=group,seen=False)
+            return HttpResponse('Done')
+        else:
+            print('Form not valid')
+            return HttpResponse('Form not valid')
+    else:
 
+        return HttpResponse('Not done')
 
 
 def LeaveSession(request):
@@ -1035,11 +1120,43 @@ def LeaveSession(request):
     return redirect('student_entry')
 
 def getPad(request,session,group_id):
-    eth_session = request.session['ethsid']
-    pad = Pad.objects.get(session=session,group=group_id)
-    padname = pad.eth_padid.split('$')
+    eth_session = pad = padname = None
+
+    context_data = {}
     form = AudioflForm()
-    return render(request,'student_pad.html',{'group':group_id,'session_obj':session,'session':request.session['joined'],'form':form,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':eth_session,'protocol':settings.PROTOCOL})
+    payload = {}
+    token = ''
+    room_name = 'S' + str(session.id) + 'G' + str(group_id)
+    context_data = {'group':group_id,'room':room_name,'session_obj':session,'session':session,'form':form,'etherpad_url':settings.ETHERPAD_URL,'protocol':settings.PROTOCOL}
+
+    if session.useAVchat:
+        print('Adding token for Jitsi')
+        payload = {
+          "context": {
+            "user": {
+              "name": request.user.first_name,
+              "email": request.user.email
+            }
+          },
+          "aud": "47AA9",
+          "iss": "47AA9",
+          "sub": "jitsi.cojitsi.website",
+          "moderator": False,
+          "room": room_name
+        }
+        token = jwt.encode(payload,"59588BE1510B6AA3488ACADF88967F80",algorithm="HS256")
+        token = token.decode('utf-8')
+        context_data['token'] = token
+
+    if session.useEtherpad:
+        eth_session = request.session['ethsid']
+        pad = Pad.objects.get(session=session,group=group_id)
+        padname = pad.eth_padid.split('$')
+        context_data['padname'] = pad.eth_padid
+        context_data['sessionid'] = eth_session
+
+    return render(request,'student_pad.html',context_data)
+
 
 def activateSession(request,session_id):
     session = Session.objects.all().filter(id=session_id)
@@ -1073,15 +1190,38 @@ def getSession(request,session_id):
         return redirect('project_home')
     else:
         session = Session.objects.get(id=session_id)
-        session_group = SessionGroupMap.objects.get(session=session)
-        eth_group = session_group.eth_groupid
-        request.session['ethsid'] = eth_group
-        print('Passing session id:',session)
-        return render(request,'session_main.html',{'session':session,'eth_group':eth_group,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL})
+        context_data = {'session':session,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL}
+        if session.useEtherpad:
+            session_group = SessionGroupMap.objects.get(session=session)
+            eth_group = session_group.eth_groupid
+            context_data['eth_group'] = eth_group
+            return render(request,'session_main.html',context_data)
+        else:
+            return render(request,'session_main_only_av_chat.html',context_data)
 
 
 class CompleteForm(SessionWizardView):
     type_of_study = -1
+
+    def updatePin(self,s,old_groups,new_groups):
+        group_diff = new_groups - old_groups
+        if (group_diff > 0):
+            for g in range(group_diff):
+                g =  g +  old_groups + 1
+                while True:
+                    u_pin = uuid.uuid4().hex[:6].upper()
+                    objs = GroupPin.objects.filter(pin = u_pin)
+                    if objs.count() == 0:
+                        break
+                sg = GroupPin.objects.create(session=s,pin=u_pin,group=grp+1)
+        else:
+            for g in range(group_diff):
+                del_group = g + new_groups + 1
+                GroupPin.objects.filter(session=s,group=del_group).delete()
+        print('Updated pins')
+
+
+
     def updateEtherpad(self,s,old_groups,new_groups,old_use,new_use):
         """
         function to update the groups and pads in Etherpad.
@@ -1181,20 +1321,33 @@ class CompleteForm(SessionWizardView):
         print('done called')
         all_data = self.get_all_cleaned_data()
         current_user = self.request.user
+        groups=all_data['groups']
+
         if all_data['new'] == -1:
             print('New project')
-            while True:
-                u_pin = uuid.uuid4().hex[:6].upper()
-                objs = Session.objects.filter(pin = u_pin)
-                if objs.count() == 0:
-                    break
-            duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
-            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=all_data['learning_problem'],language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration,pin=u_pin)
+            groups_pin = {}
+            duration = timedelta(days=all_data['duration_days'],hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
+
+            # code to add target=_blank in every anchor tag in learning problem
+            learning_problem = BeautifulSoup(all_data['learning_problem'],"html.parser")
+            for a in learning_problem.find_all('a'):
+              a['target'] = '_blank'
+
+            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration)
+
+            for grp in range(groups):
+                while True:
+                    u_pin = uuid.uuid4().hex[:6].upper()
+                    objs = GroupPin.objects.filter(pin = u_pin)
+                    if objs.count() == 0:
+                        break
+                sg = GroupPin.objects.create(session=s,pin=u_pin,group=grp+1)
 
             if all_data['useEtherpad']:
-                self.prepareEtherpad(s,all_data['groups'])
-            else:
-                messages.error(self.request,'Error occurred while creating session. Check your Etherpad server settings.')
+                try:
+                    self.prepareEtherpad(s,all_data['groups'])
+                except e:
+                    messages.error(self.request,'Error occurred while creating session. Check your Etherpad server settings.')
                 return redirect('project_home')
             messages.success(self.request, 'Session is created successfully !')
         else:
@@ -1210,6 +1363,13 @@ class CompleteForm(SessionWizardView):
             session.owner=current_user
             session.name=all_data['name']
             session.groups=all_data['groups']
+            learning_problem = BeautifulSoup(all_data['learning_problem'],"html.parser")
+            print('Before:',learning_problem)
+            for a in learning_problem.find_all('a'):
+                if not a.has_attr('target'):
+                    a['target'] = '_blank'
+            print('After:',learning_problem)
+
             session.learning_problem=all_data['learning_problem']
             session.language=all_data['language']
             session.access_allowed=all_data['allow_access']
@@ -1222,6 +1382,7 @@ class CompleteForm(SessionWizardView):
             session.data_recording_session=False
             session.duration=duration
             self.updateEtherpad(session,org_groups,updated_groups,org_useEtherpad,updated_useEtherpad)
+            self.updatePin(session,org_groups,updated_groups)
             session.save()
 
         return redirect('project_home')
