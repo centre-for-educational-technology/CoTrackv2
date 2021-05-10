@@ -25,8 +25,8 @@ JW_APP = ""
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
+PROTOCOL = 'https'
 SESSION_COOKIE_SECURE = True
-PROTOCOL = 'http'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -182,7 +182,11 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+<<<<<<< HEAD
+
+=======
 """
+>>>>>>> f6861e45bbd25eddd5e3d23ad0d8cab69435e226
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -202,7 +206,11 @@ DATABASES = {
     }
 }
 
+<<<<<<< HEAD
+"""
+=======
 
+>>>>>>> f6861e45bbd25eddd5e3d23ad0d8cab69435e226
 DJRICHTEXTFIELD_CONFIG = {
     'js': ["//cdnjs.cloudflare.com/ajax/libs/tinymce/5.6.1/tinymce.min.js"],
     'init_template': 'djrichtextfield/init/tinymce.js',
