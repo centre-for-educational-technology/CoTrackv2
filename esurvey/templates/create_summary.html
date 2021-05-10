@@ -1,0 +1,77 @@
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class='container min-vh-100'>
+  <form action="" method="post">{% csrf_token %}
+    <h2>{%if all_data.new != -1 %}Edit {% else %} New {% endif %} session </h2>
+    <hr/><br/>
+    {% include 'create_session_process_step.html'%}
+    <br/>
+    <div class='card'>
+      <div class="card-body">
+        <h4> General Information </h4>
+        <p class="card-text pt-2"><b class='text-muted'>Session name:</b> {{all_data.name}}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Number of groups:</b> {{all_data.groups}}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Language:</b> {{all_data.language}}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Activity duration:</b> {{all_data.duration_hours}} hours {{all_data.duration_minutes}} minutes</p>
+        <br/><br/>
+        <h4> Configuration </h4>
+        <p class="card-text pt-2"><b class='text-muted'>Add Etherpad:</b> {% if all_data.useEtherpad %} Yes {% else %} No {% endif %}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Add Audio & Video chat:</b> {% if all_data.useAVchat %} Yes {% else %} No {% endif %}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Record audio:</b> {% if all_data.record_audio %} Yes {% else %} No {% endif %}</p>
+        <p class="card-text pt-2"><b class='text-muted'>Record video:</b> {% if all_data.record_audio_video %} Yes {% else %} No {% endif %}</p>
+      </div>
+    </div>
+    <br/>
+    <div class='card'>
+      <div class='card-body'>
+        <b>Session access for participants <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#access"></i></span></b>
+        <div class="modal fade" id="access" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Session access</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class='modal-body'>
+                Participants can only join the session if it is enabled. Instructors can control parcipants' access to the session.
+                <br/>
+                It can be changed later.
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <p class="card-text pt-2">
+          {{ wizard.management_form }}
+          {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+            {% endfor %}
+          {% else %}
+            {% for field in form %}
+              {{field}}
+            {%endfor%}
+          {% endif %}
+        </p>
+      </div>
+    </div> <br/> <br/>
+    <a class='mr-2'  href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+    {% if wizard.steps.prev %}
+      <button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+    {% endif %}
+    {%if  all_data.new == -1 %}
+      <input type="submit" class='btn btn-primary'  value="{% trans "Create" %}" />
+    {% else %}
+      <input type="submit" class='btn btn-primary'  value="{% trans "Update" %}" />
+    {% endif %}
+  </form>
+  <br/><br/>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Create Project {% endblock %}
+
+
+
+{% block content %}
+<br/>
+
+<form action="" method="post">{% csrf_token %}
+
+
+{{ wizard.management_form }}
+<div class="row">
+    <div class="col">
+      <div class="multisteps-form__progress">
+        {% if wizard.steps.step1 >= 1   %}
+        <button id='b1' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="questionnaire">Questionnaire type</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" type="button" name="wizard_goto_step" type="submit" value="questionnaire">Questionnaire type</button>
+        {% endif %}
+
+        {% if wizard.steps.step1 >= 2  %}
+        <button id='b2' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit"value="product">Project settings</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="product">Project settings</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 3 %}
+        <button id='b3' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="participants" >Participants</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="participants" >Participants</button>
+        {% endif %}
+
+        {% if wizard.steps.step1 >= 4 %}
+        <button id='b4' class="multisteps-form__progress-btn js-active"  name="wizard_goto_step" type="submit" value="editq" >Edit questionnaire</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="editq"  >Edit questionnaire</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 5 %}
+        <button id='b5' class="multisteps-form__progress-btn js-active"name="wizard_goto_step" type="submit" value="anony">Anonymous data</button>
+        {% else %}
+
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="anony">Anonymous data</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 6 %}
+        <button id='b5' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="overview" >Project overview</button>
+        {% else %}
+
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="overview">Project overview</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+
+
+<br/>
+<br/>
+<h5> Select the anonymous data you want to collect with the survey.</h5>
+<br/>
+
+  <div class='row'>
+  <div class='col col-lg-6'>
+   <table class='table '>
+
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    {% for field in form %}
+
+        <tr>
+          <td>{{ field.label }} </td><td> {{ field }}</td>
+        </tr>
+
+    {% endfor %}
+    {% endfor %}
+{% else %}
+{% for field in wizard.form %}
+
+
+    <tr>
+      <td>{{ field.label }} </td><td> {{ field }}</td>
+    </tr>
+
+{% endfor %}
+
+{% endif %}
+</table>
+</div>
+</div>
+<br/><br/>
+{% if wizard.steps.prev %}
+
+<button class='btn btn-warning' formnovalidate="formnovalidate" name="wizard_goto_step" type="submit"  value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input type="submit" class='btn btn-success'  value="{% trans "Continue" %}" />
+<a class='btn btn-danger'  href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+</form>
+
+</div>
+{% endblock %}

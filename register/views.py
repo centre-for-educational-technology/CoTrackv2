@@ -152,7 +152,9 @@ def login(request):
             print('not valid')
             form = LoginForm()
     else:
-        if request.user.is_authenticated:
+        if request.user.is_staff:
+            return redirect('project_home')
+        elif request.user.is_authenticated:
             return redirect('student_entry')
         else:
             form = LoginForm()

@@ -16,22 +16,25 @@ from django.utils.translation import ugettext_lazy as _
 
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
-ETHERPAD_URL ="https://www.etherpad.website"
+ETHERPAD_URL ="http://localhost:9001"
+
+JW_SEC = "19a6d96ea14df62331708d6e68cf043267c6e4a96c"
+JW_APP = ""
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
-
+SESSION_COOKIE_SECURE = True
 PROTOCOL = 'http'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# CKeditor settings
 CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
-
 CKEDITOR_UPLOAD_PATH = "uploads/"
-
+CKEDITOR_RESTRICT_BY_USER = True
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -73,6 +76,7 @@ INSTALLED_APPS = [
     "djrichtextfield",
     'django.contrib.sites',
     'rest_framework',
+    'django_toggle_switch_widget',
 
 
     'allauth',   # <--
@@ -237,7 +241,7 @@ LANGUAGE_CODE = 'en-gb'
 LAGUAGES = (('en',_('English')),('ee',_('Estonian')),('pt',_('Portugese')))
 
 
-TIME_ZONE =  'Asia/Kolkata'
+TIME_ZONE =  'Europe/Helsinki'
 
 USE_I18N = True
 
@@ -261,13 +265,6 @@ CKEDITOR_CONFIGS = {
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': [ 'NewPage', 'Preview', 'Print', '-', 'Templates']},
-            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-            {'name': 'forms',
-             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
-                       'HiddenField']},
-            '/',
             {'name': 'basicstyles',
              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
             {'name': 'paragraph',

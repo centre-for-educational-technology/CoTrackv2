@@ -2,136 +2,57 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-
-{% block title %}Create Project{% endblock %}
-
-
-
 {% block content %}
-
-<div class="row">
+  <h2> Create Session </h2><hr/>
+  <div class="row">
     <div class="col">
       <div class="multisteps-form__progress">
         {% if wizard.steps.step1 >= 1   %}
-        <button id='b1' class="multisteps-form__progress-btn js-active" type="button" title="User Info">Questionnaire type</button>
+        <button id='b1' class="multisteps-form__progress-btn js-active" type="button" title="User Info" disabled>Activity info</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Questionnaire type</button>
+        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address" disabled>Activity info</button>
         {% endif %}
 
         {% if wizard.steps.step1 >= 2  %}
-        <button id='b2' class="multisteps-form__progress-btn js-active" type="button" title="Address">Project settings</button>
+        <button id='b2' class="multisteps-form__progress-btn js-active" type="button" title="Address">Functionality</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Project settings</button>
+        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Functionality</button>
         {% endif %}
         {% if wizard.steps.step1 >= 3 %}
-        <button id='b3' class="multisteps-form__progress-btn js-active" type="button" title="Order Info">Participants</button>
+        <button id='b3' class="multisteps-form__progress-btn js-active" type="button" title="Order Info">Recroding</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Participants</button>
+        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Recording</button>
         {% endif %}
 
         {% if wizard.steps.step1 >= 4 %}
-        <button id='b4' class="multisteps-form__progress-btn js-active" type="button" title="Comments">Edit questionnaire</button>
-        {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Edit questionnaire</button>
-        {% endif %}
-        {% if wizard.steps.step1 >= 5 %}
-        <button id='b5' class="multisteps-form__progress-btn js-active" type="button" title="Comments">Project overview</button>
+        <button id='b5' class="multisteps-form__progress-btn js-active" type="button" title="Comments">Activity overview</button>
         {% else %}
 
-        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Project overview</button>
+        <button id='b2' class="multisteps-form__progress-btn" type="button" title="Address">Activity overview</button>
         {% endif %}
       </div>
     </div>
   </div>
-
-
-
-<br/>
-<form action="" method="post">{% csrf_token %}
-
-
-{{ wizard.management_form }}
-{% if wizard.form.forms %}
-    {{ wizard.form.management_form }}
-    {% for form in wizard.form.forms %}
-    {% for field in form %}
-    <p>
-        {% if field.field.is_checkbox %}
-        <div class='row'>
-        <div class='col col-lg-6'>
-          <div class='form-check'>
-          {{ field }}
-          <label class='form-check-label'>{{ field.label }}</label>
-          </div>
-        </div>
-        </div>
+  <br/>
+  <form action="" method="post">{% csrf_token %}
+    {{ wizard.management_form }}
+    <div class="row">
+      <div class="col col-12 col-sm-12 col-lg-8 col-md-12">
+        {% if wizard.form.forms %}
+          {{ wizard.form.management_form }}
+          {% for form in wizard.form.forms %}
+            {{ form | crispy }}
+          {% endfor %}
         {% else %}
-        <div class='row'>
-        <div class='col col-lg-6'>
-          {{ field.label }} {{ field }}
-        </div>
-        </div>
-
+          {{ wizard.form | crispy  }}
         {% endif %}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    {% if form.non_field_errors %}
-      <div class="non-field-errors">
-        {% for err in form.non_field_errors %}
-        <p style="color: red">{{ err }}</p>
-        {% endfor %}
       </div>
-{% endif %}
-    {% endfor %}
-{% else %}
-{% for field in wizard.form %}
-  <p>
-    {% if field.field.is_checkbox %}
-    <div class='row'>
-      <div class='col col-lg-6'>
-        <div class='form-check'>
-      {{ field }}
-       <label class='form-check-label'>{{ field.label }}</label>
-      </div>
-      </div>
-      </div>
-    {% else %}
-     <div class='col col-lg-6'>
-       <div class='row'>
-      {{ field.label }} {{ field }}
-      </div>
-      </div>
-    {% endif %}
-    {% if field.help_text %}
-      <small style="color: grey">{{ field.help_text }}</small>
-    {% endif %}
-    {% for error in field.errors %}
-      <p style="color: red">{{ error }}</p>
-    {% endfor %}
-    </p>
-{% endfor %}
-  {% if form.non_field_errors %}
-  <div class="non-field-errors">
-    {% for err in form.non_field_errors %}
-      <p style="color: red">{{ err }}</p>
-    {% endfor %}
-  </div>
- {% endif %}
-{% endif %}
+    </div>
 
 {% if wizard.steps.prev %}
-
-<button class='btn btn-warning' formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Back" %}</button>
+  <button class='btn btn-warning' formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "Back" %}</button>
 {% endif %}
 <input type="submit" class="btn btn-success" value="{% trans "Continue" %}"/>
 <a class='btn btn-danger' href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
 </form>
-
-</div>
 {% endblock %}

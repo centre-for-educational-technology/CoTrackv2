@@ -6,21 +6,20 @@ from django.forms.fields import Field
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
-from .models import Session, Audiofl, VAD
+from .models import Session, Audiofl, VAD, Speech, Help
 from django.forms import ModelForm
-#from djrichtextfield.models import RichTextField
-from djrichtextfield.widgets import RichTextWidget
-from quilljs.widgets import QuillEditorWidget
-
+from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.CheckboxInput ))
 
 
 class AudioflForm(forms.ModelForm):
+    strDate = forms.CharField(max_length=50,required=False,widget=forms.HiddenInput())
     class Meta:
         model = Audiofl
-        fields = ('description', 'fl', 'session','user','group','sequence' )
+        fields = ('description', 'fl', 'session','user','group','sequence')
         widgets = {'description':forms.HiddenInput(),'fl': forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'sequence':forms.HiddenInput()}
 
 
@@ -33,6 +32,21 @@ class VADForm(forms.ModelForm):
         fields = ( 'session','user','group','activity')
         widgets = {'strDate':forms.HiddenInput(),'milli':forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'activity':forms.HiddenInput()}
 
+class SpeechForm(forms.ModelForm):
+    strDate = forms.CharField(max_length=20,required=False,widget=forms.HiddenInput())
+
+    class Meta:
+        model = Speech
+        fields = ( 'session','user','group','TextField')
+        widgets = {'strDate':forms.HiddenInput(),'milli':forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'TextField':forms.HiddenInput()}
+
+class HelpForm(forms.ModelForm):
+    class Meta:
+        model = Speech
+        fields = ( 'session','user','group')
+        widgets = {'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput()}
+
+
 
 
 class SessionForm(ModelForm):
@@ -40,7 +54,7 @@ class SessionForm(ModelForm):
     id.widget = forms.HiddenInput()
     class Meta:
         model = Session
-        fields = ['name','groups','problem']
+        fields = ['name','groups','learning_problem']
         """
         widgets = {
             'problem': CKEditorWidget(),
@@ -48,59 +62,31 @@ class SessionForm(ModelForm):
         """
 
 class CreateForm1(forms.Form):
-    project_choices = [(1,'Individual'),(2,'Comparision A and B'),(3, 'Comparision A, B and C'),(4, 'Comparision A, B, C and D'),(5, 'Comparision A, B, C, D and E')]
-
-    type_questionnaire = forms.CharField(label="Type of Questionnaire",widget=forms.Select(choices=[('TrUX','TrustedUX')],attrs={'class':'form-control'}))
-    project_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),max_length=100)
-    project_type = forms.CharField(widget=forms.Select(choices=project_choices,attrs={'class':'form-control'}))
-    test_project = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class':'form-check-input'}))
+    CHOICES = [('En','English'),('Est','Estonian')]
+    name = forms.CharField(label='Session name',widget=forms.TextInput(attrs={'class':'form-control'}))
+    groups = forms.IntegerField(label='Number of groups',widget=forms.NumberInput(attrs={'class':'form-control'}))
+    language=forms.CharField(widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
+    duration_days = forms.IntegerField(label='Days',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Days'}))
+    duration_hours = forms.IntegerField(label='Hours',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Hours'}))
+    duration_minutes = forms.IntegerField(label='Minutes',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Minutes'}))
+    new = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=-1) # store -1 if session is new otherwise contains session id
 
 class CreateForm2(forms.Form):
-    industry_choices = [('Agriculture','Agriculture'),('Automobile','Automobile'),('Building system engineering','Building system engineering'),('Chemical industry','Chemical industry'),('Clothing industory','Clothing industory'),('Consulting','Consulting'),('Crafts','Crafts'),('Electronics','Electronics'),('Energy industry','Energy industry'),('Finance','Finance'),('IT','IT'),('Marketing','Marketing'),('Media','Media'),('Medical','Medical'),('Other','Other'),('Production','Production'),('Retail','Retail'),('Services','Services'),('Sports','Sports'),('Telecommunications','Telecommunications'),('Tourism','Tourism')]
-    type_choices = [('Accounting sysetm','Accounting system'),('Consumer Electronics','Consumer Electronics'),('Enterprise resource planning system','Enterprise resource planning system'),('Logistic Systems','Logistic Systems'),('Medical devices','Medical devices'),('Office applications','Office applications'),('Order picking systems','Order picking systems'),('Other','Other'),('Production machinery','Production machinery'),('Smart home applications','Smart home applications'),('Telecommunications','Telecommunications'),('Web applications','Web applications'),('Website','Website')]
-
-    start_date = forms.DateField(widget=forms.DateInput(attrs={'class':'form-control','type':'date'}))
-    end_date = forms.DateField(widget=forms.DateInput(attrs={'class':'form-control','type':'date'}))
-    name_of_survey = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),max_length=100)
-    product_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),max_length=100)
-    product_type = forms.CharField(widget=forms.Select(choices=type_choices,attrs={'class':'form-control'}),max_length=100)
-    product_industry = forms.CharField(widget=forms.Select(choices=industry_choices,attrs={'class':'form-control'}))
-
-    def clean_start_date(self):
-        start_date = self.cleaned_data['start_date']
-        if start_date < date.today():
-            raise ValidationError('You can not choose start date in past.')
-        else:
-            return start_date
-
-    def clean(self):
-        cleaned_data = super().clean()
-        start_date = cleaned_data.get('start_date')
-        end_date = cleaned_data.get('end_date')
-
-        if start_date and end_date:
-            if start_date > end_date:
-                raise ValidationError('Project end date must be after the start date.')
-
-
-
-
+    learning_problem = forms.CharField(label='Learning activity',widget=CKEditorUploadingWidget(attrs={'class':'form-control'}),required=False)
 
 class CreateForm3(forms.Form):
-    CHOICES = [('A','anonymous participation'),('P','invite participants')]
-    type_of_participation=forms.CharField( widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
+    useEtherpad = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    useAVchat = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
 
+    record_audio = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    record_audio_video = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
 
 class CreateForm4(forms.Form):
-    CHOICES = [('En','English'),('Pt','Portugese'),('Est','Estonian')]
-    questionnaire_language=forms.CharField( widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
-    title = forms.CharField(initial="Assessment of {PRODUCT_NAME}",widget=forms.TextInput(attrs={'class':'form-control'}),max_length=100)
-    subtitle = forms.CharField(initial="Welcome to the assessment of {PRODUCT_NAME}",widget=forms.TextInput(attrs={'class':'form-control'}),max_length=100)
-    paragraph = forms.CharField(initial="With your help, we would like to examine how users perceive the usability and aesthetics of {PRODUCT_NAME}. We hope to identify areas for optimization. This will enable us to optimize the product in such a way that it is as efficient and comprehensible as possible.",widget=forms.Textarea(attrs={'class':'form-control'}),help_text=mark_safe('You can use following variables to use in title, subtitle and paragraph: <br/>{PROJECT_NAME} - Name of project <br/> {PRODUCT_NAME} - Name of product<br/> {SURVEY_NAME} - Name of survey <br/> {TODAY} - for today date.'))
+    CHOICES=[(True,'Enable'),(False,'Disabble')]
+    allow_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
 
-class lastForm(forms.Form):
-    CHOICES=[(True,'Activate now'),(False,'Activate later')]
-    project_status = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
+class consentForm(forms.Form):
+    permission = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': "form-check-input"}),initial=False,required=True)
 
 class AnonyForm(forms.Form):
     CHOICES=[(1,'Below 20'),(2,'20 - 30'),(3,'30 - 40'),(4,'40 - 50'),(5,'Above 50 ')]

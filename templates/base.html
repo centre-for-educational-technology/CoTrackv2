@@ -14,26 +14,22 @@
   {% if form.media %}
   {{ form.media }}
   {% endif %}
-    <script src="{% static 'axios.min.js'%}"></script>
+  <script src="{% static 'axios.min.js'%}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
   <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
   <!-- Bootstrap core CSS -->
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
   <script src="/static/popper.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="{% static 'RecordRTC.js'%}"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="{% static 'RecordRTC.js'%}"></script>
   <script src="{% static 'my.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
   <link rel="stylesheet" href="{% static 'assets/css/templatemo-softy-pinko.css' %}">
   <script src="{% static 'chart.min.js'%}"></script>
   <link rel="stylesheet" href="{% static 'chart.css'%}">
   <script src="{% static 'js/chartjs-plugin-colorschemes.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-
-
   <link href="{% static 'bs-step.css' %}" rel="stylesheet">
 
   <style>
@@ -54,30 +50,19 @@
     		box-shadow: 0 0 4px rgba(0,0,0,.1);
     	}
 
-    	.navbar .divider {
+    .navbar .divider {
     		background-color: #0280FF; !important;
     	}
+    .help{
+      font-size: 5px;
+      color: grey;
+    }
 </style>
 
-  <script language="javascript">
 
-  NTP.sync();
-
-         function autoResizeDiv()
-          {
-              document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
-          }
-          window.onresize = autoResizeDiv;
-          autoResizeDiv();
-
-
-
-
-
-  </script>
 </head>
 
-<body class="bg-light">
+<body>
   <!-- Code to change survey title, subtitle, and paragraph on basis of language selection -->
 
 

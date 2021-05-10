@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title> CoTrackV2</title>
+  <title> CoTrack</title>
   {% if form.media %}
   {{ form.media }}
   {% endif %}
@@ -21,28 +21,17 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="/static/popper.min.js"></script>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="/static/popper.min.js"></script>
   <script src="{% static 'axios.min.js'%}"></script>
   <script src="{% static 'ServerDate.js'%}"></script>
-
   <script src="{% static 'my.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
   <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
   <link rel="stylesheet" href="{% static 'assets/css/templatemo-softy-pinko.css' %}">
-
-
   <link href="{% static 'bs-step.css' %}" rel="stylesheet">
-
-
-
   <script language="javascript" src="{% static 'js/ntp.js' %}"></script>
-
-
   <script src="{% static 'headtrackr.js'%}"></script>
-
   <!-- Bootstrap core CSS -->
   <link href="{% static 'google_font_robot.css'%}" rel="stylesheet">
   <script src="{% static 'RecordRTC.js'%}"></script>
@@ -50,36 +39,26 @@
   <script src="{% static 'chart.min.js'%}"></script>
   <link rel="stylesheet" href="{% static 'chart.css'%}">
   <script src="{% static 'js/chartjs-plugin-colorschemes.js' %}"></script>
-
-
-
-
   <script language="javascript">
-
-
-
-         function autoResizeDiv()
-          {
-              document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
-          }
-          window.onresize = autoResizeDiv;
-          autoResizeDiv();
-
-
-
-
-
+    function autoResizeDiv()
+      {
+        document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
+      }
+      if($('#demo').length)
+      {
+        window.onresize = autoResizeDiv;
+        autoResizeDiv();
+      }
   </script>
   <style>
-
-  .custom-radio-list {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-  }
+    .custom-radio-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        }
     .form-inline {
         display: inline-block;
-    }
+        }
     .navbar {
     		color: #fff;
     		background:  #0280FF;;
@@ -87,15 +66,14 @@
     		border-radius: 0;
     		border: none;
     		box-shadow: 0 0 4px rgba(0,0,0,.1);
-    	}
-
+    	 }
     	.navbar .divider {
-    		background-color: #e9ecef !important;
+    	  background-color: #e9ecef !important;
     	}
       .fill {
     min-height: 100%;
     height: 100%;
-}
+      }
 iframe {
     display:block;
     width:100%;
@@ -126,7 +104,7 @@ iframe {
   <nav class="navbar navbar-expand-xl navbar-dark">
     <div class='container'>
 
-  		<a class="navbar-brand" href="{% url 'login'%}"> CoTrack<b>V2</b></a>
+  		<a class="navbar-brand" href="{% url 'login'%}"> CoTrack</a>
   		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggler">
   			<span class="navbar-toggler-icon"></span>
 
@@ -142,8 +120,8 @@ iframe {
           {{request.user.email}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'project_home'%}"><i class="fa fa-gear"></i> Sessions</a>
-          <a class="dropdown-item" href="{% url 'usability_form'%}"><i class="fa fa-edit"></i> Usability Survey</a>
+          <a class="dropdown-item" href="{% url 'project_home'%}" data-toggle="tooltip" title="List all your sessions."><i class="fa fa-gear"></i> Sessions</a>
+          <a class="dropdown-item" href="{% url 'usability_form'%}" data-toggle="tooltip" title="You can help us to improve CoTrack by filling this usability survey."><i class="fa fa-edit"></i> Usability Survey</a>
 
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>

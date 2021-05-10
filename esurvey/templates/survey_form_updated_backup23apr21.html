@@ -1,13 +1,12 @@
-{% extends "base_form.html" %}
+
 
 {% load crispy_forms_tags %}
 {% load i18n %}
-{% block content %}
-<div class='container'>
+{% block content%}
 <div class="d-flex justify-content-center">  <h2 class='text-primary' > Self-Reported Questionnaire </h2> </div>
 <br/><br/>
 
-
+{% language lang %}
 <style>
 @media (min-width: @screen-sm-min) {
   .container {
@@ -80,18 +79,18 @@
 <input type='hidden' name='group' value={{group}}/>
 
 
-<div class='card bg-white shadow-lg' style="border-style: none;">
+<div class='card bg-white'>
   <div class='card-body'>
     <div class='row pb-4'>
 
-      <p class='text-muted'> {% blocktrans %}For the following questions, just indicate how much do you agree with the statement, from (1) strongly disagree to (5) strongly agree.{%endblocktrans%} </p>
+      <p class='text-muted'> For the following questions, just indicate how much do you agree with the statement, from (1) strongly disagree to (5) strongly agree.
     </div>
     <!-- Question 1 -->
     <div class='row'>
        <p class='first-cap'>1. {% blocktrans %}  I think that as a group we can learn more than learning as individuals. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q1_1' type="radio" name="survey-q1" value="1" required>
         <label class='mr-3' for='survey-q1_1'>1</label>
@@ -109,16 +108,16 @@
         <label class='mr-3' for='survey-q1_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 1 end -->
     <br/>
     <!-- Question 2 -->
     <div class='row'>
-      <p class='first-cap'>2. {% blocktrans %}I shared necessary materials and information for the given task with other participants{%endblocktrans%}</p>
+      <p class='first-cap'>2. {% blocktrans %}I shared necessary materials and information for the collaborative activity with other participants{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q2_1' type="radio" name="survey-q2" value="1" required>
         <label class='mr-3' for='survey-q2_1'>1</label>
@@ -136,16 +135,16 @@
         <label class='mr-3' for='survey-q2_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 2 end -->
     <br/>
     <!-- Question 3 -->
     <div class='row'>
-       <p class='first-cap'>3. {% blocktrans %} I felt responsible for the participants in the task.{%endblocktrans%}</p>
+       <p class='first-cap'>3. {% blocktrans %} I felt responsible for the participants during the collaborative activity. {{product}}{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %}</small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q3_1' type="radio" name="survey-q3" value="1" required>
         <label class='mr-3' for='survey-q3_1'>1</label>
@@ -163,7 +162,7 @@
         <label class='mr-3' for='survey-q3_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 3 end -->
     <br/>
@@ -172,7 +171,7 @@
        <p class='first-cap'>4. {% blocktrans %} I always tried to find ways to help others.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q4_1' type="radio" name="survey-q4" value="1" required>
         <label class='mr-3' for='survey-q4_1'>1</label>
@@ -190,16 +189,16 @@
         <label class='mr-3' for='survey-q4_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 4 end -->
     <br/>
     <!-- Question 5 -->
     <div class='row'>
-       <p class='first-cap'>5. {% blocktrans %}We had discussions in order to specify the goals of the given task.  {%endblocktrans%}</p>
+       <p class='first-cap'>5. {% blocktrans %}We had discussions in order to specify the goals of the collaborative activity.  {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q5_1' type="radio" name="survey-q5" value="1" required>
         <label class='mr-3' for='survey-q5_1'>1</label>
@@ -217,16 +216,16 @@
         <label class='mr-3' for='survey-q5_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 5 end -->
     <br/>
     <!-- Question 6 -->
     <div class='row'>
-       <p class='first-cap'>6. {% blocktrans %}Participants' ideas and opinions regarding the task were not interesting for me.{%endblocktrans%}</p>
+       <p class='first-cap'>6. {% blocktrans %}Participants' ideas and opinions regarding the acitivity were not interesting for me.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q6_1' type="radio" name="survey-q6" value="1" required>
         <label class='mr-3' for='survey-q6_1'>1</label>
@@ -244,16 +243,16 @@
         <label class='mr-3' for='survey-q6_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 6 end -->
     <br/>
     <!-- Question 7 -->
     <div class='row'>
-       <p class='first-cap'>7. {% blocktrans %} We helped each other out whenever necessary while working on the task. {%endblocktrans%}</p>
+       <p class='first-cap'>7. {% blocktrans %} We helped each other out whenever necessary while working on the collaborative activity. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q7_1' type="radio" name="survey-q7" value="1" required>
         <label class='mr-3' for='survey-q7_1'>1</label>
@@ -271,16 +270,16 @@
         <label class='mr-3' for='survey-q7_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 7 end -->
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>8. {% blocktrans %}I didn't feel responsible for the success of each participant in the given task.{%endblocktrans%}</p>
+        <p class='first-cap'>8. {% blocktrans %}I didn't feel responsible for the success of each participant in the collaborative activity.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q8_1' type="radio" name="survey-q8" value="1" required>
         <label class='mr-3' for='survey-q8_1'>1</label>
@@ -298,7 +297,7 @@
         <label class='mr-3' for='survey-q8_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 8 end -->
     <br/>
@@ -307,7 +306,7 @@
        <p class='first-cap'>9. {% blocktrans %} From time to time, I checked for other participants' understanding of the learned materials. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q9_1' type="radio" name="survey-q9" value="1" required>
         <label class='mr-3' for='survey-q9_1'>1</label>
@@ -325,7 +324,7 @@
         <label class='mr-3' for='survey-q9_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 9 end -->
     <br/>
@@ -333,10 +332,10 @@
 
 
     <div class='row'>
-       <p class='first-cap'>10. {% blocktrans %}The participants of the group tried to find ways in order to solve group problems. {%endblocktrans%} </p>
+       <p class='first-cap'>10. {% blocktrans %}The participants of the collaborative activity tried to find ways in order to solve group problems. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q10_1' type="radio" name="survey-q10" value="1" required>
         <label class='mr-3' for='survey-q10_1'>1</label>
@@ -354,7 +353,7 @@
         <label class='mr-3' for='survey-q10_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
     <br/>
@@ -363,7 +362,7 @@
        <p class='first-cap'>11. {% blocktrans %}It wasn't important for me to observe other participants' work.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q11_1' type="radio" name="survey-q11" value="1" required>
         <label class='mr-3' for='survey-q11_1'>1</label>
@@ -381,16 +380,16 @@
         <label class='mr-3' for='survey-q11_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
   <br/>
 
     <div class='row'>
-       <p class='first-cap'>12. {% blocktrans %}I benefited from working with others in this task. {%endblocktrans%}</p>
+       <p class='first-cap'>12. {% blocktrans %}I benefited from working with others in this collaborative activity. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q12_1' type="radio" name="survey-q12" value="1" required>
         <label class='mr-3' for='survey-q12_1'>1</label>
@@ -408,7 +407,7 @@
         <label class='mr-3' for='survey-q12_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
   <br/>
@@ -417,7 +416,7 @@
        <p class='first-cap'>13. {% blocktrans %}I encouraged others for their efforts. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q13_1' type="radio" name="survey-q13" value="1" required>
         <label class='mr-3' for='survey-q13_1'>1</label>
@@ -435,7 +434,7 @@
         <label class='mr-3' for='survey-q13_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
   <br/>
 
@@ -443,7 +442,7 @@
        <p class='first-cap'>14. {% blocktrans %}I felt responsible to complete my work on time.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q14_1' type="radio" name="survey-q14" value="1" required>
         <label class='mr-3' for='survey-q14_1'>1</label>
@@ -461,16 +460,16 @@
         <label class='mr-3' for='survey-q14_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
   <br/>
 
     <div class='row'>
-       <p class='first-cap'>15. {% blocktrans %}  I helped others to solve group problems. {%endblocktrans%}</p>
+       <p class='first-cap'>15. {% blocktrans %}  I helped others to solve group problem. {{product}}{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q15_1' type="radio" name="survey-q15" value="1" required>
         <label class='mr-3' for='survey-q15_1'>1</label>
@@ -488,16 +487,16 @@
         <label class='mr-3' for='survey-q15_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 1 end -->
     <br/>
     <!-- Question 2 -->
     <div class='row'>
-      <p class='first-cap'>16. {% blocktrans %}We discussed the achievement of the goals of the given task.{%endblocktrans%}</p>
+      <p class='first-cap'>16. {% blocktrans %}We discussed the achievement of the goals of the collaborative activity.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q16_1' type="radio" name="survey-q16" value="1" required>
         <label class='mr-3' for='survey-q16_1'>1</label>
@@ -515,16 +514,16 @@
         <label class='mr-3' for='survey-q16_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 2 end -->
     <br/>
     <!-- Question 3 -->
     <div class='row'>
-       <p class='first-cap'>17. {% blocktrans %} I think that my success in the given task is related only to my own work.{%endblocktrans%}</p>
+       <p class='first-cap'>17. {% blocktrans %} I think that my success in the collaborative activity is related only to my own work.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q17_1' type="radio" name="survey-q17" value="1" required>
         <label class='mr-3' for='survey-q17_1'>1</label>
@@ -542,7 +541,7 @@
         <label class='mr-3' for='survey-q17_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 3 end -->
     <br/>
@@ -551,7 +550,7 @@
        <p class='first-cap'>18. {% blocktrans %} I think that the success of the group depends on the contributions of each group member. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q18_1' type="radio" name="survey-q18" value="1" required>
         <label class='mr-3' for='survey-q18_1'>1</label>
@@ -569,7 +568,7 @@
         <label class='mr-3' for='survey-q18_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 4 end -->
     <br/>
@@ -578,7 +577,7 @@
        <p class='first-cap'>19. {% blocktrans %}I discussed other participants' contributions. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q19_1' type="radio" name="survey-q19" value="1" required>
         <label class='mr-3' for='survey-q19_1'>1</label>
@@ -596,7 +595,7 @@
         <label class='mr-3' for='survey-q19_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 5 end -->
     <br/>
@@ -605,7 +604,7 @@
        <p class='first-cap'>20. {% blocktrans %}I felt responsible to complete my work on the best way possible.  {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q20_1' type="radio" name="survey-q20" value="1" required>
         <label class='mr-3' for='survey-q20_1'>1</label>
@@ -623,7 +622,7 @@
         <label class='mr-3' for='survey-q20_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 6 end -->
     <br/>
@@ -632,7 +631,7 @@
        <p class='first-cap'>21. {% blocktrans %}I demanded participants' ideas and opinions.  {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q21_1' type="radio" name="survey-q21" value="1" required>
         <label class='mr-3' for='survey-q21_1'>1</label>
@@ -650,16 +649,16 @@
         <label class='mr-3' for='survey-q21_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 7 end -->
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>22. {% blocktrans %}The participants of the discussion forum provided helpful feedback to each other regarding the given task.{%endblocktrans%}</p>
+        <p class='first-cap'>22. {% blocktrans %}The participants of the discussion forum provided helpful feedback to each other regarding the collaborative activity.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q22_1' type="radio" name="survey-q22" value="1" required>
         <label class='mr-3' for='survey-q22_1'>1</label>
@@ -677,16 +676,16 @@
         <label class='mr-3' for='survey-q22_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 8 end -->
     <br/>
     <!-- Question 9 -->
     <div class='row'>
-       <p class='first-cap'>23. {% blocktrans %} I kept necessary materials and information for the task for myself. {%endblocktrans%} </p>
+       <p class='first-cap'>23. {% blocktrans %} I kept necessary materials and information for the collaborative activity for myself. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q23_1' type="radio" name="survey-q23" value="1" required>
         <label class='mr-3' for='survey-q23_1'>1</label>
@@ -704,7 +703,7 @@
         <label class='mr-3' for='survey-q23_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
     <!-- Question 9 end -->
     <br/>
@@ -715,7 +714,7 @@
        <p class='first-cap'>24. {% blocktrans %}I made a unique contribution to the joint effort. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q24_1' type="radio" name="survey-q24" value="1" required>
         <label class='mr-3' for='survey-q24_1'>1</label>
@@ -733,7 +732,7 @@
         <label class='mr-3' for='survey-q24_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
     <br/>
@@ -742,7 +741,7 @@
        <p class='first-cap'>25. {% blocktrans %}I tried to discuss concepts being learned with others.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q25_1' type="radio" name="survey-q25" value="1" required>
         <label class='mr-3' for='survey-q25_1'>1</label>
@@ -760,7 +759,7 @@
         <label class='mr-3' for='survey-q25_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
   <br/>
@@ -769,7 +768,7 @@
        <p class='first-cap'>26. {% blocktrans %}I felt responsible to observe other participants' work.  {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q26_1' type="radio" name="survey-q26" value="1" required>
         <label class='mr-3' for='survey-q26_1'>1</label>
@@ -787,7 +786,7 @@
         <label class='mr-3' for='survey-q26_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
   <br/>
@@ -796,7 +795,7 @@
        <p class='first-cap'>27. {% blocktrans %}Sometimes, I tried to give direction to group's work.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
         <div class="radio-toolbar">
           <input id='survey-q27_1' type="radio" name="survey-q27" value="1" required>
           <label class='mr-3' for='survey-q27_1'>1</label>
@@ -814,7 +813,7 @@
           <label class='mr-3' for='survey-q27_5'>5</label>
         </div>
 
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
       </div>
 
   <br/>
@@ -823,7 +822,7 @@
        <p class='first-cap'>28. {% blocktrans %}I tried to give others helpful feedback.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
         <div class="radio-toolbar">
           <input id='survey-q28_1' type="radio" name="survey-q28" value="1" required>
           <label class='mr-3' for='survey-q28_1'>1</label>
@@ -841,7 +840,7 @@
           <label class='mr-3' for='survey-q28_5'>5</label>
         </div>
 
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
       </div>
   <br/>
 
@@ -849,7 +848,7 @@
        <p class='first-cap'>29. {% blocktrans %}I tried to compliment people when I liked something they have done. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
     <div class="radio-toolbar">
       <input id='survey-q29_1' type="radio" name="survey-q29" value="1" required>
       <label class='mr-3' for='survey-q29_1'>1</label>
@@ -867,16 +866,16 @@
       <label class='mr-3' for='survey-q29_5'>5</label>
     </div>
 
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
   </div>
     <!-- Question 5 end -->
     <br/>
     <!-- Question 6 -->
     <div class='row'>
-       <p class='first-cap'>30. {% blocktrans %}We monitored each other's work in order to ensure high quality of the submitted response. {%endblocktrans%}</p>
+       <p class='first-cap'>30. {% blocktrans %}We monitored each other's work in order to ensure high quality of the group's work. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
         <div class="radio-toolbar">
           <input id='survey-q30_1' type="radio" name="survey-q30" value="1" required>
           <label class='mr-3' for='survey-q30_1'>1</label>
@@ -894,16 +893,16 @@
           <label class='mr-3' for='survey-q30_5'>5</label>
         </div>
 
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
       </div>
     <!-- Question 6 end -->
     <br/>
     <!-- Question 7 -->
     <div class='row'>
-       <p class='first-cap'>31. {% blocktrans %}I felt that we depended on each other while working on the task.{%endblocktrans%}</p>
+       <p class='first-cap'>31. {% blocktrans %}I felt that we depended on each other while working on the collaborative activity.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
         <div class="radio-toolbar">
           <input id='survey-q31_1' type="radio" name="survey-q31" value="1" required>
           <label class='mr-3' for='survey-q31_1'>1</label>
@@ -921,16 +920,16 @@
           <label class='mr-3' for='survey-q31_5'>5</label>
         </div>
 
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
       </div>
     <!-- Question 7 end -->
     <br/>
     <!-- Question 8 -->
     <div class='row'>
-        <p class='first-cap'>32. {% blocktrans %}Working with others on the given task was a waste of time.{%endblocktrans%}</p>
+        <p class='first-cap'>32. {% blocktrans %}Working with others in this collaborative activity was a waste of time.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
     <div class="radio-toolbar">
       <input id='survey-q32_1' type="radio" name="survey-q32" value="1" required>
       <label class='mr-3' for='survey-q32_1'>1</label>
@@ -948,7 +947,7 @@
       <label class='mr-3' for='survey-q32_5'>5</label>
     </div>
 
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
   </div>
     <!-- Question 8 end -->
     <br/>
@@ -957,7 +956,7 @@
        <p class='first-cap'>33. {% blocktrans %} I apologized to others when I did something wrong. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
     <div class="radio-toolbar">
       <input id='survey-q33_1' type="radio" name="survey-q33" value="1" required>
       <label class='mr-3' for='survey-q33_1'>1</label>
@@ -975,7 +974,7 @@
       <label class='mr-3' for='survey-q33_5'>5</label>
     </div>
 
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
   </div>
     <!-- Question 9 end -->
     <br/>
@@ -983,10 +982,10 @@
 
 
     <div class='row'>
-       <p class='first-cap'>34. {% blocktrans %}The achievement of the goals of the task was not discussed by the participants. {%endblocktrans%} </p>
+       <p class='first-cap'>34. {% blocktrans %}The achievement of the goals of the collaborative activity was not discussed by the participants. {%endblocktrans%} </p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q34_1' type="radio" name="survey-q34" value="1" required>
         <label class='mr-3' for='survey-q34_1'>1</label>
@@ -1004,16 +1003,16 @@
         <label class='mr-3' for='survey-q34_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
     <br/>
 
     <div class='row'>
-       <p class='first-cap'>35. {% blocktrans %}I was initiative in dividing sub-tasks among the participants.{%endblocktrans%}</p>
+       <p class='first-cap'>35. {% blocktrans %}I was initiative in dividing tasks of the collaborative activity among the participants.{%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
       <div class="radio-toolbar">
         <input id='survey-q35_1' type="radio" name="survey-q35" value="1" required>
         <label class='mr-3' for='survey-q35_1'>1</label>
@@ -1031,16 +1030,16 @@
         <label class='mr-3' for='survey-q35_5'>5</label>
       </div>
 
-      <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+      <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
     </div>
 
 
 <br/>
     <div class='row'>
-       <p class='first-cap'>36. {% blocktrans %}I think that my success in this task is also related to the contributions of others. {%endblocktrans%}</p>
+       <p class='first-cap'>36. {% blocktrans %}I think that my success in the collaborative activity is also related to the contributions of others. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
         <div class="radio-toolbar">
           <input id='survey-q36_1' type="radio" name="survey-q36" value="1" required>
           <label class='mr-3' for='survey-q36_1'>1</label>
@@ -1058,14 +1057,14 @@
           <label class='mr-3' for='survey-q36_5'>5</label>
         </div>
 
-        <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+        <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
       </div>
 <br/>
     <div class='row'>
        <p class='first-cap'>37. {% blocktrans %}The participants always discussed my contributions. {%endblocktrans%}</p>
     </div>
     <div class="row d-flex justify-content-center">
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Disagree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Disagree </small>
     <div class="radio-toolbar">
       <input id='survey-q37_1' type="radio" name="survey-q37" value="1" required>
       <label class='mr-3' for='survey-q37_1'>1</label>
@@ -1083,7 +1082,7 @@
       <label class='mr-3' for='survey-q37_5'>5</label>
     </div>
 
-    <small class='text-muted' style="padding-top:15px;"> {%trans 'Strongly Agree' %} </small>
+    <small class='text-muted' style="padding-top:15px;"> Strongly Agree </small>
   </div>
 
 
@@ -1255,12 +1254,17 @@
 </div>
 -->
 <br/>
-<input type="submit" class='btn btn-info btn-lg pr-5 pl-5 mb-5 float-right'  value="{% trans "Submit & Exit" %}" />
+
+{% if wizard.steps.prev %}
+
+<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit" %}" />
 
 <!-- old format
 <input type="submit" class='btn btn-primary pr-5 pl-5 float-right'  value="{% trans "Submit" %}" />
 -->
 </form>
 <br/><br/>
-</div>
+{% endlanguage %}
 {% endblock %}
