@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, AnonyForm, SessionForm, AudioflForm, VADForm
+
 from formtools.wizard.views import SessionWizardView
 from django import forms
 from django.db import transaction
-from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability, Audiofl
 from django.contrib import messages
 import uuid
 from django.contrib.sites.shortcuts import get_current_site
