@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< HEAD
 from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, AnonyForm, SessionForm, AudioflForm, VADForm
 from formtools.wizard.views import SessionWizardView
 from django import forms
@@ -8,8 +7,6 @@ from django.db import transaction
 from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability, Audiofl
 from django.contrib import messages
 import uuid
-=======
->>>>>>> 92757499e3d1307fe04887baff3e6af65acde3e9
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
 from django.db.models import Count
@@ -31,14 +28,14 @@ import datetime
 import re
 import time
 import csv
-<<<<<<< HEAD
+
 from esurvey.models import Role
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-=======
+
 import uuid
 from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
