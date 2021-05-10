@@ -64,7 +64,7 @@ TEMPLATES = {"activity_info": "create_activity_info.html",
 
 
 
->>>>>>> 92757499e3d1307fe04887baff3e6af65acde3e9
+
 ################### Changeset Processing ######################
 def changeset_parse (c) :
     changeset_pat = re.compile(r'^Z:([0-9a-z]+)([><])([0-9a-z]+)(.+?)\$')
