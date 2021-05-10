@@ -4,7 +4,7 @@ from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, lastForm, An
 from formtools.wizard.views import SessionWizardView
 from django import forms
 from django.db import transaction
-from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability
+from .models import Project, Survey, Pad, Link, Submission, Session, SessionPin, SessionGroupMap, AuthorMap, VAD, Usability, Audiofl
 from django.contrib import messages
 import uuid
 from django.contrib.sites.shortcuts import get_current_site
@@ -21,15 +21,9 @@ import re
 from django.conf import settings
 import time
 import csv
-
 from esurvey.models import Role
-
-
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
-
-
-
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -289,6 +283,24 @@ def downloadChat(request,session_id):
                 writer.writerow([datetime.datetime.fromtimestamp(msg["time"]/1000).strftime('%H:%M:%S %d-%m-%Y'),msg["userId"],msg["text"]])
 
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
+    return response
+
+def downloadFileTimestamp(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_vad.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['timestamp','user','group','sequence','filename'])
+        vads = Audiofl.objects.all().filter(session=session)
+        for v in vads:
+            writer.writerow([v.description,v.user.email,v.group,v.sequence,v.fl.name])
     return response
 
 def downloadVad(request,session_id):

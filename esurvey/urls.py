@@ -22,6 +22,7 @@ urlpatterns = [
     path("sessions/mapping/<session_id>", login_required(views.downloadMapping), name="download_mapping"),
     path("sessions/chat/<session_id>", login_required(views.downloadChat), name="download_chat"),
     path("sessions/vad/<session_id>", login_required(views.downloadVad), name="download_vad"),
+    path("sessions/files/<session_id>", login_required(views.downloadFileTimestamp), name="download_fileTimestamp"),
     path("sessions/padtext/<session_id>/<group_id>", login_required(views.getGroupText), name='group_text'),
     path("sessions/deactivate/<session_id>", login_required(views.deactivateSession), name="session_deactivate"),
 
