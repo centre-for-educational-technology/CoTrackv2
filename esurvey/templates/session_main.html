@@ -10,25 +10,25 @@
     {{session.name | upper}}
   </h2>
   <p>
-    <b class='text-muted'>No. of groups: </b> {{ session.groups }} <br/>
-    <b class='text-muted'>Duration: </b>{{ session.duration }} <br/>
+    <b class='text-muted'>{% trans 'No. of groups:'%} </b> {{ session.groups }} <br/>
+    <b class='text-muted'>{% trans 'Duration:'%} </b>{{ session.duration }} <br/>
   </p>
   <br/>
-  <button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">Show dashboard</button>
+  <button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">Show dashboard'%}</button>
   <hr/>
   <div class="dropdown">
     <button class="btn btn-warning dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Download Data
+      {% trans 'Download Data'%}
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">Etherpad logs</a>
-      <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">Etherpad Chat</a>
+      <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">{% trans 'Etherpad logs'%}</a>
+      <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">{% trans 'Etherpad Chat'%}</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="{% url 'download_vad' session.id %}" data-toggle="tooltip" title="Download voice activity detection">VAD data</a>
-      <a class="dropdown-item" href="{% url 'download_speech' session.id %}" data-toggle="tooltip" title="Download speech data">Speech data</a>
-      <a class="dropdown-item" href="{% url 'download_fileTimestamp' session.id %}" data-toggle="tooltip" title="Download file metadata">File metadata</a>
+      <a class="dropdown-item" href="{% url 'download_vad' session.id %}" data-toggle="tooltip" title="Download voice activity detection">{% trans 'VAD data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_speech' session.id %}" data-toggle="tooltip" title="Download speech data">{% trans 'Speech data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_fileTimestamp' session.id %}" data-toggle="tooltip" title="Download file metadata">{% trans 'File metadata'%}</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">User mapping</a>
+      <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">{% trans 'User mapping'%}</a>
     </div>
   </div>
   <br/><br/>
@@ -46,7 +46,7 @@
       <div class='col col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12'>
         <div class="card">
           <div class='card-body'>
-            <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
+            <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
           </div>
         </div>
@@ -56,7 +56,7 @@
       <div class='col col-12 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12'>
         <div class="card">
           <div class='card-body'>
-            <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
+            <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
           </div>
         </div>
@@ -66,7 +66,7 @@
       <div class='col col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12'>
         <div class="card">
           <div class='card-body'>
-            <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
+            <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
           </div>
         </div>
@@ -83,10 +83,10 @@
       <div class='col col-4'>
         <div class="card">
           <div class='card-body'>
-            <h4 class='card-title'> Join group discussion </h4><hr/>
-            <p>Following links can be used to enter the respective group discussion. You can also check their written responses.</p> <br/><br/>
+            <h4 class='card-title'> {% trans 'Join group discussion'%} </h4><hr/>
+            <p>{% trans 'Following links can be used to enter the respective group discussion. You can also check their written responses.'%}</p> <br/><br/>
             {% for g in no_group%}
-              <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Group-{{forloop.counter}}</a>
+              <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">{% trans 'Group'%}-{{forloop.counter}}</a>
             {% endfor %}
           </div>
         </div>
@@ -94,7 +94,7 @@
       <div id='eth_dash' style="visibility:hidden;" class='col col-8'>
         <div class="card">
           <div class='card-body'>
-            <h4 class='card-title'> Etherpad activity <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#etherpad_activity"></i></span> </h4><hr/>
+            <h4 class='card-title'> {% trans 'Etherpad activity'%} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#etherpad_activity"></i></span> </h4><hr/>
             <canvas id="overall"></canvas>
           </div>
         </div>
@@ -106,15 +106,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header border-bottom-0">
-          <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Etherpad activity</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Etherpad activity'%}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class='modal-body'>
+          {% blocktrans %}
            Etherpad activity means the number of revisions made to the collaborative document.
            For example, whenever group participants write something, it updates the documents.
            The total number of such updates are presented as etherpad activities.
+           {% endblocktrans %}
         </div>
       </div>
     </div>
@@ -154,7 +156,7 @@
       if (help_result.queries[i].help) {
         id = '#help-' + String(i);
         console.log(id,help_result.queries[i].help);
-        new_msg = "Join group-" + String(i+1) + "<span style='font-size:28px;color:white' class='fa fa-hand-paper-o ml-4'></span>";
+        new_msg = "{% trans 'Join group'%}-" + String(i+1) + "<span style='font-size:28px;color:white' class='fa fa-hand-paper-o ml-4'></span>";
         $(id).html(new_msg);
       }
     }
