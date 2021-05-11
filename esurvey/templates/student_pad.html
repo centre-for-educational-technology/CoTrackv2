@@ -93,7 +93,8 @@
         fd.append('user',{{request.user.id}});
         fd.append('group',{{group}});
         var xhr = new XMLHttpRequest();
-
+        console.log('============================>Help Notification sent');
+        console.log(fd);
         xhr.open('POST', '/help_upload/', true);
         xhr.send(fd);
         notifyAlertSent();
