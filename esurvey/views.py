@@ -40,7 +40,7 @@ from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
 
 from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm
-from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, Consent, activityLog, Speech, GroupPin, Help
+from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help
 from .models import Audiofl
 from esurvey.models import Role
 import os
@@ -586,6 +586,36 @@ def usabilityForm(request):
         #return getAnonyForm(request)
     else:
         return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
+
+
+
+def engagementForm(request,session,group):
+    if request.method == "POST":
+        q1 = int(request.POST['survey-q1'])
+        q2 = int(request.POST['survey-q2'])
+        q3 = int(request.POST['survey-q3'])
+        q4 = int(request.POST['survey-q4'])
+        q5 = int(request.POST['survey-q5'])
+        q6 = int(request.POST['survey-q6'])
+        q7 = int(request.POST['survey-q7'])
+        q8 = int(request.POST['survey-q8'])
+        q9 = int(request.POST['survey-q9'])
+        q10 = int(request.POST['survey-q10'])
+        q11 = int(request.POST['survey-q11'])
+        q12 = int(request.POST['survey-q12'])
+        q13 = int(request.POST['survey-q13'])
+        q14 = int(request.POST['survey-q14'])
+        q15 = int(request.POST['survey-q15'])
+        session_obj  = Session.objects.get(id=session)
+        submission = EngagementQ.objects.create(session=session_obj,group=group,submitted_user=request.user,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15)
+        messages.success(request, _('Your responses are saved. Thank you for the submission.'))
+        if 'joined' in request.session.keys():
+            del request.session['joined']
+        return redirect('student_entry')
+    else:
+        return render(request,"survey_form_updated_engagement.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
+
+
 
 
 def surveyForm(request,session,group):
