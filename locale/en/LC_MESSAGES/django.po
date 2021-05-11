@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-23 11:26+0300\n"
+"POT-Creation-Date: 2021-05-11 19:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,394 +18,983 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: TrustedUX/settings.py:239
+#: TrustedUX/settings.py:241
 msgid "English"
 msgstr ""
 
-#: TrustedUX/settings.py:239
+#: TrustedUX/settings.py:241
 msgid "Estonian"
 msgstr ""
 
-#: esurvey/templates/create.html:130
-#: esurvey/templates/survey_form_updated.html:1259
+#: TrustedUX/settings.py:241
+msgid "Portugese"
+msgstr ""
+
+#: esurvey/forms.py:67
+msgid "Session name"
+msgstr ""
+
+#: esurvey/forms.py:68
+msgid "Number of groups"
+msgstr ""
+
+#: esurvey/forms.py:70
+msgid "Days"
+msgstr ""
+
+#: esurvey/forms.py:71
+msgid "Hours"
+msgstr ""
+
+#: esurvey/forms.py:72
+msgid "Minutes"
+msgstr ""
+
+#: esurvey/forms.py:76
+msgid "Learning activity"
+msgstr ""
+
+#: esurvey/forms.py:86
+msgid "Enable"
+msgstr ""
+
+#: esurvey/forms.py:86
+msgid "Disabble"
+msgstr ""
+
+#: esurvey/templates/anony_settings.html:97 esurvey/templates/create.html:53
+#: esurvey/templates/create_activity_info.html:151
+#: esurvey/templates/create_config.html:150
+#: esurvey/templates/create_summary.html:67
+#: esurvey/templates/create_task.html:51
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1260
 #: esurvey/templates/survey_form_usability.html:721
 msgid "Back"
 msgstr ""
 
-#: esurvey/templates/create.html:132
+#: esurvey/templates/anony_settings.html:99 esurvey/templates/create.html:55
+#: esurvey/templates/create_activity_info.html:153
+#: esurvey/templates/create_config.html:152
+#: esurvey/templates/create_task.html:53
 msgid "Continue"
 msgstr ""
 
-#: esurvey/templates/create.html:133 esurvey/templates/overview.html:127
+#: esurvey/templates/anony_settings.html:100 esurvey/templates/create.html:56
+#: esurvey/templates/create_activity_info.html:148
+#: esurvey/templates/create_config.html:147
+#: esurvey/templates/create_summary.html:65
+#: esurvey/templates/create_task.html:49 esurvey/templates/overview.html:127
 msgid "Cancel"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:4 esurvey/templates/dashboard.html:10
-msgid "Sessions"
+#: esurvey/templates/consent.html:11
+msgid "Informed consent for participant."
+msgstr ""
+
+#: esurvey/templates/consent.html:12
+msgid ""
+"<h6 >Dear Participant </h6><br/>\n"
+"                    With your permission, we would like to record audio and "
+"video during collaborative activity session so that we can analyze it in "
+"detail later on.\n"
+"                    The recording will be saved in  files- in WEBM format on "
+"server.\n"
+"                    <br/><br/>\n"
+"                    It should be noticed that:<br/>\n"
+"                    All kinds of data will be stored securely on Google "
+"drive (under a password-protected TLU account), and backed up in a password-"
+"protected server at TLU, accessible only to the research team.\n"
+"                    This data will be stored not longer than 5 years. <br/>\n"
+"                    The data may be re-used by members of the <a href="
+"\"http://ceiter.tlu.ee/\" target=\"_blank\">CEITER research team</a>, or in "
+"later projects by students of the School of Educational Technologies and "
+"School of Educational Sciences.\n"
+"                    <br/><br/>No personal information about you will be "
+"shared or made public, and any information you provide will be anonymized "
+"before publication. <br/>\n"
+"                    At any point, you can request to withdraw your data from "
+"the study, or from this storage. <br/>\n"
+"                    <br/><br/>\n"
+"                    <b>GDPR art. 13</b> requirements: <br/>\n"
+"                    Data Protection Officer (at Tallinn University): "
+"andmekaitsespetsialist@tlu.ee<br/>\n"
+"                    <br/>\n"
+"                    <b>Please read carefully the following points and ask "
+"for clarifications in case of doubts:</b><br/><br/>\n"
+"\n"
+"                    <ul>\n"
+"                      <li>  The collaboration activity is designed to gather "
+"information for research purposes and further development of data collection "
+"and visualization technologies to understand collaborative learning "
+"activities across spaces.</li>\n"
+"                      <li>  I may withdraw and discontinue my participation "
+"at any time.</li>\n"
+"                      <li> My audio and video will be recorded.</li>\n"
+"                      <li> The researcher will not identify me by name in "
+"any report using information obtained from this dataset, and my "
+"confidentiality as a participant in this study will remain secure. </li>\n"
+"                      <li> Anonymized extracts from the dataset may be used "
+"in research publications.  </li>\n"
+"                      <li> I have the right to ask access, rectification, or "
+"erasure of my data (as long as it is possible to pinpoint my identity from "
+"that data)</li>\n"
+"                    </ul>\n"
+"                  "
+msgstr ""
+
+#: esurvey/templates/consent.html:41
+msgid ""
+" I confirm that I have read and understood the explanation provided to me."
+"<br/>\n"
+"                      I have had all my questions answered to my "
+"satisfaction, and I voluntarily agree to participate in this study. "
+msgstr ""
+
+#: esurvey/templates/consent.html:45
+msgid "Consent"
+msgstr ""
+
+#: esurvey/templates/consent.html:45
+msgid "required"
+msgstr ""
+
+#: esurvey/templates/create_activity_info.html:18
+#: esurvey/templates/create_summary.html:7 esurvey/templates/dashboard.html:31
+msgid "Edit"
+msgstr ""
+
+#: esurvey/templates/create_activity_info.html:18
+#: esurvey/templates/create_summary.html:7
+msgid "New"
+msgstr ""
+
+#: esurvey/templates/create_activity_info.html:18
+#: esurvey/templates/create_summary.html:7
+#, fuzzy
+#| msgid "Sessions"
+msgid "session"
 msgstr "Sessions"
 
-#: esurvey/templates/dashboard.html:20
+#: esurvey/templates/create_activity_info.html:37
+msgid "Activity duration"
+msgstr ""
+
+#: esurvey/templates/create_activity_info.html:70
+msgid ""
+"This is the title of session. Here, session refers to a learning activity "
+"which can be for individual or groups. "
+msgstr ""
+
+#: esurvey/templates/create_activity_info.html:114
+msgid ""
+"Specify the language of instructions. The participants will see all the "
+"instructions in the specified langauge."
+msgstr ""
+
+#: esurvey/templates/create_config.html:53
+#: esurvey/templates/create_summary.html:19
+msgid "Configuration"
+msgstr ""
+
+#: esurvey/templates/create_config.html:54
+msgid "Add Etherpad"
+msgstr ""
+
+#: esurvey/templates/create_config.html:55
+#, python-format
+msgid "{%% trans "
+msgstr ""
+
+#: esurvey/templates/create_config.html:60
+msgid "Recording"
+msgstr ""
+
+#: esurvey/templates/create_config.html:61
+msgid "Audio only"
+msgstr ""
+
+#: esurvey/templates/create_config.html:62
+msgid "Audio and Video"
+msgstr ""
+
+#: esurvey/templates/create_config.html:70
+msgid "Etherpad: A collaborative text editor"
+msgstr ""
+
+#: esurvey/templates/create_config.html:76
+msgid ""
+"Etherpad is a collaborative text editor just like Google docs. However, it "
+"allows instructor to track and see participants' contribution in terms of "
+"who wrote what at what time.<br/> Therefore, it comes with participants' "
+"activities tracking capabilities."
+msgstr ""
+
+#: esurvey/templates/create_config.html:78
+msgid "A small demo is given below"
+msgstr ""
+
+#: esurvey/templates/create_config.html:89
+msgid "Audio & Video chat"
+msgstr ""
+
+#: esurvey/templates/create_config.html:95
+msgid ""
+"This support will add audio-video chat feature to your learning space. <br/"
+">\n"
+"                    So, when the participants join, they will be able to "
+"communicate throught audio-video channels."
+msgstr ""
+
+#: esurvey/templates/create_config.html:109
+msgid "Tracking/Recording"
+msgstr ""
+
+#: esurvey/templates/create_config.html:115
+msgid ""
+"This feature enable CoTrack to track and record audio & video data from "
+"learning activity. <br/>\n"
+"                    It will also instructor to monitor participants' "
+"behavior in terms of the following"
+msgstr ""
+
+#: esurvey/templates/create_config.html:118
+msgid ""
+"Social dynamics: Who is talking after whom and how much are they talking."
+msgstr ""
+
+#: esurvey/templates/create_config.html:119
+msgid "Emotion swing: How participant's emotions are changing."
+msgstr ""
+
+#: esurvey/templates/create_config.html:120
+msgid ""
+"Body movement: How active participants are during the learning activity."
+msgstr ""
+
+#: esurvey/templates/create_config.html:121
+msgid "Collaboration: How well groups are collaborating."
+msgstr ""
+
+#: esurvey/templates/create_config.html:122
+msgid "Engagement: How engaged participants are during the activity."
+msgstr ""
+
+#: esurvey/templates/create_config.html:125
+msgid ""
+"Some of the above mentioned features are already available in the CoTrackv2. "
+"<br/>The collected data will help to add remaining featuers in the CoTrackV2."
+msgstr ""
+
+#: esurvey/templates/create_session_process_step.html:6
+#: esurvey/templates/create_session_process_step.html:8
+msgid "Step 1: Activity info"
+msgstr ""
+
+#: esurvey/templates/create_session_process_step.html:12
+#: esurvey/templates/create_session_process_step.html:14
+msgid "Step 2: Activity task"
+msgstr ""
+
+#: esurvey/templates/create_session_process_step.html:17
+#: esurvey/templates/create_session_process_step.html:19
+msgid "Step 3: Configuration"
+msgstr ""
+
+#: esurvey/templates/create_session_process_step.html:23
+#: esurvey/templates/create_session_process_step.html:25
+msgid "Step 4: Summary"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:13
+msgid "General Information"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:14
+msgid "Session name:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:15
+msgid "Number of groups:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:16 esurvey/templates/dashboard.html:55
+msgid "Language:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:17
+msgid "Activity duration:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:17
+msgid "hours"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:17
+msgid "minutes"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:20
+msgid "Add Etherpad:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:20
+#: esurvey/templates/create_summary.html:21
+#: esurvey/templates/create_summary.html:22
+#: esurvey/templates/create_summary.html:23
+msgid "Yes"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:20
+#: esurvey/templates/create_summary.html:21
+#: esurvey/templates/create_summary.html:22
+#: esurvey/templates/create_summary.html:23
+msgid "No"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:21
+msgid "Add Audio & Video chat:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:22
+msgid "Record audio:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:23
+msgid "Record video:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:29
+msgid "Session access for participants"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:34
+msgid "Session access"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:40
+msgid ""
+"Participants can only join the session if it is enabled. Instructors can "
+"control parcipants access to the session."
+msgstr ""
+
+#: esurvey/templates/create_summary.html:42
+msgid "It can be changed later."
+msgstr ""
+
+#: esurvey/templates/create_summary.html:70
+msgid "Create"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:72
+msgid "Update"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:9
 msgid "Active"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:22 esurvey/templates/dashboard.html:24
+#: esurvey/templates/dashboard.html:11 esurvey/templates/dashboard.html:13
 msgid "Archived"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:29
+#: esurvey/templates/dashboard.html:18
+#, fuzzy
+#| msgid "Sessions"
 msgid "New session"
+msgstr "Sessions"
+
+#: esurvey/templates/dashboard.html:32
+msgid " Duplicate"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:34
+msgid "Archive"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:36
+msgid "Unarchive"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:39
+msgid "Demo"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:47
+msgid "Access pin"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:50
+msgid "Group"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:54
+msgid "No. of groups:"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:56
+msgid "Duration:"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:57
+msgid "Created:"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:58
+msgid "Activity monitoring"
+msgstr ""
+
+#: esurvey/templates/dashboard.html:74
+#, fuzzy
+#| msgid "Sessions"
+msgid "No sessions"
+msgstr "Sessions"
+
+#: esurvey/templates/dashboard.html:75
+msgid "You do not have any active sessions."
+msgstr ""
+
+#: esurvey/templates/dashboard.html:76 esurvey/templates/session.html:23
+msgid "Create Session"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:42
+msgid "Start recording"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:46
+msgid "Do activity"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:50
+msgid "Stop recording"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:54
+msgid "Fill survey"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:64
+#: esurvey/templates/pad_only_no_audio.html:76
+#: esurvey/templates/pad_only_no_audio.html:107
+#: esurvey/templates/pad_only_no_audio.html:118
+msgid "STEP"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:65
+msgid ""
+"You need to start the video recording. The recorded video will be saved on "
+"the server."
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:84
+#: esurvey/templates/student_pad.html:29
+msgid "Task"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:94
+#: esurvey/templates/student_pad.html:39 esurvey/templates/teacher_pad.html:32
+msgid "Write solution here"
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:109
+msgid ""
+"After finishing your group activity, you can stop your recording.<br/>The "
+"button will be active after you start recording."
+msgstr ""
+
+#: esurvey/templates/pad_only_no_audio.html:119
+msgid ""
+"We will appreciate you if you can fill the survey. It will allow us to "
+"better understand the collaboration behavior for your research."
 msgstr ""
 
 #: esurvey/templates/session.html:21
 msgid "Edit Session"
 msgstr ""
 
-#: esurvey/templates/session.html:23
-msgid "Create Session"
-msgstr ""
-
-#: esurvey/templates/session_student_entry.html:28
-#: esurvey/templates/student_session_home.html:33
+#: esurvey/templates/session_student_entry.html:27
+#: esurvey/templates/session_student_entry_v2.html:221
+#: esurvey/templates/student_session_home.html:34
 msgid "Enter"
 msgstr ""
 
-#: esurvey/templates/student_session_home.html:16
+#: esurvey/templates/session_student_entry_v2.html:185
+#, fuzzy
+#| msgid "Sessions"
+msgid "Join session"
+msgstr "Sessions"
+
+#: esurvey/templates/session_student_entry_v2.html:198
+#: esurvey/templates/session_student_entry_v2.html:207
+#, fuzzy
+#| msgid "Sessions"
+msgid "Session pin"
+msgstr "Sessions"
+
+#: esurvey/templates/session_student_entry_v2.html:200
+#, fuzzy
+#| msgid "Sessions"
+msgid "Enter session pin"
+msgstr "Sessions"
+
+#: esurvey/templates/session_student_entry_v2.html:201
+msgid ""
+"If you do not have the pin ask your instructor to provide to join the "
+"session."
+msgstr ""
+
+#: esurvey/templates/session_student_entry_v2.html:213
+msgid ""
+"You can join a session created by your teacher/instructor by using secure "
+"pin. This pin is shared by the teacher/instructor which allows students to "
+"join the session."
+msgstr ""
+
+#: esurvey/templates/session_student_entry_v2.html:214
+msgid ""
+"If you do not have access to secure pin then ask your teacher/instructor."
+msgstr ""
+
+#: esurvey/templates/student_pad.html:3
+#, fuzzy
+#| msgid "Sessions"
+msgid "Session"
+msgstr "Sessions"
+
+#: esurvey/templates/student_pad.html:11
+msgid "Exit"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:12
+msgid "Ask teacher for help"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:26
+msgid "Learning sapce"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:79
+msgid "Recording started!"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:79
+msgid "Recording has been started."
+msgstr ""
+
+#: esurvey/templates/student_pad.html:83
+msgid "Notification sent!"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:83
+msgid "A notification has been sent to the teacher. Teacher will join soon."
+msgstr ""
+
+#: esurvey/templates/student_pad.html:152
+msgid ""
+"Exiting will stop recording. Select ok if you are done with the activity."
+msgstr ""
+
+#: esurvey/templates/student_session_home.html:13
+msgid "Instructor:"
+msgstr ""
+
+#: esurvey/templates/student_session_home.html:17
 msgid "Leave session"
 msgstr ""
 
-#: esurvey/templates/student_session_home.html:24
+#: esurvey/templates/student_session_home.html:25
 msgid "Groups"
 msgstr ""
 
-#: esurvey/templates/student_session_home.html:25
+#: esurvey/templates/student_session_home.html:26
 msgid "Link"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:85
+#: esurvey/templates/survey_form_updated.html:87
+#: esurvey/templates/survey_form_updated_engagement.html:86
 msgid ""
 "For the following questions, just indicate how much do you agree with the "
 "statement, from (1) strongly disagree to (5) strongly agree."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:89
+#: esurvey/templates/survey_form_updated.html:91
+#: esurvey/templates/survey_form_updated_backup23apr21.html:90
 msgid ""
 "  I think that as a group we can learn more than learning as individuals. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:92
-#: esurvey/templates/survey_form_updated.html:119
-#: esurvey/templates/survey_form_updated.html:146
-#: esurvey/templates/survey_form_updated.html:173
-#: esurvey/templates/survey_form_updated.html:200
-#: esurvey/templates/survey_form_updated.html:227
-#: esurvey/templates/survey_form_updated.html:254
-#: esurvey/templates/survey_form_updated.html:281
-#: esurvey/templates/survey_form_updated.html:308
-#: esurvey/templates/survey_form_updated.html:337
-#: esurvey/templates/survey_form_updated.html:364
-#: esurvey/templates/survey_form_updated.html:391
-#: esurvey/templates/survey_form_updated.html:418
-#: esurvey/templates/survey_form_updated.html:444
-#: esurvey/templates/survey_form_updated.html:471
-#: esurvey/templates/survey_form_updated.html:498
-#: esurvey/templates/survey_form_updated.html:525
-#: esurvey/templates/survey_form_updated.html:552
-#: esurvey/templates/survey_form_updated.html:579
-#: esurvey/templates/survey_form_updated.html:606
-#: esurvey/templates/survey_form_updated.html:633
-#: esurvey/templates/survey_form_updated.html:660
-#: esurvey/templates/survey_form_updated.html:687
-#: esurvey/templates/survey_form_updated.html:716
-#: esurvey/templates/survey_form_updated.html:743
-#: esurvey/templates/survey_form_updated.html:770
-#: esurvey/templates/survey_form_updated.html:797
-#: esurvey/templates/survey_form_updated.html:824
-#: esurvey/templates/survey_form_updated.html:850
-#: esurvey/templates/survey_form_updated.html:877
-#: esurvey/templates/survey_form_updated.html:904
-#: esurvey/templates/survey_form_updated.html:931
-#: esurvey/templates/survey_form_updated.html:958
-#: esurvey/templates/survey_form_updated.html:987
-#: esurvey/templates/survey_form_updated.html:1014
-#: esurvey/templates/survey_form_updated.html:1041
-#: esurvey/templates/survey_form_updated.html:1066
+#: esurvey/templates/survey_form_updated.html:94
+#: esurvey/templates/survey_form_updated.html:121
+#: esurvey/templates/survey_form_updated.html:148
+#: esurvey/templates/survey_form_updated.html:175
+#: esurvey/templates/survey_form_updated.html:202
+#: esurvey/templates/survey_form_updated.html:229
+#: esurvey/templates/survey_form_updated.html:256
+#: esurvey/templates/survey_form_updated.html:283
+#: esurvey/templates/survey_form_updated.html:310
+#: esurvey/templates/survey_form_updated.html:339
+#: esurvey/templates/survey_form_updated.html:366
+#: esurvey/templates/survey_form_updated.html:393
+#: esurvey/templates/survey_form_updated.html:420
+#: esurvey/templates/survey_form_updated.html:446
+#: esurvey/templates/survey_form_updated.html:473
+#: esurvey/templates/survey_form_updated.html:500
+#: esurvey/templates/survey_form_updated.html:527
+#: esurvey/templates/survey_form_updated.html:554
+#: esurvey/templates/survey_form_updated.html:581
+#: esurvey/templates/survey_form_updated.html:608
+#: esurvey/templates/survey_form_updated.html:635
+#: esurvey/templates/survey_form_updated.html:662
+#: esurvey/templates/survey_form_updated.html:689
+#: esurvey/templates/survey_form_updated.html:718
+#: esurvey/templates/survey_form_updated.html:745
+#: esurvey/templates/survey_form_updated.html:772
+#: esurvey/templates/survey_form_updated.html:799
+#: esurvey/templates/survey_form_updated.html:826
+#: esurvey/templates/survey_form_updated.html:852
+#: esurvey/templates/survey_form_updated.html:879
+#: esurvey/templates/survey_form_updated.html:906
+#: esurvey/templates/survey_form_updated.html:933
+#: esurvey/templates/survey_form_updated.html:960
+#: esurvey/templates/survey_form_updated.html:989
+#: esurvey/templates/survey_form_updated.html:1016
+#: esurvey/templates/survey_form_updated.html:1043
+#: esurvey/templates/survey_form_updated.html:1068
+#: esurvey/templates/survey_form_updated_engagement.html:93
+#: esurvey/templates/survey_form_updated_engagement.html:120
+#: esurvey/templates/survey_form_updated_engagement.html:147
+#: esurvey/templates/survey_form_updated_engagement.html:174
+#: esurvey/templates/survey_form_updated_engagement.html:201
+#: esurvey/templates/survey_form_updated_engagement.html:228
+#: esurvey/templates/survey_form_updated_engagement.html:255
+#: esurvey/templates/survey_form_updated_engagement.html:282
+#: esurvey/templates/survey_form_updated_engagement.html:309
+#: esurvey/templates/survey_form_updated_engagement.html:338
+#: esurvey/templates/survey_form_updated_engagement.html:365
+#: esurvey/templates/survey_form_updated_engagement.html:392
+#: esurvey/templates/survey_form_updated_engagement.html:419
+#: esurvey/templates/survey_form_updated_engagement.html:445
+#: esurvey/templates/survey_form_updated_engagement.html:472
 msgid "Strongly Disagree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:110
-#, python-format
-msgid "{%%trans "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:116
-msgid ""
-"I shared necessary materials and information for the project with other "
-"participants"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:137
-#: esurvey/templates/survey_form_updated.html:164
-#: esurvey/templates/survey_form_updated.html:191
-#: esurvey/templates/survey_form_updated.html:218
-#: esurvey/templates/survey_form_updated.html:245
-#: esurvey/templates/survey_form_updated.html:272
-#: esurvey/templates/survey_form_updated.html:299
-#: esurvey/templates/survey_form_updated.html:326
-#: esurvey/templates/survey_form_updated.html:355
-#: esurvey/templates/survey_form_updated.html:382
-#: esurvey/templates/survey_form_updated.html:409
-#: esurvey/templates/survey_form_updated.html:436
-#: esurvey/templates/survey_form_updated.html:462
-#: esurvey/templates/survey_form_updated.html:489
-#: esurvey/templates/survey_form_updated.html:516
-#: esurvey/templates/survey_form_updated.html:543
-#: esurvey/templates/survey_form_updated.html:570
-#: esurvey/templates/survey_form_updated.html:597
-#: esurvey/templates/survey_form_updated.html:624
-#: esurvey/templates/survey_form_updated.html:651
-#: esurvey/templates/survey_form_updated.html:678
-#: esurvey/templates/survey_form_updated.html:705
-#: esurvey/templates/survey_form_updated.html:734
-#: esurvey/templates/survey_form_updated.html:761
-#: esurvey/templates/survey_form_updated.html:788
-#: esurvey/templates/survey_form_updated.html:815
-#: esurvey/templates/survey_form_updated.html:842
-#: esurvey/templates/survey_form_updated.html:868
-#: esurvey/templates/survey_form_updated.html:895
-#: esurvey/templates/survey_form_updated.html:922
-#: esurvey/templates/survey_form_updated.html:949
-#: esurvey/templates/survey_form_updated.html:976
-#: esurvey/templates/survey_form_updated.html:1005
-#: esurvey/templates/survey_form_updated.html:1032
-#: esurvey/templates/survey_form_updated.html:1059
-#: esurvey/templates/survey_form_updated.html:1084
+#: esurvey/templates/survey_form_updated.html:112
+#: esurvey/templates/survey_form_updated.html:139
+#: esurvey/templates/survey_form_updated.html:166
+#: esurvey/templates/survey_form_updated.html:193
+#: esurvey/templates/survey_form_updated.html:220
+#: esurvey/templates/survey_form_updated.html:247
+#: esurvey/templates/survey_form_updated.html:274
+#: esurvey/templates/survey_form_updated.html:301
+#: esurvey/templates/survey_form_updated.html:328
+#: esurvey/templates/survey_form_updated.html:357
+#: esurvey/templates/survey_form_updated.html:384
+#: esurvey/templates/survey_form_updated.html:411
+#: esurvey/templates/survey_form_updated.html:438
+#: esurvey/templates/survey_form_updated.html:464
+#: esurvey/templates/survey_form_updated.html:491
+#: esurvey/templates/survey_form_updated.html:518
+#: esurvey/templates/survey_form_updated.html:545
+#: esurvey/templates/survey_form_updated.html:572
+#: esurvey/templates/survey_form_updated.html:599
+#: esurvey/templates/survey_form_updated.html:626
+#: esurvey/templates/survey_form_updated.html:653
+#: esurvey/templates/survey_form_updated.html:680
+#: esurvey/templates/survey_form_updated.html:707
+#: esurvey/templates/survey_form_updated.html:736
+#: esurvey/templates/survey_form_updated.html:763
+#: esurvey/templates/survey_form_updated.html:790
+#: esurvey/templates/survey_form_updated.html:817
+#: esurvey/templates/survey_form_updated.html:844
+#: esurvey/templates/survey_form_updated.html:870
+#: esurvey/templates/survey_form_updated.html:897
+#: esurvey/templates/survey_form_updated.html:924
+#: esurvey/templates/survey_form_updated.html:951
+#: esurvey/templates/survey_form_updated.html:978
+#: esurvey/templates/survey_form_updated.html:1007
+#: esurvey/templates/survey_form_updated.html:1034
+#: esurvey/templates/survey_form_updated.html:1061
+#: esurvey/templates/survey_form_updated.html:1086
+#: esurvey/templates/survey_form_updated_engagement.html:111
+#: esurvey/templates/survey_form_updated_engagement.html:138
+#: esurvey/templates/survey_form_updated_engagement.html:165
+#: esurvey/templates/survey_form_updated_engagement.html:192
+#: esurvey/templates/survey_form_updated_engagement.html:219
+#: esurvey/templates/survey_form_updated_engagement.html:246
+#: esurvey/templates/survey_form_updated_engagement.html:273
+#: esurvey/templates/survey_form_updated_engagement.html:300
+#: esurvey/templates/survey_form_updated_engagement.html:327
+#: esurvey/templates/survey_form_updated_engagement.html:356
+#: esurvey/templates/survey_form_updated_engagement.html:383
+#: esurvey/templates/survey_form_updated_engagement.html:410
+#: esurvey/templates/survey_form_updated_engagement.html:437
+#: esurvey/templates/survey_form_updated_engagement.html:463
+#: esurvey/templates/survey_form_updated_engagement.html:490
 msgid "Strongly Agree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:143
-#, python-format
+#: esurvey/templates/survey_form_updated.html:118
 msgid ""
-" I felt responsible for the participants in the discussion forum. %(product)s"
+"I shared necessary materials and information for the given task with other "
+"participants"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:170
+#: esurvey/templates/survey_form_updated.html:145
+msgid " I felt responsible for the participants in the task."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated.html:172
+#: esurvey/templates/survey_form_updated_backup23apr21.html:171
 msgid " I always tried to find ways to help others."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:197
-msgid "We had discussions in order to specify the goals of the project.  "
+#: esurvey/templates/survey_form_updated.html:199
+msgid "We had discussions in order to specify the goals of the given task.  "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:224
+#: esurvey/templates/survey_form_updated.html:226
 msgid ""
-"Participants' ideas and opinions regarding the project were not "
-"interestingfor me."
+"Participants' ideas and opinions regarding the task were not interesting for "
+"me."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:251
+#: esurvey/templates/survey_form_updated.html:253
 msgid ""
-" We helped each other out whenever necessary while working on the project. "
+" We helped each other out whenever necessary while working on the task. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:278
+#: esurvey/templates/survey_form_updated.html:280
 msgid ""
-"I didn't feelresponsible for the success of each participant in the "
-"discussion forum."
+"I didn't feel responsible for the success of each participant in the given "
+"task."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:305
+#: esurvey/templates/survey_form_updated.html:307
+#: esurvey/templates/survey_form_updated_backup23apr21.html:306
 msgid ""
 " From time to time, I checked for other participants' understanding of the "
 "learned materials. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:334
+#: esurvey/templates/survey_form_updated.html:336
 msgid ""
-"The participants of the discussion forum tried to find ways in order to "
-"solve group problems. "
+"The participants of the group tried to find ways in order to solve group "
+"problems. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:361
+#: esurvey/templates/survey_form_updated.html:363
+#: esurvey/templates/survey_form_updated_backup23apr21.html:362
 msgid "It wasn't important for me to observe other participants' work."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:388
-msgid "I benefited from working with others in this discussion forum. "
+#: esurvey/templates/survey_form_updated.html:390
+msgid "I benefited from working with others in this task. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:415
+#: esurvey/templates/survey_form_updated.html:417
+#: esurvey/templates/survey_form_updated_backup23apr21.html:416
 msgid "I encouraged others for their efforts. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:441
+#: esurvey/templates/survey_form_updated.html:443
+#: esurvey/templates/survey_form_updated_backup23apr21.html:442
 msgid "I felt responsible to complete my work on time."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:468
-#, python-format
-msgid "  I helped others to solve group problems. %(product)s"
+#: esurvey/templates/survey_form_updated.html:470
+msgid "  I helped others to solve group problems. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:495
-msgid "We discussed the achievement of the goals of the course project."
+#: esurvey/templates/survey_form_updated.html:497
+msgid "We discussed the achievement of the goals of the given task."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:522
+#: esurvey/templates/survey_form_updated.html:524
 msgid ""
-" I think that my success in the course project is related only to my own "
-"work."
+" I think that my success in the given task is related only to my own work."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:549
+#: esurvey/templates/survey_form_updated.html:551
+#: esurvey/templates/survey_form_updated_backup23apr21.html:550
 msgid ""
 " I think that the success of the group depends on the contributions of each "
 "group member. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:576
+#: esurvey/templates/survey_form_updated.html:578
+#: esurvey/templates/survey_form_updated_backup23apr21.html:577
 msgid "I discussed other participants' contributions. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:603
+#: esurvey/templates/survey_form_updated.html:605
+#: esurvey/templates/survey_form_updated_backup23apr21.html:604
 msgid "I felt responsible to complete my work on the best way possible.  "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:630
+#: esurvey/templates/survey_form_updated.html:632
+#: esurvey/templates/survey_form_updated_backup23apr21.html:631
 msgid "I demanded participants' ideas and opinions.  "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:657
+#: esurvey/templates/survey_form_updated.html:659
 msgid ""
 "The participants of the discussion forum provided helpful feedback to each "
-"other regarding the course project."
+"other regarding the given task."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:684
-msgid ""
-" I kept necessary materials and information for the project for myself. "
+#: esurvey/templates/survey_form_updated.html:686
+msgid " I kept necessary materials and information for the task for myself. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:713
+#: esurvey/templates/survey_form_updated.html:715
+#: esurvey/templates/survey_form_updated_backup23apr21.html:714
 msgid "I made a unique contribution to the joint effort. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:740
+#: esurvey/templates/survey_form_updated.html:742
+#: esurvey/templates/survey_form_updated_backup23apr21.html:741
 msgid "I tried to discuss concepts being learned with others."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:767
+#: esurvey/templates/survey_form_updated.html:769
+#: esurvey/templates/survey_form_updated_backup23apr21.html:768
 msgid "I felt responsible to observe other participants' work.  "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:794
+#: esurvey/templates/survey_form_updated.html:796
+#: esurvey/templates/survey_form_updated_backup23apr21.html:795
 msgid "Sometimes, I tried to give direction to group's work."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:821
+#: esurvey/templates/survey_form_updated.html:823
+#: esurvey/templates/survey_form_updated_backup23apr21.html:822
 msgid "I tried to give others helpful feedback."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:847
+#: esurvey/templates/survey_form_updated.html:849
+#: esurvey/templates/survey_form_updated_backup23apr21.html:848
 msgid "I tried to compliment people when I liked something they have done. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:874
+#: esurvey/templates/survey_form_updated.html:876
 msgid ""
-"We monitored each other's work in order to ensure high quality of the course "
-"project. "
+"We monitored each other's work in order to ensure high quality of the "
+"submitted response. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:901
-msgid ""
-"I felt that we depended on each other while working on the course project."
+#: esurvey/templates/survey_form_updated.html:903
+msgid "I felt that we depended on each other while working on the task."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:928
-msgid "Working with others in this discussion forum was a waste of time."
+#: esurvey/templates/survey_form_updated.html:930
+msgid "Working with others on the given task was a waste of time."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:955
+#: esurvey/templates/survey_form_updated.html:957
+#: esurvey/templates/survey_form_updated_backup23apr21.html:956
 msgid " I apologized to others when I did something wrong. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:984
+#: esurvey/templates/survey_form_updated.html:986
 msgid ""
-"The achievement of the goals of the course project was not discussed by the "
+"The achievement of the goals of the task was not discussed by the "
 "participants. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1011
-msgid ""
-"I was initiative in dividing tasks of the project among the participants."
+#: esurvey/templates/survey_form_updated.html:1013
+msgid "I was initiative in dividing sub-tasks among the participants."
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1038
+#: esurvey/templates/survey_form_updated.html:1040
 msgid ""
-"I think that my success in the Project is also related to the contributions "
-"of others. "
+"I think that my success in this task is also related to the contributions of "
+"others. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1063
+#: esurvey/templates/survey_form_updated.html:1065
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1064
 msgid "The participants always discussed my contributions. "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1102
+#: esurvey/templates/survey_form_updated.html:1104
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1103
+#: esurvey/templates/survey_form_updated_engagement.html:504
 #: esurvey/templates/survey_form_usability.html:564
 msgid "Strogly disagree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1103
+#: esurvey/templates/survey_form_updated.html:1105
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1104
+#: esurvey/templates/survey_form_updated_engagement.html:505
 #: esurvey/templates/survey_form_usability.html:565
 msgid "Disagree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1104
+#: esurvey/templates/survey_form_updated.html:1106
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1105
+#: esurvey/templates/survey_form_updated_engagement.html:506
 #: esurvey/templates/survey_form_usability.html:566
 msgid "Neutral"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1105
+#: esurvey/templates/survey_form_updated.html:1107
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1106
+#: esurvey/templates/survey_form_updated_engagement.html:507
 #: esurvey/templates/survey_form_usability.html:567
 msgid "Agree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1106
+#: esurvey/templates/survey_form_updated.html:1108
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1107
+#: esurvey/templates/survey_form_updated_engagement.html:508
 #: esurvey/templates/survey_form_usability.html:568
 msgid "Strogly agree"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1112
+#: esurvey/templates/survey_form_updated.html:1114
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1113
+#: esurvey/templates/survey_form_updated_engagement.html:514
 #: esurvey/templates/survey_form_usability.html:574
 #, python-format
 msgid ""
 " I believe that there could be negative consequences from using %(product)s"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1122
+#: esurvey/templates/survey_form_updated.html:1124
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1123
+#: esurvey/templates/survey_form_updated_engagement.html:524
 #: esurvey/templates/survey_form_usability.html:584
 #, python-format
 msgid "I feel I must be cautious when using  %(product)s"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1132
+#: esurvey/templates/survey_form_updated.html:1134
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1133
+#: esurvey/templates/survey_form_updated_engagement.html:534
 #: esurvey/templates/survey_form_usability.html:594
 #, python-format
 msgid " It is risky to use  %(product)s"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1142
+#: esurvey/templates/survey_form_updated.html:1144
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1143
+#: esurvey/templates/survey_form_updated_engagement.html:544
 #: esurvey/templates/survey_form_usability.html:604
 #, python-format
 msgid " I believe %(product)s will act in my best interest"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1152
+#: esurvey/templates/survey_form_updated.html:1154
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1153
+#: esurvey/templates/survey_form_updated_engagement.html:554
 #: esurvey/templates/survey_form_usability.html:614
 #, python-format
 msgid "I believe that %(product)s will do its best to help me if I need help "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1161
+#: esurvey/templates/survey_form_updated.html:1163
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1162
+#: esurvey/templates/survey_form_updated_engagement.html:563
 #: esurvey/templates/survey_form_usability.html:623
 #, python-format
 msgid ""
@@ -413,7 +1002,9 @@ msgid ""
 "preferences "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1170
+#: esurvey/templates/survey_form_updated.html:1172
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1171
+#: esurvey/templates/survey_form_updated_engagement.html:572
 #: esurvey/templates/survey_form_usability.html:632
 #, python-format
 msgid ""
@@ -421,7 +1012,9 @@ msgid ""
 "assistance "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1179
+#: esurvey/templates/survey_form_updated.html:1181
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1180
+#: esurvey/templates/survey_form_updated_engagement.html:581
 #: esurvey/templates/survey_form_usability.html:641
 #, python-format
 msgid ""
@@ -429,7 +1022,9 @@ msgid ""
 "intelligent personal assistant"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1188
+#: esurvey/templates/survey_form_updated.html:1190
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1189
+#: esurvey/templates/survey_form_updated_engagement.html:590
 #: esurvey/templates/survey_form_usability.html:650
 #, python-format
 msgid ""
@@ -437,7 +1032,9 @@ msgid ""
 "well "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1197
+#: esurvey/templates/survey_form_updated.html:1199
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1198
+#: esurvey/templates/survey_form_updated_engagement.html:599
 #: esurvey/templates/survey_form_usability.html:659
 #, python-format
 msgid ""
@@ -445,40 +1042,234 @@ msgid ""
 "and knowledgeable response "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1206
+#: esurvey/templates/survey_form_updated.html:1208
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1207
+#: esurvey/templates/survey_form_updated_engagement.html:608
 #: esurvey/templates/survey_form_usability.html:668
 #, python-format
 msgid ""
 "When sharing something with %(product)s I believe that I will get an answer"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1215
+#: esurvey/templates/survey_form_updated.html:1217
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1216
+#: esurvey/templates/survey_form_updated_engagement.html:617
 #: esurvey/templates/survey_form_usability.html:677
 #, python-format
 msgid ""
 "If I use %(product)s I think i would be able to depend on it completely "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1224
+#: esurvey/templates/survey_form_updated.html:1226
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1225
+#: esurvey/templates/survey_form_updated_engagement.html:626
 #: esurvey/templates/survey_form_usability.html:686
 #, python-format
 msgid "I can always rely on %(product)s for personal care and assistance "
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1233
+#: esurvey/templates/survey_form_updated.html:1235
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1234
+#: esurvey/templates/survey_form_updated_engagement.html:635
 #: esurvey/templates/survey_form_usability.html:695
 #, python-format
 msgid "I can trust the information presented to me by %(product)s"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1261
+#: esurvey/templates/survey_form_updated.html:1258
+#: esurvey/templates/survey_form_updated_engagement.html:658
 msgid "Submit & Exit"
 msgstr ""
 
-#: esurvey/templates/survey_form_updated.html:1264
+#: esurvey/templates/survey_form_updated.html:1261
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1262
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1265
+#: esurvey/templates/survey_form_updated_engagement.html:661
 #: esurvey/templates/survey_form_usability.html:723
 #: esurvey/templates/survey_form_usability.html:726
 msgid "Submit"
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:117
+msgid ""
+"I shared necessary materials and information for the collaborative activity "
+"with other participants"
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:144
+#, python-format
+msgid ""
+" I felt responsible for the participants during the collaborative activity. "
+"%(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:198
+msgid ""
+"We had discussions in order to specify the goals of the collaborative "
+"activity.  "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:225
+msgid ""
+"Participants' ideas and opinions regarding the acitivity were not "
+"interesting for me."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:252
+msgid ""
+" We helped each other out whenever necessary while working on the "
+"collaborative activity. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:279
+msgid ""
+"I didn't feel responsible for the success of each participant in the "
+"collaborative activity."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:335
+msgid ""
+"The participants of the collaborative activity tried to find ways in order "
+"to solve group problems. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:389
+msgid "I benefited from working with others in this collaborative activity. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:469
+#, python-format
+msgid "  I helped others to solve group problem. %(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:496
+msgid ""
+"We discussed the achievement of the goals of the collaborative activity."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:523
+msgid ""
+" I think that my success in the collaborative activity is related only to my "
+"own work."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:658
+msgid ""
+"The participants of the discussion forum provided helpful feedback to each "
+"other regarding the collaborative activity."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:685
+msgid ""
+" I kept necessary materials and information for the collaborative activity "
+"for myself. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:875
+msgid ""
+"We monitored each other's work in order to ensure high quality of the "
+"group's work. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:902
+msgid ""
+"I felt that we depended on each other while working on the collaborative "
+"activity."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:929
+msgid "Working with others in this collaborative activity was a waste of time."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:985
+msgid ""
+"The achievement of the goals of the collaborative activity was not discussed "
+"by the participants. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1012
+msgid ""
+"I was initiative in dividing tasks of the collaborative activity among the "
+"participants."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1039
+msgid ""
+"I think that my success in the collaborative activity is also related to the "
+"contributions of others. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:7
+msgid "Self-Reported Questionnaire"
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:90
+msgid "  Sharing information with other group members is easy for me. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:117
+msgid "I am used to listening to the opinions of my team members."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:144
+msgid " I regularly acknowledge the efforts of my group members."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:171
+msgid " I often gather the necessary information from other group members. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:198
+msgid ""
+"I encourage other group members to participate in decisions that affect the "
+"group.  "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:225
+msgid "I give my opinion on how the team can work better together."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:252
+msgid " I am constantly involved in team discussions with an open mind. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:279
+msgid "I listened intently for an hour."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:306
+msgid " I was attentive for an hour. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:335
+msgid ""
+"When a difficult question or problem arose, I did not try to deal with it. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:362
+msgid "In class, I pretended to do the work."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:389
+msgid ""
+"I tried to create my own examples of what I learned in class to help me "
+"better understand. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:416
+msgid "In an hour I tried to explain new concepts in my own words. "
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:442
+msgid ""
+"After getting acquainted with the new topic, I tried to summarize it in my "
+"own words."
+msgstr ""
+
+#: esurvey/templates/survey_form_updated_engagement.html:469
+msgid ""
+"  After reading the study material, I tried to link my existing knowledge "
+"with what I had read. "
 msgstr ""
 
 #: esurvey/templates/survey_form_usability.html:88
@@ -553,4 +1344,37 @@ msgstr ""
 msgid ""
 " I use CoTrackV2 to be informed about students' activities during "
 "collaborative learning."
+msgstr ""
+
+#: esurvey/views.py:607
+msgid "Your responses are saved. Thank you for the submission."
+msgstr ""
+
+#: templates/base_teacher.html:112
+#, fuzzy
+#| msgid "Sessions"
+msgid "Sessions"
+msgstr "Sessions"
+
+#: templates/base_teacher.html:113
+msgid "Usability Survey"
+msgstr ""
+
+#: templates/base_teacher.html:115
+msgid "Logout"
+msgstr ""
+
+#: templates/index_soft.html:8
+msgid " Track collaboration across digital and physical spaces."
+msgstr ""
+
+#: templates/index_soft.html:9
+msgid ""
+"CoTrack is a tool which allows instructor to create and conduct "
+"collaborative activity. "
+msgstr ""
+
+#: templates/index_soft.html:10
+msgid ""
+"  It also supports participants' activities monitoring and data recording."
 msgstr ""

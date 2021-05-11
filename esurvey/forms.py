@@ -11,6 +11,7 @@ from django.forms import ModelForm
 from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django.utils.translation import gettext as _
 
 setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.CheckboxInput ))
 
@@ -63,16 +64,16 @@ class SessionForm(ModelForm):
 
 class CreateForm1(forms.Form):
     CHOICES = [('En','English'),('Est','Estonian')]
-    name = forms.CharField(label='Session name',widget=forms.TextInput(attrs={'class':'form-control'}))
-    groups = forms.IntegerField(label='Number of groups',widget=forms.NumberInput(attrs={'class':'form-control'}))
+    name = forms.CharField(label=_('Session name'),widget=forms.TextInput(attrs={'class':'form-control'}))
+    groups = forms.IntegerField(label=_('Number of groups'),widget=forms.NumberInput(attrs={'class':'form-control'}))
     language=forms.CharField(widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
-    duration_days = forms.IntegerField(label='Days',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Days'}))
-    duration_hours = forms.IntegerField(label='Hours',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Hours'}))
-    duration_minutes = forms.IntegerField(label='Minutes',widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Minutes'}))
+    duration_days = forms.IntegerField(label=_('Days'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Days'}))
+    duration_hours = forms.IntegerField(label=_('Hours'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Hours'}))
+    duration_minutes = forms.IntegerField(label=_('Minutes'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Minutes'}))
     new = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=-1) # store -1 if session is new otherwise contains session id
 
 class CreateForm2(forms.Form):
-    learning_problem = forms.CharField(label='Learning activity',widget=CKEditorUploadingWidget(attrs={'class':'form-control'}),required=False)
+    learning_problem = forms.CharField(label=_('Learning activity'),widget=CKEditorUploadingWidget(attrs={'class':'form-control'}),required=False)
 
 class CreateForm3(forms.Form):
     useEtherpad = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
@@ -82,7 +83,7 @@ class CreateForm3(forms.Form):
     record_audio_video = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
 
 class CreateForm4(forms.Form):
-    CHOICES=[(True,'Enable'),(False,'Disabble')]
+    CHOICES=[(True,_('Enable')),(False,_('Disabble'))]
     allow_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
 
 class consentForm(forms.Form):

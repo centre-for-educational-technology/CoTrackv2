@@ -22,10 +22,11 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path("register/", v.register, name="register"),
     path("password_reset/",v.password_reset_request, name='password_reset'),
@@ -33,17 +34,15 @@ urlpatterns = [
     path('password_reset/confirm/<slug:uidb64>/<slug:token>/',auth_views.PasswordResetConfirmView.as_view(template_name="password_reset_confirm.html"), name='password_reset_confirm'),
     path('password_reset/complete/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
     path('api-auth/', include('rest_framework.urls')),
-
-
     path('account_activation_sent/', v.account_activation_sent, name='account_activation_sent'),
     path('activate/<slug:uidb64>/<slug:token>/',v.activate, name='activate'),
-    path('',include("esurvey.urls")),
     path('',views.index,name='index'),  # <-- added
     path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),
     path('home/',views.index,name='home'),
     path('accounts/', include('allauth.urls')),
-    path('changeLang/<lang_code>',views.changLang,name='change_language'),
+
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
-] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    path('',include("esurvey.urls")),
+) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + [path('changeLang/<lang_code>',views.changLang,name='change_language')]

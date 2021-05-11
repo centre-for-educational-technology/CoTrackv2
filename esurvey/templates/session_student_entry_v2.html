@@ -1,6 +1,6 @@
 {% extends "base_form.html" %}
 {% load socialaccount %}
-
+{% load i18n %}
 {% block title %} {% endblock %}
 {% load crispy_forms_tags %}
 
@@ -182,7 +182,7 @@ transition: .3s ease all;
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="text-center heading"><b>Join session</b></h2>
+                                    <h2 class="text-center heading"><b>{% trans 'Join session'%}</b></h2>
                                 </div>
                             </div>
                             <br/>
@@ -195,30 +195,30 @@ transition: .3s ease all;
 
 
 
-                            <div class="form-group form-primary">Session pin <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#pin"></i></span>
+                            <div class="form-group form-primary">{% trans 'Session pin'%} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#pin"></i></span>
 
-                              <input type="text" class="form-control form-control-lg" id="sessionPin" name='pin' aria-describedby="emailHelp" placeholder="Enter session pin">
-                              <small id="pinHelp" class="form-text text-muted">If you do not have the pin ask your instructor to provide to join the session.</small>
+                              <input type="text" class="form-control form-control-lg" id="sessionPin" name='pin' aria-describedby="emailHelp" placeholder="{% trans 'Enter session pin'%}">
+                              <small id="pinHelp" class="form-text text-muted">{% trans 'If you do not have the pin ask your instructor to provide to join the session.'%}</small>
                             </div>
                             <div class="modal fade" id="pin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header border-bottom-0">
-                                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Session pin</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Session pin'%}</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                       <span aria-hidden="true">&times;</span>
                                     </button>
                                   </div>
                                   <div class='modal-body'>
-                                    <p> You can join a session created by your teacher/instructor by using secure pin. This pin is shared by the teacher/instructor which allows students to join the session.
-                                    <p> If you do not have access to secure pin then ask your teacher/instructor. </p>
+                                    <p> {% trans 'You can join a session created by your teacher/instructor by using secure pin. This pin is shared by the teacher/instructor which allows students to join the session.'%}</p>
+                                    <p> {% trans 'If you do not have access to secure pin then ask your teacher/instructor.'%} </p>
                                   </div>
 
                                 </div>
                               </div>
                             </div>
                             <br/><br/>
-                          <input type="submit"   class="btn btn-success btn-block" value="Enter"/>
+                          <input type="submit"   class="btn btn-success btn-block" value="{% trans 'Enter'%}"/>
 
                           </div>
 

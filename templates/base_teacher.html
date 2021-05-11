@@ -9,18 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
   <title> CoTrack</title>
   {% if form.media %}
   {{ form.media }}
   {% endif %}
-
- <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.3.15/cytoscape.js"></script>
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.3.15/cytoscape.js"></script>
   <!-- Bootstrap core CSS -->
   <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
-
-
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="/static/popper.min.js"></script>
   <script src="{% static 'axios.min.js'%}"></script>
@@ -78,41 +74,34 @@ iframe {
     display:block;
     width:100%;
     height:100%;
-
 }
 </style>
-
-
-
-
-
-
 </head>
-
 <body>
-  <!-- Code to change survey title, subtitle, and paragraph on basis of language selection -->
-
-<div id='client'>
-</div>
-<div id='server'>
-</div>
-
-
-
-
-
   <nav class="navbar navbar-expand-xl navbar-dark">
     <div class='container'>
-
   		<a class="navbar-brand" href="{% url 'login'%}"> CoTrack</a>
   		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggler">
   			<span class="navbar-toggler-icon"></span>
-
   		</button>
+      <div id="language" class="collapse navbar-collapse">
+    		<ul class="nav navbar-nav">
+          <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle mr-auto" href="#" id="navbar" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-globe"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbar">
+            <a class="dropdown-item" href="{%url 'change_language' 'en'%}" data-toggle="tooltip">English</a>
+            <a class="dropdown-item" href="{%url 'change_language' 'et'%}" data-toggle="tooltip">Estonian</a>
+          </div>
+        </li>
+
+    		</ul>
+    	</div>
+
 
   	<!-- Collection of nav links, forms, and other content for toggling -->
   	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-end">
-
   		<ul class="nav navbar-nav">
         {% if request.user.is_authenticated  %}
         <li class="nav-item dropdown">
@@ -120,119 +109,57 @@ iframe {
           {{request.user.email}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{% url 'project_home'%}" data-toggle="tooltip" title="List all your sessions."><i class="fa fa-gear"></i> Sessions</a>
-          <a class="dropdown-item" href="{% url 'usability_form'%}" data-toggle="tooltip" title="You can help us to improve CoTrack by filling this usability survey."><i class="fa fa-edit"></i> Usability Survey</a>
-
+          <a class="dropdown-item" href="{% url 'project_home'%}" data-toggle="tooltip" title="List all your sessions."><i class="fa fa-gear"></i> {% trans 'Sessions'%}</a>
+          <a class="dropdown-item" href="{% url 'usability_form'%}" data-toggle="tooltip" title="You can help us to improve CoTrack by filling this usability survey."><i class="fa fa-edit"></i> {% trans 'Usability Survey'%}</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>
+          <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> {% trans 'Logout'%}</a>
         </div>
       </li>
-
-
-
-        {% else %}
-        <!--
-        <li class='nav-item'><a class='nav-link'  href="{%url 'register'%}"><i class="fa fa-user"></i> <span style="color:white;">Sign-up</span></a></li>
-        <li class='nav-item'><a class='nav-link'  href="{%url 'login'%}"><i class="fa fa-sign-in"></i> <span  style="color:white;">Login</span></a></li>
-
-      -->
         {% endif %}
-        <!-- Language code
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_language_info for LANGUAGE_CODE as cur_lang %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as languages %}
-
-
-        <li class="nav-item dropdown">
-            {% if LANGUAGE_CODE == 'en' %}
-            <a class="nav-link dropdown-toggle" href="{% url 'change_language' 'en'%}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span> {{ cur_lang.name}}</a>
-            {% else %}
-            <a class="nav-link dropdown-toggle" href="{% url 'change_language' LANGUAGE_CODE%}" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-{{LANGUAGE_CODE}}"> </span> {{ cur_lang.name}}</a>
-            {% endif %}
-
-
-
-            <div class="dropdown-menu" aria-labelledby="dropdown09">
-                {% for language in languages %}
-                {% if language.code != LANGUAGE_CODE %}
-
-                 {% if language.code == 'en' %}
-                    <a class="dropdown-item" href="{% url 'change_language' 'en'%}"><span class="flag-icon flag-icon-us"> </span> English</a>
-                 {% else %}
-                    <a class="dropdown-item" href="{% url 'change_language' language.code%}"><span class="flag-icon flag-icon-{{language.code}}"> </span> {{language.name}}</a>
-                 {% endif %}
-                {% endif %}
-
-
-            {% endfor %}
-            </div>
-        </li>
-      -->
-
   		</ul>
   	</div>
   </div>
   </nav>
-
-
-
-
   <!-- Page Content -->
   <div class="container min-vh-100">
       <br/>
-
     <h2> {% block title%} {%endblock%} </h2>
     <hr/>
     {% if messages %}
-    {% for message in messages %}
-    {% if message.tags == 'error'%}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% else %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-      {{ message }}
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    {%endif%}
-{% endfor %}
-{% endif %}
-
-
-
+      {% for message in messages %}
+        {% if message.tags == 'error'%}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% else %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {%endif%}
+      {% endfor %}
+    {% endif %}
     {% block content%}
 
     {% endblock %}
-    <br/>
+      <br/>
+    </div>
+    </div>
   </div>
-</div>
-  </div>
-
   <!-- ***** Footer Start ***** -->
   <footer>
       <div class="container">
-
           <div class="d-flex">
               <div class="p-3">
                   <p class="copyright">Copyright &copy; 2020 CoTrack</p>
               </div>
-
-
           </div>
-
       </div>
   </footer>
-
-  <!-- Bootstrap core JavaScript -->
-
-
-  	<!-- ./Footer -->
 </body>
-
 </html>

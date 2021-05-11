@@ -1,4 +1,4 @@
-{% extends "base_form.html" %}
+{% extends "base_teacher.html" %}
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -6,124 +6,6 @@
 <div class='container min-vh-100'>
   <br/>
   <style>
-    label.django-toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 56px;
-    height: 28px;
-    padding: 0;
-    }
-      @media (max-width: 767px) {
-    .aligned label.django-toggle-switch {
-        width: 56px;
-        padding: 0;
-    }
-}
-
-    .aligned label.django-toggle-switch + .vCheckboxLabel {
-    line-height: 28px;
-}
-
-  label.django-toggle-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-  .django-toggle-switch-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-  .django-toggle-switch-slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-  .django-toggle-switch-primary input:checked + .django-toggle-switch-slider,
-  input:checked + .django-toggle-switch-slider {
-    background-color: #79aec8;
-}
-  .django-toggle-switch-primary input:focus + .django-toggle-switch-slider
-  input:focus + .django-toggle-switch-slider {
-    box-shadow: 0 0 1px #79aec8;
-}
-
-.django-toggle-switch-dark-primary input:checked + .django-toggle-switch-slider,
-input:checked + .django-toggle-switch-slider {
-    background-color: #417690;
-}
-.django-toggle-switch-dark-primary input:focus + .django-toggle-switch-slider
-input:focus + .django-toggle-switch-slider {
-    box-shadow: 0 0 1px #417690;
-}
-
-
-.django-toggle-switch-danger input:checked + .django-toggle-switch-slider,
-input:checked + .django-toggle-switch-slider {
-    background-color: #ba2121;
-}
-.django-toggle-switch-danger input:focus + .django-toggle-switch-slider
-input:focus + .django-toggle-switch-slider {
-    box-shadow: 0 0 1px #ba2121;
-}
-
-
-.django-toggle-switch-warning input:checked + .django-toggle-switch-slider,
-input:checked + .django-toggle-switch-slider {
-    background-color: #ff6a00;
-}
-.django-toggle-switch-warning input:focus + .django-toggle-switch-slider
-input:focus + .django-toggle-switch-slider {
-    box-shadow: 0 0 1px #ff6a00;
-}
-
-
-.django-toggle-switch-success input:checked + .django-toggle-switch-slider,
-input:checked + .django-toggle-switch-slider {
-    background-color: #06ad3d;
-}
-.django-toggle-switch-success input:focus + .django-toggle-switch-slider
-input:focus + .django-toggle-switch-slider {
-    box-shadow: 0 0 1px #06ad3d;
-}
-
-
-input:checked + .django-toggle-switch-slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.django-toggle-switch-slider.round {
-    border-radius: 28px;
-}
-
-.django-toggle-switch-slider.round:before {
-    border-radius: 50%;
-}
-
-/* Fix help_text display problem */
-form .aligned .django-toggle-switch + div.help {
-    margin-left: 160px;
-    padding-left: 10px;
-}
-
     .django-toggle-switch-success input:checked + .django-toggle-switch-slider, input:checked + .django-toggle-switch-slider {
       background-color: #06ad3d;
       boarder-radius: 25px;
@@ -150,7 +32,7 @@ form .aligned .django-toggle-switch + div.help {
       background-color: #ccc;
       -webkit-transition: .4s;
       transition: .4s;
-      border-radius: 20px;
+      border-radius: 25px;
     }
   </style>
   <form action="" method="post">{% csrf_token %}
@@ -168,16 +50,16 @@ form .aligned .django-toggle-switch + div.help {
         {% else %}
         <div class="card bg-white">
           <div class="card-body">
-            <h4 class='card-title'>Configuration</h4><br/>
-            <div class='row '> <div class='col'>Add Etherpad <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useEtherpad"></i></span></div> <div class='col'> {{form.useEtherpad}}</div></div>
-            <div class='row '> <div class='col'>Add Audio-Video Chat <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useAVchat"></i></span> </div> <div class='col'> {{form.useAVchat}}</div></div>
+            <h4 class='card-title'>{% trans 'Configuration' %}</h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Add Etherpad' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useEtherpad"></i></span></div> <div class='col'> {{form.useEtherpad}}</div></div>
+            <div class='row '> <div class='col'>{% trans '{% trans 'Add Audio-Video Chat' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#useAVchat"></i></span> </div> <div class='col'> {{form.useAVchat}}</div></div>
           </div>
         </div> <br/>
         <div class="card bg-white">
           <div class="card-body">
-            <h4 class='card-title'>Recording <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#audio_video"></i></span></h4><br/>
-            <div class='row '> <div class='col'>Audio only </div> <div class='col'> {{form.record_audio}}</div></div>
-            <div class='row '> <div class='col'>Audio and Video  </div> <div class='col'> {{form.record_audio_video}}</div></div>
+            <h4 class='card-title'>{% trans 'Recording' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#audio_video"></i></span></h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Audio only' %} </div> <div class='col'> {{form.record_audio}}</div></div>
+            <div class='row '> <div class='col'>{% trans 'Audio and Video' %}  </div> <div class='col'> {{form.record_audio_video}}</div></div>
           </div>
         </div>
 
@@ -185,15 +67,15 @@ form .aligned .django-toggle-switch + div.help {
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Etherpad: A collaborative text editor</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Etherpad: A collaborative text editor' %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class='modal-body'>
-                    Etherpad is a collaborative text editor just like Google docs. However, it allows instructor to track and see participants' contribution in terms of who wrote what at what time.<br/> Therefore, it comes with participants' activities tracking capabilities.
+                    {%blocktrans%}Etherpad is a collaborative text editor just like Google docs. However, it allows instructor to track and see participants' contribution in terms of who wrote what at what time.<br/> Therefore, it comes with participants' activities tracking capabilities.{% endblocktrans%}
                     <br/><br/>
-                    <b> A small demo is given below </b> <br/><br/>
+                    <b> {%blocktrans%}A small demo is given below{% endblocktrans%} </b> <br/><br/>
                     <img class='img-thumbnail' src="{% static 'assets/images/etherpad_demo.gif'%}">
                   </div>
                 </div>
@@ -204,16 +86,16 @@ form .aligned .django-toggle-switch + div.help {
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Audio & Video chat</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Audio & Video chat' %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class='modal-body'>
-                    This support will add audio-video chat feature to your learning space. <br/>
-                    So, when the participants join, they will be able to communicate throught audio-video channels.
+                    {%blocktrans%}This support will add audio-video chat feature to your learning space. <br/>
+                    So, when the participants join, they will be able to communicate throught audio-video channels.{% endblocktrans%}
                     <br/><br/>
-                    If the session is happening in face-to-face settings in that case this feature is not needed, hence, can be disabled for those sessions.
+                    If the session is happening in face-to-face settings in that case this feature is not needed, hence, can be disabled for those sessions.{% endblocktrans%}
                   </div>
 
                 </div>
@@ -224,23 +106,23 @@ form .aligned .django-toggle-switch + div.help {
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Tracking/Recording</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Tracking/Recording' %}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class='modal-body'>
-                    This feature enable CoTrack to track and record audio & video data from learning activity. <br/>
-                    It will also instructor to monitor participants' behavior in terms of the following
+                    {%blocktrans%}This feature enable CoTrack to track and record audio & video data from learning activity. <br/>
+                    It will also instructor to monitor participants' behavior in terms of the following{% endblocktrans%}
                     <ul>
-                      <li>Social dynamics: Who is talking after whom and how much are they talking.</li>
-                      <li>Emotion swing: How participant's emotions are changing.</li>
-                      <li>Body movement: How active participants are during the learning activity.</li>
-                      <li>Collaboration: How well groups are collaborating.</li>
-                      <li>Engagement: How engaged participants are during the activity.</li>
+                      <li>{%blocktrans%}Social dynamics: Who is talking after whom and how much are they talking.{% endblocktrans%}</li>
+                      <li>{%blocktrans%}Emotion swing: How participant's emotions are changing.{% endblocktrans%}</li>
+                      <li>{%blocktrans%}Body movement: How active participants are during the learning activity.{% endblocktrans%}</li>
+                      <li>{%blocktrans%}Collaboration: How well groups are collaborating.{% endblocktrans%}</li>
+                      <li>{%blocktrans%}Engagement: How engaged participants are during the activity.{% endblocktrans%}</li>
                     </ul>
                     <br/><br/>
-                    Some of the above mentioned features are already available in the CoTrackv2. <br/>The collected data will help to add remaining featuers in the CoTrackV2.
+                    {%blocktrans%}Some of the above mentioned features are already available in the CoTrackv2. <br/>The collected data will help to add remaining featuers in the CoTrackV2.{% endblocktrans%}
                   </div>
                 </div>
               </div>

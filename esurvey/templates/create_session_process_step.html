@@ -1,27 +1,28 @@
+{% load i18n %}
 <div class="row">
     <div class="col">
       <div class="multisteps-form__progress">
         {% if wizard.steps.step1 >= 1   %}
-        <button id='b1' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: Activity info </button>
+        <button id='b1' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="project" disabled>{% trans 'Step 1: Activity info'%} </button>
         {% else %}
-        <button id='b1' class="multisteps-form__progress-btn" type="button" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: Activity info </button>
+        <button id='b1' class="multisteps-form__progress-btn" type="button" name="wizard_goto_step" type="submit" value="project" disabled>{% trans 'Step 1: Activity info'%} </button>
         {% endif %}
 
         {% if wizard.steps.step1 >= 2  %}
-        <button id='b2' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit"value="survey" disabled>Step 2: Activity task</button>
+        <button id='b2' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit"value="survey" disabled>{% trans 'Step 2: Activity task'%}</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="survey" disabled>Step 2: Activity task</button>
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="survey" disabled>{% trans 'Step 2: Activity task'%}</button>
         {% endif %}
         {% if wizard.steps.step1 >= 3 %}
-        <button id='b3' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Configuration</button>
+        <button id='b3' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="participants" disabled>{% trans 'Step 3: Configuration'%}</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Configuration</button>
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="participants" disabled>{% trans 'Step 3: Configuration'%}</button>
         {% endif %}
 
         {% if wizard.steps.step1 >= 4 %}
-        <button id='b4' class="multisteps-form__progress-btn js-active"  name="wizard_goto_step" type="submit" value="summar" disabled>Step 4: Summary</button>
+        <button id='b4' class="multisteps-form__progress-btn js-active"  name="wizard_goto_step" type="submit" value="summar" disabled>{% trans 'Step 4: Summary'%}</button>
         {% else %}
-        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="summary"  disabled>Step 4: Summary</button>
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="summary"  disabled>{% trans 'Step 4: Summary'%}</button>
         {% endif %}
 
 

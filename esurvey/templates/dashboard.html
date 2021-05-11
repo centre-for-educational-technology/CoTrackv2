@@ -1,20 +1,21 @@
 {% extends "base_teacher.html" %}
+{% load i18n %}
 {%block title%} Sessions {%endblock%}
 {%block content%}
   <div style="height:100%">
     <div class='row'>
       <div class="col col-md-3 col-lg-3 col-sm-6">
         <select class='form-control' onchange="location = this.value;">
-          <option value="{% url 'session_filter' filter='all'%}"">Active</option>
+          <option value="{% url 'session_filter' filter='all'%}">{% trans 'Active' %}</option>
           {%if filter %}
-            <option value="{% url 'session_filter' filter='archived'%}" selected>Archived</option>
+            <option value="{% url 'session_filter' filter='archived'%}" selected>{% trans 'Archived' %}</option>
           {% else %}
-            <option value="{% url 'session_filter' filter='archived'%}">Archived</option>
+            <option value="{% url 'session_filter' filter='archived'%}">{% trans 'Archived' %}</option>
           {% endif %}
         </select>
       </div>
       <div class='col col-md-4 col-xs-6 col-lg-4 col-sm-6'>
-        <a href="{% url 'create_session'%}" class="btn btn-success ml-auto"  > New session </a>
+        <a href="{% url 'create_session'%}" class="btn btn-success ml-auto"  > {% trans 'New session' %} </a>
       </div>
     </div><br/><br/>
     {% for session in sessions%}
@@ -27,31 +28,34 @@
               <i class="fa fa-gears"> </i>
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="{% url 'edit_session' session_id=session.id %}" data-toggle="tooltip" title="Edit the settings"><i class="fa fa-edit"></i> Edit</a>
-              <a class="dropdown-item" href="{% url 'duplicate_session' session_id=session.id %}" data-toggle="tooltip" title="Create another session with same settings."><i class="fa fa-copy"></i> Duplicate</a>
+              <a class="dropdown-item" href="{% url 'edit_session' session_id=session.id %}" data-toggle="tooltip" title="Edit the settings"><i class="fa fa-edit"></i> {% trans 'Edit' %}</a>
+              <a class="dropdown-item" href="{% url 'duplicate_session' session_id=session.id %}" data-toggle="tooltip" title="Create another session with same settings."><i class="fa fa-copy"></i>{% trans ' Duplicate' %}</a>
               {% if session.status  %}
-                <a class="dropdown-item" href="{% url 'session_deactivate' session_id=session.id  %}" data-toggle="tooltip" title="Archive this session."><i class="fa fa-check"></i> Archive</a>
+                <a class="dropdown-item" href="{% url 'session_deactivate' session_id=session.id  %}" data-toggle="tooltip" title="Archive this session."><i class="fa fa-check"></i> {% trans 'Archive' %}</a>
               {% else %}
-                <a class="dropdown-item" href="{% url 'session_activate' session_id=session.id %}" data-toggle="tooltip" title="Unarchive this session."><i class="fa fa-archive"></i> Unarchive</a>
+                <a class="dropdown-item" href="{% url 'session_activate' session_id=session.id %}" data-toggle="tooltip" title="Unarchive this session."><i class="fa fa-archive"></i> {% trans 'Unarchive' %}</a>
               {% endif %}
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'demo_session' session_id=session.id  %}" data-toggle="tooltip" title="To demonstrate the use of tool to students."><i class="fa fa-check"></i> {% trans 'Demo' %}</a>
+
             </div>
           </div>
         </div>
         <div class="card-body">
 
           <div class='d-flex'>
-          <p><b class='text-muted'>Access pin: </b>
+          <p><b class='text-muted'>{% trans 'Access pin' %}: </b>
             {% for g_pin in session.grouppin_set.all  %}
 
-             <span class='mr-2'> Group-{{forloop.counter}}: {{ g_pin.pin }} </span>
+             <span class='mr-2'> {% trans 'Group' %}-{{forloop.counter}}: {{ g_pin.pin }} </span>
              {% endfor %}
           </div>
           <p>
-            <b class='text-muted'>No. of groups: </b> {{ session.groups }} <br/>
-            <b class='text-muted'>Language: </b>{{ session.language }} <br/>
-            <b class='text-muted'>Duration: </b>{{ session.duration }} <br/>
-            <b class='text-muted'>Created: </b>{{ session.created_at }} <br/>
-            <b></b> <a href="{% url 'session_page' session.id %}" target='_blank'>Activity monitoring</a>
+            <b class='text-muted'>{% trans 'No. of groups:' %} </b> {{ session.groups }} <br/>
+            <b class='text-muted'>{% trans 'Language:' %} </b>{{ session.language }} <br/>
+            <b class='text-muted'>{% trans 'Duration:' %} </b>{{ session.duration }} <br/>
+            <b class='text-muted'>{% trans 'Created:' %} </b>{{ session.created_at }} <br/>
+            <b></b> <a href="{% url 'session_page' session.id %}" target='_blank'>{% trans 'Activity monitoring' %}</a>
           </p>
         </div>
       </div><br/>
@@ -67,9 +71,9 @@
     {% endfor%}
     {% if sessions.count == 0 %}
       <div class='text-center card'>
-        <div class='card-header'>  <h4> No sessions </h4> </div>
-        <div class='card-body'>  <p> You do not have any active sessions.<br/><br/>
-          <a href="{% url 'create_session'%}" class='btn btn-warning'><i class='fa fa-add'></i> Create Session </a></p>
+        <div class='card-header'>  <h4> {% trans 'No sessions' %} </h4> </div>
+        <div class='card-body'>  <p> {% trans 'You do not have any active sessions.' %}<br/><br/>
+          <a href="{% url 'create_session'%}" class='btn btn-warning'><i class='fa fa-add'></i> {% trans 'Create Session' %} </a></p>
         </div>
       </div>
       <br/>

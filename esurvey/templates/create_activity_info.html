@@ -1,6 +1,6 @@
 
 
-{% extends "base_form.html" %}
+{% extends "base_teacher.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
 
@@ -15,7 +15,7 @@
 
 </style>
 <form action="" method="post">{% csrf_token %}
-  <h2> {%if form.new.value == False %}Edit {% else %} New {% endif %} session </h2>
+  <h2> {%if form.new.value == False %}{% trans 'Edit'%} {% else %} {% trans 'New'%} {% endif %} {% trans 'session'%} </h2>
   <hr/><br/>
   {{ wizard.management_form }}
   {% include 'create_session_process_step.html'%}
@@ -34,7 +34,7 @@
   <div class='row'>{{form.name.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_name"></i></span>{{form.name}}</div> <br/>
   <div class='row'>  {{form.groups.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_type"></i></span>{{form.groups}}</div> <br/>
   <div class='row'>{{form.language.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#product_type"></i></span>{{form.language}}</div> <br/>
-  <div class='row'>  Activity duration<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#industry"></i></span> </div>
+  <div class='row'> {% trans 'Activity duration' %}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#industry"></i></span> </div>
     <div class='row pl-0'>
       <div class='col pl-0'>
         {{form.duration_days}}
@@ -67,7 +67,7 @@
           </div>
           <div class='modal-body'>
 
-            <p>This is the title of session. Here, session refers to a learning activity which can be for individual or groups. </p>
+            <p>{% blocktrans %}This is the title of session. Here, session refers to a learning activity which can be for individual or groups. {% endblocktrans %}</p>
 
           </div>
 
@@ -87,6 +87,7 @@
             </button>
           </div>
           <div class='modal-body'>
+
             <b> Individual </b> <br/>
             <p> If you are creating a session for entire class then you can simply specify number of groups as one.</p><br/>
             <b> Collaborative learning </b> <br/>
@@ -110,7 +111,7 @@
           </div>
           <div class='modal-body'>
 
-            <p>Specify the language of instructions. The participants will see all the instructions in the specified langauge.</p>
+            <p>{% blocktrans %}Specify the language of instructions. The participants will see all the instructions in the specified langauge.{% endblocktrans %}</p>
 
           </div>
 

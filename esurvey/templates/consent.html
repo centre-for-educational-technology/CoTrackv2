@@ -4,15 +4,12 @@
 {%block content%}
 <form action="" method="post">
   {% csrf_token %}
-
-  {% language lang %}
       <br/>
       <div class="row setup-content step activeStepInfo" id="step-1">
           <div class="col-xs-12 ">
               <div class="col-md-12  shadow-lg p-5">
                   <h2 class='text-muted'>{% trans 'Informed consent for participant.'%}</h2><hr/>
-                  {% blocktrans %}
-                    <h6 >Dear Participant </h6><br/>
+                  {% blocktrans %}<h6 >Dear Participant </h6><br/>
                     With your permission, we would like to record audio and video during collaborative activity session so that we can analyze it in detail later on.
                     The recording will be saved in  files- in WEBM format on server.
                     <br/><br/>
@@ -41,11 +38,11 @@
                   <div class="form-check pb-5 flex">
                     {{form.permission}}
                     <label class="form-check-label" for="exampleCheck1">
-                      I confirm that I have read and understood the explanation provided to me.
-                      I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this study.
+                      {% blocktrans %} I confirm that I have read and understood the explanation provided to me.<br/>
+                      I have had all my questions answered to my satisfaction, and I voluntarily agree to participate in this study. {% endblocktrans %}
                     </label><br/>
                   </div>
-                  <input type="submit" class="btn btn-success" value="{% trans "Consent" %}" required/>
+                  <input type="submit" class="btn btn-success" value="{% trans 'Consent' %}" {% trans 'required'%}/>
               </div>
           </div>
       </div>
@@ -53,6 +50,5 @@
         $("#container").attr('class', '');
         $("#container").addClass("container min-vh-100");
       </script>
-      {% endlanguage%}
       <br/><br/>
 {%endblock %}

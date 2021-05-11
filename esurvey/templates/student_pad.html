@@ -1,6 +1,6 @@
 {% extends "base_form.html" %}
 {% load i18n %}
-{%block title%} Session-{{session_obj.name}} <hr/>{%endblock%}
+{%block title%} {% trans 'Session'%}-{{session_obj.name}} <hr/>{%endblock%}
 {%block content%}
 
     <span id='teacher_msg'>
@@ -8,8 +8,8 @@
     <div class='row' id='record_status'>
     </div>
     <div class="d-flex flex-row-reverse">
-      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="{% url 'survey_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> Exit</a>
-      <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> Ask teacher for help</a>
+      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="{% url 'engagement_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> {% trans 'Exit'%}</a>
+      <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> {% trans 'Ask teacher for help'%}</a>
 
     </div>
     <form action="" method="post">
@@ -23,10 +23,10 @@
       </div>
 
       <div id='etherpad' class="col  card  shadow-lg p-5 col-12 col-lg-8 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
-          <h1>Learning sapce</h1><hr/>
+          <h1>{% trans 'Learning sapce'%}</h1><hr/>
           <div class='card'>
             <h3 class='card-header text-white bg-info border-info'>
-              Task
+              {% trans 'Task'%}
             </h3>
             <div class='card-body'>
               {{session.learning_problem | safe}}
@@ -34,13 +34,12 @@
           </div>
           <br/>
           <br/>
-          <br/>
-          <div class='card mt-2' id='space'>
+          <div class='card' id='space'>
             <h3 class='card-header text-white bg-info border-info'>
               {% trans 'Write solution here'%}
             </h3>
             <div class='cardbody'>
-              <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="https://www.etherpad.website/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
+              <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="{{etherpad_url}}/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
               </iframe>
             </div>
           </div>
@@ -77,11 +76,11 @@
       window.onload = setTimeout(loadFrame, 10000);
 
       function notifyRecording() {
-        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Notification sent!</strong> A notification has been sent to the teacher. Teacher will join soon.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Recording started!'%}</strong> {% trans 'Recording has been started.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         $('#teacher_msg').html(notification);
       }
       function notifyAlertSent() {
-        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>Notification sent!</strong> A notification has been sent to the teacher. Teacher will join soon.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+        notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Notification sent!'%}</strong> {% trans 'A notification has been sent to the teacher. Teacher will join soon.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         $('#teacher_msg').html(notification);
       }
 
@@ -150,13 +149,10 @@
         e.preventDefault();
         var href = $(this).attr("href"),
         message = $(this).attr("data-message");
-        if ( record_status) {
-          if (confirm('Exiting will stop recording. Select ok if you are done with the activity.')) {
-            stopRecording();
-            window.location.href = href;
-          } 
-        }
+        if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
 
+        }
+        window.location.href = href;
       });
 
       if (! use_etherpad ) {
@@ -347,7 +343,7 @@
          recorder = RecordRTC(microphone, {
            recorderType: MediaStreamRecorder,
            mimeType: 'video/webm',
-           timeSlice: 60000, // pass this parameter upload for every minute
+           timeSlice: 5000, // pass this parameter upload for every minute
            ondataavailable: function(blob) {
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
