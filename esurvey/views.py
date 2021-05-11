@@ -972,8 +972,8 @@ def getGroupText(request,session_id,group_id):
               "email": request.user.email
             }
           },
-          "aud": "47AA9",
-          "iss": "47AA9",
+          "aud": settings.JW_APP,
+          "iss": settings.JW_APP,
           "sub": "jitsi.cojitsi.website",
           "moderator": True,
           "room": room_name
