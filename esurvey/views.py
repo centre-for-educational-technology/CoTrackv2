@@ -975,9 +975,10 @@ def getGroupText(request,session_id,group_id):
           "aud": settings.JW_APP,
           "iss": settings.JW_APP,
           "sub": "www.cojitsi.website",
+          "moderator": False,
           "room": room_name
         }
-        token = jwt.encode(payload,"59588BE1510B6AA3488ACADF88967F80",algorithm="HS256")
+        token = jwt.encode(payload,settings.JW_SEC,algorithm="HS256")
         token = token.decode('utf-8')
         context_data['token'] = token
 
