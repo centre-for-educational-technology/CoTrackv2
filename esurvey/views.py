@@ -920,7 +920,7 @@ def getSpeakingStats(request,session_id):
         group_speaking['data'] = data
         group_speaking['graph'] = generateElements(user_sequence,speaking_data)
         groups_speaking.append(group_speaking)
-        print('Sending:',groups_speaking)
+        
     return Response({'speaking_data':groups_speaking})
 
 
