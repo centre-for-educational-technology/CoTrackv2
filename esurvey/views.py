@@ -18,7 +18,7 @@ from django.db import transaction
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
 from django.db import transaction
-
+from django.utils.translation import gettext as _
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
