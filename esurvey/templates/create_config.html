@@ -5,7 +5,36 @@
 {% block content %}
 <div class='container min-vh-100'>
   <br/>
-
+  <style>
+    .django-toggle-switch-success input:checked + .django-toggle-switch-slider, input:checked + .django-toggle-switch-slider {
+      background-color: #06ad3d;
+      boarder-radius: 25px;
+    }
+    .django-toggle-switch-slider::before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 10px;
+    }
+    .django-toggle-switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+      border-radius: 20px;
+    }
+  </style>
   <form action="" method="post">{% csrf_token %}
     <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} session </h2>
     <hr/><br/>
