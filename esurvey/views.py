@@ -473,6 +473,7 @@ def duplicate(request,session_id):
     form1['duration_days'] = session.duration.days
     form1['duration_hours'] = session.duration.seconds // 3600
     form1['duration_minutes'] =  ( session.duration.seconds // 60) % 60
+    form1['new'] = -1
 
     # form2 data
     form2['learning_problem'] = session.learning_problem
