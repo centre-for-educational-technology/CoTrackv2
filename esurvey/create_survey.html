@@ -1,0 +1,447 @@
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+
+
+
+{% block content %}
+<br/>
+<style>
+  .tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+}
+.django-toggle-switch-success input:checked + .django-toggle-switch-slider, input:checked + .django-toggle-switch-slider {
+    background-color: #06ad3d;
+    boarder-radius: 25px;
+}
+.django-toggle-switch-slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 10px;
+}
+.django-toggle-switch-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 25px;
+}
+
+</style>
+
+<form action="" method="post">{% csrf_token %}
+  <h2> {%if NewOrEdit == False %}Edit {% else %} New {% endif %} study </h2>
+  <hr/><br/>
+
+{{ wizard.management_form }}
+<div class="row">
+    <div class="col">
+      <div class="multisteps-form__progress">
+        {% if wizard.steps.step1 >= 1   %}
+        <button id='b1' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: General </button>
+        {% else %}
+        <button id='b1' class="multisteps-form__progress-btn" type="button" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: General </button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 2  %}
+        <button id='b2' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit"value="survey" disabled>Step 2: Survey settings</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="survey" disabled>Step 2: Survey settings</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 3 %}
+        <button id='b3' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Participants</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Participants</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 4 %}
+        <button id='b4' class="multisteps-form__progress-btn js-active"  name="wizard_goto_step" type="submit" value="summar" disabled>Step 4: Summary</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="summary"  disabled>Step 4: Summary</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+<br/>
+<br/>
+
+<div class='row'>
+ <div class='col col-lg-8 col-md-8'>
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+    {% endfor %}
+{% else %}
+<div class="card bg-white">
+  <div class="card-body">
+    <div class='row p-1'>Demographics</div><br/>
+    <div class='row '><div style="padding-left:10px"  class='col col-lg-2 col-md-2'>{{form.age}} {{form.age.label}} </div><div class='col col-lg-3 col-md-3'>{{form.gender}} {{form.gender.label}}</div><div  class='col col-lg-3 col-md-3'>{{form.education}} {{form.education.label}}</div><div class='col col-lg-3 col-md-3'>{{form.nationality}} {{form.nationality.label}}</div></div>
+  </div>
+</div>
+<br/>
+<nav>
+{% if type == 1 %}
+<div class="nav nav-tabs" id="nav-tab" role="tablist">
+{% else %}
+<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+{% endif %}
+<a class="nav-item nav-link active" id="nav-s1-tab" data-toggle="tab" href="#nav-s1" role="tab" aria-controls="nav-s1" aria-selected="true">Survey-1</a>
+{% if type > 1 %}
+<a class="nav-item nav-link" id="nav-s2-tab" data-toggle="tab" href="#nav-s2" role="tab" aria-controls="nav-s2" aria-selected="false">Survey-2</a>
+{% endif %}
+{% if type > 2 %}
+<a class="nav-item nav-link" id="nav-s3-tab" data-toggle="tab" href="#nav-s3" role="tab" aria-controls="nav-s3" aria-selected="false">Survey-3</a>
+{% endif %}
+
+{% if type > 3 %}
+<a class="nav-item nav-link" id="nav-s4-tab" data-toggle="tab" href="#nav-s4" role="tab" aria-controls="nav-s4" aria-selected="false">Survey-4</a>
+{% endif %}
+
+{% if type > 4 %}
+<a class="nav-item nav-link" id="nav-s5-tab" data-toggle="tab" href="#nav-s5" role="tab" aria-controls="nav-s5" aria-selected="false">Survey-5</a>
+{% endif %}
+
+</nav>
+{% if form.product_name2.errors%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Error</strong> You should check in on some of those fields below.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="tab-content bg-white py-3 px-3 px-sm-0" id="nav-tabContent">
+  <div class="tab-pane fade show active p-5" id="nav-s1" role="tabpanel" aria-labelledby="nav-s1-tab">
+      <!-- Form start -->
+      <div class='row'>  {{form.questionnaire_language1.label}}{{form.questionnaire_language1}}</div>
+      <div class='row'>{{form.product_name1.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#product_name"></i></span>{{form.product_name1}}</div>
+      <div class='row'><div style="padding-left:0px" class='col col-lg-6 col-md-6'>{{form.start_date1.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#start_date"></i></span>{{form.start_date1}}</div><div style="padding-right:0px" class='col col-lg-6 col-md-6'>{{form.end_date1.label}}{{form.end_date1}}</div></div>
+      <br/>
+      <b> Contact information </b><span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#contact_info"></i></span>
+
+      <div class="modal fade" id="product_name" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Product or service name</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              We need you product name to customize survey trust questions.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="start_date" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Start date</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              This is the start date for your current survey, and project in general.
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <div class="modal fade" id="contact_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Contact info</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              Provide participants with a contact information in case they have questions.
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <br/>
+        <div class='row'>  {{form.survey_owner1.label}}{{form.survey_owner1}}</div>
+      <div class='row'>  {{form.survey_owner_email1.label}}{{form.survey_owner_email1}}</div>
+      <b> Front page setup</b>  <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#front_page"></i></span><br/><br/>
+      <!-- help text -->
+      <div class="modal fade" id="front_page" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Front page setup</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class='modal-body'>
+              Design a front page of your survey. Participants will see this page when they will open a survey link.
+            </div>
+
+          </div>
+        </div>
+      </div>
+    <!-- Help text end -->
+
+
+
+
+
+      <div class='row'>{{form.title1.label}}{{form.title1}}</div>
+      <div class='row'>  {{form.paragraph1.label}} (Provide a context for the survey)<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#para"></i></span>
+        <div class="modal fade" id="para" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Introduction</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class='modal-body'>
+                rovide context for your survey. You can either use text, attach video or images. We recommend striking a balance between providing too little or too much details.
+                <br/><br/>
+                You can use following variables in the text <br/><br/>
+                {PROJECT_NAME}: Name of project <br/>
+                {PRODCUT_NAME}: Name of product <br/>
+                {TODAY}: Today's date <br/>
+                {OWNER_NAME}: Survey owner's full name <br/>
+                {OWNER_EMAIL}: Survey owner's email<br/>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+          <br/><br/>
+
+         {{form.paragraph1}}</div>
+      <br/>
+
+      <!--Form end -->
+  </div>
+
+  <div class="tab-pane fade show p-5 " id="nav-s2" role="tabpanel" aria-labelledby="nav-s2-tab">
+
+
+      <!-- Form start -->
+
+      <div class='row'>  {{form.questionnaire_language2.label}}{{form.questionnaire_language2}}</div>
+        <div class='row'>{{form.product_name2.label}}{{form.product_name2}}</div>
+      <div class='row'><div style="padding-left:0px" class='col col-lg-6 col-md-6'>{{form.start_date2.label}}{{form.start_date2}}</div><div style="padding-right:0px" class='col col-lg-6 col-md-6'>{{form.end_date2.label}}{{form.end_date2}}</div></div>
+      <br/>
+      <b> Contact information </b>
+
+      <br/>
+        <div class='row'>  {{form.survey_owner2.label}}{{form.survey_owner2}}</div>
+      <div class='row'>  {{form.survey_owner_email2.label}}{{form.survey_owner_email2}}</div>
+      <b> Front page setup</b><br/><br/>
+      <div class='row'>{{form.title2.label}}{{form.title2}}</div>
+      <div class='row'>  {{form.paragraph2.label}} (Provide a context for the survey)
+          <br/><br/>
+
+         {{form.paragraph2}}</div>
+      <br/>
+
+      <!--Form end -->
+  </div>
+
+  <div class="tab-pane fade show p-5" id="nav-s3" role="tabpanel" aria-labelledby="nav-s3-tab">
+
+
+      <!-- Form start -->
+
+      <div class='row'>  {{form.questionnaire_language3.label}}{{form.questionnaire_language3}}</div>
+
+      <div class='row'><div style="padding-left:0px" class='col col-lg-6 col-md-6'>{{form.start_date3.label}}{{form.start_date3}}</div><div style="padding-right:0px" class='col col-lg-6 col-md-6'>{{form.end_date3.label}}{{form.end_date3}}</div></div>
+        <div class='row'>{{form.product_name3.label}}{{form.product_name3}}</div>
+
+      <br/>
+      <b> Contact information </b>
+
+      <br/>
+        <div class='row'>  {{form.survey_owner3.label}}{{form.survey_owner3}}</div>
+      <div class='row'>  {{form.survey_owner_email3.label}}{{form.survey_owner_email3}}</div>
+      <b> Front page setup</b><br/><br/>
+      <div class='row'>{{form.title3.label}}{{form.title3}}</div>
+      <div class='row'>  {{form.paragraph3.label}} (Provide a context for the survey)
+
+          <br/><br/>
+
+         {{form.paragraph3}}</div>
+      <br/>
+
+      <!--Form end -->
+  </div>
+
+  <div class="tab-pane fade show p-5" id="nav-s4" role="tabpanel" aria-labelledby="nav-s4-tab">
+
+
+      <!-- Form start -->
+
+      <div class='row'>  {{form.questionnaire_language4.label}}{{form.questionnaire_language4}}</div>
+
+      <div class='row'><div style="padding-left:0px" class='col col-lg-6 col-md-6'>{{form.start_date4.label}}{{form.start_date4}}</div><div style="padding-right:0px" class='col col-lg-6 col-md-6'>{{form.end_date4.label}}{{form.end_date4}}</div></div>
+        <div class='row'>{{form.product_name4.label}}{{form.product_name4}}</div>
+      <br/>
+      <b> Contact information </b>
+
+      <br/>
+        <div class='row'>  {{form.survey_owner4.label}}{{form.survey_owner4}}</div>
+      <div class='row'>  {{form.survey_owner_email4.label}}{{form.survey_owner_email4}}</div>
+      <b> Front page setup</b><br/><br/>
+      <div class='row'>{{form.title4.label}}{{form.title4}}</div>
+      <div class='row'>  {{form.paragraph4.label}} (Provide a context for the survey)
+
+          <br/><br/>
+
+         {{form.paragraph4}}</div>
+      <br/>
+
+      <!--Form end -->
+  </div>
+
+  <div class="tab-pane fade show " id="nav-s5" role="tabpanel" aria-labelledby="nav-s5-tab">
+
+
+      <!-- Form start -->
+
+      <div class='row'>  {{form.questionnaire_language5.label}}{{form.questionnaire_language5}}</div>
+
+      <div class='row'><div style="padding-left:0px" class='col col-lg-6 col-md-6'>{{form.start_date5.label}}{{form.start_date5}}</div><div style="padding-right:0px" class='col col-lg-6 col-md-6'>{{form.end_date5.label}}{{form.end_date5}}</div></div>
+        <div class='row'>{{form.product_name5.label}}{{form.product_name5}}</div>
+      <br/>
+      <b> Contact information </b>
+      <br/>
+        <div class='row'>  {{form.survey_owner5.label}}{{form.survey_owner5}}</div>
+      <div class='row'>  {{form.survey_owner_email5.label}}{{form.survey_owner_email5}}</div>
+      <b> Survey front page setup</b><br/><br/>
+      <div class='row'>{{form.title5.label}}{{form.title5}}</div>
+      <div class='row'>  {{form.paragraph5.label}} (Provide a context for the survey)
+          <br/><br/>
+
+         {{form.paragraph5}}</div>
+      <br/>
+
+      <!--Form end -->
+  </div>
+
+
+</div>
+
+{% endif %}
+ </div>
+
+</div>
+<br/><br/>
+<a class='mr-2'   href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+{% if wizard.steps.prev %}
+
+<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input id='submitButton' type="submit" class='btn btn-primary'  value="{% trans "Continue" %}" />
+
+</form>
+
+</div>
+<script>
+
+
+
+
+  $('#submitButton').click(function () {
+      $('input:invalid').each(function () {
+          // Find the tab-pane that this element is inside, and get the id
+          var $closest = $(this).closest('.tab-pane');
+          var id = $closest.attr('id');
+
+          // Find the link that corresponds to the pane and have it show
+          $('.nav a[href="#' + id + '"]').tab('show');
+
+          // Only want to do it once
+          return false;
+      });
+  });
+
+
+
+
+
+  $(document).ready(function() {
+    var d = new Date();
+    var today = d.getFullYear() +"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+ ("0" + d.getDate()).slice(-2);
+    var tomorrow = d.getFullYear()+1 +"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+ ("0" + d.getDate()).slice(-2);
+
+
+    var type = {{type}};
+
+    for(i=type+1;i<=5;i++){
+
+      console.log('calling '+i);
+
+
+          //$("#id_survey-name_of_survey"+i).val("lemo");
+          $("#id_survey-questionnaire_language"+i).val("En");
+          $("#id_survey-start_date"+i).val(today);
+          $("#id_survey-end_date"+i).val(tomorrow);
+          $("#id_survey-product_name"+i).val('dd');
+          $("#id_survey-survey_owner"+i).val('demo');
+          $("#id_survey-survey_owner_email"+i).val('c@gmail.com');
+          $("#id_survey-title"+i).val("demo");
+          $("#id_survey-paragraph"+i).val("demo");
+
+
+    }
+
+
+    console.log(today);
+    console.log(tomorrow);
+
+
+
+
+
+
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
+</script>
+{% endblock %}

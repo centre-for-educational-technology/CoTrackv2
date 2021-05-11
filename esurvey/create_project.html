@@ -1,0 +1,191 @@
+
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}   {% endblock %}
+
+
+
+{% block content %}
+<br/>
+<style>
+
+</style>
+<form action="" method="post">{% csrf_token %}
+  <h2> {%if form.new.value == False %}Edit {% else %} New {% endif %} study </h2>
+  <hr/><br/>
+
+{{ wizard.management_form }}
+<div class="row">
+    <div class="col">
+      <div class="multisteps-form__progress">
+        {% if wizard.steps.step1 >= 1   %}
+        <button id='b1' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: General </button>
+        {% else %}
+        <button id='b1' class="multisteps-form__progress-btn" type="button" name="wizard_goto_step" type="submit" value="project" disabled>Step 1: General </button>
+        {% endif %}
+
+        {% if wizard.steps.step1 >= 2  %}
+        <button id='b2' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit"value="survey" disabled>Step 2: Survey settings</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="survey" disabled>Step 2: Survey settings</button>
+        {% endif %}
+        {% if wizard.steps.step1 >= 3 %}
+        <button id='b3' class="multisteps-form__progress-btn js-active" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Participants</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="participants" disabled>Step 3: Participants</button>
+        {% endif %}
+
+        {% if wizard.steps.step1 >= 4 %}
+        <button id='b4' class="multisteps-form__progress-btn js-active"  name="wizard_goto_step" type="submit" value="summar" disabled>Step 4: Summary</button>
+        {% else %}
+        <button id='b2' class="multisteps-form__progress-btn" name="wizard_goto_step" type="submit" value="summary"  disabled>Step 4: Summary</button>
+        {% endif %}
+
+
+      </div>
+    </div>
+  </div>
+
+
+<br/>
+<br/>
+<div class='row'>
+ <div class='col col-lg-6 col-md-6 col-sm-12 card'>
+   <div class="card-body">
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+
+    {% endfor %}
+
+{% else %}
+
+  <div class='row'>{{form.project_name.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_name"></i></span>{{form.project_name}}</div>
+  <div class='row'>  {{form.project_type.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#study_type"></i></span>{{form.project_type}}</div>
+
+  <div class='row'>{{form.product_type.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#product_type"></i></span>{{form.product_type}}</div>
+  <div class='row'>  {{form.product_industry.label}}<span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#industry"></i></span>{{form.product_industry}}</div>
+
+  {{form.new}}
+  {{form.project_id}}
+
+{% endif %}
+
+  </div>
+
+ </div>
+  <div class='col'>
+    <div class="modal fade" id="study_name" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Study name</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>This is internal system study name.  Study can include from one to five surveys..</p>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+
+    <div class="modal fade" id="study_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Evaluation Type</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+            <b> Individual </b> <br/>
+            <p>One-off product evaluation.</p><br/>
+            <b> Comparision A and B </b> <br/>
+            <p>Allows to create two surveys with different product or to evaluate two versions of the same product. </p><br/>
+            <b> Comparision A, B and C; Comparision A, B, C and D, Comparision A, B, C, D and E </b> <br/>
+            <p>Allows to create three to five surveys for different product or to evaluate different versions of the same product. </p>
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+    <div class="modal fade" id="product_type" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Product type</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>Select a product type ot the product or service you are planning to evaluate.</p>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- End -->
+    </div>
+
+    <div class="modal fade" id="industry" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Industry type</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class='modal-body'>
+
+            <p>Select your product or service industry.</p>
+              </div>
+
+        </div>
+      </div>
+    <!-- End -->
+
+    </div>
+  </div>
+
+  </div>
+
+
+<br/><br/>
+<a class='mr-2'   href="{% url 'project_home'%}">{% trans "Cancel" %} </a>
+{% if wizard.steps.prev %}
+
+<button class="btn btn-outline-primary" formnovalidate="formnovalidate" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}" >{% trans "Back" %}</button>
+{% endif %}
+<input type="submit" class='btn btn-primary'  value="{% trans "Continue" %}" />
+
+</form>
+
+</div>
+<script>
+  $(document).ready(function() {
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  });
+
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+});
+</script>
+{% endblock %}
