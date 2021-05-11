@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 19:00+0300\n"
+"POT-Creation-Date: 2021-05-11 19:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,15 +470,18 @@ msgstr "Demo"
 msgid "Access pin"
 msgstr "Juurdepääsu tihvt "
 
-#: esurvey/templates/dashboard.html:50
+#: esurvey/templates/dashboard.html:50 esurvey/templates/session_main.html:49
+#: esurvey/templates/session_main.html:59
+#: esurvey/templates/session_main.html:69
+#: esurvey/templates/session_main.html:89
 msgid "Group"
 msgstr "Grupp"
 
-#: esurvey/templates/dashboard.html:54
+#: esurvey/templates/dashboard.html:54 esurvey/templates/session_main.html:13
 msgid "No. of groups:"
 msgstr "Gruppide arv: "
 
-#: esurvey/templates/dashboard.html:56
+#: esurvey/templates/dashboard.html:56 esurvey/templates/session_main.html:14
 msgid "Duration:"
 msgstr "Kestus:"
 
@@ -568,15 +571,78 @@ msgstr ""
 msgid "Edit Session"
 msgstr "Seansi muutmine"
 
+#: esurvey/templates/session_main.html:21
+msgid "Download Data"
+msgstr "Andmete allalaadimine"
+
+#: esurvey/templates/session_main.html:24
+#, fuzzy
+#| msgid "Add Etherpad"
+msgid "Etherpad logs"
+msgstr "Lisage Etherpad "
+
+#: esurvey/templates/session_main.html:25
+#, fuzzy
+#| msgid "Add Etherpad"
+msgid "Etherpad Chat"
+msgstr "Lisage Etherpad "
+
+#: esurvey/templates/session_main.html:27
+msgid "VAD data"
+msgstr "VAD andmed"
+
+#: esurvey/templates/session_main.html:28
+msgid "Speech data"
+msgstr "Kõne andmed"
+
+#: esurvey/templates/session_main.html:29
+msgid "File metadata"
+msgstr "Faili metaandmed"
+
+#: esurvey/templates/session_main.html:31
+msgid "User mapping"
+msgstr "Kasutaja kaardistamine"
+
+#: esurvey/templates/session_main.html:86
+
+msgid "Join session"
+msgstr "Liitu seansiga "
+
+#: esurvey/templates/session_main.html:87
+msgid ""
+"Following links can be used to enter the respective group discussion. You "
+"can also check their written responses."
+msgstr "Järgmisi linke saab kasutada vastavasse grupiarutelu sisenemiseks. Teie"
+"saavad kontrollida ka oma kirjalikke vastuseid."
+
+
+#: esurvey/templates/session_main.html:115
+msgid ""
+"           Etherpad activity means the number of revisions made to the "
+"collaborative document.\n"
+"           For example, whenever group participants write something, it "
+"updates the documents.\n"
+"           The total number of such updates are presented as etherpad "
+"activities.\n"
+msgstr "Etherpad'i tegevus tähendab rakendusse tehtud muudatuste arvu"
+"koostöödokument. \n"
+"Näiteks kui rühma osalejad midagi kirjutavad, siis see"
+"uuendab dokumente. \n"
+"Selliste värskenduste koguarv esitatakse etherpadina"
+"tegevused. \n"
+
+
+#: esurvey/templates/session_main.html:159
+msgid "Join group"
+msgstr "Liitu grupiga"
+
 #: esurvey/templates/session_student_entry.html:27
 #: esurvey/templates/session_student_entry_v2.html:221
 #: esurvey/templates/student_session_home.html:34
 msgid "Enter"
 msgstr "Sisenema"
 
-#: esurvey/templates/session_student_entry_v2.html:185
-msgid "Join session"
-msgstr "Liitu seansiga "
+
 
 #: esurvey/templates/session_student_entry_v2.html:198
 #: esurvey/templates/session_student_entry_v2.html:207
@@ -648,7 +714,8 @@ msgstr "Õpetajale on saadetud teade. Õpetaja liitub peagi."
 #: esurvey/templates/student_pad.html:152
 msgid ""
 "Exiting will stop recording. Select ok if you are done with the activity."
-msgstr "Väljumine lõpetab salvestamise. Valige OK, kui olete selle tegevusega valmis."
+msgstr ""
+"Väljumine lõpetab salvestamise. Valige OK, kui olete selle tegevusega valmis."
 
 #: esurvey/templates/student_session_home.html:13
 msgid "Instructor:"

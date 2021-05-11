@@ -25,13 +25,8 @@
       <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">Etherpad Chat</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{% url 'download_vad' session.id %}" data-toggle="tooltip" title="Download voice activity detection">VAD data</a>
-<<<<<<< HEAD
       <a class="dropdown-item" href="{% url 'download_speech' session.id %}" data-toggle="tooltip" title="Download speech data">Speech data</a>
       <a class="dropdown-item" href="{% url 'download_fileTimestamp' session.id %}" data-toggle="tooltip" title="Download file metadata">File metadata</a>
-=======
-      <a class="dropdown-item" href="{% url 'download_fileTimestamp' session.id %}" data-toggle="tooltip" title="Download file metadata">File metadata</a>
-      
->>>>>>> 51ed80e925e61b3ec183056c5dfca8d4d7be2fff
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">User mapping</a>
     </div>

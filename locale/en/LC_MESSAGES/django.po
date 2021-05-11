@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 19:00+0300\n"
+"POT-Creation-Date: 2021-05-11 19:42+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -423,15 +423,18 @@ msgstr ""
 msgid "Access pin"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:50
+#: esurvey/templates/dashboard.html:50 esurvey/templates/session_main.html:49
+#: esurvey/templates/session_main.html:59
+#: esurvey/templates/session_main.html:69
+#: esurvey/templates/session_main.html:89
 msgid "Group"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:54
+#: esurvey/templates/dashboard.html:54 esurvey/templates/session_main.html:13
 msgid "No. of groups:"
 msgstr ""
 
-#: esurvey/templates/dashboard.html:56
+#: esurvey/templates/dashboard.html:56 esurvey/templates/session_main.html:14
 msgid "Duration:"
 msgstr ""
 
@@ -510,6 +513,67 @@ msgstr ""
 
 #: esurvey/templates/session.html:21
 msgid "Edit Session"
+msgstr ""
+
+#: esurvey/templates/session_main.html:21
+msgid "Download Data"
+msgstr ""
+
+#: esurvey/templates/session_main.html:24
+msgid "Etherpad logs"
+msgstr ""
+
+#: esurvey/templates/session_main.html:25
+msgid "Etherpad Chat"
+msgstr ""
+
+#: esurvey/templates/session_main.html:27
+msgid "VAD data"
+msgstr ""
+
+#: esurvey/templates/session_main.html:28
+msgid "Speech data"
+msgstr ""
+
+#: esurvey/templates/session_main.html:29
+msgid "File metadata"
+msgstr ""
+
+#: esurvey/templates/session_main.html:31
+msgid "User mapping"
+msgstr ""
+
+#: esurvey/templates/session_main.html:86
+#, fuzzy
+#| msgid "Sessions"
+msgid "Join group discussion"
+msgstr "Sessions"
+
+#: esurvey/templates/session_main.html:87
+msgid ""
+"Following links can be used to enter the respective group discussion. You "
+"can also check their written responses."
+msgstr ""
+
+#: esurvey/templates/session_main.html:97
+#: esurvey/templates/session_main.html:109
+msgid "Etherpad activity"
+msgstr ""
+
+#: esurvey/templates/session_main.html:115
+msgid ""
+"\n"
+"           Etherpad activity means the number of revisions made to the "
+"collaborative document.\n"
+"           For example, whenever group participants write something, it "
+"updates the documents.\n"
+"           The total number of such updates are presented as etherpad "
+"activities.\n"
+"           "
+msgstr ""
+
+#: esurvey/templates/session_main.html:159
+msgid "Join group"
 msgstr ""
 
 #: esurvey/templates/session_student_entry.html:27
