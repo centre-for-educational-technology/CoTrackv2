@@ -904,7 +904,6 @@ def getSpeakingStats(request,session_id):
         tmp_users = vads.filter(group = group).values('user').distinct()
         users = [user['user'] for user in tmp_users]
         user_sequence = vads.filter(group = group).values_list('user',flat=True)
-        print('User sequence:',list(user_sequence))
         data = []
         speaking_data = {}
 
@@ -1118,7 +1117,6 @@ def uploadAudio(request):
             print('Form not valid')
             return HttpResponse('Form not valid')
     else:
-
         return HttpResponse('Not done')
 
 
@@ -1133,16 +1131,12 @@ def uploadVad(request):
             user = form.cleaned_data.get("user")
             group = form.cleaned_data.get("group")
             strDate = form.cleaned_data.get("strDate")
-            print('Getting Vad data',strDate)
             milli = form.cleaned_data.get("milli")
             activity = form.cleaned_data.get("activity")
-
             strDate = (int)(float(strDate)/1000)
-
             dt = datetime.datetime.fromtimestamp(strDate)
             print('Converted datetime:',dt)
             vad_object = VAD.objects.create(session=session,user=user,group=group,timestamp=dt,activity=activity)
-
             return HttpResponse('Done')
         else:
             print('Form not valid')
@@ -1178,8 +1172,10 @@ def uploadSpeech(request):
 
 def uploadHelp(request):
     if request.method == 'POST':
+        print('Help Form recieved')
         form = HelpForm(request.POST)
         if form.is_valid():
+            print(form)
             print('Form is valid')
             session = form.cleaned_data.get("session")
             user = form.cleaned_data.get("user")
