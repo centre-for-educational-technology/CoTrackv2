@@ -7,6 +7,7 @@ initial = {'activity_info':{'new':False}}
 
 urlpatterns = [
     path("esurvey/collaboration/<session>/<group>", login_required(views.surveyForm), name="survey_form"),
+    path("esurvey/engagement/<session>/<group>", login_required(views.engagementForm), name="engagement_form"),
     path("esurvey/usability/", login_required(views.usabilityForm), name="usability_form"),
     path("sessions/filter/<filter>", login_required(views.sessionFilter), name="session_filter"),
     path("session/<session_id>/edit", login_required(views.edit),name="edit_session"),
