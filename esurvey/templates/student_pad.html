@@ -151,8 +151,9 @@
         var href = $(this).attr("href"),
         message = $(this).attr("data-message");
         if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
-          stopRecording();
-          window.location.href = href;
+          stopRecording(function (){
+            window.location.href = href;
+          });
 
         }
 
@@ -360,9 +361,10 @@
         console.log('function executed');
          }
 
-        function stopRecording() {
-          recorder.stopRecording(stopRecordingCallback);
-        };
+         function stopRecording(_callback) {
+           recorder.stopRecording(stopRecordingCallback);
+           _callback();
+         };
 
 
     </script>
