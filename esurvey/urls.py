@@ -31,10 +31,6 @@ urlpatterns = [
     path("audio/", views.model_form_upload, name='views.model_form_upload'),
     path("audiolist/", views.list_files, name='views.list_files'),
     path("leave/",views.LeaveSession, name='leave_session'),
-    path("vad_upload/", views.uploadVad, name='upload_vad'),
-    path("speech_upload/", views.uploadSpeech, name='upload_speech'),
-    path("help_upload/", views.uploadHelp, name='upload_help'),
-    path("upload/", views.uploadAudio, name='upload_audio'),
     #restapi
     path("getStats/<padid>", views.getGroupPadStats),
     path("getRevCount/<padid>", views.getRevCount, name='getRevisionCount'),

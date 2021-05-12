@@ -1,4 +1,4 @@
-"""TrustedUX URL Configuration
+"""CoTrack URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -45,4 +45,11 @@ urlpatterns = i18n_patterns(
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('',include("esurvey.urls")),
-) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) + [path('changeLang/<lang_code>',views.changLang,name='change_language')]
+) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT
+) + [
+    path('changeLang/<lang_code>',views.changLang,name='change_language'),
+    path("vad_upload/", sv.uploadVad, name='upload_vad'),
+    path("speech_upload/", sv.uploadSpeech, name='upload_speech'),
+    path("help_upload/", sv.uploadHelp, name='upload_help'),
+    path("upload/", sv.uploadAudio, name='upload_audio')
+]

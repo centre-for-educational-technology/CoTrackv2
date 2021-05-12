@@ -920,7 +920,7 @@ def getSpeakingStats(request,session_id):
         group_speaking['data'] = data
         group_speaking['graph'] = generateElements(user_sequence,speaking_data)
         groups_speaking.append(group_speaking)
-        
+
     return Response({'speaking_data':groups_speaking})
 
 
@@ -1089,6 +1089,7 @@ def downloadLog(request,session_id):
 
 
 def uploadAudio(request):
+    print('Upload Audio invoked')
     if request.method == 'POST':
         form = AudioflForm(request.POST,request.FILES)
         print(form)
@@ -1186,7 +1187,7 @@ def uploadHelp(request):
             print('Form not valid')
             return HttpResponse('Form not valid')
     else:
-
+        print('Not a post method')
         return HttpResponse('Not done')
 
 
