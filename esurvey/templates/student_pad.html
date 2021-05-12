@@ -152,7 +152,7 @@
         message = $(this).attr("data-message");
         if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
           stopRecording(function (){
-            window.location.href = href;
+            //window.location.href = href;
           });
 
         }
