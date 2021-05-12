@@ -35,9 +35,9 @@
               {% else %}
                 <a class="dropdown-item" href="{% url 'session_activate' session_id=session.id %}" data-toggle="tooltip" title="Unarchive this session."><i class="fa fa-archive"></i> {% trans 'Unarchive' %}</a>
               {% endif %}
-              <div class="dropdown-divider"></div>
+            <!--  <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'demo_session' session_id=session.id  %}" data-toggle="tooltip" title="To demonstrate the use of tool to students."><i class="fa fa-check"></i> {% trans 'Demo' %}</a>
-
+              -->
             </div>
           </div>
         </div>
