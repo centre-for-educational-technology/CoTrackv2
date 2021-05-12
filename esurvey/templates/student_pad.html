@@ -8,7 +8,8 @@
     <div class='row' id='record_status'>
     </div>
     <div class="d-flex flex-row-reverse">
-      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="{% url 'engagement_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> {% trans 'Exit'%}</a>
+      <a class="btn btn-info btn-lg m-2" id='next' style='visibility:hidden;'  href="{% url 'engagement_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> {% trans 'Next'%}</a>
+      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="#"> <span class="fa fa-arrow-right"></span> {% trans 'Save'%}</a>
       <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> {% trans 'Ask teacher for help'%}</a>
 
     </div>
@@ -156,9 +157,13 @@
         var href = $(this).attr("href"),
         message = $(this).attr("data-message");
         if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
-          $(this).html("<i class='fa fa-spinner fa-spin' style='font-size:24px'></i> {% trans 'Saving data' %}");
+          notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Saving data'%}</strong> {% trans 'Your data is now being saved on server. You can move to next step by clicking on next button.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+          $('#teacher_msg').html(notification);
+
           stopRecording(function (){
-            setTimeout(function (){window.location.href = href;}, 5000);
+             $(this).css('visibility:hidden;');
+             setTimeout(function(){console.log('Time delay');},5000);
+             $('next').css('visibility:visible;')
           });
 
         }
