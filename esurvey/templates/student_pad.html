@@ -151,9 +151,11 @@
         var href = $(this).attr("href"),
         message = $(this).attr("data-message");
         if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
+          stopRecording();
+          window.location.href = href;
 
         }
-        window.location.href = href;
+
       });
 
       if (! use_etherpad ) {
@@ -344,7 +346,7 @@
          recorder = RecordRTC(microphone, {
            recorderType: MediaStreamRecorder,
            mimeType: 'video/webm',
-           timeSlice: 300000, // Upload for every 10 minutes
+           timeSlice: 50000, // Upload for every 10 minutes
            ondataavailable: function(blob) {
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
