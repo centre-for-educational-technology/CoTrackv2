@@ -728,7 +728,7 @@ def enterForm(request):
     else:
         user_role = Role.objects.all().filter(user=request.user)
         if user_role.count() > 0:
-            if  user_role[0].role == 'teacher' and not request.user.is_staff():
+            if  user_role[0].role == 'teacher' and not request.user.is_staff:
                 return redirect('project_home')
         if 'joined' in request.session.keys():
             print('Jioned session exists:',request.session['joined'])
