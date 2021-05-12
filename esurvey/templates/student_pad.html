@@ -8,10 +8,8 @@
     <div class='row' id='record_status'>
     </div>
     <div class="d-flex flex-row-reverse">
-      <a class="btn btn-info btn-lg m-2" id='next' style='visibility:hidden;'  href="{% url 'engagement_form' session_obj.id group%}"> <span class="fa fa-arrow-right"></span> {% trans 'Next'%}</a>
-      <a class="btn btn-info btn-lg m-2" id='exit' onclick="stopRecording();" href="#"> <span class="fa fa-arrow-right"></span> {% trans 'Save'%}</a>
+      <button id='exit'  class="btn btn-success btn-lg m-2">Save</button>
       <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> {% trans 'Ask teacher for help'%}</a>
-
     </div>
     <form action="" method="post">
       {% csrf_token %}
@@ -147,27 +145,19 @@
       }
 
       function toLink(href){
-        window.location.href = href;
+        console.log('Time delay');
       }
 
 
-      $("#exit").click(function(){
-        e.preventDefault();
-        var label = $(this).text();
-        var href = $(this).attr("href"),
-        message = $(this).attr("data-message");
-        if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
-          notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Saving data'%}</strong> {% trans 'Your data is now being saved on server. You can move to next step by clicking on next button.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+      $('#exit').click(function(event){
+        var button_text = $('#exit').text();
+        if (button_text == 'Save') {
+          notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Saving data'%}</strong> {% trans 'Your data is now saved on server. You can exit the session.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
           $('#teacher_msg').html(notification);
-
-          stopRecording(function (){
-             $(this).css('visibility:hidden;');
-             setTimeout(function(){console.log('Time delay');},5000);
-             $('next').css('visibility:visible;')
-          });
-
+          stopRecording();
+        } else {
+          window.location.href = "{% url 'engagement_form' session_obj.id group%}";
         }
-
       });
 
       if (! use_etherpad ) {
@@ -375,7 +365,7 @@
          function stopRecording(_callback) {
            recorder.stopRecording(stopRecordingCallback);
            console.log('waiting to finish');
-           _callback();
+           $('#exit').html('Exit');
          };
 
 
