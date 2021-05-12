@@ -77,7 +77,7 @@ class Pad(models.Model):
 
 # Model to store Roles
 class Role(models.Model):
-    ROLE_CHOICES = [(1,'student'),(2,'teacher'),(3,'annotator')]
+    ROLE_CHOICES = [('student','student'),('teacher','teacher'),('annotator','annotator')]
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     role = models.CharField(max_length=50,choices=ROLE_CHOICES,default='student')
 
@@ -144,7 +144,6 @@ class Help(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     group = models.IntegerField(blank=True)
     seen = models.BooleanField(default=False) # whether teacher has seen the alert or not
-
 
 # Collaboration questionnaire based on jhonson & jhonson work
 class CollaborationQ(models.Model):
