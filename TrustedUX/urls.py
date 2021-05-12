@@ -40,13 +40,14 @@ urlpatterns = i18n_patterns(
     path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),
     path('home/',views.index,name='home'),
-    path('accounts/', include('allauth.urls')),
+
 
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('',include("esurvey.urls")),
 ) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT
 ) + [
+    path('accounts/', include('allauth.urls')),
     path('changeLang/<lang_code>',views.changLang,name='change_language'),
     path("vad_upload/", sv.uploadVad, name='upload_vad'),
     path("speech_upload/", sv.uploadSpeech, name='upload_speech'),
