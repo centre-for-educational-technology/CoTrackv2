@@ -344,7 +344,7 @@
          recorder = RecordRTC(microphone, {
            recorderType: MediaStreamRecorder,
            mimeType: 'video/webm',
-           timeSlice: 5000, // pass this parameter upload for every minute
+           timeSlice: 600000, // Upload for every 10 minutes
            ondataavailable: function(blob) {
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
