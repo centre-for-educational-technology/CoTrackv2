@@ -145,14 +145,20 @@
         recognition.start();
       }
 
+      function toLink(href){
+        window.location.href = href;
+      }
 
-      $("#exit").click(function(e){
+
+      $("#exit").click(function(){
         e.preventDefault();
+        var label = $(this).text();
         var href = $(this).attr("href"),
         message = $(this).attr("data-message");
         if (confirm("{% trans 'Exiting will stop recording. Select ok if you are done with the activity.' %}")) {
+          $(this).html("<i class='fa fa-spinner fa-spin' style='font-size:24px'></i> {% trans 'Saving data' %}");
           stopRecording(function (){
-            //window.location.href = href;
+            setTimeout(function (){window.location.href = href;}, 5000);
           });
 
         }
