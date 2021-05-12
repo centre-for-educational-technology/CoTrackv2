@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 19:42+0300\n"
+"POT-Creation-Date: 2021-05-12 13:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -201,8 +201,7 @@ msgid "Add Etherpad"
 msgstr ""
 
 #: esurvey/templates/create_config.html:55
-#, python-format
-msgid "{%% trans "
+msgid "Add Audio-Video Chat"
 msgstr ""
 
 #: esurvey/templates/create_config.html:60
@@ -243,6 +242,12 @@ msgid ""
 ">\n"
 "                    So, when the participants join, they will be able to "
 "communicate throught audio-video channels."
+msgstr ""
+
+#: esurvey/templates/create_config.html:98
+msgid ""
+"If the session is happening in face-to-face settings in that case this "
+"feature is not needed, hence, can be disabled for those sessions."
 msgstr ""
 
 #: esurvey/templates/create_config.html:109
@@ -1428,17 +1433,21 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: templates/index_soft.html:8
+#: templates/index_soft.html:88
 msgid " Track collaboration across digital and physical spaces."
 msgstr ""
 
-#: templates/index_soft.html:9
+#: templates/index_soft.html:89
 msgid ""
 "CoTrack is a tool which allows instructor to create and conduct "
 "collaborative activity. "
 msgstr ""
 
-#: templates/index_soft.html:10
+#: templates/index_soft.html:90
 msgid ""
 "  It also supports participants' activities monitoring and data recording."
+msgstr ""
+
+#: templates/index_soft.html:91
+msgid "Try it now"
 msgstr ""

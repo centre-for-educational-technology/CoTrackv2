@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-11 19:42+0300\n"
+"POT-Creation-Date: 2021-05-12 13:01+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: esurvey/forms.py:67
 msgid "Session name"
-msgstr "Seansid"
+msgstr "Seansi nimi"
 
 #: esurvey/forms.py:68
 msgid "Number of groups"
@@ -59,9 +59,7 @@ msgid "Enable"
 msgstr "lubama"
 
 #: esurvey/forms.py:86
-#, fuzzy
-#| msgid "Disagree"
-msgid "Disabble"
+msgid "Disagree"
 msgstr "Ei nõustu"
 
 #: esurvey/templates/anony_settings.html:97 esurvey/templates/create.html:53
@@ -236,9 +234,10 @@ msgid "Add Etherpad"
 msgstr "Lisage Etherpad "
 
 #: esurvey/templates/create_config.html:55
-#, python-format
-msgid "{%% trans "
-msgstr ""
+#, fuzzy
+#| msgid "Add Audio & Video chat:"
+msgid "Add Audio-Video Chat"
+msgstr "Lisa audio- ja videovestlus:"
 
 #: esurvey/templates/create_config.html:60
 msgid "Recording"
@@ -286,6 +285,12 @@ msgstr ""
 "See tugi lisab teie õppimisruumi audio-video vestlusfunktsiooni. <br/>Nii et "
 "kui osalejad liituvad, saavad nadsuhelda läbipaistvate audio-video "
 "kanalitega."
+
+#: esurvey/templates/create_config.html:98
+msgid ""
+"If the session is happening in face-to-face settings in that case this "
+"feature is not needed, hence, can be disabled for those sessions."
+msgstr ""
 
 #: esurvey/templates/create_config.html:109
 msgid "Tracking/Recording"
@@ -604,33 +609,49 @@ msgid "User mapping"
 msgstr "Kasutaja kaardistamine"
 
 #: esurvey/templates/session_main.html:86
-
-msgid "Join session"
+#, fuzzy
+#| msgid "Join session"
+msgid "Join group discussion"
 msgstr "Liitu seansiga "
 
 #: esurvey/templates/session_main.html:87
 msgid ""
 "Following links can be used to enter the respective group discussion. You "
 "can also check their written responses."
-msgstr "Järgmisi linke saab kasutada vastavasse grupiarutelu sisenemiseks. Teie"
-"saavad kontrollida ka oma kirjalikke vastuseid."
+msgstr ""
+"Järgmisi linke saab kasutada vastavasse grupiarutelu sisenemiseks. "
+"Teiesaavad kontrollida ka oma kirjalikke vastuseid."
 
+#: esurvey/templates/session_main.html:97
+#: esurvey/templates/session_main.html:109
+#, fuzzy
+#| msgid "Add Etherpad"
+msgid "Etherpad activity"
+msgstr "Lisage Etherpad "
 
 #: esurvey/templates/session_main.html:115
+#, fuzzy
+#| msgid ""
+#| "           Etherpad activity means the number of revisions made to the "
+#| "collaborative document.\n"
+#| "           For example, whenever group participants write something, it "
+#| "updates the documents.\n"
+#| "           The total number of such updates are presented as etherpad "
+#| "activities.\n"
 msgid ""
+"\n"
 "           Etherpad activity means the number of revisions made to the "
 "collaborative document.\n"
 "           For example, whenever group participants write something, it "
 "updates the documents.\n"
 "           The total number of such updates are presented as etherpad "
 "activities.\n"
-msgstr "Etherpad'i tegevus tähendab rakendusse tehtud muudatuste arvu"
-"koostöödokument. \n"
-"Näiteks kui rühma osalejad midagi kirjutavad, siis see"
-"uuendab dokumente. \n"
-"Selliste värskenduste koguarv esitatakse etherpadina"
-"tegevused. \n"
-
+"           "
+msgstr ""
+"Etherpad'i tegevus tähendab rakendusse tehtud muudatuste "
+"arvukoostöödokument. \n"
+"Näiteks kui rühma osalejad midagi kirjutavad, siis seeuuendab dokumente. \n"
+"Selliste värskenduste koguarv esitatakse etherpadinategevused. \n"
 
 #: esurvey/templates/session_main.html:159
 msgid "Join group"
@@ -642,7 +663,9 @@ msgstr "Liitu grupiga"
 msgid "Enter"
 msgstr "Sisenema"
 
-
+#: esurvey/templates/session_student_entry_v2.html:185
+msgid "Join session"
+msgstr "Liitu seansiga "
 
 #: esurvey/templates/session_student_entry_v2.html:198
 #: esurvey/templates/session_student_entry_v2.html:207
@@ -1114,12 +1137,7 @@ msgstr "Osalejad arutasid minu panust alati."
 msgid "Strogly disagree"
 msgstr "Ei nõustu üldse"
 
-#: esurvey/templates/survey_form_updated.html:1105
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1104
-#: esurvey/templates/survey_form_updated_engagement.html:505
-#: esurvey/templates/survey_form_usability.html:565
-msgid "Disagree"
-msgstr "Ei nõustu"
+
 
 #: esurvey/templates/survey_form_updated.html:1106
 #: esurvey/templates/survey_form_updated_backup23apr21.html:1105
@@ -1390,28 +1408,18 @@ msgstr ""
 "Rühmatöös osalejad andsid üksteisele ülesande kohta kasulikku tagasisidet."
 
 #: esurvey/templates/survey_form_updated_backup23apr21.html:685
-#, fuzzy
-#| msgid ""
-#| " I kept necessary materials and information for the project for myself. "
 msgid ""
 " I kept necessary materials and information for the collaborative activity "
 "for myself. "
 msgstr "Hoidsin ülesande jaoks vajalikud materjalid ja info enda jaoks alles."
 
 #: esurvey/templates/survey_form_updated_backup23apr21.html:875
-#, fuzzy
-#| msgid ""
-#| "We monitored each other's work in order to ensure high quality of the "
-#| "course project. "
 msgid ""
 "We monitored each other's work in order to ensure high quality of the "
 "group's work. "
 msgstr "Jälgisime üksteise tööd, et tagada rühmatöö kõrge kvaliteet."
 
 #: esurvey/templates/survey_form_updated_backup23apr21.html:902
-#, fuzzy
-#| msgid ""
-#| "I felt that we depended on each other while working on the course project."
 msgid ""
 "I felt that we depended on each other while working on the collaborative "
 "activity."
@@ -1629,19 +1637,23 @@ msgstr "Kasutatavuse uuring"
 msgid "Logout"
 msgstr "Logi välja"
 
-#: templates/index_soft.html:8
+#: templates/index_soft.html:88
 msgid " Track collaboration across digital and physical spaces."
 msgstr "Jälgige koostööd digitaalses ja füüsilises ruumis. "
 
-#: templates/index_soft.html:9
+#: templates/index_soft.html:89
 msgid ""
 "CoTrack is a tool which allows instructor to create and conduct "
 "collaborative activity. "
 msgstr ""
 "CoTrack on tööriist, mis võimaldab juhendajal luua ja juhtidaühistegevus. "
 
-#: templates/index_soft.html:10
+#: templates/index_soft.html:90
 msgid ""
 "  It also supports participants' activities monitoring and data recording."
 msgstr ""
 "Samuti toetab see osalejate tegevuse jälgimist ja andmete salvestamist."
+
+#: templates/index_soft.html:91
+msgid "Try it now"
+msgstr "Proovige kohe"
