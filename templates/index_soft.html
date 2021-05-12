@@ -2,14 +2,94 @@
 {% load static %}
 {% load i18n %}
 {% block content%}
+<style>
+  .try_now_button_small {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.2px;
+    color: #FFFFFF;
+    background: #51D197;
+    box-shadow: 0px 8px 16px rgba(81, 209, 151, 0.36);
+    border-radius: 8px;
+}
+
+.try_now_button_small:hover{
+    background: #5AE6A6;
+}
+
+.try_now_button_big {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 18px;
+
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.2px;
+    color: #FFFFFF;
+    background: linear-gradient(180deg, #51D197 0%, #00B563 100%);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.16);
+    border-radius: 8px;
+    padding: 8px 35px;
+}
+
+.try_now_button_big:hover {
+  background: linear-gradient(180deg, #4DE19E 0%, #4CCD93 100%);;
+}
+
+.how_btn {
+	background-image: linear-gradient(to right, #E040FB, #00BCD4);
+  box-sizing: border-box;
+	display: block;
+	font: 1.125rem 'Oswald', Arial, sans-serif; /*18*/
+	letter-spacing: 1.5px;
+  height:50px;
+	margin: 0 auto;
+	padding: 4px;
+	position: relative;
+  text-decoration: none;
+	text-transform: uppercase;
+  text-align: center;
+	width: 264px;
+	z-index: 2;
+  color:white;
+  border: 0;
+  justify-content: center;
+  border-radius: 10px;
+  padding-top: 13px;
+}
+
+.how_btn:hover  {
+  color:white;
+  background-image: linear-gradient(to right,  #00BCD4,#E040FB);
+}
+
+.how_btn span {
+	align-items: center;
+	background: #e7e8e9;
+	border-radius: 40px;
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	transition: background .5s ease;
+	width: 100%;
+}
+
+.how_btn:hover span {
+	background: transparent;
+}
+</style>
 <div class='container'>
     <div id="img" class=" min-vh-100">
       <img style="vertical-align:middle;" class='img-fluid' src="{% static 'assets/images/cotrack_logo.png'%}"/>
       <h1 class="display-4" style='text-align:center;'>{%blocktrans%} Track collaboration across digital and physical spaces.{%endblocktrans%} </h1>
       <h5 style='text-align:center;' class='muted'> {%blocktrans%}CoTrack is a tool which allows instructor to create and conduct collaborative activity. {%endblocktrans%}<br/>
-      {%blocktrans%}  It also supports participants' activities monitoring and data recording.{%endblocktrans%} </h5>
-
-    </div>
+      {%blocktrans%}  It also supports participants' activities monitoring and data recording.{%endblocktrans%} </h5><br/>
+      <div class='d-flex justify-content-center'><a href="{% url 'login' %}" class='btn how_btn'> {% trans 'Try it now' %} </a></div>
+  </div>
 
 </div>
 {% endblock %}
