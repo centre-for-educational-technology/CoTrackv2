@@ -48,7 +48,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1','www.cotrack.website']
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+#EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
 MAILJET_API_KEY = '39b93cd219afa7bbfda355795fcf7b94'
 MAILJET_API_SECRET = 'f29eb65e1b46c83c577075c93612ba51'
 
