@@ -2,11 +2,64 @@
 {% load i18n %}
 {%block title%}{%endblock%}
 {%block content%}
-  <div class='container'>
-    <div  class=" min-vh-100">
-      <h1 class="display-6" style='text-align:center;'>{%blocktrans%} Error 404{%endblocktrans%} </h1>
-      <h5 style='text-align:center;' class='muted'> {%blocktrans%} The requested page is not found. {%endblocktrans%}<br/>
-      <div class='d-flex justify-content-center'><a href="{% url 'login' %}" class='btn btn-primary'> {% trans 'Home page' %} </a></div>
-  </div>
 
+	<style type="text/css">
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: white;
+			font-family: 'Cardo', serif;
+			color: #182C61;
+		}
+
+		.row {
+			margin: 0;
+		}
+
+		a {
+			background-color: #182C61;
+			border: 0px;
+			text-decoration: none;
+			padding: 10px;
+			color: #fff;
+			font-family: 'Lemonada', cursive;
+
+		}
+
+		a:hover {
+			text-decoration: none;
+			color: #fff;
+			background-color: #0c2461;
+		}
+
+		h1 {
+			color: #182C61;
+			font-size: 180px;
+		}
+
+		h4 {
+			padding-bottom: 20px;
+			color: #182C61;
+			font-family: 'Lemonada', cursive;
+
+		}
+
+		p {
+			font-family: 'Lemonada', cursive;
+			text-align: center;
+			color: #182C61;
+
+		}
+	</style>
+</head>
+
+
+	<div class="row">
+		<div class="col-md-12 d-flex flex-column justify-content-center align-items-center text-white vh-100">
+			<h1>404</h1>
+			<h4>Page not found</h4>
+			<p>Oops! The page you are looking for does not exist. It might have been moved or deleted.</p>
+			<a href="{%url 'login'%}">Back To Home</a>
+		</div>
+	</div>
 {%endblock %}
