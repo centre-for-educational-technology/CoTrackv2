@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
-ETHERPAD_URL ="http://localhost:9001"
+ETHERPAD_URL ="https://www.etherpad.website"
 
 JW_SEC = "PANKAJBFA26C645791DFF128F3EF1251798F0E"
 JW_APP = "62DD4"
@@ -42,7 +42,7 @@ CKEDITOR_RESTRICT_BY_USER = True
 SECRET_KEY = '0abn2aukso9r5!7zuk$tk7q%0%=$jxuocgfm%pu_lsgq!$+*e+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost','127.0.0.1','www.cotrack.website']
 
