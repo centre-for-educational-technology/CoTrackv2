@@ -236,6 +236,10 @@ def is_valid_uuid(val):
     except ValueError:
         return False
 
+def error_404(request):
+    return render(request,'error_404.html',{})
+
+
 def downloadFileTimestamp(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:

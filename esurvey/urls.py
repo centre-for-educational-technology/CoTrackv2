@@ -3,6 +3,7 @@ from django.urls import path, include
 from . import views
 from django.contrib.auth.decorators import login_required
 from .views import CompleteForm, CREATE_FORMS
+from django.conf.urls import handler404, handler500
 initial = {'activity_info':{'new':False}}
 
 urlpatterns = [
@@ -38,3 +39,4 @@ urlpatterns = [
     path("getSpeakingStats/<session_id>", views.getSpeakingStats),
     path("getHelpQueries/<session_id>", views.getHelpQueries),
     ]
+handler404 = views.error_404
