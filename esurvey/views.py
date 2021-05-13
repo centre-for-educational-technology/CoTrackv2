@@ -237,7 +237,7 @@ def is_valid_uuid(val):
         return False
 
 def error_404(request):
-    return render(request,'error_404.html',{})
+    return render(request,'error_404.html')
 
 
 def downloadFileTimestamp(request,session_id):

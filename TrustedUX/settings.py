@@ -42,9 +42,9 @@ CKEDITOR_RESTRICT_BY_USER = True
 SECRET_KEY = '0abn2aukso9r5!7zuk$tk7q%0%=$jxuocgfm%pu_lsgq!$+*e+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1','www.cotrack.website']
+ALLOWED_HOSTS = ['www.cotrack.website']
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
