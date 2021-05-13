@@ -4,50 +4,20 @@
 {%block content%}
 
 	<style type="text/css">
-		body {
-			margin: 0;
-			padding: 0;
-			background-color: white;
-			font-family: 'Cardo', serif;
-			color: #182C61;
-		}
-
-		.row {
-			margin: 0;
-		}
-
-		a {
-			background-color: #182C61;
-			border: 0px;
-			text-decoration: none;
-			padding: 10px;
-			color: #fff;
-			font-family: 'Lemonada', cursive;
-
-		}
-
-		a:hover {
-			text-decoration: none;
-			color: #fff;
-			background-color: #0c2461;
-		}
 
 		h1 {
-			color: #182C61;
+			color: #007bff;
 			font-size: 180px;
 		}
 
 		h4 {
 			padding-bottom: 20px;
-			color: #182C61;
-			font-family: 'Lemonada', cursive;
-
+			color: #007bff;
 		}
 
 		p {
-			font-family: 'Lemonada', cursive;
 			text-align: center;
-			color: #182C61;
+			color: #007bff;
 
 		}
 	</style>
@@ -59,7 +29,7 @@
 			<h1>404</h1>
 			<h4>Page not found</h4>
 			<p>Oops! The page you are looking for does not exist. It might have been moved or deleted.</p>
-			<a href="{%url 'login'%}">Back To Home</a>
+			<a class='btn btn-primary' href="{%url 'login'%}">Back To Home</a>
 		</div>
 	</div>
 {%endblock %}
