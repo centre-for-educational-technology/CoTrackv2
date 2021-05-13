@@ -39,4 +39,3 @@ urlpatterns = [
     path("getSpeakingStats/<session_id>", views.getSpeakingStats),
     path("getHelpQueries/<session_id>", views.getHelpQueries),
     ]
-handler404 = views.error_404
