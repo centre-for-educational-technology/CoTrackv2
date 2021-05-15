@@ -354,7 +354,7 @@
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
              data.push(blob);
-             var blob = new File(blob,'video.webm',{type:'vide/webm'})
+             var blob = new File([blob],'video.webm',{type:'vide/webm'})
              postBlob(blob,blobcount);
            }
          });
