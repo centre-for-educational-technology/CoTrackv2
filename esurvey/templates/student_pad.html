@@ -63,7 +63,7 @@
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       var audioContext = new AudioContext();
 
-      window.onunload = function (event) {if (record_status){stopRecording();}};
+      window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
 
 
       function loadFrame() {
