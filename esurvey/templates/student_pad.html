@@ -63,6 +63,7 @@
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
       var audioContext = new AudioContext();
 
+      window.onunload = function (event) {if (record_status){stopRecording();}};
 
 
       function loadFrame() {
@@ -353,6 +354,7 @@
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
              data.push(blob);
+             var blob = new File(blob,'video.webm',{type:'vide/webm'})
              postBlob(blob,blobcount);
            }
          });
