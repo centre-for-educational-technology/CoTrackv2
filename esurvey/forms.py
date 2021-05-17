@@ -63,7 +63,7 @@ class SessionForm(ModelForm):
         """
 
 class CreateForm1(forms.Form):
-    CHOICES = [('En','English'),('Est','Estonian')]
+    CHOICES = [('En','English'),('Et','Estonian')]
     name = forms.CharField(label=_('Session name'),widget=forms.TextInput(attrs={'class':'form-control'}))
     groups = forms.IntegerField(label=_('Number of groups'),widget=forms.NumberInput(attrs={'class':'form-control'}))
     language=forms.CharField(widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
