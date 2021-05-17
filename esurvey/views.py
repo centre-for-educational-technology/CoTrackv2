@@ -1295,8 +1295,9 @@ class CompleteForm(SessionWizardView):
                     objs = GroupPin.objects.filter(pin = u_pin)
                     if objs.count() == 0:
                         break
-                sg = GroupPin.objects.create(session=s,pin=u_pin,group=grp+1)
+                sg = GroupPin.objects.create(session=s,pin=u_pin,group=g)
         else:
+            group_diff = abs(group_diff)
             for g in range(group_diff):
                 del_group = g + new_groups + 1
                 GroupPin.objects.filter(session=s,group=del_group).delete()
@@ -1339,6 +1340,8 @@ class CompleteForm(SessionWizardView):
                 group_diff = abs(group_diff)
                 for g in range(group_diff):
                     del_group = g + new_groups + 1
+                    pad_name = str(sgm[0].eth_groupid) + '$' + 'session_'+str(s.id)+'_'+'group'+'_'+str(del_group)
+                    res = call('deletePad',{'padID':pad_name})
                     Pad.objects.filter(group=del_group).delete()
         messages.success(self.request,'Session is successfully updated.')
 
