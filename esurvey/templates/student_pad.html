@@ -155,7 +155,12 @@
         if (button_text == 'Finished') {
           notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Saving data'%}</strong> {% trans 'Your data is now saved on server. You can exit the session.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
           $('#teacher_msg').html(notification);
-          stopRecording();
+          if (recod_audio || record_audio_video) {
+            stopRecording();
+          }
+          else {
+            $('#exit').html('Exit');
+          }
         } else {
           window.location.href = "{% url 'engagement_form' session_obj.id group%}";
         }
