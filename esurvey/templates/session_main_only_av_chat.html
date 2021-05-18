@@ -30,6 +30,7 @@
           <div class='card-body'>
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
             <br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
@@ -42,6 +43,7 @@
           <div class='card-body'>
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
             <br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
@@ -54,6 +56,7 @@
           <div class='card-body'>
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
             <br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
@@ -71,6 +74,27 @@
 
 <script>
   var group_list = {{no_group}} ;
+  $('#word-cloud').on('show.bs.modal', function (event) {
+    console.log('Running function');
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var recipient = button.data('whatever');
+    console.log(recipient); // Extract info from data-* attributes
+    var URL = "/en/sessions/word_cloud/"+{{session.id}}+"/"+recipient;
+    console.log(URL);
+    $.ajax(
+    {
+      type:"GET",
+      url: URL,
+      success: function( data )
+      {
+          console.log(data.data);
+          if (data.data != "empty") {
+            image_data = "data:image/png;base64," + data.data;
+            $('#word_cloud_img').attr('src',image_data);
+          }
+      }
+   })
+});
 
   $('#dash_vis').click(function(event){
     var button_text = $('#dash_vis').text();
