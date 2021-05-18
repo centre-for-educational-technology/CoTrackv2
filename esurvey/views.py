@@ -829,7 +829,9 @@ def getWordCloud(request,session_id,group_id):
         data = {'data':'empty'};
     else:
         wc = WordCloud(background_color = 'white', max_words=2000, stopwords = stopwords)
+
         cloud = wc.generate(speeches)
+        print('Word cloud generated')
         plt.imshow(wc,interpolation ='bilinear')
         plt.axis('off')
 
@@ -839,6 +841,7 @@ def getWordCloud(request,session_id,group_id):
         string = base64.b64encode(image.read())
         #image_64 =  urllib.parse.quote(string)
     data = {'data':str(string.decode())}
+    print('Returning:',data)
     return Response(data)
 
 # for building edge list with weight
