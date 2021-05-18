@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+import io
 from formtools.wizard.views import SessionWizardView
 from django import forms
 from django.db import transaction
