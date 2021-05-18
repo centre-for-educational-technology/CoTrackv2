@@ -27,6 +27,8 @@ import datetime
 import re
 import time
 import csv
+import matplotlib.pyplot as plt
+import urllib, base64
 
 from esurvey.models import Role
 from django.contrib.auth import login as auth_login
@@ -38,6 +40,7 @@ from rest_framework.response import Response
 import uuid
 from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm
 from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help
@@ -812,6 +815,31 @@ def getTime(request):
         print('Returned:',str(delta),':',str(t))
         res = str(delta),':',str(t)
         return Response({'offset':int(delta),'time':t})
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def getWordCloud(request,session_id,group_id):
+    stopwords = set(STOPWORDS)
+    session = Session.objects.get(id=session_id)
+    speeches = Speech.objects.all().filter(session = session, group = group_id).values_list('TextField',flat=True)
+    speeches = " ".join(speech for speech in speeches)
+    print(speeches)
+    if len(speeches) == 0:
+        data = {'data':'empty'};
+    else:
+        wc = WordCloud(background_color = 'white', max_words=2000, stopwords = stopwords)
+        cloud = wc.generate(speeches)
+        plt.imshow(wc,interpolation ='bilinear')
+        plt.axis('off')
+
+        image = io.BytesIO()
+        plt.savefig(image,format="png")
+        image.seek(0)
+        string = base64.b64encode(image.read())
+        #image_64 =  urllib.parse.quote(string)
+    data = {'data':str(string.decode())}
+    return Response(data)
 
 # for building edge list with weight
 def edgeExist(edge_list,edge):

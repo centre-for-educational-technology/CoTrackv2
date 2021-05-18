@@ -37,9 +37,10 @@
 
 
   <div class='container'>
+    <div id="audio_dash" style="visibility: hidden;">
     {% for g in no_group%}
       {% if forloop.counter|modulo:3 == 1%}
-        <div id='audio_dash' style="visibility:hidden;" class='row'>
+        <div class='row'>
       {% endif%}
 
       {% if no_group|length == 1 %}
@@ -48,6 +49,7 @@
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
         </div>
       </div>
@@ -58,6 +60,7 @@
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
         </div>
       </div>
@@ -68,6 +71,7 @@
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
         </div>
       </div>
@@ -77,6 +81,7 @@
         <br/>
       {% endif %}
     {% endfor %}
+    </div>
     <br/>
     <br/>
     <div class='row'>
@@ -97,6 +102,22 @@
             <h4 class='card-title'> {% trans 'Etherpad activity'%} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#etherpad_activity"></i></span> </h4><hr/>
             <canvas id="overall"></canvas>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="word-cloud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Word cloud'%}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-content'>
+          <img class="img img-responsive" id="word_cloud_img"></img>
         </div>
       </div>
     </div>
@@ -123,6 +144,27 @@
   </div>
 
 <script>
+  $('#word-cloud').on('show.bs.modal', function (event) {
+    console.log('Running function');
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    var recipient = button.data('whatever');
+    console.log(recipient); // Extract info from data-* attributes
+    var URL = "/en/sessions/word_cloud/"+{{session.id}}+"/"+recipient;
+    console.log(URL);
+    $.ajax(
+    {
+      type:"GET",
+      url: URL,
+      success: function( data )
+      {
+          console.log(data.data);
+          if (data.data != "empty") {
+            image_data = "data:image/png;base64," + data.data;
+            $('#word_cloud_img').attr('src',image_data);
+          }
+      }
+   })
+});
   $('#dash_vis').click(function(event){
     var button_text = $('#dash_vis').text();
     if (button_text == 'Show dashboard') {
