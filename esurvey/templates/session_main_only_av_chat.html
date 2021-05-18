@@ -31,7 +31,7 @@
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
             <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
-            <br/>
+            <br/><br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
         </div>
@@ -44,7 +44,7 @@
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
             <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
-            <br/>
+            <br/><br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
         </div>
@@ -57,7 +57,7 @@
             <h4 class='card-title'> Group-{{forloop.counter}} </h4><hr/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
             <button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
-            <br/>
+            <br/><br/>
             <a id = "help-{{g}}" href="{% url 'group_text' session.id forloop.counter %}" class="btn btn-info btn-block">Join group-{{forloop.counter}}</a>
           </div>
         </div>
@@ -70,7 +70,21 @@
     {% endfor %}
     <br/>
   </div>
-
+  <div class="modal fade" id="word-cloud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Word cloud'%}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-content'>
+          <img class="img img-responsive" id="word_cloud_img"></img>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
   var group_list = {{no_group}} ;
