@@ -508,7 +508,7 @@ def edit(request,session_id):
         messages.error(request,'Invalid project id')
         return redirect('project_home')
     session = sessions.first()
-    if  (session.owner != request.user) and (not request.current_user.is_staff):
+    if  (session.owner != request.user) and (not request.user.is_staff):
         messages.error(request,'You do not have edit rights for this session')
         return redirect('project_home')
     form1 = {}
