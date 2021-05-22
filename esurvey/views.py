@@ -245,6 +245,7 @@ def error_404(request):
     return render(request,'error_404.html')
 
 
+
 def downloadFileTimestamp(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -253,7 +254,7 @@ def downloadFileTimestamp(request,session_id):
     else:
         session = Session.objects.get(id=session_id)
         # Preparing csv data File#####
-        fname = session.name + '_vad.csv'
+        fname = session.name + '_file_metadata.csv'
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
         writer = csv.writer(response)
