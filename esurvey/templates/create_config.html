@@ -175,6 +175,12 @@ form .aligned .django-toggle-switch + div.help {
         </div> <br/>
         <div class="card bg-white">
           <div class="card-body">
+            <h4 class='card-title'>{% trans 'Group formation' %}</h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Random groups' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#randomGroup"></i></span></div> <div class='col'> {{form.random_group}}</div></div>
+          </div>
+        </div> <br/>
+        <div class="card bg-white">
+          <div class="card-body">
             <h4 class='card-title'>{% trans 'Recording' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#audio_video"></i></span></h4><br/>
             <div class='row '> <div class='col'>{% trans 'Audio only' %} </div> <div class='col'> {{form.record_audio}}</div></div>
             <div class='row '> <div class='col'>{% trans 'Audio and Video' %}  </div> <div class='col'> {{form.record_audio_video}}</div></div>
@@ -195,6 +201,23 @@ form .aligned .django-toggle-switch + div.help {
                     <br/><br/>
                     <b> {%blocktrans%}A small demo is given below{% endblocktrans%} </b> <br/><br/>
                     <img class='img-thumbnail' src="{% static 'assets/images/etherpad_demo.gif'%}">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="randomGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Random groups' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    {%blocktrans%} If selected, only one pin will be used by all the students and CoTrack automatiaclly groups them. <br/> Otherwise, a pin will be generated for each group seperately and that pin will be use by corresponding group to enter into learning space.{% endblocktrans%}
+                    <br/><br/>
                   </div>
                 </div>
               </div>

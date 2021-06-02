@@ -1319,7 +1319,43 @@ def getSession(request,session_id):
 class CompleteForm(SessionWizardView):
     type_of_study = -1
 
-    def updatePin(self,s,old_groups,new_groups):
+    def generatePin(self,s,g):
+        while True:
+            u_pin = uuid.uuid4().hex[:6].upper()
+            objs = GroupPin.objects.filter(pin = u_pin)
+            if objs.count() == 0:
+                break
+        sg = GroupPin.objects.create(session=s,pin=u_pin,group=g)
+
+    def updatePin(self,s,old_groups,new_groups,old_random,new_random):
+        group_diff = new_groups - old_groups
+        if not old_random and not new_random:
+            if (group_diff > 0):
+                for g in range(group_diff):
+                    g =  g +  old_groups + 1
+                    self.generatePin(s,g)
+            else:
+                group_diff = abs(group_diff)
+                for g in range(group_diff):
+                    del_group = g + new_groups + 1
+                    print('Deleting pins for group:',del_group)
+                    GroupPin.objects.filter(session=s,group=del_group).delete()
+        elif not old_random and new_random:
+            for g in range(new_groups):
+                del_group = g + 1
+                print('Deleting pins for group:',del_group)
+                GroupPin.objects.filter(session=s,group=del_group).delete()
+            self.generatePin(s,-1)
+        elif old_random and not new_random:
+            GroupPin.objects.filter(session=s,group=-1).delete()
+            for g in range(new_groups):
+                add_group = g  + 1
+                print('Adding pins for group:',add_group)
+                self.generatePin(s,add_group)
+
+
+
+    def updatePin(self,s,old_groups,new_groups,old_random,new_random):
         group_diff = new_groups - old_groups
         if (group_diff > 0):
             for g in range(group_diff):
@@ -1452,7 +1488,7 @@ class CompleteForm(SessionWizardView):
             for a in learning_problem.find_all('a'):
               a['target'] = '_blank'
 
-            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration)
+            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration)
 
             for grp in range(groups):
                 while True:
@@ -1475,8 +1511,10 @@ class CompleteForm(SessionWizardView):
             session = Session.objects.get(id=session_id)
             org_groups = session.groups # existing group number
             org_useEtherpad = session.useEtherpad
+            old_random_group = session.random_group
             updated_groups = all_data['groups']
             updated_useEtherpad = all_data['useEtherpad']
+            updated_random_group = all_data['random_group']
 
             duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
             session.owner=current_user
@@ -1498,10 +1536,11 @@ class CompleteForm(SessionWizardView):
             session.useAVchat=all_data['useAVchat']
             session.record_audio=all_data['record_audio']
             session.record_audio_video=all_data['record_audio_video']
+            session.random_group=all_data['random_group']
             session.data_recording_session=False
             session.duration=duration
             self.updateEtherpad(session,org_groups,updated_groups,org_useEtherpad,updated_useEtherpad)
-            self.updatePin(session,org_groups,updated_groups)
+            self.updatePin(session,org_groups,updated_groups,old_random_group,updated_random_group)
             session.save()
 
         return redirect('project_home')

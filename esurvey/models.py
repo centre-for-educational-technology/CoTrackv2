@@ -46,6 +46,13 @@ class Session(models.Model):
     record_audio = models.BooleanField(default=False)           #whether to record audio during activity
     record_audio_video = models.BooleanField(default=False)     #whether to record audio and video both during the activity
     data_recording_session = models.BooleanField(default=False) #whether the session is just for data collection purposes
+    random_group = models.BooleanField(default=False) #whether the session is just for data collection purposes
+
+class RandomGroup(models.Model):
+    session = models.ForeignKey(Session,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    group = models.IntegerField()
+
 
 class GroupPin(models.Model):
     session = models.ForeignKey(Session,on_delete=models.CASCADE)
