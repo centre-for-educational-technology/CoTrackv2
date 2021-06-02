@@ -1237,6 +1237,25 @@ def LeaveSession(request):
 
 def getPad(request,session,group_id):
     eth_session = pad = padname = None
+        # Code to create random group on first come first serve
+    if group_id == -1:
+        rnd_groups = RandomGroup.objects.all().filter(session=session,user=request.user)
+        if not rnd_groups.count() == 0:
+            group_id = rnd_groups[0].group
+        else:
+            rnd_groups = RandomGroup.objects.all().filter(session=session)
+            if rnd_groups.count() == 0:
+                group_id = 1
+                rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group=1)
+            else:
+                total_groups = session.groups
+                for g in range(total_groups):
+                    rnd_obj = RandomGroup.objects.all().filter(session=session,group=g+1)
+                    if rnd_obj.count() < 1:
+                        group_id = g + 1
+                        rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group= group_id)
+                        break
+
 
     context_data = {}
     form = AudioflForm()
