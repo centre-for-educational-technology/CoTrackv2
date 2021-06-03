@@ -45,7 +45,7 @@ from formtools.wizard.views import SessionWizardView
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm
-from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help
+from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help, RandomGroup
 from .models import Audiofl
 from esurvey.models import Role
 import os
@@ -595,6 +595,9 @@ def usabilityForm(request):
         return redirect('project_home')
         #return getAnonyForm(request)
     else:
+        if len(VAD_OBJECTS) > 0:
+            writeVAD(VAD_OBJECTS)
+            VAD_OBJECTS = []
         return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
 
 
@@ -1158,6 +1161,11 @@ def uploadAudio(request):
     else:
         return HttpResponse('Not done')
 
+VAD_OBJECTS = []
+VAD_LIMIT_WRITE = 50
+
+def writeVAD(vad_objs):
+    objs = VAD.objects.bulk_create(vad_objs)
 
 
 def uploadVad(request):
@@ -1175,7 +1183,11 @@ def uploadVad(request):
             strDate = (int)(float(strDate)/1000)
             dt = datetime.datetime.fromtimestamp(strDate)
             print('Converted datetime:',dt)
-            vad_object = VAD.objects.create(session=session,user=user,group=group,timestamp=dt,activity=activity)
+            VAD_OBJECTS.append(VAD(session=session,user=user,group=group,timestamp=dt,activity=activity))
+            print('Length:',len(VAD_OBJECTS))
+            if len(VAD_OBJECTS) > VAD_LIMIT_WRITE:
+                writeVAD(VAD_OBJECTS)
+                VAD_OBJECTS = []
             return HttpResponse('Done')
         else:
             print('Form not valid')
