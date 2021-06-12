@@ -16,6 +16,12 @@ def index(request):
     print('Index called')
     return render(request,'index_soft.html',{})
 
+def about(request):
+    return render(request,'index_soft_aboutus.html')
+
+def how(request):
+    return render(request,'index_soft_resources.html')
+
 def changLang(request,lang_code):
     next = request.META.get('HTTP_REFERER')
     next = next and unquote(next)  # HTTP_REFERER may be encoded.
@@ -24,7 +30,7 @@ def changLang(request,lang_code):
         next = '/'
     if lang_code == 'et':
         next = next.replace('/en/','/et/')
-    print('After replacement:',next)    
+    print('After replacement:',next)
     response = HttpResponseRedirect(next) if next else HttpResponse(status=204)
     if lang_code and check_for_language(lang_code):
         if next:

@@ -19,7 +19,7 @@
         <h4> {% trans 'Configuration' %} </h4>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add Etherpad:' %}</b> {% if all_data.useEtherpad %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add Audio & Video chat:' %}</b> {% if all_data.useAVchat %}{% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
-        <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record audio:' %}</b> {% if all_data.record_audio %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+        <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record audio:' %}</b> {% if all_data.record_audio or all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record video:' %}</b> {% if all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
       </div>
     </div>

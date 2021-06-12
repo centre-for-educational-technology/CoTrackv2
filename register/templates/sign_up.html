@@ -182,25 +182,19 @@ transition: .3s ease all;
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="text-center heading"><b>Create a new account</b></h2>
+                                    <h2 class="text-center heading"><b>Create a new CoTrack account</b></h2>
                                 </div>
                             </div>
                             <br/>
-                            <small class="d-flex justify-content-center">To use CotrackV2.</small>
+
                             <small class="d-flex justify-content-center">Already have an account? <a href="{% url 'login'%}" data-abc="true" class="ml-1">  Login here</a></small>
 
                             <br/>
                             <form method="post">
                               {% csrf_token %}
-                            <div class="row">
-                                <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block btn-outline" href="{% provider_login_url 'google' %}""><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Continue with Google</a> </div>
-                            </div> <br>
 
-                            <div class="or-container">
-                                <div class="line-separator"></div>
-                                <div class="or-label">or</div>
-                                <div class="line-separator"></div>
-                            </div>
+
+
 
 
 
@@ -257,7 +251,7 @@ transition: .3s ease all;
                             </div>
                             </form>
 
-                            <p class=" small d-flex justify-content-center">By clicking the Sign Up button, you are creating a CoTrackV2 account, and you agree with CoTrackV2 Terms of use.</p>
+                            <p class=" small d-flex justify-content-center">By clicking the Sign Up button, you are creating a CoTrack account.</p>
                       </div>
                     </div>
                 </form>

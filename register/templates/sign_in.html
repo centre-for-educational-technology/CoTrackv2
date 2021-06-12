@@ -180,11 +180,22 @@ transition: .3s ease all;
                 <form class="md-float-material form-material" action="#" method="POST">
                     <div class="auth-box card">
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h2 class="text-center heading"><b>Log in</b></h2>
-                                </div>
-                            </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <h2 class="text-center heading"><b>Log in</b></h2><br/>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <span class="text-muted pb-3"> If you have google account then use your google account to login by clicking below button. </span>
+                              <div class="col-md-12"> <a class="btn btn-lg btn-primary btn-block btn-outline" href="{% provider_login_url 'google' %}""><!--<img src="https://img.icons8.com/color/16/000000/google-logo.png">--> <b>Login using google acount</b></a> </div>
+                          </div> <br>
+                          <div class="or-container">
+                              <div class="line-separator"></div>
+                              <div class="or-label">or</div>
+                              <div class="line-separator"></div>
+                          </div>
+
+                          <span class="text-muted pb-3"> You can use your CoTrack account to login here. If you <small>don't have CoTrack account then  <a href="{% url 'register' %}">register here</a></small> </span>
                             <br/>
 
                             <br/>
@@ -205,26 +216,20 @@ transition: .3s ease all;
 
 
 
-                        
+
                             <br/>
                             <div class="row">
-                                <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" style=" font-weight:bold;"name="submit" value="Log in"> <!-- <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> -->
+                                <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block  text-center m-b-20" style=" font-weight:bold;"name="submit" value="Login"> <!-- <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> -->
                                 </div>
                             </div>
                             <small>Forgot password ? Change   <a href="{% url 'password_reset' %}">here</a></small> <br/>
-                            <small>Don't have account ?  <a href="{% url 'register' %}">Register</a></small>
+
 
 
                             </form>
-                            <div class="or-container">
-                                <div class="line-separator"></div>
-                                <div class="or-label">or</div>
-                                <div class="line-separator"></div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block btn-outline" href="{% provider_login_url 'google' %}""><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Continue with Google</a> </div>
-                            </div> <br>
+
+
 
 
 

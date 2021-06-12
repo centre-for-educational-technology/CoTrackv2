@@ -44,8 +44,8 @@ from datetime import date, timedelta
 from formtools.wizard.views import SessionWizardView
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
-from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm
-from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help, RandomGroup
+from .forms import CreateForm1,CreateForm2,CreateForm3,CreateForm4, consentForm, AudioflForm, VADForm, SpeechForm, HelpForm, RequestForm, AnonyForm
+from .models import  Pad,Session,SessionGroupMap, AuthorMap, VAD, UsabilityQ, CollaborationQ, EngagementQ, Consent, activityLog, Speech, GroupPin, Help, RandomGroup, RoleRequest, AnonyData, SUS
 from .models import Audiofl
 from esurvey.models import Role
 import os
@@ -263,6 +263,64 @@ def downloadFileTimestamp(request,session_id):
         for v in vads:
             writer.writerow([v.description,v.user.email,v.group,v.sequence,v.fl.name])
     return response
+
+
+
+def downloadSus(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_survey_sus.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['date','user','group','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10'])
+        objs = SUS.objects.all().filter(session=session)
+        for obj in objs:
+            writer.writerow([obj.sub_date,obj.submitted_user.id,obj.group,obj.q1,obj.q2,obj.q3,obj.q4,obj.q5,obj.q6,obj.q7,obj.q8,obj.q9,obj.q10])
+    return response
+def downloadEngage(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_survey_engagement.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['date','user','group','eq1','eq2','eq3','eq4','eq5','eq6','eq7','eq8','eq9','eq10','eq11','eq12','eq13','eq14','eq15'])
+        objs = EngagementQ.objects.all().filter(session=session)
+        for obj in objs:
+            writer.writerow([obj.sub_date,obj.submitted_user.id,obj.group,obj.q1,obj.q2,obj.q3,obj.q4,obj.q5,obj.q6,obj.q7,obj.q8,obj.q9,obj.q10,obj.q11,obj.q12,obj.q13,obj.q14,obj.q15])
+    return response
+
+def downloadDemographic(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        # Preparing csv data File#####
+        fname = session.name + '_demographics.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['date','user','group','age','gender','education','nationality'])
+        objs = AnonyData.objects.all().filter(session=session)
+        for obj in objs:
+            writer.writerow([obj.sub_date,obj.submitted_user.id,obj.group,obj.age,obj.gender,obj.education,obj.nationality])
+    return response
+
+
+
 
 def downloadVad(request,session_id):
     session = Session.objects.all().filter(id=session_id)
@@ -567,6 +625,63 @@ def sessionFilter(request,filter):
             messages.success(request,'All sessions are fetched successfully')
             return redirect('project_home')
 
+def AnonyFormView(request):
+    if request.method == "POST":
+        edu = request.POST['education']
+        nation = request.POST['nationality']
+        age = request.POST['age']
+        gender = request.POST['gender']
+        token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
+        session = Session.objects.get(id=token['session'])
+        AnonyData.objects.create(submitted_user=request.user,session=session,group=token['group'],age=age,gender=gender,nationality=nation,education=edu)
+        return getPad(request,session,token['group'])
+
+    else:
+        form = AnonyForm()
+        print(form)
+        return render(request,"form_template.html",{'form':form,'button':'Submit','title':'Demographics (optional)','subtitle':'We request for your demographics data for our research purposes. This step is optional.'})
+
+def roleRequestForm(request):
+    if request.method == "POST":
+        school = request.POST['school']
+        class_size = request.POST['class_size']
+        subject = request.POST['subject']
+        user = request.user
+        RoleRequest.objects.create(user=user,school=school,class_size=class_size,subject=subject)
+        messages.success(request, 'Your request has been sent.')
+        return redirect('project_home')
+    else:
+        objs = RoleRequest.objects.all().filter(user=request.user)
+        if objs.count() > 0:
+            if objs[0].pending:
+                messages.info(request, 'You have already made a request for teacher role.')
+                return redirect('project_home')
+        form = RequestForm()
+        return render(request,"form_template.html",{'form':form,'button':'Submit request','title':'Submit request for teacher role'})
+def getRequestList(request):
+    request_objs = RoleRequest.objects.all().filter(pending=True)
+    print(request_objs)
+    print(request_objs.count())
+    return render(request,'requests_list.html',{'title':'Requests','objs':request_objs})
+
+def requestAction(request,request_role_obj_id,action):
+    request_role_obj = RoleRequest.objects.get(id=request_role_obj_id)
+    user = request_role_obj.user
+    print(user)
+    if action ==  'grant':
+        print('processing grant')
+        role_obj = user.role
+        print(role_obj)
+        role_obj.role = 'teacher'
+        role_obj.save()
+        request_role_obj.pending = False
+        messages.success(request, 'Request has been approved.')
+        request_role_obj.save()
+    else:
+        request_role_obj.pending = False
+        messages.success(request, 'Request has been declined.')
+        request_role_obj.save()
+    return redirect('request_list')
 
 
 
@@ -600,9 +715,34 @@ def usabilityForm(request):
             VAD_OBJECTS = []
         return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
 
+def susForm(request,session,group):
+    global VAD_OBJECTS
+    if request.method == "POST":
+        q1 = int(request.POST['survey-q1'])
+        q2 = int(request.POST['survey-q2'])
+        q3 = int(request.POST['survey-q3'])
+        q4 = int(request.POST['survey-q4'])
+        q5 = int(request.POST['survey-q5'])
+        q6 = int(request.POST['survey-q6'])
+        q7 = int(request.POST['survey-q7'])
+        q8 = int(request.POST['survey-q8'])
+        q9 = int(request.POST['survey-q9'])
+        q10 = int(request.POST['survey-q10'])
+        session_obj  = Session.objects.get(id=session)
+        submission = SUS.objects.create(session=session_obj,group=group,submitted_user=request.user,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10)
+        messages.success(request, _('Your responses are saved. Thank you for the submission.'))
+        if 'joined' in request.session.keys():
+            del request.session['joined']
+        return redirect('student_entry')
+    else:
+        if len(VAD_OBJECTS) > 0:
+            writeVAD(VAD_OBJECTS)
+            VAD_OBJECTS = []
+        return render(request,"survey_form_sus.html",{'title':'Self-reporetd questionnaire on system usability'})
 
 
 def engagementForm(request,session,group):
+    global VAD_OBJECTS
     if request.method == "POST":
         q1 = int(request.POST['survey-q1'])
         q2 = int(request.POST['survey-q2'])
@@ -698,6 +838,8 @@ def overview(request):
     else:
         messages.warning(request,'You do not have teacher privilege to access this page.')
         return redirect('student_entry')
+
+
 
 
 
@@ -965,6 +1107,29 @@ def getSpeakingStats(request,session_id):
     return Response({'speaking_data':groups_speaking})
 
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def getWordCloud(request,session_id,group_id):
+    stopwords = set(STOPWORDS)
+    session = Session.objects.get(id=session_id)
+    speeches = Speech.objects.all().filter(session = session, group = group_id).values_list('TextField',flat=True)
+    speeches = " ".join(speech for speech in speeches)
+    print(speeches)
+    if len(speeches) == 0:
+        data = {'data':'empty'};
+    else:
+        wc = WordCloud(background_color = 'white', max_words=2000, stopwords = stopwords)
+        cloud = wc.generate(speeches)
+        plt.imshow(wc,interpolation ='bilinear')
+        plt.axis('off')
+
+        image = io.BytesIO()
+        plt.savefig(image,format="png")
+        image.seek(0)
+        string = base64.b64encode(image.read())
+        #image_64 =  urllib.parse.quote(string)
+    data = {'data':str(string.decode())}
+    return Response(data)
 
 
 @api_view(['GET'])

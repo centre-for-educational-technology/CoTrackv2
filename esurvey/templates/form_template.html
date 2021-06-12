@@ -1,0 +1,26 @@
+{% extends "base_form.html"%}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{%block title%} {{title}}<hr/>{%endblock%}
+{%block content%}
+<form action="" method="post">
+  {% csrf_token %}
+      <br/>
+      <div class="row setup-content step activeStepInfo" id="step-1">
+
+              <div class="col-md-12  shadow-lg p-5">
+                <h2 class='text-muted'>{% trans title %}</h2><span class='text-muted'>{% trans subtitle %}</span><hr/>
+
+                {{form | crispy}}
+                <br/>
+                <button type="submit" class='btn btn-primary'>{{button}}</button>
+              </div>
+
+      </div>
+
+</form>
+<script type="text/javascript">
+  $("#container").attr('class', '');
+  $("#container").addClass("container min-vh-100");
+</script>
+{% endblock %}

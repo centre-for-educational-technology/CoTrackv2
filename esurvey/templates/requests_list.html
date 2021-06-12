@@ -1,0 +1,36 @@
+
+{% extends "base_form.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<br/>
+<div class="container">
+  <h3>{{title}}</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">School</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Class size</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{request_objs}}
+    {% for obj in objs %}
+      <tr>
+        <td >{{obj.user.email}}</td>
+        <td>{{obj.school}}</td>
+        <td>{{obj.subject}}</td>
+        <td>{{obj.class_size}}</td>
+        <td><a href="{% url 'request_action' obj.id 'grant' %}" class='btn btn-success'>Grant</a> <a href="{% url 'request_action' obj.id 'revoke' %}" class='btn btn-danger'>Revoke</a>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}

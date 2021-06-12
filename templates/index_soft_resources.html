@@ -1,0 +1,159 @@
+{% extends 'base_form.html'%}
+{% load static%}
+{%block content%}
+  <style>
+
+    .video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+  .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .author {
+    left: 275px;
+    top: 1127px;
+    border:2px solid #fff;
+    -moz-box-shadow: 20px -20px  #EBF5FF;
+    -webkit-box-shadow: 20px -20px  #EBF5FF;
+    box-shadow: 20px -20px  #EBF5FF;
+    -moz-border-radius:15px;
+    -webkit-border-radius:15px;
+    border-radius:15px;
+  }
+  .table td {
+   text-align: center;
+ }
+ .card{
+   border:none;
+   border-radius:8px;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 16px;
+   line-height: 32px;
+   margin-top:20px;
+   /* or 200% */
+   letter-spacing: 0.2px;
+ }
+ .nav-tabs {
+   border-bottom: 0px solid transparent;
+ }
+  </style>
+  <section class="section resources min-vh-100 mt-4" style="padding-bottom:0;margin-bottom:0;">
+    <div class="container-fluid" style="padding-right:0px;padding-left:0px;" >
+      <div class='container'>
+        <div class=" center-heading mt-5 pt-3">
+          <h4> Resources </h4><br/>
+          <p class='text-muted'>Technical documentation and how to use videos to support usage of CoTrack tool.
+          </p>
+          <br/>
+          <nav>
+            <div class='d-flex justify-content-center'>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="btn btn-outline-secondary active mr-5" style="border-radius:25px;" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Documentation</a>
+                <a class="btn btn-outline-secondary mr-5" style="border-radius:25px;"  id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Video tutorials</a>
+                <a class="btn btn-outline-secondary" style="border-radius:25px;"  id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Publications</a>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <br/><br/><br/>
+      <div class="tab-content py-3 px-3 px-sm-0 mw-100 flex-grow-1" id="nav-tabContent" style='background:#EBF5FF;'>
+        <div class="tab-pane fade show active"  id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class='container'>
+            <div class="card  shadow-lg p-5">
+              <article>
+                <div class='card-body'>
+                  <h4 class='card-title text-center'><b> What is CoTrack? </b></h4><br/>
+                  <p>
+                    CoTrack is a based tool to conduct collaborative activity in online space as well as physical space. It uses <a href="https://etherpad.org/" target="_blank">Etherpad</a> to offer an collaborative writing space, and <a href="https://jitsi.org/" target="_blank">Jitsi</a> to offer audio/video chat facility.
+                    In addition to offering collaboration space, CoTrack also allows capturing of participants' activities, happening in digital and physical spaces (e.g., speaking time, turn-taking, number of characters written/deleted, etc.). </p>
+                  <p>
+                    The primary stakeholders of CoTrack are Teachers and Computer-supported collaborative learning(CSCL) Researchers. Teachers can use CoTrack to conduct group activities with monitoring facility, which enable teachers to identify groups who are in need of help or not participating well. <br/>
+                    CSCL Researchers can also use CoTrack to collect data for their study to understand aspects of collaborative learning (e.g., regulation, collaboration process). The use of CoTrack benefits researchers by saving their time otherwise invested in developing/setting up data collection tools.
+                    CoTrack offers researchers pre-processed data from the group-activity in CSV (Comma Seperated Value) file for further analysis.
+                  </p>
+                  <p><br/>
+                    <h3>CoTrack benefits</h3>
+                    <ul>
+                      <li><b>Custom activity design</b></li>
+                      CoTrack allows teachers/researchers to cusomize the group activity and data recording. For example, CoTrack supports three different types of group activities: first, which only involves use of collaborative text editor; second, which only involves use of audio/video communication channels; third, which invovles both.
+                      <br/> The recording can also be customized, e.g., record only audio or video.
+
+                      <li><b>Multimodal data collection</b></li>
+                      CoTrack captures following types of data
+                      <ol>
+                        <li><i>Voice activity detection (VAD)</i>: Data indicating whether someone speaks or not.</li>
+                        <li><i>Speech to text</i>: Transcript from audio data using Google speech-to-text api in real time (only supported in chrome browser).</li>
+                        <li><i>Head movement</i>: Data approximating head movement in 3D with coordinates X,Y,Z (In development).</li>
+                        <li><i>Body pose</i>: Data approximating body pose movement using open-source machine learning models for web (In development).</li>
+                        <li><i>Writing logs</i>: Log data of participants' writing in collaborative text editor.</li>
+                      </ol>
+                      <li><b>Activity monitoring</b></li>
+                      CoTracks offers a real-time dashboard (updates every 30 seconds) presenting a social network (who is talking after whom network) and groups' writing activities in terms of number of revisions made.
+                      <br/><br/> A snapshot of dashboard is presented below (data used for the visualization are from authentic settigns.)
+                      <div><img  src="{% static 'assets/images/dash.png'%}" class='img-fluid'/></div>
+                      <li><b>Downloading data</b></li>
+                      CoTrack also facilitates downloading of captured data e.g., VAD, Speech-to-text, writing logs, in CSV format for later analysis.
+                    </ul>
+                  </div>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class='container'>
+            <div class='card shadow-lg p-5'>
+              <div class='card-body'>
+                <h4 class='card-title text-center'><b>HowTo video tutorials </b></h4>
+                <div class="video-container">
+                  <iframe class="video" src="https://www.youtube-nocookie.com/embed/fcKq2o6XXSM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class='container'>
+            <div class='card shadow-lg p-5'>
+              <div class='card-body'>
+                <h4 class='card-title text-center'><b>Publications </b></h4>
+                <p>
+                  <ol>
+                    <li>
+                      Reet Kasepalu, Pankaj Chejara, Luis Pablo Prieto, Tobias Ley: <b>Do Teachers Find Dashboards Trustworthy, Actionable and Useful? A Vignette Study Using a Logs and Audio Dashboard. Tech Know Learn (2021)</b>. https://doi.org/10.1007/s10758-021-09522-5
+                    </li><br/>
+                    <li>
+                      Pankaj Chejara, Luis Pablo Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, Shashi Kant Shankar, Reet Kasepalu:
+                      <b>EFAR-MMLA: An Evaluation Framework to Assess and Report Generalizability of Machine Learning Models in MMLA</b>. Sensors 21(8): 2863 (2021)
+                    </li><br/>
+                    <li>
+                      Pankaj Chejara, Luis P. Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, Shashi Kant Shankar, Reet Kasepalu: <b>CoTrack2: A Tool to Track Collaboration Across Physical and
+                      Digital Spaces with Real Time Activity Visualization</b>. CrossMMLA@LAK 2021 (Demo paper).
+                    </li><br/>
+                    <li>
+                      Pankaj Chejara, Luis Pablo Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, Shashi Kant Shankar, Reet Kasepalu:
+                      <b>Quantifying Collaboration Quality in Face-to-Face Classroom Settings Using MMLA</b>. CollabTech 2020: 159-166
+                    </li><br/>
+                    <li>
+                      Pankaj Chejara, Reet Kasepalu, Shashi Kant Shankar, Luis Pablo Prieto, María Jesús Rodríguez-Triana, Adolfo Ruiz-Calleja:
+                      <b>MMLA Approach to Track Participation Behavior in Collaboration in Collocated Blended Settings</b>. CrossMMLA@LAK 2020: 11-16
+                    </li>
+                  </ol>
+                </p>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock%}
