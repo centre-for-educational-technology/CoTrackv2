@@ -22,6 +22,11 @@ class AudioflForm(forms.ModelForm):
         model = Audiofl
         fields = ('description', 'fl', 'session','user','group','sequence')
         widgets = {'description':forms.HiddenInput(),'fl': forms.HiddenInput(),'session':forms.HiddenInput(),'user':forms.HiddenInput(),'group':forms.HiddenInput(),'sequence':forms.HiddenInput()}
+class RequestForm(forms.ModelForm):
+    class Meta:
+        model = RoleRequest
+        fields = ('school', 'class_size','subject')
+        widgets = {'school':forms.TextInput(attrs={'placeholder':'Enter your school/instituion  name.'}),'class_size':forms.NumberInput(attrs={'placeholder':'Enter approximate size of your class where you want to use CoTrack.'}),'subject':forms.TextInput(attrs={'placeholder':'Enter subject of the class session where you plan to use CoTrack.'})}
 
 
 class VADForm(forms.ModelForm):
@@ -91,8 +96,7 @@ class CreateForm4(forms.Form):
 class consentForm(forms.Form):
     permission = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': "form-check-input"}),initial=False,required=True)
 
-class AnonyForm(forms.Form):
-    CHOICES=[(1,'Below 20'),(2,'20 - 30'),(3,'30 - 40'),(4,'40 - 50'),(5,'Above 50 ')]
-    gen_choices=[('M','Male'),('F','Female')]
-    age_group = forms.ChoiceField(choices=CHOICES)
-    gender = forms.ChoiceField(choices=gen_choices)
+class AnonyForm(forms.ModelForm):
+    class Meta:
+        model = AnonyData
+        fields = ( 'education','nationality','age','gender')
