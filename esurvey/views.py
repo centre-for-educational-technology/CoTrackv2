@@ -1686,14 +1686,22 @@ class CompleteForm(SessionWizardView):
 
             s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration)
 
-            for grp in range(groups):
+            if not all_data['random_group']:
+                for grp in range(groups):
+                    while True:
+                        u_pin = uuid.uuid4().hex[:6].upper()
+                        objs = GroupPin.objects.filter(pin = u_pin)
+                        if objs.count() == 0:
+                            break
+                    sg = GroupPin.objects.create(session=s,pin=u_pin,group=grp+1)
+            else:
+                # if random_group selected than generate only one pin
                 while True:
                     u_pin = uuid.uuid4().hex[:6].upper()
                     objs = GroupPin.objects.filter(pin = u_pin)
                     if objs.count() == 0:
                         break
-                sg = GroupPin.objects.create(session=s,pin=u_pin,group=grp+1)
-
+                sg = GroupPin.objects.create(session=s,pin=u_pin,group=-1)
             if all_data['useEtherpad']:
                 try:
                     self.prepareEtherpad(s,all_data['groups'])
