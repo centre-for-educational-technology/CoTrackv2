@@ -29,12 +29,28 @@
   <link rel="stylesheet" href="{% static 'chart.css'%}">
   <script src="{% static 'js/chartjs-plugin-colorschemes.js' %}"></script>
   <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'headtrackr.js' %}"></script>
+  <!-- ml5 <script src="{% static 'p5.min.js' %}"></script>
+
+  <script src="{% static 'ml5.min.js' %}"></script> -->
   <link href="{% static 'bs-step.css' %}" rel="stylesheet">
-  <!--<script src='https://www.cojitsi.website/external_api.js'></script>-->
+  <script src='https://www.cojitsi.website/external_api.js'></script>
   </head>
 
-  <body class="bg-light">
+  <body >
   <style>
+  footer {
+    background: #0280FF;
+    padding-top: 10px;
+
+  }
+  footer .copyright {
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: 0.88px;
+    text-transform: uppercase;
+  }
   .custom-radio-list {
       list-style-type: none;
       padding: 0;
@@ -44,7 +60,7 @@
         display: inline-block;
     }
     .navbar {
-    		color: #fff;
+
     		background:  #0280FF;;
     		padding: 5px 16px;
     		border-radius: 0;
@@ -55,9 +71,13 @@
     	.navbar .divider {
     		background-color: #0280FF; !important;
     	}
+      .navbar-link {
+        color:white;
+      }
 </style>
 
   <script language="javascript">
+
     function autoResizeDiv()
       {
         document.getElementById('demo').style.height = window.innerHeight- 10 +'px';
@@ -71,7 +91,7 @@
 
   <nav class="navbar navbar-expand-xl navbar-dark">
     <div class='container'>
-  		<a class="navbar-brand" href="{% url 'index'%}"> <b> CoTrack</b></a>
+  		<a class="navbar-brand" href="{% url 'index'%}">  CoTrack</a>
   		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggler">
   			<span class="navbar-toggler-icon"></span>
   		</button>
@@ -88,6 +108,18 @@
         </li>
 
     		</ul>
+        <ul class="navbar-nav bd-navbar-nav flex-row">
+        {% if request.user.is_authenticated  %}
+          {% if request.user.role.role == 'teacher'%}
+            <li class='nav-item'><a class='nav-link'  href="{% url 'project_home' %}"> <span style="font-size:12px;color:white;">My sessions</span></a></li>
+          {% endif %}
+        {% endif %}
+        <li class='nav-item'><a class='nav-link'  href="{% url 'how' %}"> <span style="font-size:12px;color:white;">Resources</span></a></li>
+
+        <li class='nav-item'><a class='nav-link'   href="{% url 'about' %}"> <span style="font-size:12px;color:white;">About Us</span></a></li>
+      </ul>
+
+
     	</div>
   	  <!-- Collection of nav links, forms, and other content for toggling -->
   	  <div id="navbarCollapse" class="collapse navbar-collapse justify-content-end">
@@ -98,7 +130,12 @@
                   {{request.user.email}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{%url 'student_entry'%}"><i class="fa fa-group"></i> Join session</a>
+                  {% if request.user.role.role == 'student'%}
+                    <a class="dropdown-item" href="{%url 'request_form'%}"><i class="fa fa-check-square-o "></i> Request teacher role</a>
+                  {% endif %}
+                  {% if request.user.is_sfaff %}
+                    <a class="dropdown-item" href="{%url 'request_list'%}"><i class="fa fa-check-square-o "></i> Show requests</a>
+                  {% endif %}
                   <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>
                 </div>
               </li>
@@ -158,6 +195,7 @@
     {% endif %}
   </div>
   <div id='container' class='container-fluid min-vh-100'>
+
     {% block content%}
     <!-- Page body here -->
     {% endblock %}
@@ -168,7 +206,7 @@
       <div class="container">
           <div class="d-flex">
               <div class="p-3">
-                  <p class="copyright">Copyright &copy; 2020 CoTrack</p>
+                  <p class="copyright">Copyright &copy; 2021 CoTrack</p>
               </div>
           </div>
       </div>
