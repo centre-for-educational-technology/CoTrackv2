@@ -287,6 +287,16 @@ def call(function,arguments=None,request=None):
     except:
         return redirect('project_home')
 
+
+class RoleRequest(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    school =  models.TextField(blank=True)
+    class_size = models.IntegerField()
+    subject = models.TextField(blank=True)
+    decision =  models.BooleanField(default=False)
+    pending =  models.BooleanField(default=True)
+
 # Model for storing learning activities information
 class Session(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)   #owner of the session
