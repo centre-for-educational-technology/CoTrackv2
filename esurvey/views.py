@@ -729,6 +729,7 @@ def susForm(request,session,group):
         messages.success(request, _('Your responses are saved. Thank you for the submission.'))
         if 'joined' in request.session.keys():
             del request.session['joined']
+        messages.success(request, _('Your responses are saved. Thank you for the submission.'))
         return redirect('student_entry')
     else:
         if len(VAD_OBJECTS) > 0:
@@ -757,7 +758,7 @@ def engagementForm(request,session,group):
         q15 = int(request.POST['survey-q15'])
         session_obj  = Session.objects.get(id=session)
         submission = EngagementQ.objects.create(session=session_obj,group=group,submitted_user=request.user,q1=q1,q2=q2,q3=q3,q4=q4,q5=q5,q6=q6,q7=q7,q8=q8,q9=q9,q10=q10,q11=q11,q12=q12,q13=q13,q14=q14,q15=q15)
-        messages.success(request, _('Your responses are saved. Thank you for the submission.'))
+
         return redirect('sus_form',session,group)
     else:
         return render(request,"survey_form_updated_engagement.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
