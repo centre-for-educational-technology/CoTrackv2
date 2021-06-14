@@ -629,7 +629,7 @@ def AnonyFormView(request):
     if request.method == "POST":
         edu =  request.POST['education'] if request.POST['education']!='' else -1
         nation = request.POST['nationality'] if request.POST['nationality']!='' else 'NA'
-        age = request.POST['age_choices'] if request.POST['age_choices']!='' else -1
+        age = request.POST['age'] if request.POST['age']!='' else -1
         gender = request.POST['gender'] if request.POST['gender']!='' else 'NA'
         token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
         session = Session.objects.get(id=token['session'])
