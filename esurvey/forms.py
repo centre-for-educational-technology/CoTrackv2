@@ -90,7 +90,7 @@ class CreateForm3(forms.Form):
     record_audio_video = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
 
 class CreateForm4(forms.Form):
-    CHOICES=[(True,_('Enable')),(False,_('Disabble'))]
+    CHOICES=[(True,_('Enable')),(False,_('Disable'))]
     allow_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
 
 class consentForm(forms.Form):
