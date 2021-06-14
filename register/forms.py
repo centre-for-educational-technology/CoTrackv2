@@ -43,10 +43,9 @@ class RegisterForm(UserCreationForm):
             user = User.objects.filter(email=email)
             print(user[0])
             u = user[0]
-            if u.is_active:
-                raise ValidationError("Email already exists")
-            else:
-                print('not active')
+
+            raise ValidationError("Email already exists")
+            
 
         return email
 
