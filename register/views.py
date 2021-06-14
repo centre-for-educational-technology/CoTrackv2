@@ -205,7 +205,7 @@ def register(request):
                 }
               ]
             }
-            result = mailjet.send.create(data=data)
+            #result = mailjet.send.create(data=data)
             messages.info(request, 'Your account has been created. You can login now.')
 
             return redirect('login')
