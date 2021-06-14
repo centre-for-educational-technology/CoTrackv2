@@ -1427,7 +1427,7 @@ def getPad(request,session,group_id):
                 total_groups = session.groups
                 for g in range(total_groups):
                     rnd_obj = RandomGroup.objects.all().filter(session=session,group=g+1)
-                    if rnd_obj.count() < 1:
+                    if rnd_obj.count() < 4 # max_group_size:
                         group_id = g + 1
                         rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group= group_id)
                         break
