@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 14:37+0300\n"
+"POT-Creation-Date: 2021-06-14 14:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2076,6 +2076,7 @@ msgstr "Ma arvan, et mul oleks selleks vaja tehnilise inimese tuge"
 #: esurvey/templates/survey_form_sus.html:198
 msgid "I found the various functions in this system were well integrated.  "
 msgstr ""
+"Ma leidsin, et selle süsteemi erinevad funktsioonid olid hästi integreeritud."
 
 #: esurvey/templates/survey_form_sus.html:225
 msgid "I thought there was too much inconsistency in this system."
@@ -2895,7 +2896,6 @@ msgid "About Us"
 msgstr "Meist"
 
 #: templates/base_form.html:134
-
 msgid "Request teacher role"
 msgstr "Taotle õpetaja rolli "
 
