@@ -709,9 +709,6 @@ def usabilityForm(request):
         return redirect('project_home')
         #return getAnonyForm(request)
     else:
-        if len(VAD_OBJECTS) > 0:
-            writeVAD(VAD_OBJECTS)
-            VAD_OBJECTS = []
         return render(request,"survey_form_usability.html",{'title':'Questionnaire'})
 
 def susForm(request,session,group):
@@ -1326,13 +1323,15 @@ def uploadAudio(request):
         return HttpResponse('Not done')
 
 VAD_OBJECTS = []
-VAD_LIMIT_WRITE = 50
+VAD_LIMIT_WRITE = 100
 
 def writeVAD(vad_objs):
     objs = VAD.objects.bulk_create(vad_objs)
 
 
 def uploadVad(request):
+    global VAD_OBJECTS
+    global VAD_LIMIT_WRITE
     if request.method == 'POST':
         form = VADForm(request.POST,request.FILES)
         print(form)
