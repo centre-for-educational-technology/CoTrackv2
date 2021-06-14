@@ -94,30 +94,15 @@ def login(request):
                 if len(User.objects.all().filter(email=email)) == 0:
                     messages.error(request, 'User does not exists.')
                     return redirect('login')
-
                 user = User.objects.get(email=email)
-                print('user exists:',user.username,' pwd:',pwd)
-                if not user.is_active:
-                    messages.warning(request, 'Your account is not activated.')
-                    return redirect('login')
-
                 user_login_status = authenticate(username=user.username,password=pwd)
-
-                print(user_login_status)
-
                 if user_login_status is not None:
                     print('before use backend')
                     user.backend = 'django.contrib.auth.backends.ModelBackend'
-
                     print('after user backend')
                     auth_login(request,user)
-
-
-
                     print('Checking etherpad id')
-
                     objs = AuthorMap.objects.all().filter(user=request.user)
-
                     print(objs,' ',objs.count())
                     if objs.count()>0:
                         authorid = objs[0].authorid
@@ -126,17 +111,12 @@ def login(request):
                         res = call('createAuthorIfNotExistsFor',{'authorMapper':request.user.id,'name':request.user.username})
                         authorid = res['data']['authorID']
                         AuthorMap.objects.create(user=request.user,authorid=authorid)
-
                     user_role = Role.objects.all().filter(user=request.user)
-
                     print(user_role)
-
                     if user_role[0].role == 'teacher':
                         return redirect('project_home')
                     else:
                         return redirect('student_entry')
-
-
                 else:
                     messages.error(request, 'Entered password is wrong.')
                     return redirect('login')
@@ -174,7 +154,7 @@ def register(request):
 
             email = user.email
 
-            user.is_active = False
+            user.is_active = True
             user.username = user.email
 
             user.save()
@@ -226,7 +206,7 @@ def register(request):
               ]
             }
             result = mailjet.send.create(data=data)
-            messages.info(request, 'An email with instructions to activate your account has been sent.')
+            messages.info(request, 'Your account has been created. You can login now.')
 
             return redirect('login')
 
