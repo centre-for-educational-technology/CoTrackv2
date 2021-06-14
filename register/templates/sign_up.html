@@ -44,7 +44,10 @@ body {
     transition: all .3s ease-in-out;
     background-color: #fff
 }
-
+..errorlist li{
+  font-size: smaller !important;
+  color:red;
+}
 .card .card-block {
     padding: 1.25rem
 }
@@ -198,13 +201,13 @@ transition: .3s ease all;
 
 
 
-                            <div class="form-group form-primary">First name {{form.first_name }} </div>
-                            <div class="form-group form-primary"> Last name {{form.last_name}} </div>
-                            <div class="form-group form-primary"> Email {{form.email}}</div>
+                            <div class="form-group form-primary">First name {{form.first_name }} <small class="text-muted">{{form.first_name.errors}}</small></div>
+                            <div class="form-group form-primary"> Last name {{form.last_name}} <small>{{form.last_name.errors}}</small></div>
+                            <div class="form-group form-primary"> Email {{form.email}}<small class="text-muted">{{form.email.errors}}</small></div>
 
 
                             <div class="form-group pass_show"> Password <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#pwd"></i></span>
-                              {{form.password1}}
+                              {{form.password1}}{{form.password1.errors}}
                             </div>
                             <div class="modal fade" id="pwd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -240,7 +243,7 @@ transition: .3s ease all;
 
 
                             <div class="form-group pass_show"> Repeat password
-                              {{form.password2}}
+                              {{form.password2}}{{form.password2.errors}}
                             </div>
 
                           <br/>
