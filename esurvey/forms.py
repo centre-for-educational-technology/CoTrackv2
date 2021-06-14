@@ -6,7 +6,7 @@ from django.forms.fields import Field
 from datetime import date
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
-from .models import Session, Audiofl, VAD, Speech, Help
+from .models import Session, Audiofl, VAD, Speech, Help,RoleRequest, AnonyData
 from django.forms import ModelForm
 from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
