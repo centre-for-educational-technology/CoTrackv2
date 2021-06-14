@@ -11,7 +11,7 @@ import requests
 from django.contrib import messages
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.shortcuts import redirect
-
+import operator
 COUNTRIES = {
     "AF": _("Afghanistan"),
     "AX": _("Åland Islands"),
