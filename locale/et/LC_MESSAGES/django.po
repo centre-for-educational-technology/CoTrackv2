@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-12 13:01+0300\n"
+"POT-Creation-Date: 2021-06-14 14:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,42 +30,1092 @@ msgstr "Eesti"
 msgid "Portugese"
 msgstr ""
 
-#: esurvey/forms.py:67
+#: esurvey/forms.py:75
 msgid "Session name"
 msgstr "Seansi nimi"
 
-#: esurvey/forms.py:68
+#: esurvey/forms.py:76
 msgid "Number of groups"
 msgstr "Gruppide arv: "
 
-#: esurvey/forms.py:70
+#: esurvey/forms.py:78
 msgid "Days"
 msgstr "Päevad "
 
-#: esurvey/forms.py:71
+#: esurvey/forms.py:79
 msgid "Hours"
 msgstr "Tunnid "
 
-#: esurvey/forms.py:72
+#: esurvey/forms.py:80
 msgid "Minutes"
 msgstr "Protokollid"
 
-#: esurvey/forms.py:76
+#: esurvey/forms.py:84
 msgid "Learning activity"
 msgstr "Õppimistegevus"
 
-#: esurvey/forms.py:86
+#: esurvey/forms.py:95
 msgid "Enable"
 msgstr "lubama"
 
-#: esurvey/forms.py:86
-msgid "Disagree"
+#: esurvey/forms.py:95
+#, fuzzy
+#| msgid "Disagree"
+msgid "Disable"
 msgstr "Ei nõustu"
+
+#: esurvey/models.py:16
+msgid "Afghanistan"
+msgstr ""
+
+#: esurvey/models.py:17
+msgid "Åland Islands"
+msgstr ""
+
+#: esurvey/models.py:18
+msgid "Albania"
+msgstr ""
+
+#: esurvey/models.py:19
+msgid "Algeria"
+msgstr ""
+
+#: esurvey/models.py:20
+msgid "American Samoa"
+msgstr ""
+
+#: esurvey/models.py:21
+msgid "Andorra"
+msgstr ""
+
+#: esurvey/models.py:22
+msgid "Angola"
+msgstr ""
+
+#: esurvey/models.py:23
+msgid "Anguilla"
+msgstr ""
+
+#: esurvey/models.py:24
+msgid "Antarctica"
+msgstr ""
+
+#: esurvey/models.py:25
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: esurvey/models.py:26
+msgid "Argentina"
+msgstr ""
+
+#: esurvey/models.py:27
+msgid "Armenia"
+msgstr ""
+
+#: esurvey/models.py:28
+msgid "Aruba"
+msgstr ""
+
+#: esurvey/models.py:29
+#, fuzzy
+#| msgid "Neutral"
+msgid "Australia"
+msgstr "Ei oska öelda"
+
+#: esurvey/models.py:30
+msgid "Austria"
+msgstr ""
+
+#: esurvey/models.py:31
+msgid "Azerbaijan"
+msgstr ""
+
+#: esurvey/models.py:32
+msgid "Bahamas"
+msgstr ""
+
+#: esurvey/models.py:33
+msgid "Bahrain"
+msgstr ""
+
+#: esurvey/models.py:34
+msgid "Bangladesh"
+msgstr ""
+
+#: esurvey/models.py:35
+msgid "Barbados"
+msgstr ""
+
+#: esurvey/models.py:36
+msgid "Belarus"
+msgstr ""
+
+#: esurvey/models.py:37
+msgid "Belgium"
+msgstr ""
+
+#: esurvey/models.py:38
+msgid "Belize"
+msgstr ""
+
+#: esurvey/models.py:39
+msgid "Benin"
+msgstr ""
+
+#: esurvey/models.py:40
+msgid "Bermuda"
+msgstr ""
+
+#: esurvey/models.py:41
+msgid "Bhutan"
+msgstr ""
+
+#: esurvey/models.py:42
+msgid "Bolivia (Plurinational State of)"
+msgstr ""
+
+#: esurvey/models.py:43
+msgid "Bonaire, Sint Eustatius and Saba"
+msgstr ""
+
+#: esurvey/models.py:44
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: esurvey/models.py:45
+msgid "Botswana"
+msgstr ""
+
+#: esurvey/models.py:46
+msgid "Bouvet Island"
+msgstr ""
+
+#: esurvey/models.py:47
+msgid "Brazil"
+msgstr ""
+
+#: esurvey/models.py:48
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: esurvey/models.py:49
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: esurvey/models.py:50
+msgid "Bulgaria"
+msgstr ""
+
+#: esurvey/models.py:51
+msgid "Burkina Faso"
+msgstr ""
+
+#: esurvey/models.py:52
+msgid "Burundi"
+msgstr ""
+
+#: esurvey/models.py:53
+msgid "Cabo Verde"
+msgstr ""
+
+#: esurvey/models.py:54
+msgid "Cambodia"
+msgstr ""
+
+#: esurvey/models.py:55
+msgid "Cameroon"
+msgstr ""
+
+#: esurvey/models.py:56
+msgid "Canada"
+msgstr ""
+
+#: esurvey/models.py:57
+msgid "Cayman Islands"
+msgstr ""
+
+#: esurvey/models.py:58
+msgid "Central African Republic"
+msgstr ""
+
+#: esurvey/models.py:59
+msgid "Chad"
+msgstr ""
+
+#: esurvey/models.py:60
+msgid "Chile"
+msgstr ""
+
+#: esurvey/models.py:61
+msgid "China"
+msgstr ""
+
+#: esurvey/models.py:62
+msgid "Christmas Island"
+msgstr ""
+
+#: esurvey/models.py:63
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: esurvey/models.py:64
+msgid "Colombia"
+msgstr ""
+
+#: esurvey/models.py:65
+msgid "Comoros"
+msgstr ""
+
+#: esurvey/models.py:66
+msgid "Congo"
+msgstr ""
+
+#: esurvey/models.py:67
+msgid "Congo (the Democratic Republic of the)"
+msgstr ""
+
+#: esurvey/models.py:68
+msgid "Cook Islands"
+msgstr ""
+
+#: esurvey/models.py:69
+msgid "Costa Rica"
+msgstr ""
+
+#: esurvey/models.py:70
+msgid "Côte d'Ivoire"
+msgstr ""
+
+#: esurvey/models.py:71
+msgid "Croatia"
+msgstr ""
+
+#: esurvey/models.py:72
+msgid "Cuba"
+msgstr ""
+
+#: esurvey/models.py:73
+msgid "Curaçao"
+msgstr ""
+
+#: esurvey/models.py:74
+msgid "Cyprus"
+msgstr ""
+
+#: esurvey/models.py:75
+msgid "Czechia"
+msgstr ""
+
+#: esurvey/models.py:76
+msgid "Denmark"
+msgstr ""
+
+#: esurvey/models.py:77
+msgid "Djibouti"
+msgstr ""
+
+#: esurvey/models.py:78
+msgid "Dominica"
+msgstr ""
+
+#: esurvey/models.py:79
+msgid "Dominican Republic"
+msgstr ""
+
+#: esurvey/models.py:80
+msgid "Ecuador"
+msgstr ""
+
+#: esurvey/models.py:81
+msgid "Egypt"
+msgstr ""
+
+#: esurvey/models.py:82
+msgid "El Salvador"
+msgstr ""
+
+#: esurvey/models.py:83
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: esurvey/models.py:84
+msgid "Eritrea"
+msgstr ""
+
+#: esurvey/models.py:85
+#, fuzzy
+#| msgid "Estonian"
+msgid "Estonia"
+msgstr "Eesti"
+
+#: esurvey/models.py:86
+msgid "Eswatini"
+msgstr ""
+
+#: esurvey/models.py:87
+msgid "Ethiopia"
+msgstr ""
+
+#: esurvey/models.py:88
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: esurvey/models.py:89
+msgid "Faroe Islands"
+msgstr ""
+
+#: esurvey/models.py:90
+msgid "Fiji"
+msgstr ""
+
+#: esurvey/models.py:91
+msgid "Finland"
+msgstr ""
+
+#: esurvey/models.py:92
+#, fuzzy
+#| msgid "Cancel"
+msgid "France"
+msgstr "Tühistama"
+
+#: esurvey/models.py:93
+msgid "French Guiana"
+msgstr ""
+
+#: esurvey/models.py:94
+msgid "French Polynesia"
+msgstr ""
+
+#: esurvey/models.py:95
+msgid "French Southern Territories"
+msgstr ""
+
+#: esurvey/models.py:96
+msgid "Gabon"
+msgstr ""
+
+#: esurvey/models.py:97
+msgid "Gambia"
+msgstr ""
+
+#: esurvey/models.py:98
+msgid "Georgia"
+msgstr ""
+
+#: esurvey/models.py:99
+msgid "Germany"
+msgstr ""
+
+#: esurvey/models.py:100
+msgid "Ghana"
+msgstr ""
+
+#: esurvey/models.py:101
+msgid "Gibraltar"
+msgstr ""
+
+#: esurvey/models.py:102
+msgid "Greece"
+msgstr ""
+
+#: esurvey/models.py:103
+msgid "Greenland"
+msgstr ""
+
+#: esurvey/models.py:104
+msgid "Grenada"
+msgstr ""
+
+#: esurvey/models.py:105
+msgid "Guadeloupe"
+msgstr ""
+
+#: esurvey/models.py:106
+msgid "Guam"
+msgstr ""
+
+#: esurvey/models.py:107
+msgid "Guatemala"
+msgstr ""
+
+#: esurvey/models.py:108
+msgid "Guernsey"
+msgstr ""
+
+#: esurvey/models.py:109
+msgid "Guinea"
+msgstr ""
+
+#: esurvey/models.py:110
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: esurvey/models.py:111
+msgid "Guyana"
+msgstr ""
+
+#: esurvey/models.py:112
+msgid "Haiti"
+msgstr ""
+
+#: esurvey/models.py:113
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: esurvey/models.py:114
+msgid "Holy See"
+msgstr ""
+
+#: esurvey/models.py:115
+msgid "Honduras"
+msgstr ""
+
+#: esurvey/models.py:116
+msgid "Hong Kong"
+msgstr ""
+
+#: esurvey/models.py:117
+msgid "Hungary"
+msgstr ""
+
+#: esurvey/models.py:118
+msgid "Iceland"
+msgstr ""
+
+#: esurvey/models.py:119
+msgid "India"
+msgstr ""
+
+#: esurvey/models.py:120
+msgid "Indonesia"
+msgstr ""
+
+#: esurvey/models.py:121
+msgid "Iran (Islamic Republic of)"
+msgstr ""
+
+#: esurvey/models.py:122
+msgid "Iraq"
+msgstr ""
+
+#: esurvey/models.py:123
+msgid "Ireland"
+msgstr ""
+
+#: esurvey/models.py:124
+msgid "Isle of Man"
+msgstr ""
+
+#: esurvey/models.py:125
+msgid "Israel"
+msgstr ""
+
+#: esurvey/models.py:126
+msgid "Italy"
+msgstr ""
+
+#: esurvey/models.py:127
+msgid "Jamaica"
+msgstr ""
+
+#: esurvey/models.py:128
+msgid "Japan"
+msgstr ""
+
+#: esurvey/models.py:129
+msgid "Jersey"
+msgstr ""
+
+#: esurvey/models.py:130
+msgid "Jordan"
+msgstr ""
+
+#: esurvey/models.py:131
+msgid "Kazakhstan"
+msgstr ""
+
+#: esurvey/models.py:132
+msgid "Kenya"
+msgstr ""
+
+#: esurvey/models.py:133
+msgid "Kiribati"
+msgstr ""
+
+#: esurvey/models.py:134
+msgid "Korea (the Democratic People's Republic of)"
+msgstr ""
+
+#: esurvey/models.py:135
+msgid "Korea (the Republic of)"
+msgstr ""
+
+#: esurvey/models.py:136
+msgid "Kuwait"
+msgstr ""
+
+#: esurvey/models.py:137
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: esurvey/models.py:138
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: esurvey/models.py:139
+msgid "Latvia"
+msgstr ""
+
+#: esurvey/models.py:140
+msgid "Lebanon"
+msgstr ""
+
+#: esurvey/models.py:141
+msgid "Lesotho"
+msgstr ""
+
+#: esurvey/models.py:142
+msgid "Liberia"
+msgstr ""
+
+#: esurvey/models.py:143
+msgid "Libya"
+msgstr ""
+
+#: esurvey/models.py:144
+msgid "Liechtenstein"
+msgstr ""
+
+#: esurvey/models.py:145
+msgid "Lithuania"
+msgstr ""
+
+#: esurvey/models.py:146
+msgid "Luxembourg"
+msgstr ""
+
+#: esurvey/models.py:147
+msgid "Macao"
+msgstr ""
+
+#: esurvey/models.py:148
+msgid "Madagascar"
+msgstr ""
+
+#: esurvey/models.py:149
+msgid "Malawi"
+msgstr ""
+
+#: esurvey/models.py:150
+msgid "Malaysia"
+msgstr ""
+
+#: esurvey/models.py:151
+msgid "Maldives"
+msgstr ""
+
+#: esurvey/models.py:152
+msgid "Mali"
+msgstr ""
+
+#: esurvey/models.py:153
+msgid "Malta"
+msgstr ""
+
+#: esurvey/models.py:154
+msgid "Marshall Islands"
+msgstr ""
+
+#: esurvey/models.py:155
+msgid "Martinique"
+msgstr ""
+
+#: esurvey/models.py:156
+msgid "Mauritania"
+msgstr ""
+
+#: esurvey/models.py:157
+msgid "Mauritius"
+msgstr ""
+
+#: esurvey/models.py:158
+msgid "Mayotte"
+msgstr ""
+
+#: esurvey/models.py:159
+msgid "Mexico"
+msgstr ""
+
+#: esurvey/models.py:160
+msgid "Micronesia (Federated States of)"
+msgstr ""
+
+#: esurvey/models.py:161
+msgid "Moldova (the Republic of)"
+msgstr ""
+
+#: esurvey/models.py:162
+msgid "Monaco"
+msgstr ""
+
+#: esurvey/models.py:163
+msgid "Mongolia"
+msgstr ""
+
+#: esurvey/models.py:164
+msgid "Montenegro"
+msgstr ""
+
+#: esurvey/models.py:165
+msgid "Montserrat"
+msgstr ""
+
+#: esurvey/models.py:166
+msgid "Morocco"
+msgstr ""
+
+#: esurvey/models.py:167
+msgid "Mozambique"
+msgstr ""
+
+#: esurvey/models.py:168
+msgid "Myanmar"
+msgstr ""
+
+#: esurvey/models.py:169
+msgid "Namibia"
+msgstr ""
+
+#: esurvey/models.py:170
+msgid "Nauru"
+msgstr ""
+
+#: esurvey/models.py:171
+msgid "Nepal"
+msgstr ""
+
+#: esurvey/models.py:172
+msgid "Netherlands"
+msgstr ""
+
+#: esurvey/models.py:173
+msgid "New Caledonia"
+msgstr ""
+
+#: esurvey/models.py:174
+msgid "New Zealand"
+msgstr ""
+
+#: esurvey/models.py:175
+msgid "Nicaragua"
+msgstr ""
+
+#: esurvey/models.py:176
+msgid "Niger"
+msgstr ""
+
+#: esurvey/models.py:177
+msgid "Nigeria"
+msgstr ""
+
+#: esurvey/models.py:178
+msgid "Niue"
+msgstr ""
+
+#: esurvey/models.py:179
+msgid "Norfolk Island"
+msgstr ""
+
+#: esurvey/models.py:180
+msgid "North Macedonia"
+msgstr ""
+
+#: esurvey/models.py:181
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: esurvey/models.py:182
+msgid "Norway"
+msgstr ""
+
+#: esurvey/models.py:183
+msgid "Oman"
+msgstr ""
+
+#: esurvey/models.py:184
+msgid "Pakistan"
+msgstr ""
+
+#: esurvey/models.py:185
+msgid "Palau"
+msgstr ""
+
+#: esurvey/models.py:186
+msgid "Palestine, State of"
+msgstr ""
+
+#: esurvey/models.py:187
+msgid "Panama"
+msgstr ""
+
+#: esurvey/models.py:188
+msgid "Papua New Guinea"
+msgstr ""
+
+#: esurvey/models.py:189
+msgid "Paraguay"
+msgstr ""
+
+#: esurvey/models.py:190
+msgid "Peru"
+msgstr ""
+
+#: esurvey/models.py:191
+msgid "Philippines"
+msgstr ""
+
+#: esurvey/models.py:192
+msgid "Pitcairn"
+msgstr ""
+
+#: esurvey/models.py:193
+msgid "Poland"
+msgstr ""
+
+#: esurvey/models.py:194
+msgid "Portugal"
+msgstr ""
+
+#: esurvey/models.py:195
+msgid "Puerto Rico"
+msgstr ""
+
+#: esurvey/models.py:196
+msgid "Qatar"
+msgstr ""
+
+#: esurvey/models.py:197
+msgid "Réunion"
+msgstr ""
+
+#: esurvey/models.py:198
+msgid "Romania"
+msgstr ""
+
+#: esurvey/models.py:199
+msgid "Russian Federation"
+msgstr ""
+
+#: esurvey/models.py:200
+msgid "Rwanda"
+msgstr ""
+
+#: esurvey/models.py:201
+msgid "Saint Barthélemy"
+msgstr ""
+
+#: esurvey/models.py:202
+msgid "Saint Helena, Ascension and Tristan da Cunha"
+msgstr ""
+
+#: esurvey/models.py:203
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: esurvey/models.py:204
+msgid "Saint Lucia"
+msgstr ""
+
+#: esurvey/models.py:205
+msgid "Saint Martin (French part)"
+msgstr ""
+
+#: esurvey/models.py:206
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: esurvey/models.py:207
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: esurvey/models.py:208
+msgid "Samoa"
+msgstr ""
+
+#: esurvey/models.py:209
+msgid "San Marino"
+msgstr ""
+
+#: esurvey/models.py:210
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: esurvey/models.py:211
+msgid "Saudi Arabia"
+msgstr ""
+
+#: esurvey/models.py:212
+msgid "Senegal"
+msgstr ""
+
+#: esurvey/models.py:213
+msgid "Serbia"
+msgstr ""
+
+#: esurvey/models.py:214
+msgid "Seychelles"
+msgstr ""
+
+#: esurvey/models.py:215
+msgid "Sierra Leone"
+msgstr ""
+
+#: esurvey/models.py:216
+msgid "Singapore"
+msgstr ""
+
+#: esurvey/models.py:217
+msgid "Sint Maarten (Dutch part)"
+msgstr ""
+
+#: esurvey/models.py:218
+msgid "Slovakia"
+msgstr ""
+
+#: esurvey/models.py:219
+msgid "Slovenia"
+msgstr ""
+
+#: esurvey/models.py:220
+msgid "Solomon Islands"
+msgstr ""
+
+#: esurvey/models.py:221
+msgid "Somalia"
+msgstr ""
+
+#: esurvey/models.py:222
+msgid "South Africa"
+msgstr ""
+
+#: esurvey/models.py:223
+msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: esurvey/models.py:224
+msgid "South Sudan"
+msgstr ""
+
+#: esurvey/models.py:225
+msgid "Spain"
+msgstr ""
+
+#: esurvey/models.py:226
+msgid "Sri Lanka"
+msgstr ""
+
+#: esurvey/models.py:227
+msgid "Sudan"
+msgstr ""
+
+#: esurvey/models.py:228
+#, fuzzy
+#| msgid "Session name"
+msgid "Suriname"
+msgstr "Seansi nimi"
+
+#: esurvey/models.py:229
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: esurvey/models.py:230
+msgid "Sweden"
+msgstr ""
+
+#: esurvey/models.py:231
+msgid "Switzerland"
+msgstr ""
+
+#: esurvey/models.py:232
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: esurvey/models.py:233
+msgid "Taiwan (Province of China)"
+msgstr ""
+
+#: esurvey/models.py:234
+msgid "Tajikistan"
+msgstr ""
+
+#: esurvey/models.py:235
+msgid "Tanzania, the United Republic of"
+msgstr ""
+
+#: esurvey/models.py:236
+msgid "Thailand"
+msgstr ""
+
+#: esurvey/models.py:237
+msgid "Timor-Leste"
+msgstr ""
+
+#: esurvey/models.py:238
+msgid "Togo"
+msgstr ""
+
+#: esurvey/models.py:239
+msgid "Tokelau"
+msgstr ""
+
+#: esurvey/models.py:240
+msgid "Tonga"
+msgstr ""
+
+#: esurvey/models.py:241
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: esurvey/models.py:242
+msgid "Tunisia"
+msgstr ""
+
+#: esurvey/models.py:243
+msgid "Turkey"
+msgstr ""
+
+#: esurvey/models.py:244
+msgid "Turkmenistan"
+msgstr ""
+
+#: esurvey/models.py:245
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: esurvey/models.py:246
+msgid "Tuvalu"
+msgstr ""
+
+#: esurvey/models.py:247
+msgid "Uganda"
+msgstr ""
+
+#: esurvey/models.py:248
+msgid "Ukraine"
+msgstr ""
+
+#: esurvey/models.py:249
+msgid "United Arab Emirates"
+msgstr ""
+
+#: esurvey/models.py:250
+msgid "United Kingdom of Great Britain and Northern Ireland"
+msgstr ""
+
+#: esurvey/models.py:251
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: esurvey/models.py:252
+msgid "United States of America"
+msgstr ""
+
+#: esurvey/models.py:253
+msgid "Uruguay"
+msgstr ""
+
+#: esurvey/models.py:254
+msgid "Uzbekistan"
+msgstr ""
+
+#: esurvey/models.py:255
+msgid "Vanuatu"
+msgstr ""
+
+#: esurvey/models.py:256
+msgid "Venezuela (Bolivarian Republic of)"
+msgstr ""
+
+#: esurvey/models.py:257
+msgid "Viet Nam"
+msgstr ""
+
+#: esurvey/models.py:258
+msgid "Virgin Islands (British)"
+msgstr ""
+
+#: esurvey/models.py:259
+msgid "Virgin Islands (U.S.)"
+msgstr ""
+
+#: esurvey/models.py:260
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: esurvey/models.py:261
+msgid "Western Sahara"
+msgstr ""
+
+#: esurvey/models.py:262
+msgid "Yemen"
+msgstr ""
+
+#: esurvey/models.py:263
+msgid "Zambia"
+msgstr ""
+
+#: esurvey/models.py:264
+msgid "Zimbabwe"
+msgstr ""
+
+#: esurvey/models.py:269
+msgid "17 or less"
+msgstr ""
+
+#: esurvey/models.py:269
+msgid "48 - 57"
+msgstr ""
+
+#: esurvey/models.py:269
+msgid "58 or more"
+msgstr ""
+
+#: esurvey/models.py:270
+msgid "Male"
+msgstr ""
+
+#: esurvey/models.py:270
+msgid "Female"
+msgstr ""
+
+#: esurvey/models.py:270
+msgid "Other"
+msgstr ""
+
+#: esurvey/models.py:271
+msgid "Primary"
+msgstr ""
+
+#: esurvey/models.py:271
+msgid "Secondary"
+msgstr ""
+
+#: esurvey/models.py:271
+msgid "Bachelor"
+msgstr ""
+
+#: esurvey/models.py:271
+msgid "Master"
+msgstr ""
+
+#: esurvey/models.py:271
+msgid "Doctorate"
+msgstr ""
 
 #: esurvey/templates/anony_settings.html:97 esurvey/templates/create.html:53
 #: esurvey/templates/create_activity_info.html:151
-#: esurvey/templates/create_config.html:150
-#: esurvey/templates/create_summary.html:67
+#: esurvey/templates/create_config.html:291
+#: esurvey/templates/create_summary.html:68
 #: esurvey/templates/create_task.html:51
 #: esurvey/templates/survey_form_updated_backup23apr21.html:1260
 #: esurvey/templates/survey_form_usability.html:721
@@ -74,15 +1124,16 @@ msgstr "Tagasi"
 
 #: esurvey/templates/anony_settings.html:99 esurvey/templates/create.html:55
 #: esurvey/templates/create_activity_info.html:153
-#: esurvey/templates/create_config.html:152
+#: esurvey/templates/create_config.html:293
 #: esurvey/templates/create_task.html:53
+#: esurvey/templates/survey_form_updated_engagement.html:658
 msgid "Continue"
 msgstr "Jätkama"
 
 #: esurvey/templates/anony_settings.html:100 esurvey/templates/create.html:56
 #: esurvey/templates/create_activity_info.html:148
-#: esurvey/templates/create_config.html:147
-#: esurvey/templates/create_summary.html:65
+#: esurvey/templates/create_config.html:288
+#: esurvey/templates/create_summary.html:66
 #: esurvey/templates/create_task.html:49 esurvey/templates/overview.html:127
 msgid "Cancel"
 msgstr "Tühistama"
@@ -224,38 +1275,51 @@ msgid ""
 "instructions in the specified langauge."
 msgstr "Täpsustage juhiste keel. Osalejad näevad kõikijuhised määratud keeles."
 
-#: esurvey/templates/create_config.html:53
+#: esurvey/templates/create_config.html:171
 #: esurvey/templates/create_summary.html:19
 msgid "Configuration"
 msgstr "Konfiguratsioon"
 
-#: esurvey/templates/create_config.html:54
+#: esurvey/templates/create_config.html:172
 msgid "Add Etherpad"
 msgstr "Lisage Etherpad "
 
-#: esurvey/templates/create_config.html:55
+#: esurvey/templates/create_config.html:173
 #, fuzzy
 #| msgid "Add Audio & Video chat:"
 msgid "Add Audio-Video Chat"
 msgstr "Lisa audio- ja videovestlus:"
 
-#: esurvey/templates/create_config.html:60
+#: esurvey/templates/create_config.html:178
+#, fuzzy
+#| msgid "General Information"
+msgid "Group formation"
+msgstr "Üldine informatsioon"
+
+#: esurvey/templates/create_config.html:179
+#: esurvey/templates/create_config.html:213
+#, fuzzy
+#| msgid "Join group"
+msgid "Random groups"
+msgstr "Liitu grupiga"
+
+#: esurvey/templates/create_config.html:184
 msgid "Recording"
 msgstr "Salvestamine"
 
-#: esurvey/templates/create_config.html:61
+#: esurvey/templates/create_config.html:185
 msgid "Audio only"
 msgstr "Ainult heli"
 
-#: esurvey/templates/create_config.html:62
+#: esurvey/templates/create_config.html:186
 msgid "Audio and Video"
 msgstr "Audio ja video"
 
-#: esurvey/templates/create_config.html:70
+#: esurvey/templates/create_config.html:194
 msgid "Etherpad: A collaborative text editor"
 msgstr "Etherpad: koostöötekstiredaktor"
 
-#: esurvey/templates/create_config.html:76
+#: esurvey/templates/create_config.html:200
 msgid ""
 "Etherpad is a collaborative text editor just like Google docs. However, it "
 "allows instructor to track and see participants' contribution in terms of "
@@ -267,15 +1331,23 @@ msgstr ""
 "kirjutas. <br/> Seetõttu kaasnevad sellega osalejadtegevuse jälgimise "
 "võimalused"
 
-#: esurvey/templates/create_config.html:78
+#: esurvey/templates/create_config.html:202
 msgid "A small demo is given below"
 msgstr "Allpool on toodud väike demo"
 
-#: esurvey/templates/create_config.html:89
+#: esurvey/templates/create_config.html:219
+msgid ""
+" If selected, only one pin will be used by all the students and CoTrack "
+"automatiaclly groups them. <br/> Otherwise, a pin will be generated for each "
+"group seperately and that pin will be use by corresponding group to enter "
+"into learning space."
+msgstr ""
+
+#: esurvey/templates/create_config.html:230
 msgid "Audio & Video chat"
 msgstr "Audio- ja videovestlus"
 
-#: esurvey/templates/create_config.html:95
+#: esurvey/templates/create_config.html:236
 msgid ""
 "This support will add audio-video chat feature to your learning space. <br/"
 ">\n"
@@ -286,17 +1358,17 @@ msgstr ""
 "kui osalejad liituvad, saavad nadsuhelda läbipaistvate audio-video "
 "kanalitega."
 
-#: esurvey/templates/create_config.html:98
+#: esurvey/templates/create_config.html:239
 msgid ""
 "If the session is happening in face-to-face settings in that case this "
 "feature is not needed, hence, can be disabled for those sessions."
 msgstr ""
 
-#: esurvey/templates/create_config.html:109
+#: esurvey/templates/create_config.html:250
 msgid "Tracking/Recording"
 msgstr "Jälgimine / salvestamine"
 
-#: esurvey/templates/create_config.html:115
+#: esurvey/templates/create_config.html:256
 msgid ""
 "This feature enable CoTrack to track and record audio & video data from "
 "learning activity. <br/>\n"
@@ -307,29 +1379,29 @@ msgstr ""
 "salvestadaõppetegevus. <br/>See võimaldab ka juhendajal jälgida "
 "osalejatekäitumine järgmises mõttes"
 
-#: esurvey/templates/create_config.html:118
+#: esurvey/templates/create_config.html:259
 msgid ""
 "Social dynamics: Who is talking after whom and how much are they talking."
 msgstr "Sotsiaalne dünaamika: kes kelle pärast räägib ja kui palju."
 
-#: esurvey/templates/create_config.html:119
+#: esurvey/templates/create_config.html:260
 msgid "Emotion swing: How participant's emotions are changing."
 msgstr "Emotsioonihoog: kuidas osaleja emotsioonid muutuvad."
 
-#: esurvey/templates/create_config.html:120
+#: esurvey/templates/create_config.html:261
 msgid ""
 "Body movement: How active participants are during the learning activity."
 msgstr "Tundsin rühmatöös vastutust teiste osalejate eest."
 
-#: esurvey/templates/create_config.html:121
+#: esurvey/templates/create_config.html:262
 msgid "Collaboration: How well groups are collaborating."
 msgstr ""
 
-#: esurvey/templates/create_config.html:122
+#: esurvey/templates/create_config.html:263
 msgid "Engagement: How engaged participants are during the activity."
 msgstr "Koostöö: kui hästi rühmad koostööd teevad."
 
-#: esurvey/templates/create_config.html:125
+#: esurvey/templates/create_config.html:266
 msgid ""
 "Some of the above mentioned features are already available in the CoTrackv2. "
 "<br/>The collected data will help to add remaining featuers in the CoTrackV2."
@@ -369,7 +1441,7 @@ msgstr "Seansi nimi:"
 msgid "Number of groups:"
 msgstr "Gruppide arv: "
 
-#: esurvey/templates/create_summary.html:16 esurvey/templates/dashboard.html:55
+#: esurvey/templates/create_summary.html:16 esurvey/templates/dashboard.html:60
 msgid "Language:"
 msgstr "Keel:"
 
@@ -393,6 +1465,7 @@ msgstr "Lisa Etherpad:"
 #: esurvey/templates/create_summary.html:21
 #: esurvey/templates/create_summary.html:22
 #: esurvey/templates/create_summary.html:23
+#: esurvey/templates/create_summary.html:24
 msgid "Yes"
 msgstr "Jah "
 
@@ -400,6 +1473,7 @@ msgstr "Jah "
 #: esurvey/templates/create_summary.html:21
 #: esurvey/templates/create_summary.html:22
 #: esurvey/templates/create_summary.html:23
+#: esurvey/templates/create_summary.html:24
 msgid "No"
 msgstr "Ei "
 
@@ -408,22 +1482,26 @@ msgid "Add Audio & Video chat:"
 msgstr "Lisa audio- ja videovestlus:"
 
 #: esurvey/templates/create_summary.html:22
+msgid "Random group formation:"
+msgstr ""
+
+#: esurvey/templates/create_summary.html:23
 msgid "Record audio:"
 msgstr "Salvesta heli:"
 
-#: esurvey/templates/create_summary.html:23
+#: esurvey/templates/create_summary.html:24
 msgid "Record video:"
 msgstr "Salvesta video:"
 
-#: esurvey/templates/create_summary.html:29
+#: esurvey/templates/create_summary.html:30
 msgid "Session access for participants"
 msgstr "Osalejatele juurdepääs seansile"
 
-#: esurvey/templates/create_summary.html:34
+#: esurvey/templates/create_summary.html:35
 msgid "Session access"
 msgstr "Juurdepääs seansile"
 
-#: esurvey/templates/create_summary.html:40
+#: esurvey/templates/create_summary.html:41
 msgid ""
 "Participants can only join the session if it is enabled. Instructors can "
 "control parcipants access to the session."
@@ -431,15 +1509,15 @@ msgstr ""
 "Osalejad saavad seansiga liituda ainult siis, kui see on lubatud. Juhendajad "
 "saavadkontrollige parcipantide juurdepääsu seansile."
 
-#: esurvey/templates/create_summary.html:42
+#: esurvey/templates/create_summary.html:43
 msgid "It can be changed later."
 msgstr "Seda saab hiljem muuta."
 
-#: esurvey/templates/create_summary.html:70
+#: esurvey/templates/create_summary.html:71
 msgid "Create"
 msgstr "Luua"
 
-#: esurvey/templates/create_summary.html:72
+#: esurvey/templates/create_summary.html:73
 msgid "Update"
 msgstr "Uuenda "
 
@@ -475,44 +1553,44 @@ msgstr "Demo"
 msgid "Access pin"
 msgstr "Juurdepääsu tihvt "
 
-#: esurvey/templates/dashboard.html:50 esurvey/templates/session_main.html:49
-#: esurvey/templates/session_main.html:59
-#: esurvey/templates/session_main.html:69
-#: esurvey/templates/session_main.html:89
+#: esurvey/templates/dashboard.html:54 esurvey/templates/session_main.html:56
+#: esurvey/templates/session_main.html:68
+#: esurvey/templates/session_main.html:80
+#: esurvey/templates/session_main.html:103
 msgid "Group"
 msgstr "Grupp"
 
-#: esurvey/templates/dashboard.html:54 esurvey/templates/session_main.html:13
+#: esurvey/templates/dashboard.html:59 esurvey/templates/session_main.html:13
 msgid "No. of groups:"
 msgstr "Gruppide arv: "
 
-#: esurvey/templates/dashboard.html:56 esurvey/templates/session_main.html:14
+#: esurvey/templates/dashboard.html:61 esurvey/templates/session_main.html:14
 msgid "Duration:"
 msgstr "Kestus:"
 
-#: esurvey/templates/dashboard.html:57
+#: esurvey/templates/dashboard.html:62
 #, fuzzy
 #| msgid "Create"
 msgid "Created:"
 msgstr "Luua"
 
-#: esurvey/templates/dashboard.html:58
+#: esurvey/templates/dashboard.html:63
 #, fuzzy
 #| msgid "Activity duration"
 msgid "Activity monitoring"
 msgstr "Tegevuse kestus "
 
-#: esurvey/templates/dashboard.html:74
+#: esurvey/templates/dashboard.html:86
 #, fuzzy
 #| msgid "New session"
 msgid "No sessions"
 msgstr "Uus seanss"
 
-#: esurvey/templates/dashboard.html:75
+#: esurvey/templates/dashboard.html:87
 msgid "You do not have any active sessions."
 msgstr "Teil pole ühtegi aktiivset seanssi."
 
-#: esurvey/templates/dashboard.html:76 esurvey/templates/session.html:23
+#: esurvey/templates/dashboard.html:88 esurvey/templates/session.html:23
 msgid "Create Session"
 msgstr "Loo seanss"
 
@@ -547,12 +1625,18 @@ msgstr ""
 "Peate alustama videosalvestust. Salvestatud video salvestatakse serverisse."
 
 #: esurvey/templates/pad_only_no_audio.html:84
-#: esurvey/templates/student_pad.html:29
+#: esurvey/templates/student_pad.html:28 esurvey/templates/student_pad1.html:28
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:28
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:28
+#: static/js/student_pad.html:28
 msgid "Task"
 msgstr ""
 
 #: esurvey/templates/pad_only_no_audio.html:94
-#: esurvey/templates/student_pad.html:39 esurvey/templates/teacher_pad.html:32
+#: esurvey/templates/student_pad.html:38 esurvey/templates/student_pad1.html:38
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:38
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:38
+#: esurvey/templates/teacher_pad.html:32 static/js/student_pad.html:38
 msgid "Write solution here"
 msgstr "Kirjutage lahendus siia"
 
@@ -576,45 +1660,57 @@ msgstr ""
 msgid "Edit Session"
 msgstr "Seansi muutmine"
 
-#: esurvey/templates/session_main.html:21
+#: esurvey/templates/session_main.html:22
 msgid "Download Data"
 msgstr "Andmete allalaadimine"
 
-#: esurvey/templates/session_main.html:24
+#: esurvey/templates/session_main.html:25
 #, fuzzy
 #| msgid "Add Etherpad"
 msgid "Etherpad logs"
 msgstr "Lisage Etherpad "
 
-#: esurvey/templates/session_main.html:25
+#: esurvey/templates/session_main.html:26
 #, fuzzy
 #| msgid "Add Etherpad"
 msgid "Etherpad Chat"
 msgstr "Lisage Etherpad "
 
-#: esurvey/templates/session_main.html:27
+#: esurvey/templates/session_main.html:28
 msgid "VAD data"
 msgstr "VAD andmed"
 
-#: esurvey/templates/session_main.html:28
+#: esurvey/templates/session_main.html:29
 msgid "Speech data"
 msgstr "Kõne andmed"
 
-#: esurvey/templates/session_main.html:29
+#: esurvey/templates/session_main.html:30
 msgid "File metadata"
 msgstr "Faili metaandmed"
 
-#: esurvey/templates/session_main.html:31
+#: esurvey/templates/session_main.html:32
+msgid "Sus survey data"
+msgstr ""
+
+#: esurvey/templates/session_main.html:33
+msgid "Engagement survey data"
+msgstr ""
+
+#: esurvey/templates/session_main.html:34
+msgid "Demographics"
+msgstr ""
+
+#: esurvey/templates/session_main.html:37
 msgid "User mapping"
 msgstr "Kasutaja kaardistamine"
 
-#: esurvey/templates/session_main.html:86
+#: esurvey/templates/session_main.html:100
 #, fuzzy
 #| msgid "Join session"
 msgid "Join group discussion"
 msgstr "Liitu seansiga "
 
-#: esurvey/templates/session_main.html:87
+#: esurvey/templates/session_main.html:101
 msgid ""
 "Following links can be used to enter the respective group discussion. You "
 "can also check their written responses."
@@ -622,14 +1718,18 @@ msgstr ""
 "Järgmisi linke saab kasutada vastavasse grupiarutelu sisenemiseks. "
 "Teiesaavad kontrollida ka oma kirjalikke vastuseid."
 
-#: esurvey/templates/session_main.html:97
-#: esurvey/templates/session_main.html:109
+#: esurvey/templates/session_main.html:111
+#: esurvey/templates/session_main.html:141
 #, fuzzy
 #| msgid "Add Etherpad"
 msgid "Etherpad activity"
 msgstr "Lisage Etherpad "
 
-#: esurvey/templates/session_main.html:115
+#: esurvey/templates/session_main.html:123
+msgid "Word cloud"
+msgstr ""
+
+#: esurvey/templates/session_main.html:147
 #, fuzzy
 #| msgid ""
 #| "           Etherpad activity means the number of revisions made to the "
@@ -653,7 +1753,7 @@ msgstr ""
 "Näiteks kui rühma osalejad midagi kirjutavad, siis seeuuendab dokumente. \n"
 "Selliste värskenduste koguarv esitatakse etherpadinategevused. \n"
 
-#: esurvey/templates/session_main.html:159
+#: esurvey/templates/session_main.html:223
 msgid "Join group"
 msgstr "Liitu grupiga"
 
@@ -698,47 +1798,95 @@ msgstr ""
 "Kui teil pole juurdepääsu turvalisele pinile, küsige oma õpetajalt / "
 "juhendajalt."
 
-#: esurvey/templates/student_pad.html:3
+#: esurvey/templates/student_pad.html:3 esurvey/templates/student_pad1.html:3
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:3
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:3
+#: static/js/student_pad.html:3
 #, fuzzy
 #| msgid "Sessions"
 msgid "Session"
 msgstr "Seansid"
 
-#: esurvey/templates/student_pad.html:11
-msgid "Exit"
-msgstr "Välju"
-
-#: esurvey/templates/student_pad.html:12
+#: esurvey/templates/student_pad.html:12 esurvey/templates/student_pad1.html:12
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:12
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:12
+#: static/js/student_pad.html:12
 msgid "Ask teacher for help"
 msgstr "Küsi õpetajalt abi "
 
-#: esurvey/templates/student_pad.html:26
+#: esurvey/templates/student_pad.html:25 esurvey/templates/student_pad1.html:25
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:25
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:25
+#: static/js/student_pad.html:25
 msgid "Learning sapce"
 msgstr "Õppimisruum"
 
-#: esurvey/templates/student_pad.html:79
+#: esurvey/templates/student_pad.html:89 esurvey/templates/student_pad1.html:78
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:95
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:74
+#: static/js/student_pad.html:78
 #, fuzzy
 #| msgid "Recording"
 msgid "Recording started!"
 msgstr "Salvestamine"
 
-#: esurvey/templates/student_pad.html:79
+#: esurvey/templates/student_pad.html:89 esurvey/templates/student_pad1.html:78
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:95
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:74
+#: static/js/student_pad.html:78
 msgid "Recording has been started."
 msgstr "Salvestamist on alustatud."
 
-#: esurvey/templates/student_pad.html:83
+#: esurvey/templates/student_pad.html:93 esurvey/templates/student_pad1.html:82
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:99
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:78
+#: static/js/student_pad.html:82
 msgid "Notification sent!"
 msgstr "Teade on saadetud!"
 
-#: esurvey/templates/student_pad.html:83
+#: esurvey/templates/student_pad.html:93 esurvey/templates/student_pad1.html:82
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:99
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:78
+#: static/js/student_pad.html:82
 msgid "A notification has been sent to the teacher. Teacher will join soon."
 msgstr "Õpetajale on saadetud teade. Õpetaja liitub peagi."
 
-#: esurvey/templates/student_pad.html:152
+#: esurvey/templates/student_pad.html:168
+#: esurvey/templates/student_pad1.html:155
+#: esurvey/templates/student_pad1.html:170
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:171
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:186
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:151
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:166
+#: static/js/student_pad.html:155 static/js/student_pad.html:170
+msgid "Saving data"
+msgstr ""
+
+#: esurvey/templates/student_pad.html:168
+#: esurvey/templates/student_pad1.html:155
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:171
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:151
+#: static/js/student_pad.html:155
+msgid "Your data is now saved on server. You can exit the session."
+msgstr ""
+
+#: esurvey/templates/student_pad1.html:169
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:185
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:165
+#: static/js/student_pad.html:169
 msgid ""
 "Exiting will stop recording. Select ok if you are done with the activity."
 msgstr ""
 "Väljumine lõpetab salvestamise. Valige OK, kui olete selle tegevusega valmis."
+
+#: esurvey/templates/student_pad1.html:170
+#: esurvey/templates/student_pad_head_pace_pose_hand_emotion.html:186
+#: esurvey/templates/student_pad_jitsi_iframeapi.html:166
+#: static/js/student_pad.html:170
+msgid ""
+"Your data is now being saved on server. You can move to next step by "
+"clicking on next button."
+msgstr ""
 
 #: esurvey/templates/student_session_home.html:13
 msgid "Instructor:"
@@ -756,6 +1904,16 @@ msgstr "Grupid"
 msgid "Link"
 msgstr "Link"
 
+#: esurvey/templates/survey_form_sus.html:7
+#: esurvey/templates/survey_form_updated_engagement.html:7
+msgid "Self-Reported Questionnaire"
+msgstr "Ise esitatav küsimustik"
+
+#: esurvey/templates/survey_form_sus.html:7
+msgid "System usability"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:86
 #: esurvey/templates/survey_form_updated.html:87
 #: esurvey/templates/survey_form_updated_engagement.html:86
 msgid ""
@@ -765,12 +1923,20 @@ msgstr ""
 "Järgmiste küsimuste korral märkige lihtsalt, kui palju olete nõus avaldus, "
 "alates (1) ei nõustu täielikult (5) olen täiesti nõus."
 
-#: esurvey/templates/survey_form_updated.html:91
-#: esurvey/templates/survey_form_updated_backup23apr21.html:90
-msgid ""
-"  I think that as a group we can learn more than learning as individuals. "
-msgstr "Ma arvan, et grupis töötades õpime rohkem kui individuaalselt."
+#: esurvey/templates/survey_form_sus.html:90
+msgid "  I think that I would like to use this system frequently. "
+msgstr "Ma arvan, et tahaksin seda süsteemi sageli kasutada. "
 
+#: esurvey/templates/survey_form_sus.html:93
+#: esurvey/templates/survey_form_sus.html:120
+#: esurvey/templates/survey_form_sus.html:147
+#: esurvey/templates/survey_form_sus.html:174
+#: esurvey/templates/survey_form_sus.html:201
+#: esurvey/templates/survey_form_sus.html:228
+#: esurvey/templates/survey_form_sus.html:255
+#: esurvey/templates/survey_form_sus.html:282
+#: esurvey/templates/survey_form_sus.html:309
+#: esurvey/templates/survey_form_sus.html:338
 #: esurvey/templates/survey_form_updated.html:94
 #: esurvey/templates/survey_form_updated.html:121
 #: esurvey/templates/survey_form_updated.html:148
@@ -826,6 +1992,16 @@ msgstr "Ma arvan, et grupis töötades õpime rohkem kui individuaalselt."
 msgid "Strongly Disagree"
 msgstr "Ei nõustu üldse"
 
+#: esurvey/templates/survey_form_sus.html:111
+#: esurvey/templates/survey_form_sus.html:138
+#: esurvey/templates/survey_form_sus.html:165
+#: esurvey/templates/survey_form_sus.html:192
+#: esurvey/templates/survey_form_sus.html:219
+#: esurvey/templates/survey_form_sus.html:246
+#: esurvey/templates/survey_form_sus.html:273
+#: esurvey/templates/survey_form_sus.html:300
+#: esurvey/templates/survey_form_sus.html:327
+#: esurvey/templates/survey_form_sus.html:356
 #: esurvey/templates/survey_form_updated.html:112
 #: esurvey/templates/survey_form_updated.html:139
 #: esurvey/templates/survey_form_updated.html:166
@@ -880,6 +2056,247 @@ msgstr "Ei nõustu üldse"
 #: esurvey/templates/survey_form_updated_engagement.html:490
 msgid "Strongly Agree"
 msgstr "Nõustun täielikult"
+
+#: esurvey/templates/survey_form_sus.html:117
+msgid "I found the system unnecessarily complex."
+msgstr "Ma leidsin, et süsteem on asjatult keeruline. "
+
+#: esurvey/templates/survey_form_sus.html:144
+msgid " I thought the system was easy to use."
+msgstr "Ma arvasin, et süsteemi on lihtne kasutada. "
+
+#: esurvey/templates/survey_form_sus.html:171
+msgid ""
+" I think that I would need the support of a technical person to be able to "
+"use this system. "
+msgstr "Ma arvan, et mul oleks selleks vaja tehnilise inimese tuge"
+
+#: esurvey/templates/survey_form_sus.html:198
+msgid "I found the various functions in this system were well integrated.  "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:225
+msgid "I thought there was too much inconsistency in this system."
+msgstr "Ma leidsin, et selle süsteemi erinevad funktsioonid olid hästi integreeritud."
+
+#: esurvey/templates/survey_form_sus.html:252
+msgid ""
+" I would imagine that most people would learn to use this system very "
+"quickly. "
+msgstr "Kujutaksin ette, et enamik inimesi õpiks seda süsteemi väga kiiresti kasutama"
+
+#: esurvey/templates/survey_form_sus.html:279
+msgid "I found the system very cumbersome to use."
+msgstr "Minu arvates oli süsteemi kasutamine väga tülikas."
+
+#: esurvey/templates/survey_form_sus.html:306
+msgid " I felt very confident using the system. "
+msgstr "Tundsin end süsteemi kasutamisel väga enesekindlalt."
+
+#: esurvey/templates/survey_form_sus.html:335
+msgid ""
+"I needed to learn a lot of things before I could get going with this system. "
+msgstr "Mul oli vaja õppida palju asju, enne kui sain selle süsteemiga käima saada."
+
+#: esurvey/templates/survey_form_sus.html:374
+#: esurvey/templates/survey_form_updated.html:1104
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1103
+#: esurvey/templates/survey_form_updated_engagement.html:504
+#: esurvey/templates/survey_form_usability.html:564
+msgid "Strogly disagree"
+msgstr "Ei nõustu üldse"
+
+#: esurvey/templates/survey_form_sus.html:375
+#: esurvey/templates/survey_form_updated.html:1105
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1104
+#: esurvey/templates/survey_form_updated_engagement.html:505
+#: esurvey/templates/survey_form_usability.html:565
+msgid "Disagree"
+msgstr "Ei nõustu"
+
+#: esurvey/templates/survey_form_sus.html:376
+#: esurvey/templates/survey_form_updated.html:1106
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1105
+#: esurvey/templates/survey_form_updated_engagement.html:506
+#: esurvey/templates/survey_form_usability.html:566
+msgid "Neutral"
+msgstr "Ei oska öelda"
+
+#: esurvey/templates/survey_form_sus.html:377
+#: esurvey/templates/survey_form_updated.html:1107
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1106
+#: esurvey/templates/survey_form_updated_engagement.html:507
+#: esurvey/templates/survey_form_usability.html:567
+msgid "Agree"
+msgstr "Nõus"
+
+#: esurvey/templates/survey_form_sus.html:378
+#: esurvey/templates/survey_form_updated.html:1108
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1107
+#: esurvey/templates/survey_form_updated_engagement.html:508
+#: esurvey/templates/survey_form_usability.html:568
+msgid "Strogly agree"
+msgstr "Nõustun täielikult"
+
+#: esurvey/templates/survey_form_sus.html:384
+#: esurvey/templates/survey_form_updated.html:1114
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1113
+#: esurvey/templates/survey_form_updated_engagement.html:514
+#: esurvey/templates/survey_form_usability.html:574
+#, python-format
+msgid ""
+" I believe that there could be negative consequences from using %(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:394
+#: esurvey/templates/survey_form_updated.html:1124
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1123
+#: esurvey/templates/survey_form_updated_engagement.html:524
+#: esurvey/templates/survey_form_usability.html:584
+#, python-format
+msgid "I feel I must be cautious when using  %(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:404
+#: esurvey/templates/survey_form_updated.html:1134
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1133
+#: esurvey/templates/survey_form_updated_engagement.html:534
+#: esurvey/templates/survey_form_usability.html:594
+#, python-format
+msgid " It is risky to use  %(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:414
+#: esurvey/templates/survey_form_updated.html:1144
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1143
+#: esurvey/templates/survey_form_updated_engagement.html:544
+#: esurvey/templates/survey_form_usability.html:604
+#, python-format
+msgid " I believe %(product)s will act in my best interest"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:424
+#: esurvey/templates/survey_form_updated.html:1154
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1153
+#: esurvey/templates/survey_form_updated_engagement.html:554
+#: esurvey/templates/survey_form_usability.html:614
+#, python-format
+msgid "I believe that %(product)s will do its best to help me if I need help "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:433
+#: esurvey/templates/survey_form_updated.html:1163
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1162
+#: esurvey/templates/survey_form_updated_engagement.html:563
+#: esurvey/templates/survey_form_usability.html:623
+#, python-format
+msgid ""
+"I believe that %(product)s is interested in understanding my needs and "
+"preferences "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:442
+#: esurvey/templates/survey_form_updated.html:1172
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1171
+#: esurvey/templates/survey_form_updated_engagement.html:572
+#: esurvey/templates/survey_form_usability.html:632
+#, python-format
+msgid ""
+"%(product)s is competent and effective in providing personal care and  "
+"assistance "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:451
+#: esurvey/templates/survey_form_updated.html:1181
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1180
+#: esurvey/templates/survey_form_updated_engagement.html:581
+#: esurvey/templates/survey_form_usability.html:641
+#, python-format
+msgid ""
+"I believe %(product)s has all the functionalities I would expect from an "
+"intelligent personal assistant"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:460
+#: esurvey/templates/survey_form_updated.html:1190
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1189
+#: esurvey/templates/survey_form_updated_engagement.html:590
+#: esurvey/templates/survey_form_usability.html:650
+#, python-format
+msgid ""
+" %(product)s performs its role as an intelligent personal assistant very "
+"well "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:469
+#: esurvey/templates/survey_form_updated.html:1199
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1198
+#: esurvey/templates/survey_form_updated_engagement.html:599
+#: esurvey/templates/survey_form_usability.html:659
+#, python-format
+msgid ""
+"When sharing something with %(product)s I expect to get back a meaningful  "
+"and knowledgeable response "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:478
+#: esurvey/templates/survey_form_updated.html:1208
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1207
+#: esurvey/templates/survey_form_updated_engagement.html:608
+#: esurvey/templates/survey_form_usability.html:668
+#, python-format
+msgid ""
+"When sharing something with %(product)s I believe that I will get an answer"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:487
+#: esurvey/templates/survey_form_updated.html:1217
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1216
+#: esurvey/templates/survey_form_updated_engagement.html:617
+#: esurvey/templates/survey_form_usability.html:677
+#, python-format
+msgid ""
+"If I use %(product)s I think i would be able to depend on it completely "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:496
+#: esurvey/templates/survey_form_updated.html:1226
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1225
+#: esurvey/templates/survey_form_updated_engagement.html:626
+#: esurvey/templates/survey_form_usability.html:686
+#, python-format
+msgid "I can always rely on %(product)s for personal care and assistance "
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:505
+#: esurvey/templates/survey_form_updated.html:1235
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1234
+#: esurvey/templates/survey_form_updated_engagement.html:635
+#: esurvey/templates/survey_form_usability.html:695
+#, python-format
+msgid "I can trust the information presented to me by %(product)s"
+msgstr ""
+
+#: esurvey/templates/survey_form_sus.html:528
+#: esurvey/templates/survey_form_updated.html:1258
+msgid "Submit & Exit"
+msgstr "Esita ja välju"
+
+#: esurvey/templates/survey_form_sus.html:531
+#: esurvey/templates/survey_form_updated.html:1261
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1262
+#: esurvey/templates/survey_form_updated_backup23apr21.html:1265
+#: esurvey/templates/survey_form_updated_engagement.html:661
+#: esurvey/templates/survey_form_usability.html:723
+#: esurvey/templates/survey_form_usability.html:726
+msgid "Submit"
+msgstr "Esita"
+
+#: esurvey/templates/survey_form_updated.html:91
+#: esurvey/templates/survey_form_updated_backup23apr21.html:90
+msgid ""
+"  I think that as a group we can learn more than learning as individuals. "
+msgstr "Ma arvan, et grupis töötades õpime rohkem kui individuaalselt."
 
 #: esurvey/templates/survey_form_updated.html:118
 #, fuzzy
@@ -1130,175 +2547,6 @@ msgstr ""
 msgid "The participants always discussed my contributions. "
 msgstr "Osalejad arutasid minu panust alati."
 
-#: esurvey/templates/survey_form_updated.html:1104
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1103
-#: esurvey/templates/survey_form_updated_engagement.html:504
-#: esurvey/templates/survey_form_usability.html:564
-msgid "Strogly disagree"
-msgstr "Ei nõustu üldse"
-
-
-
-#: esurvey/templates/survey_form_updated.html:1106
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1105
-#: esurvey/templates/survey_form_updated_engagement.html:506
-#: esurvey/templates/survey_form_usability.html:566
-msgid "Neutral"
-msgstr "Ei oska öelda"
-
-#: esurvey/templates/survey_form_updated.html:1107
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1106
-#: esurvey/templates/survey_form_updated_engagement.html:507
-#: esurvey/templates/survey_form_usability.html:567
-msgid "Agree"
-msgstr "Nõus"
-
-#: esurvey/templates/survey_form_updated.html:1108
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1107
-#: esurvey/templates/survey_form_updated_engagement.html:508
-#: esurvey/templates/survey_form_usability.html:568
-msgid "Strogly agree"
-msgstr "Nõustun täielikult"
-
-#: esurvey/templates/survey_form_updated.html:1114
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1113
-#: esurvey/templates/survey_form_updated_engagement.html:514
-#: esurvey/templates/survey_form_usability.html:574
-#, python-format
-msgid ""
-" I believe that there could be negative consequences from using %(product)s"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1124
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1123
-#: esurvey/templates/survey_form_updated_engagement.html:524
-#: esurvey/templates/survey_form_usability.html:584
-#, python-format
-msgid "I feel I must be cautious when using  %(product)s"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1134
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1133
-#: esurvey/templates/survey_form_updated_engagement.html:534
-#: esurvey/templates/survey_form_usability.html:594
-#, python-format
-msgid " It is risky to use  %(product)s"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1144
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1143
-#: esurvey/templates/survey_form_updated_engagement.html:544
-#: esurvey/templates/survey_form_usability.html:604
-#, python-format
-msgid " I believe %(product)s will act in my best interest"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1154
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1153
-#: esurvey/templates/survey_form_updated_engagement.html:554
-#: esurvey/templates/survey_form_usability.html:614
-#, python-format
-msgid "I believe that %(product)s will do its best to help me if I need help "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1163
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1162
-#: esurvey/templates/survey_form_updated_engagement.html:563
-#: esurvey/templates/survey_form_usability.html:623
-#, python-format
-msgid ""
-"I believe that %(product)s is interested in understanding my needs and "
-"preferences "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1172
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1171
-#: esurvey/templates/survey_form_updated_engagement.html:572
-#: esurvey/templates/survey_form_usability.html:632
-#, python-format
-msgid ""
-"%(product)s is competent and effective in providing personal care and  "
-"assistance "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1181
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1180
-#: esurvey/templates/survey_form_updated_engagement.html:581
-#: esurvey/templates/survey_form_usability.html:641
-#, python-format
-msgid ""
-"I believe %(product)s has all the functionalities I would expect from an "
-"intelligent personal assistant"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1190
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1189
-#: esurvey/templates/survey_form_updated_engagement.html:590
-#: esurvey/templates/survey_form_usability.html:650
-#, python-format
-msgid ""
-" %(product)s performs its role as an intelligent personal assistant very "
-"well "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1199
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1198
-#: esurvey/templates/survey_form_updated_engagement.html:599
-#: esurvey/templates/survey_form_usability.html:659
-#, python-format
-msgid ""
-"When sharing something with %(product)s I expect to get back a meaningful  "
-"and knowledgeable response "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1208
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1207
-#: esurvey/templates/survey_form_updated_engagement.html:608
-#: esurvey/templates/survey_form_usability.html:668
-#, python-format
-msgid ""
-"When sharing something with %(product)s I believe that I will get an answer"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1217
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1216
-#: esurvey/templates/survey_form_updated_engagement.html:617
-#: esurvey/templates/survey_form_usability.html:677
-#, python-format
-msgid ""
-"If I use %(product)s I think i would be able to depend on it completely "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1226
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1225
-#: esurvey/templates/survey_form_updated_engagement.html:626
-#: esurvey/templates/survey_form_usability.html:686
-#, python-format
-msgid "I can always rely on %(product)s for personal care and assistance "
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1235
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1234
-#: esurvey/templates/survey_form_updated_engagement.html:635
-#: esurvey/templates/survey_form_usability.html:695
-#, python-format
-msgid "I can trust the information presented to me by %(product)s"
-msgstr ""
-
-#: esurvey/templates/survey_form_updated.html:1258
-#: esurvey/templates/survey_form_updated_engagement.html:658
-msgid "Submit & Exit"
-msgstr "Esita ja välju"
-
-#: esurvey/templates/survey_form_updated.html:1261
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1262
-#: esurvey/templates/survey_form_updated_backup23apr21.html:1265
-#: esurvey/templates/survey_form_updated_engagement.html:661
-#: esurvey/templates/survey_form_usability.html:723
-#: esurvey/templates/survey_form_usability.html:726
-msgid "Submit"
-msgstr "Esita"
-
 #: esurvey/templates/survey_form_updated_backup23apr21.html:117
 #, fuzzy
 #| msgid ""
@@ -1462,8 +2710,10 @@ msgstr ""
 "Arvan, et minu edu rühmatöös on seotud ka teiste osalejate panusega töösse."
 
 #: esurvey/templates/survey_form_updated_engagement.html:7
-msgid "Self-Reported Questionnaire"
-msgstr "Ise esitatav küsimustik"
+#, fuzzy
+#| msgid "Configuration"
+msgid "Collaboration"
+msgstr "Konfiguratsioon"
 
 #: esurvey/templates/survey_form_updated_engagement.html:90
 msgid "  Sharing information with other group members is easy for me. "
@@ -1621,19 +2871,19 @@ msgid ""
 msgstr ""
 "Kasutan CoTrackV2-d, et olla kursis õpilaste tegevustega koostöös õppimine. "
 
-#: esurvey/views.py:607
+#: esurvey/views.py:715
 msgid "Your responses are saved. Thank you for the submission."
 msgstr "Teie vastused salvestatakse. Täname esitamise eest."
 
-#: templates/base_teacher.html:112
+#: templates/base_teacher.html:122
 msgid "Sessions"
 msgstr "Seansid"
 
-#: templates/base_teacher.html:113
+#: templates/base_teacher.html:126
 msgid "Usability Survey"
 msgstr "Kasutatavuse uuring"
 
-#: templates/base_teacher.html:115
+#: templates/base_teacher.html:128
 msgid "Logout"
 msgstr "Logi välja"
 
@@ -1657,3 +2907,6 @@ msgstr ""
 #: templates/index_soft.html:91
 msgid "Try it now"
 msgstr "Proovige kohe"
+
+#~ msgid "Exit"
+#~ msgstr "Välju"
