@@ -102,8 +102,8 @@
             <i class="fa fa-globe"></i>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbar">
-            <a class="dropdown-item" href="{%url 'change_language' 'en'%}" data-toggle="tooltip">English</a>
-            <a class="dropdown-item" href="{% url 'change_language' 'et'%}" data-toggle="tooltip">Estonian</a>
+            <a class="dropdown-item" href="{%url 'change_language' 'en'%}" data-toggle="tooltip">{% trans 'English' %}</a>
+            <a class="dropdown-item" href="{% url 'change_language' 'et'%}" data-toggle="tooltip">{% trans 'Estonian' %}</a>
           </div>
         </li>
 
@@ -111,12 +111,12 @@
         <ul class="navbar-nav bd-navbar-nav flex-row">
         {% if request.user.is_authenticated  %}
           {% if request.user.role.role == 'teacher'%}
-            <li class='nav-item'><a class='nav-link'  href="{% url 'project_home' %}"> <span style="font-size:12px;color:white;">My sessions</span></a></li>
+            <li class='nav-item'><a class='nav-link'  href="{% url 'project_home' %}"> <span style="font-size:12px;color:white;">{% trans 'My sessions' %}</span></a></li>
           {% endif %}
         {% endif %}
-        <li class='nav-item'><a class='nav-link'  href="{% url 'how' %}"> <span style="font-size:12px;color:white;">Resources</span></a></li>
+        <li class='nav-item'><a class='nav-link'  href="{% url 'how' %}"> <span style="font-size:12px;color:white;">{% trans 'Resources' %}</span></a></li>
 
-        <li class='nav-item'><a class='nav-link'   href="{% url 'about' %}"> <span style="font-size:12px;color:white;">About Us</span></a></li>
+        <li class='nav-item'><a class='nav-link'   href="{% url 'about' %}"> <span style="font-size:12px;color:white;">{% trans 'About Us' %}</span></a></li>
       </ul>
 
 
@@ -131,17 +131,17 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   {% if request.user.role.role == 'student'%}
-                    <a class="dropdown-item" href="{%url 'request_form'%}"><i class="fa fa-check-square-o "></i> Request teacher role</a>
+                    <a class="dropdown-item" href="{%url 'request_form'%}"><i class="fa fa-check-square-o "></i> {% trans 'Request teacher role' %}</a>
                   {% endif %}
                   {% if request.user.is_sfaff %}
-                    <a class="dropdown-item" href="{%url 'request_list'%}"><i class="fa fa-check-square-o "></i> Show requests</a>
+                    <a class="dropdown-item" href="{%url 'request_list'%}"><i class="fa fa-check-square-o "></i> {% trans 'Show requests' %}</a>
                   {% endif %}
-                  <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> Logout</a>
+                  <a class="dropdown-item" href="{%url 'logout'%}"><i class="fa fa-sign-out"></i> {% trans 'Logout' %}</a>
                 </div>
               </li>
             {% else %}
-              <li class='nav-item'><a class='nav-link'  href="{%url 'register'%}"><i class="fa fa-user"></i> <span style="color:white;">Sign-up</span></a></li>
-              <li class='nav-item'><a class='nav-link'  href="{%url 'login'%}"><i class="fa fa-sign-in"></i> <span  style="color:white;">Login</span></a></li>
+              <li class='nav-item'><a class='nav-link'  href="{%url 'register'%}"><i class="fa fa-user"></i> <span style="color:white;">{% trans 'Sign-up' %}</span></a></li>
+              <li class='nav-item'><a class='nav-link'  href="{%url 'login'%}"><i class="fa fa-sign-in"></i> <span  style="color:white;">{% trans 'Login' %}</span></a></li>
             {% endif %}
             <!-- Language code
             {% get_current_language as LANGUAGE_CODE %}
