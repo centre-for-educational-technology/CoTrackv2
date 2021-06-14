@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 14:23+0300\n"
+"POT-Creation-Date: 2021-06-14 14:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: TrustedUX/settings.py:241
+#: TrustedUX/settings.py:241 templates/base_form.html:105
+#: templates/base_teacher.html:94
 msgid "English"
 msgstr ""
 
-#: TrustedUX/settings.py:241
+#: TrustedUX/settings.py:241 templates/base_form.html:106
+#: templates/base_teacher.html:95
 msgid "Estonian"
 msgstr ""
 
@@ -2648,6 +2650,40 @@ msgstr ""
 msgid "Your responses are saved. Thank you for the submission."
 msgstr ""
 
+#: templates/base_form.html:114 templates/base_teacher.html:103
+#, fuzzy
+#| msgid "Sessions"
+msgid "My sessions"
+msgstr "Sessions"
+
+#: templates/base_form.html:117 templates/base_teacher.html:106
+msgid "Resources"
+msgstr ""
+
+#: templates/base_form.html:119 templates/base_teacher.html:108
+msgid "About Us"
+msgstr ""
+
+#: templates/base_form.html:134
+msgid "Request teacher role"
+msgstr ""
+
+#: templates/base_form.html:137 templates/base_teacher.html:124
+msgid "Show requests"
+msgstr ""
+
+#: templates/base_form.html:139 templates/base_teacher.html:128
+msgid "Logout"
+msgstr ""
+
+#: templates/base_form.html:143
+msgid "Sign-up"
+msgstr ""
+
+#: templates/base_form.html:144
+msgid "Login"
+msgstr ""
+
 #: templates/base_teacher.html:122
 #, fuzzy
 #| msgid "Sessions"
@@ -2656,10 +2692,6 @@ msgstr "Sessions"
 
 #: templates/base_teacher.html:126
 msgid "Usability Survey"
-msgstr ""
-
-#: templates/base_teacher.html:128
-msgid "Logout"
 msgstr ""
 
 #: templates/index_soft.html:88

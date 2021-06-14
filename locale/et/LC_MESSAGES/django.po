@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-14 14:23+0300\n"
+"POT-Creation-Date: 2021-06-14 14:37+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: TrustedUX/settings.py:241
+#: TrustedUX/settings.py:241 templates/base_form.html:105
+#: templates/base_teacher.html:94
 msgid "English"
 msgstr "Inglise"
 
-#: TrustedUX/settings.py:241
+#: TrustedUX/settings.py:241 templates/base_form.html:106
+#: templates/base_teacher.html:95
 msgid "Estonian"
 msgstr "Eesti"
 
@@ -2077,13 +2079,15 @@ msgstr ""
 
 #: esurvey/templates/survey_form_sus.html:225
 msgid "I thought there was too much inconsistency in this system."
-msgstr "Ma leidsin, et selle süsteemi erinevad funktsioonid olid hästi integreeritud."
+msgstr ""
+"Ma leidsin, et selle süsteemi erinevad funktsioonid olid hästi integreeritud."
 
 #: esurvey/templates/survey_form_sus.html:252
 msgid ""
 " I would imagine that most people would learn to use this system very "
 "quickly. "
-msgstr "Kujutaksin ette, et enamik inimesi õpiks seda süsteemi väga kiiresti kasutama"
+msgstr ""
+"Kujutaksin ette, et enamik inimesi õpiks seda süsteemi väga kiiresti kasutama"
 
 #: esurvey/templates/survey_form_sus.html:279
 msgid "I found the system very cumbersome to use."
@@ -2096,7 +2100,8 @@ msgstr "Tundsin end süsteemi kasutamisel väga enesekindlalt."
 #: esurvey/templates/survey_form_sus.html:335
 msgid ""
 "I needed to learn a lot of things before I could get going with this system. "
-msgstr "Mul oli vaja õppida palju asju, enne kui sain selle süsteemiga käima saada."
+msgstr ""
+"Mul oli vaja õppida palju asju, enne kui sain selle süsteemiga käima saada."
 
 #: esurvey/templates/survey_form_sus.html:374
 #: esurvey/templates/survey_form_updated.html:1104
@@ -2875,6 +2880,41 @@ msgstr ""
 msgid "Your responses are saved. Thank you for the submission."
 msgstr "Teie vastused salvestatakse. Täname esitamise eest."
 
+#: templates/base_form.html:114 templates/base_teacher.html:103
+#, fuzzy
+#| msgid "New session"
+msgid "My sessions"
+msgstr "Uus seanss"
+
+#: templates/base_form.html:117 templates/base_teacher.html:106
+msgid "Resources"
+msgstr "Ressursid"
+
+#: templates/base_form.html:119 templates/base_teacher.html:108
+msgid "About Us"
+msgstr "Meist"
+
+#: templates/base_form.html:134
+
+msgid "Request teacher role"
+msgstr "Taotle õpetaja rolli "
+
+#: templates/base_form.html:137 templates/base_teacher.html:124
+msgid "Show requests"
+msgstr "Kuva taotlus"
+
+#: templates/base_form.html:139 templates/base_teacher.html:128
+msgid "Logout"
+msgstr "Logi välja"
+
+#: templates/base_form.html:143
+msgid "Sign-up"
+msgstr "Registreeri"
+
+#: templates/base_form.html:144
+msgid "Login"
+msgstr "Logi sisse"
+
 #: templates/base_teacher.html:122
 msgid "Sessions"
 msgstr "Seansid"
@@ -2882,10 +2922,6 @@ msgstr "Seansid"
 #: templates/base_teacher.html:126
 msgid "Usability Survey"
 msgstr "Kasutatavuse uuring"
-
-#: templates/base_teacher.html:128
-msgid "Logout"
-msgstr "Logi välja"
 
 #: templates/index_soft.html:88
 msgid " Track collaboration across digital and physical spaces."
