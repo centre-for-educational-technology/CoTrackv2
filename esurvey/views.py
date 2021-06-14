@@ -920,7 +920,8 @@ def consentView(request):
                 permission = request.POST['permission']
                 Consent.objects.create(session = session, user = request.user)
                 recordLog(session,request.user,'entered','learning_space')
-                return getPad(request,session,token['group'])
+                return redirect('student_anony')
+                #return getPad(request,session,token['group'])
                 #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid,'sessionid':request.session['ethsid'],'protocol':settings.PROTOCOL})
             else:
                 if Consent.objects.filter(session=session).filter(user=request.user).count() > 0:
@@ -928,7 +929,8 @@ def consentView(request):
                         del request.session['joined']
                         return render(request,"session_student_entry_v2.html",{})
                     recordLog(session,request.user,'entered','learning_space')
-                    return getPad(request,session,token['group'])
+                    return redirect('student_anony')
+                    #return getPad(request,session,token['group'])
                     #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid})
                 else:
                     return render(request,'consent.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'user':request.user})
