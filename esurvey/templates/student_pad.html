@@ -147,7 +147,9 @@
             }
           }
         };
-        recognition.start();
+        if (conf_speech) {
+          recognition.start();
+        }
       }
 
       function toLink(href){
