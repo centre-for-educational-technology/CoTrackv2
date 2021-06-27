@@ -283,6 +283,21 @@ def downloadSus(request,session_id):
         for obj in objs:
             writer.writerow([obj.sub_date,obj.submitted_user.id,obj.group,obj.q1,obj.q2,obj.q3,obj.q4,obj.q5,obj.q6,obj.q7,obj.q8,obj.q9,obj.q10])
     return response
+
+def downloadTAM(request):
+    if request.user.is_superuser:
+        # Preparing csv data File#####
+        fname = session.name + '_survey_tam.csv'
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
+        writer = csv.writer(response)
+        writer.writerow(['date','user','q1','q2','q3','q4','q5','q6','q7','q8','q9','q10','q11','q12','q13','q14','q15','q16','q17'])
+        objs = UsabilityQ.objects.all()
+        for obj in objs:
+            writer.writerow([obj.sub_date,obj.submitted_user.id,obj.q1,obj.q2,obj.q3,obj.q4,obj.q5,obj.q6,obj.q7,obj.q8,obj.q9,obj.q10,obj.q11,obj.q12,obj.q13,obj.q14,obj.q15,obj.q16,obj.q17])
+    return response
+
+
 def downloadEngage(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:

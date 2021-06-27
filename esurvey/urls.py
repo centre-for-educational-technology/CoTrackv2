@@ -27,6 +27,7 @@ urlpatterns = [
     path("sessions/speech/<session_id>", login_required(views.downloadSpeech), name="download_speech"),
     path("sessions/sus/<session_id>", login_required(views.downloadSus), name="download_sus"),
     path("sessions/engage/<session_id>", login_required(views.downloadEngage), name="download_engage"),
+    path("sessions/tam/", login_required(views.downloadTAM), name="download_tam"),
     path("sessions/demographics/<session_id>", login_required(views.downloadDemographic), name="download_demographics"),
     path("sessions/padtext/<session_id>/<group_id>", login_required(views.getGroupText), name='group_text'),
     path("sessions/word_cloud/<session_id>/<group_id>", views.getWordCloud, name='group_word_cloud'),
