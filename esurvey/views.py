@@ -1130,7 +1130,7 @@ def getSpeakingStats(request,session_id):
         objs = VAD.objects.bulk_create(VAD_OBJECTS)
     if len(SPEECH_OBJECTS) > 0:
         objs = Speech.objects.bulk_create(SPEECH_OBJECTS)
-        
+
     s = Session.objects.get(id=session_id)
     groups = s.groups
     groups_speaking = []
@@ -1389,7 +1389,7 @@ VAD_LIMIT_WRITE = 10000
 SPEECH_OBJECTS = []
 SPEECH_LIMIT_WRITE =  100
 
-@periodic_task(run_every=crontab(hour=24, minute=0))
+@periodic_task(run_every=crontab(hour=23, minute=0))
 def writeVAD_SPEECH():
     global VAD_OBJECTS
     global SPEECH_OBJECTS
