@@ -52,7 +52,8 @@ import os
 from django.core.files.base import File
 from django.shortcuts import render, redirect
 import requests
-
+from celery.schedules import crontab
+from celery.task import periodic_task
 import jwt
 
 CREATE_FORMS = (
@@ -744,6 +745,7 @@ def usabilityForm(request):
 
 def susForm(request,session,group):
     global VAD_OBJECTS
+    global SPEECH_OBJECTS
     if request.method == "POST":
         q1 = int(request.POST['survey-q1'])
         q2 = int(request.POST['survey-q2'])
@@ -768,6 +770,11 @@ def susForm(request,session,group):
         if len(VAD_OBJECTS) > 0:
             writeVAD(VAD_OBJECTS)
             VAD_OBJECTS = []
+
+        if len(SPEECH_OBJECTS) > 0:
+            writeSpeech(SPEECH_OBJECTS)
+            SPEECH_OBJECTS = []
+
         if session_obj.conf_sus:
             return render(request,"survey_form_sus.html",{'title':'Self-reporetd questionnaire on system usability'})
         else:
@@ -1116,6 +1123,14 @@ def getHelpQueries(request,session_id):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def getSpeakingStats(request,session_id):
+
+    global VAD_OBJECTS
+    global SPEECH_OBJECTS
+    if len(VAD_OBJECTS) > 0:
+        objs = VAD.objects.bulk_create(VAD_OBJECTS)
+    if len(SPEECH_OBJECTS) > 0:
+        objs = Speech.objects.bulk_create(SPEECH_OBJECTS)
+        
     s = Session.objects.get(id=session_id)
     groups = s.groups
     groups_speaking = []
@@ -1369,11 +1384,25 @@ def uploadAudio(request):
         return HttpResponse('Not done')
 
 VAD_OBJECTS = []
-VAD_LIMIT_WRITE = 100
+VAD_LIMIT_WRITE = 10000
+
+SPEECH_OBJECTS = []
+SPEECH_LIMIT_WRITE =  100
+
+@periodic_task(run_every=crontab(hour=24, minute=0))
+def writeVAD_SPEECH():
+    global VAD_OBJECTS
+    global SPEECH_OBJECTS
+    if len(VAD_OBJECTS) > 0:
+        objs = VAD.objects.bulk_create(VAD_OBJECTS)
+    if len(SPEECH_OBJECTS) > 0:
+        objs = Speech.objects.bulk_create(SPEECH_OBJECTS)
 
 def writeVAD(vad_objs):
     objs = VAD.objects.bulk_create(vad_objs)
 
+def writeSpeech(speech_objs):
+    objs = Speech.objects.bulk_create(speech_objs)
 
 def uploadVad(request):
     global VAD_OBJECTS
@@ -1406,6 +1435,8 @@ def uploadVad(request):
         return HttpResponse('Not done')
 
 def uploadSpeech(request):
+    global SPEECH_OBJECTS
+    global SPEECH_LIMIT_WRITE
     if request.method == 'POST':
         form = SpeechForm(request.POST,request.FILES)
         print(form)
@@ -1419,9 +1450,10 @@ def uploadSpeech(request):
 
             strDate = (int)(float(strDate)/1000)
             dt = datetime.datetime.fromtimestamp(strDate)
-
-            speech_object = Speech.objects.create(session=session,user=user,group=group,timestamp=dt,TextField=speech)
-
+            SPEECH_OBJECTS.append(Speech(session=session,user=user,group=group,timestamp=dt,TextField=speech))
+            if len(SPEECH_OBJECTS) > SPEECH_LIMIT_WRITE:
+                writeSpeech(SPEECH_OBJECTS)
+                SPEECH_OBJECTS = []
             return HttpResponse('Done')
         else:
             print('Form not valid')
