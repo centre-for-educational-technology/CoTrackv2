@@ -185,7 +185,33 @@ form .aligned .django-toggle-switch + div.help {
             <div class='row '> <div class='col'>{% trans 'Audio only' %} </div> <div class='col'> {{form.record_audio}}</div></div>
             <div class='row '> <div class='col'>{% trans 'Audio and Video' %}  </div> <div class='col'> {{form.record_audio_video}}</div></div>
           </div>
+        </div> <br/>
+        {% if request.user.is_staff or request.user.role.role == 'researcher' %}
+        <div class="card bg-white">
+          <div class="card-body">
+            <h4 class='card-title'>{% trans 'Tracking configuration' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#track_config"></i></span></h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Voice activity detection' %} </div> <div class='col'> {{form.conf_vad}}</div></div>
+            <div class='row '> <div class='col'>{% trans 'Speech to text' %}  </div> <div class='col'> {{form.conf_speech}}</div></div>
+          </div>
+        </div> <br/>
+
+        <div class="card bg-white">
+          <div class="card-body">
+            <h4 class='card-title'>{% trans 'Questionnaire configuration' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#q_config"></i></span></h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Add engagement questionnaire' %}  </div> <div class='col'> {{form.conf_engage}}</div></div>
+            <div class='row '> <div class='col'>{% trans 'Add system usability questionnaire' %}  </div> <div class='col'> {{form.conf_sus}}</div></div>
+            <div class='row '> <div class='col'>{% trans 'Add demographics questionnaire' %}  </div> <div class='col'> {{form.conf_demo}}</div></div>
+          </div>
+        </div> <br/>
+
+        <div class="card bg-white">
+          <div class="card-body">
+            <h4 class='card-title'>{% trans 'Consent configuration' %} <span><i style='color:#007bff;' class='fa fa-info-circle ml-2'  data-toggle='modal' data-placement='top' data-target="#consent_config"></i></span></h4><br/>
+            <div class='row '> <div class='col'>{% trans 'Ask consent' %}  </div> <div class='col'> {{form.conf_consent}}</div></div>
+            <div class='row '> {% trans 'Consent form' %} <br/>  {{form.consent_content}}</div>
+          </div>
         </div>
+        {% endif %}
 
             <div class="modal fade" id="useEtherpad" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -237,6 +263,63 @@ form .aligned .django-toggle-switch + div.help {
                     So, when the participants join, they will be able to communicate throught audio-video channels.{% endblocktrans%}
                     <br/><br/>
                     {%blocktrans%}If the session is happening in face-to-face settings in that case this feature is not needed, hence, can be disabled for those sessions.{% endblocktrans%}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="track_config" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Tracking configuration' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    {%blocktrans%}This configuration allows researchers to select which features to track while collecting data. <br/>
+                    At the moment, CoTrack has support for tracking voice activity detection (detecting when someone speaks) and speech to text (using Google API).{% endblocktrans%}
+                    <br/><br/>
+                    {%blocktrans%}Speech to text tracking is only supported in Google Chrome browser.{% endblocktrans%}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="q_config" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Questionnaire configuration' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    {%blocktrans%}This configuration allows researchers to add questionnaire to their learning sessions for data collection. <br/>
+                    At the moment, CoTrack has two questionnaire: for collecting engagement and system usability.{% endblocktrans%}
+                    <br/><br/>
+                    {%blocktrans%}{% endblocktrans%}
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="consent_config" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Consent configuration' %}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class='modal-body'>
+                    {%blocktrans%}This configuration allows researchers to add their own consent form to be shown to the participants. <br/>
+                    In case, if the configured learning space doesn't record any data then consent form can be turned off.{% endblocktrans%}
+
                   </div>
 
                 </div>

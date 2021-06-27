@@ -303,7 +303,7 @@ class Session(models.Model):
     name = models.CharField(max_length=100)                     #session title
     groups = models.IntegerField()                              #number of groups
     learning_problem = RichTextUploadingField()
-    language = models.CharField(max_length=2)                #learning problem
+    language = models.CharField(max_length=2)                   #learning problem
     created_at = models.DateTimeField(auto_now_add=True)        #created at date and time
     duration = models.DurationField()                           #duration of the activity
     access_allowed = models.BooleanField(default=True)          #whether the access is open to the students or not
@@ -314,7 +314,16 @@ class Session(models.Model):
     record_audio = models.BooleanField(default=False)           #whether to record audio during activity
     record_audio_video = models.BooleanField(default=False)     #whether to record audio and video both during the activity
     data_recording_session = models.BooleanField(default=False) #whether the session is just for data collection purposes
-    random_group = models.BooleanField(default=False) #whether the session is just for data collection purposes
+    random_group = models.BooleanField(default=False)           #whether the session is just for data collection purposes
+
+    # Tracking configuration variable
+    conf_vad = models.BooleanField(default=False)
+    conf_speech = models.BooleanField(default=False)
+    conf_consent = models.BooleanField(default=False)
+    conf_engage = models.BooleanField(default=False)
+    conf_sus = models.BooleanField(default=False)
+    conf_demo = models.BooleanField(default=False)
+    consent_content = RichTextUploadingField()
 
 class RandomGroup(models.Model):
     session = models.ForeignKey(Session,on_delete=models.CASCADE)

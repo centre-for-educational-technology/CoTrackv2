@@ -611,7 +611,14 @@ def edit(request,session_id):
     form3['useAVchat'] = session.useAVchat
     form3['record_audio'] = session.record_audio
     form3['record_audio_video'] = session.record_audio_video
-
+    form3['random_group'] = session.random_group
+    form3['conf_vad'] = session.conf_vad
+    form3['conf_speech'] = session.conf_speech
+    form3['conf_engage'] = session.conf_engage
+    form3['conf_sus'] = session.conf_sus
+    form3['conf_consent'] = session.conf_consent
+    form3['consent_content'] = session.consent_content
+    form3['conf_demo'] = session.conf_demo
     #form4 data
     form4['allow_access'] = session.access_allowed
     initial = {'activity_info':form1,'task':form2,'config':form3,'overview':form4}
@@ -651,10 +658,19 @@ def AnonyFormView(request):
         AnonyData.objects.create(submitted_user=request.user,session=session,group=token['group'],age=age,gender=gender,nationality=nation,education=edu)
         return getPad(request,session,token['group'])
     else:
-        form = AnonyForm()
-        print(form)
-        return render(request,"form_template.html",{'form':form,'button':'Submit','title':'Demographics (optional)','subtitle':'We request for your demographics data for our research purposes. This step is optional.'})
-
+        if 'joined' in request.session.keys():
+            token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
+            if Session.objects.filter(id=token['session']).count() == 0:
+                messages.error(request,'The cookie is corrupted.')
+                del request.session['joined']
+                return render(request,"session_student_entry_v2.html",{})
+            else:
+                session = Session.objects.get(id=token["session"])
+                if session.conf_demo:
+                    form = AnonyForm()
+                    return render(request,"form_template.html",{'form':form,'button':'Submit','title':'Demographics (optional)','subtitle':'We request for your demographics data for our research purposes. This step is optional.'})
+                else:
+                    return  getPad(request,session,token['group'])
 def roleRequestForm(request):
     if request.method == "POST":
         school = request.POST['school']
@@ -747,10 +763,18 @@ def susForm(request,session,group):
         messages.success(request, _('Your responses are saved. Thank you for the submission.'))
         return redirect('student_entry')
     else:
+
+        session_obj  = Session.objects.get(id=session)
         if len(VAD_OBJECTS) > 0:
             writeVAD(VAD_OBJECTS)
             VAD_OBJECTS = []
-        return render(request,"survey_form_sus.html",{'title':'Self-reporetd questionnaire on system usability'})
+        if session_obj.conf_sus:
+            return render(request,"survey_form_sus.html",{'title':'Self-reporetd questionnaire on system usability'})
+        else:
+            messages.success(request, _('Thank you for your participation.'))
+            if 'joined' in request.session.keys():
+                del request.session['joined']
+            return redirect('student_entry')
 
 
 def engagementForm(request,session,group):
@@ -776,8 +800,11 @@ def engagementForm(request,session,group):
 
         return redirect('sus_form',session,group)
     else:
-        return render(request,"survey_form_updated_engagement.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
-
+        session_obj  = Session.objects.get(id=session)
+        if session_obj.conf_engage:
+            return render(request,"survey_form_updated_engagement.html",{'title':'Self-reporetd questionnaire on collaborative learning'})
+        else:
+            return redirect('sus_form',session,group)
 
 
 
@@ -943,7 +970,10 @@ def consentView(request):
                     #return getPad(request,session,token['group'])
                     #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid})
                 else:
-                    return render(request,'consent.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'user':request.user})
+                    if session.conf_consent:
+                        return render(request,'consent.html',{'session':session,'groups':session.groups,'form':form,'lang':session.language,'user':request.user})
+                    else:
+                        return redirect('student_anony')
     else:
         message.error(request,'Please enter your access pin.')
         return redirect('session_student_entry_v2.html')
@@ -1698,7 +1728,10 @@ class CompleteForm(SessionWizardView):
             for a in learning_problem.find_all('a'):
               a['target'] = '_blank'
 
-            s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],data_recording_session=False,duration=duration)
+            if self.request.user.is_staff or request.user.role.role == 'researcher':
+                s=Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],conf_vad=all_data['conf_vad'],conf_speech=all_data['conf_speech'],conf_engage=all_data['conf_engage'],conf_sus=all_data['conf_sus'],conf_consent=all_data['conf_consent'],consent_content=all_data['consent_content'],conf_demo=all_data['conf_demo'],data_recording_session=False,duration=duration)
+            else:
+                s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],conf_vad=True,conf_speech=False,conf_demo=True,conf_engage=True,conf_sus=True,conf_consent=True,consent_content='default',data_recording_session=False,duration=duration)
 
             if not all_data['random_group']:
                 for grp in range(groups):
@@ -1757,6 +1790,16 @@ class CompleteForm(SessionWizardView):
             session.random_group=all_data['random_group']
             session.data_recording_session=False
             session.duration=duration
+
+            if self.request.user.is_staff or self.request.user.role.role == 'researcher':
+                session.conf_vad = all_data['conf_vad']
+                session.conf_speech = all_data['conf_speech']
+                session.conf_engage = all_data['conf_engage']
+                session.conf_sus = all_data['conf_sus']
+                session.conf_consent = all_data['conf_consent']
+                session.consent_content = all_data['consent_content']
+                session.conf_demo = all_data['conf_demo']
+
             self.updateEtherpad(session,org_groups,updated_groups,org_useEtherpad,updated_useEtherpad)
             self.updatePin(session,org_groups,updated_groups,old_random_group,updated_random_group)
             session.save()

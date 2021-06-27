@@ -87,6 +87,11 @@
         window.onresize = autoResizeDiv;
         autoResizeDiv();
       }
+      $(document).ready(function(){if (!('webkitSpeechRecognition' in window)) {
+        console.log('Resetting page');
+        $("#container").addClass("container min-vh-100");
+        $("#container").html('<h4 class="display-1 text-center mt-5"> Use Google Chrome browser to use full features of CoTrack</h4><br/><p class="text-center"> CoTrack uses some services which are only supported in Google Chrome. Therefore, use Google chrome browser.</p><br/> <p class="text-center mt-5">  <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank" class="btn btn-success">Download Google Chrome</a></p>');
+      }});
   </script>
 
   <nav class="navbar navbar-expand-xl navbar-dark">

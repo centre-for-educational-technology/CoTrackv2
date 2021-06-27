@@ -89,6 +89,40 @@ class CreateForm3(forms.Form):
     record_audio = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
     record_audio_video = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
 
+    conf_vad = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    conf_speech = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    conf_engage = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    conf_sus = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    conf_consent = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+    conf_demo = forms.BooleanField(required=False,widget=DjangoToggleSwitchWidget(klass="django-toggle-switch-dark-primary"))
+
+    default_consent_form = """<h6 >Dear Participant </h6><br/>
+      With your permission, we would like to record audio and video during collaborative activity session so that we can analyze it in detail later on.
+      The recording will be saved in  files- in WEBM format on server.
+      <br/><br/>
+      It should be noticed that:<br/>
+      All kinds of data will be stored securely on Google drive (under a password-protected TLU account), and backed up in a password-protected server at TLU, accessible only to the research team.
+      This data will be stored not longer than 5 years. <br/>
+      The data may be re-used by members of the <a href='http://ceiter.tlu.ee/' target='_blank'>CEITER research team</a>, or in later projects by students of the School of Educational Technologies and School of Educational Sciences.
+      <br/><br/>No personal information about you will be shared or made public, and any information you provide will be anonymized before publication. <br/>
+      At any point, you can request to withdraw your data from the study, or from this storage. <br/>
+      <br/><br/>
+      <b>GDPR art. 13</b> requirements: <br/>
+      Data Protection Officer (at Tallinn University): andmekaitsespetsialist@tlu.ee<br/>
+      <br/>
+      <b>Please read carefully the following points and ask for clarifications in case of doubts:</b><br/><br/>
+
+      <ul>
+        <li>  The collaboration activity is designed to gather information for research purposes and further development of data collection and visualization technologies to understand collaborative learning activities across spaces.</li>
+        <li>  I may withdraw and discontinue my participation at any time.</li>
+        <li> My audio and video will be recorded.</li>
+        <li> The researcher will not identify me by name in any report using information obtained from this dataset, and my confidentiality as a participant in this study will remain secure. </li>
+        <li> Anonymized extracts from the dataset may be used in research publications.  </li>
+        <li> I have the right to ask access, rectification, or erasure of my data (as long as it is possible to pinpoint my identity from that data)</li>
+      </ul>"""
+    consent_content = forms.CharField(label=_('Consent form'),widget=CKEditorUploadingWidget(attrs={'class':'form-control'}),required=False,initial=default_consent_form)
+
+
 class CreateForm4(forms.Form):
     CHOICES=[(True,_('Enable')),(False,_('Disable'))]
     allow_access = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect(attrs={'class': "custom-radio-list"}),initial=True)
