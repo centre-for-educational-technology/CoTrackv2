@@ -287,7 +287,7 @@ def downloadSus(request,session_id):
 def downloadTAM(request):
     if request.user.is_superuser:
         # Preparing csv data File#####
-        fname = session.name + '_survey_tam.csv'
+        fname = 'CoTrack_survey_tam.csv'
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
         writer = csv.writer(response)
