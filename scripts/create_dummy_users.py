@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 def run():
-    for i in range(10):
+    for i in range(50):
         user_name = 'user' + str(i)
         user_email = 'user' + str(i) + '@demo.ee'
         user_pwd = 'abc1234#'
