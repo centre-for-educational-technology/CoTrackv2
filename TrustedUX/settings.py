@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'django_toggle_switch_widget',
-    'django_extensions'
+    'django_extensions',
 
 
     'allauth',   # <--
