@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 def run():
     for i in range(50):
         user_name = 'user' + str(i)
         user_email = 'user' + str(i) + '@demo.ee'
-        user_pwd = 'abc1234#'
+        user_pwd = make_password("abc1234#")
         first_name = user_name
         last_name = 'demo'
         try:
