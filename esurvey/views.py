@@ -371,7 +371,7 @@ def downloadSpeech(request,session_id):
         writer.writerow(['timestamp','user','group','speech'])
         objs = Speech.objects.all().filter(session=session)
         for obj in objs:
-            writer.writerow([obj.timestamp,obj.user.email,obj.group,obj.TextField])
+            writer.writerow([obj.timestamp,v.user.authormap.authorid,obj.group,obj.TextField])
     return response
 
 def downloadChat(request,session_id):
@@ -441,7 +441,7 @@ def downloadVad(request,session_id):
         writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
         vads = VAD.objects.all().filter(session=session)
         for v in vads:
-            writer.writerow([v.timestamp,v.user.email,v.group,(v.activity/1000)])
+            writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
     return response
 
 def downloadMapping(request,session_id):
