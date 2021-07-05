@@ -247,23 +247,6 @@ def error_404(request):
 
 
 
-def downloadFileTimestamp(request,session_id):
-    session = Session.objects.all().filter(id=session_id)
-    if session.count() == 0:
-        messages.error(request,'Specified session id is invalid')
-        return redirect('project_home')
-    else:
-        session = Session.objects.get(id=session_id)
-        # Preparing csv data File#####
-        fname = session.name + '_file_metadata.csv'
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
-        writer = csv.writer(response)
-        writer.writerow(['timestamp','user','group','sequence','filename'])
-        vads = Audiofl.objects.all().filter(session=session)
-        for v in vads:
-            writer.writerow([v.description,v.user.email,v.group,v.sequence,v.fl.name])
-    return response
 
 
 
@@ -336,8 +319,6 @@ def downloadDemographic(request,session_id):
     return response
 
 
-
-
 def downloadVad(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -353,7 +334,7 @@ def downloadVad(request,session_id):
         writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
         vads = VAD.objects.all().filter(session=session)
         for v in vads:
-            writer.writerow([v.timestamp,v.user.email,v.group,(v.activity/1000)])
+            writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
     return response
 
 def downloadSpeech(request,session_id):
@@ -371,7 +352,7 @@ def downloadSpeech(request,session_id):
         writer.writerow(['timestamp','user','group','speech'])
         objs = Speech.objects.all().filter(session=session)
         for obj in objs:
-            writer.writerow([obj.timestamp,v.user.authormap.authorid,obj.group,obj.TextField])
+            writer.writerow([obj.timestamp,obj.user.authormap.authorid,obj.group,obj.TextField])
     return response
 
 def downloadChat(request,session_id):
@@ -408,6 +389,7 @@ def downloadChat(request,session_id):
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
 
+
 def downloadFileTimestamp(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -416,33 +398,17 @@ def downloadFileTimestamp(request,session_id):
     else:
         session = Session.objects.get(id=session_id)
         # Preparing csv data File#####
-        fname = session.name + '_vad.csv'
+        fname = session.name + '_file_metadata.csv'
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
         writer = csv.writer(response)
         writer.writerow(['timestamp','user','group','sequence','filename'])
         vads = Audiofl.objects.all().filter(session=session)
         for v in vads:
-            writer.writerow([v.description,v.user.email,v.group,v.sequence,v.fl.name])
+            writer.writerow([v.description,v.user.authormap.authorid,v.group,v.sequence,v.fl.name])
     return response
 
-def downloadVad(request,session_id):
-    session = Session.objects.all().filter(id=session_id)
-    if session.count() == 0:
-        messages.error(request,'Specified session id is invalid')
-        return redirect('project_home')
-    else:
-        session = Session.objects.get(id=session_id)
-        # Preparing csv data File#####
-        fname = session.name + '_vad.csv'
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
-        writer = csv.writer(response)
-        writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
-        vads = VAD.objects.all().filter(session=session)
-        for v in vads:
-            writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
-    return response
+
 
 def downloadMapping(request,session_id):
     session = Session.objects.all().filter(id=session_id)
