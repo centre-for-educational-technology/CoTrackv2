@@ -437,7 +437,7 @@ def downloadMapping(request,session_id):
                 print(author[0].user.username,author[0].user.email,aid)
                 #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                 #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
-                writer.writerow([author[0].user.username,author[0].user.email,aid])
+                writer.writerow([author[0].user.id,author[0].user.email,aid])
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
 
