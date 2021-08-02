@@ -389,9 +389,9 @@
          function stopRecording(_callback) {
            recorder.stopRecording(stopRecordingCallback);
            console.log('waiting to finish');
-           $('#exit').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving');
+           $('#exit').html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Saving your data. Please be patient as it will take 30 seconds.');
            $('#exit').prop("disabled",true);
-           setTimeout(changeToExit,20000);
+           setTimeout(changeToExit,30000);
          };
 
          function changeToExit(){
