@@ -57,6 +57,8 @@
       var audio_video_chat = {{session_obj.useAVchat | lower}};
       var record_audio ={{session_obj.record_audio | lower}};
       var record_audio_video ={{session_obj.record_audio_video | lower}};
+      var lang = "{{session_obj.language}}";
+
 
       var conf_vad = {{session_obj.conf_vad | lower}};
       var conf_speech = {{session_obj.conf_speech | lower}};
@@ -117,6 +119,9 @@
         recognition = new webkitSpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
+        if (lang == 'Estonian') {
+          recognition.lang = 'et';
+        }
 
         recognition.onstart = function() {
           console.log('Started Speech to Text');
@@ -142,6 +147,8 @@
             if (event.results[i].isFinal) {
               final_transcript += event.results[i][0].transcript;
               uploadSpeech(event.results[i][0].transcript);
+              console.log('S2T:');
+              console.log(final_transcript);
             } else {
               interim_transcript += event.results[i][0].transcript;
             }
