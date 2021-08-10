@@ -1726,7 +1726,7 @@ class CompleteForm(SessionWizardView):
             for a in learning_problem.find_all('a'):
               a['target'] = '_blank'
 
-            if self.request.user.is_staff or request.user.role.role == 'researcher':
+            if self.request.user.is_staff or self.request.user.role.role == 'researcher':
                 s=Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],conf_vad=all_data['conf_vad'],conf_speech=all_data['conf_speech'],conf_engage=all_data['conf_engage'],conf_sus=all_data['conf_sus'],conf_consent=all_data['conf_consent'],consent_content=all_data['consent_content'],conf_demo=all_data['conf_demo'],data_recording_session=False,duration=duration)
             else:
                 s = Session.objects.create(owner=current_user,name=all_data['name'],groups=all_data['groups'],learning_problem=str(learning_problem),language=all_data['language'],access_allowed=all_data['allow_access'],status=True,assessment_score=0,useEtherpad=all_data['useEtherpad'],useAVchat=all_data['useAVchat'],random_group=all_data['random_group'],record_audio=all_data['record_audio'],record_audio_video=all_data['record_audio_video'],conf_vad=True,conf_speech=False,conf_demo=True,conf_engage=True,conf_sus=True,conf_consent=True,consent_content='default',data_recording_session=False,duration=duration)
