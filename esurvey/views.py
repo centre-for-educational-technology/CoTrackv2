@@ -1774,7 +1774,7 @@ class CompleteForm(SessionWizardView):
             updated_random_group = all_data['random_group']
 
             duration = timedelta(hours=all_data['duration_hours'],minutes=all_data['duration_minutes'])
-            session.owner=current_user
+            #session.owner=current_user
             session.name=all_data['name']
             session.groups=all_data['groups']
             learning_problem = BeautifulSoup(all_data['learning_problem'],"html.parser")
@@ -1796,6 +1796,7 @@ class CompleteForm(SessionWizardView):
             session.random_group=all_data['random_group']
             session.data_recording_session=False
             session.duration=duration
+
 
             if self.request.user.is_staff or self.request.user.role.role == 'researcher':
                 session.conf_vad = all_data['conf_vad']
