@@ -1595,21 +1595,29 @@ class CompleteForm(SessionWizardView):
 
     def updatePin(self,s,old_groups,new_groups,old_random,new_random):
         group_diff = new_groups - old_groups
-        if (group_diff > 0):
-            for g in range(group_diff):
-                g =  g +  old_groups + 1
-                while True:
-                    u_pin = uuid.uuid4().hex[:6].upper()
-                    objs = GroupPin.objects.filter(pin = u_pin)
-                    if objs.count() == 0:
-                        break
-                sg = GroupPin.objects.create(session=s,pin=u_pin,group=g)
-        else:
-            group_diff = abs(group_diff)
-            for g in range(group_diff):
-                del_group = g + new_groups + 1
+        if not old_random and not new_random:
+            if (group_diff > 0):
+                for g in range(group_diff):
+                    g =  g +  old_groups + 1
+                    self.generatePin(s,g)
+            else:
+                group_diff = abs(group_diff)
+                for g in range(group_diff):
+                    del_group = g + new_groups + 1
+                    print('Deleting pins for group:',del_group)
+                    GroupPin.objects.filter(session=s,group=del_group).delete()
+        elif not old_random and new_random:
+            for g in range(new_groups):
+                del_group = g + 1
+                print('Deleting pins for group:',del_group)
                 GroupPin.objects.filter(session=s,group=del_group).delete()
-        print('Updated pins')
+            self.generatePin(s,-1)
+        elif old_random and not new_random:
+            GroupPin.objects.filter(session=s,group=-1).delete()
+            for g in range(new_groups):
+                add_group = g  + 1
+                print('Adding pins for group:',add_group)
+                self.generatePin(s,add_group)
 
 
 
