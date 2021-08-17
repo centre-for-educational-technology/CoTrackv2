@@ -1264,7 +1264,7 @@ def getGroupText(request,session_id,group_id):
 
 
 
-
+"""
 def downloadLog(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -1315,7 +1315,7 @@ def downloadLog(request,session_id):
 
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
-
+"""
 
 def uploadAudio(request):
     print('Upload Audio invoked')
