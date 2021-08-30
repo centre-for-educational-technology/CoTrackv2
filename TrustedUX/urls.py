@@ -48,10 +48,7 @@ urlpatterns = i18n_patterns(
     path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),
     path('home/',views.index,name='home'),
-    path('ckeditor/upload/',ck_views.upload,name="ckeditor_upload"),
-    path('ckeditor/browse/',never_cache(ck_views.browse),name="ckeditor_browse"),
-
-    #path('ckeditor/',include('ckeditor_uploader.urls')),
+    path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('',include("esurvey.urls")),
 ) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT
