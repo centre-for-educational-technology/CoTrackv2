@@ -38,6 +38,7 @@ from django.contrib.auth.models import User
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+import random
 
 import uuid
 from datetime import date, timedelta
@@ -1474,6 +1475,12 @@ def getPad(request,session,group_id):
                         group_id = g + 1
                         rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group= group_id)
                         break
+                # Allow participants to join if the number of participants exceeds from 4.
+                if ground_id == -1:
+                    random_group = random.sample(range(total_groups),1)
+                    group_id = random_group[0]
+                    rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group= group_id)
+
 
 
     context_data = {}
