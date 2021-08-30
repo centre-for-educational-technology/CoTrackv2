@@ -24,6 +24,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls import handler404, handler500
+from django.contrib.admin.views.decorators import staff_member_required
+from django.views.decorators.cache import never_cache
+
+from ckeditor_uploader import views as ck_views
 
 #handler404 = sv.error_404
 #handler500 = sv.error_404
@@ -44,9 +48,10 @@ urlpatterns = i18n_patterns(
     path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),
     path('home/',views.index,name='home'),
+    path('ckeditor/upload/',ck_views.upload,name="ckeditor_upload"),
+    path('ckeditor/browse/',never_cache(ck_views.browse),name="ckeditor_browse"),
 
-
-    path('ckeditor/',include('ckeditor_uploader.urls')),
+    #path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('',include("esurvey.urls")),
 ) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT
