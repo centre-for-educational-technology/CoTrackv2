@@ -141,6 +141,19 @@
           recognition.start();
         };
 
+        recognition.onspeechstart = function() {
+          console.log('Speech Start Event fired');
+        };
+        recognition.onspeechend = function() {
+          console.log('Speech End Event fired');
+        };
+        recognition.onsoundstart = function() {
+          console.log('Audio Start Event fired');
+        };
+        recognition.onsoundend = function() {
+          console.log('Audio End Event fired');
+        };
+
         recognition.onresult = function(event) {
           var interim_transcript = '';
           for (var i = event.resultIndex; i < event.results.length; ++i) {
@@ -148,7 +161,7 @@
               //final_transcript += event.results[i][0].transcript;
               uploadSpeech(event.results[i][0].transcript);
               console.log('S2T:');
-              console.log(final_transcript);
+              //console.log(event.results[i][0].transcript);
             } else {
               interim_transcript += event.results[i][0].transcript;
             }
@@ -278,7 +291,7 @@
            var speak_time = new Date() - voice_start_time;
 
            console.log('voice_stop');
-           console.log('sending',speak_time);
+           console.log('Duration:',speak_time);
 
            var fd = new FormData();
            fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
@@ -318,7 +331,7 @@
         xhr.open('POST', '/speech_upload/', true);
         xhr.send(fd);
 
-        console.log(' ===> Speech data sent');
+        console.log(' ===> Speech data sent:',text);
       }
 
       function captureMicrophone(callback) {
