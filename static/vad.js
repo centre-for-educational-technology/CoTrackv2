@@ -13,7 +13,7 @@
       energy_threshold_ratio_neg: 0.5, // Signal must be half the offset
       energy_integration: 1, // Size of integration change compared to the signal per second.
       filter: [
-        {f: 600, v:0}, // 0 -> 200 is 0
+        {f: 900, v:0}, // 0 -> 200 is 0
         {f: 2000, v:1} // 200 -> 2k is 1
       ],
       source: null,
