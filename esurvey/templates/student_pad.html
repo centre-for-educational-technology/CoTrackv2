@@ -73,6 +73,10 @@
       window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
 
 
+      // variable for voice activity detection
+      let voice_start_timestamp;
+      let voice_activity_duration;
+
       function loadFrame() {
         var iframe = document.getElementById("jitsi");
         if ({{session_obj.useAVchat | lower}}) {
@@ -160,7 +164,6 @@
             if (event.results[i].isFinal) {
               //final_transcript += event.results[i][0].transcript;
               uploadSpeech(event.results[i][0].transcript);
-              console.log('S2T:');
               //console.log(event.results[i][0].transcript);
             } else {
               interim_transcript += event.results[i][0].transcript;
@@ -289,27 +292,12 @@
          source: source,
          voice_stop: function() {
            var speak_time = new Date() - voice_start_time;
-
-           console.log('voice_stop');
-           console.log('Duration:',speak_time);
-
-           var fd = new FormData();
-           fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-           fd.append('session',{{session.id}});
-           fd.append('user',{{request.user.id}});
-           fd.append('group',{{group}});
-           fd.append('strDate',ServerDate.now());
-           fd.append('activity',speak_time);
-           var xhr = new XMLHttpRequest();
-
-           xhr.open('POST', '/vad_upload/', true);
-           xhr.send(fd);
-           console.log(' ===> Sent: voice_stop');
-           console.log(ServerDate.now(),ServerDate(),new Date(ServerDate.now()));
+           voice_activity_duration = speak_time;
          },
          voice_start: function() {
            voice_start_time = new Date();
-           console.log('voice_start');
+           voice_start_timestamp = new ServerDate.now();
+
          }
         };
 
@@ -319,6 +307,20 @@
 
       function uploadSpeech(text)
       {
+        var fd = new FormData();
+        fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+        fd.append('session',{{session.id}});
+        fd.append('user',{{request.user.id}});
+        fd.append('group',{{group}});
+        fd.append('strDate',voice_start_timestamp);
+        fd.append('activity',voice_activity_duration);
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/vad_upload/', true);
+        xhr.send(fd);
+
+        console.log('Sending VAD data, duration:',voice_activity_duration);
+
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
