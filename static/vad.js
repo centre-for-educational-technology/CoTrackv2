@@ -4,16 +4,16 @@
     // Default options
     this.options = {
       fftSize: 512,
-      bufferLen: 512, 
+      bufferLen: 512,
       voice_stop: function() {},
       voice_start: function() {},
-      smoothingTimeConstant: 0.99, 
+      smoothingTimeConstant: 0.99,
       energy_offset: 1e-8, // The initial offset.
       energy_threshold_ratio_pos: 2, // Signal must be twice the offset
       energy_threshold_ratio_neg: 0.5, // Signal must be half the offset
       energy_integration: 1, // Size of integration change compared to the signal per second.
       filter: [
-        {f: 200, v:0}, // 0 -> 200 is 0
+        {f: 600, v:0}, // 0 -> 200 is 0
         {f: 2000, v:1} // 200 -> 2k is 1
       ],
       source: null,
@@ -77,7 +77,7 @@
     this.voiceTrendStart = 5;
     this.voiceTrendEnd = -5;
 
-    // Create analyser 
+    // Create analyser
     this.analyser = this.options.context.createAnalyser();
     this.analyser.smoothingTimeConstant = this.options.smoothingTimeConstant; // 0.99;
     this.analyser.fftSize = this.options.fftSize;
@@ -88,7 +88,7 @@
     this.floatFrequencyDataLinear = new Float32Array(this.floatFrequencyData.length);
 
     // Connect this.analyser
-    this.options.source.connect(this.analyser); 
+    this.options.source.connect(this.analyser);
 
     // Create ScriptProcessorNode
     this.scriptProcessorNode = this.options.context.createScriptProcessor(this.options.bufferLen, 1, 1);
