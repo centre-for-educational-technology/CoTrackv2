@@ -74,8 +74,8 @@
 
 
       // variable for voice activity detection
-      let voice_start_timestamp;
-      let voice_activity_duration;
+      var voice_start_timestamp;
+      var voice_activity_duration;
 
       function loadFrame() {
         var iframe = document.getElementById("jitsi");
@@ -319,6 +319,7 @@
         xhr.open('POST', '/vad_upload/', true);
         xhr.send(fd);
 
+        console.log('VAD start time:',voice_start_timestamp);
         console.log('Sending VAD data, duration:',voice_activity_duration);
 
         var fd = new FormData();
