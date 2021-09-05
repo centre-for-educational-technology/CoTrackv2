@@ -51,6 +51,7 @@ urlpatterns = i18n_patterns(
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('djrichtextfield/', include('djrichtextfield.urls')),
     path('',include("esurvey.urls")),
+    path('posedemo/',sv.poseDemo,name="pose_demo"),
 ) + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT
 ) + [
     path('accounts/', include('allauth.urls')),
