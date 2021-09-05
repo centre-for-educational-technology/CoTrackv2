@@ -1517,6 +1517,8 @@ def getPad(request,session,group_id):
         context_data['sessionid'] = eth_session
 
     return render(request,'student_pad.html',context_data)
+def poseDemo(request):
+    return render(request,'pose_demo.html',{})
 
 
 def activateSession(request,session_id):
