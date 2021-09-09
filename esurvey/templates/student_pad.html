@@ -261,7 +261,8 @@
           notifyRecording();
         }
         if (conf_vad) {
-          startVAD(audio_stream);
+
+          startVAD(new MediaStream(audio_stream));
         }
 
         if (typeof recognition != 'undefined') {
