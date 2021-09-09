@@ -1029,7 +1029,7 @@ def updateWeight(edge_list, edge):
 
 def getEdgeWidth(edge_weight, total_weight):
     percentage = int(edge_weight/total_weight)
-    if percentange >= 90:
+    if percentage >= 90:
         return 30
     elif percentage >= 80:
         return 25
@@ -1072,7 +1072,7 @@ def generateElements(user_sequence,speaking_data):
                     edge_list = updateWeight(edge_list,(node1,node2))
 
                 else:
-                    
+
                     edge_list.append((node1,node2,5))
             node1=node2
     ele_nodes=[]
