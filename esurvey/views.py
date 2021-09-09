@@ -1030,17 +1030,17 @@ def updateWeight(edge_list, edge):
 def getEdgeWidth(edge_weight, total_weight):
     percentage = int(edge_weight * 100/total_weight)
     if percentage >= 90:
-        return 30
+        return 24
     elif percentage >= 80:
-        return 27
-    elif percentage >= 70:
         return 22
-    elif percentage >= 60:
+    elif percentage >= 70:
         return 19
+    elif percentage >= 60:
+        return 15
     elif percentage >= 50:
-        return 16
+        return 13
     elif percentage >= 40:
-        return 14
+        return 10
     elif percentage >= 20:
         return 8
     else:
