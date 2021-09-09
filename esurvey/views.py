@@ -1013,8 +1013,8 @@ def edgeExist(edge_list,edge):
     for e in edge_list:
         if e[0] == edge[0] and e[1] == edge[1]:
             return True
-        if e[0] == edge[1] and e[1] == edge[0]:
-            return True
+        #if e[0] == edge[1] and e[1] == edge[0]:
+        #    return True
     return False
 
 def updateWeight(edge_list, edge):
