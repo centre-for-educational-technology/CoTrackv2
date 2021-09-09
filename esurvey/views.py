@@ -1066,12 +1066,13 @@ def generateElements(user_sequence,speaking_data):
             # Set the current element to node2
             node2=user_sequence[i]
             if node1 != node2:
+                total_weight = total_weight +  1
                 # Append the edge node1, node2 to the edge list
                 if edgeExist(edge_list,(node1,node2)):
                     edge_list = updateWeight(edge_list,(node1,node2))
-                    total_weight +=  1
+
                 else:
-                    total_weight +=  5
+                    
                     edge_list.append((node1,node2,5))
             node1=node2
     ele_nodes=[]
