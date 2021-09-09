@@ -224,10 +224,9 @@
             selector: 'node',
             css: {
                   'content': 'data(name)',
-                  'text-valign': 'center',
+                  'text-valign': 'bottom',
                   'color': 'white',
-                  'text-outline-width': 2,
-                  'text-outline-color': '#888'
+
             }
           },
   				{
@@ -342,7 +341,7 @@ async function main() {
   console.log(revs);
   console.log(groups);
 }
-setInterval(main,120000,myChart); // run every 5 minutes
+setInterval(main,5000,myChart); // run every 5 minutes
 setInterval(queries,5000,myChart); // run every 5 seconds
 </script>
 {% endblock %}
