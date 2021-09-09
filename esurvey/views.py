@@ -1021,7 +1021,7 @@ def updateWeight(edge_list, edge):
     updated = list()
     for i,e in enumerate(edge_list):
         if edgeExist(updated,e):
-            w = edge_list[i][2] + .001
+            w = edge_list[i][2] + 1
             updated.append((e[0],e[1],w))
         else:
             updated.append(e)
@@ -1032,6 +1032,8 @@ def generateElements(user_sequence,speaking_data):
     total_speaking = sum(speaking_data)
     #### create edge list_files
     edge_list = list()
+
+    total_weight = 0
     # Create two variable node1 and node2 and set them to zero.
     node1=node2=0
     # Iterate over resultant users sequences
@@ -1048,11 +1050,14 @@ def generateElements(user_sequence,speaking_data):
                 # Append the edge node1, node2 to the edge list
                 if edgeExist(edge_list,(node1,node2)):
                     edge_list = updateWeight(edge_list,(node1,node2))
+                    total_weight +=  1
                 else:
+                    total_weight +=  5
                     edge_list.append((node1,node2,5))
             node1=node2
     ele_nodes=[]
     total_edges = len(edge_list)
+
     for n in set(user_sequence):
         user_obj = User.objects.get(pk = n)
         #speak_ratio = 200*sp_time[n]/total_sp
@@ -1061,7 +1066,8 @@ def generateElements(user_sequence,speaking_data):
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
-        t = {'source':e[0],'to':e[1],'weight':e[2]}
+        edge_width = 10 + 10 * (e[2]/total_weight)
+        t = {'source':e[0],'to':e[1],'weight':edge_width}
         ele_edges.append(t)
     elements = {'nodes':ele_nodes,'edges':ele_edges}
     return elements
