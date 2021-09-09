@@ -1020,7 +1020,7 @@ def edgeExist(edge_list,edge):
 def updateWeight(edge_list, edge):
     updated = list()
     for i,e in enumerate(edge_list):
-        if edgeExist(updated,e):
+        if edgeExist([edge],e):
             w = edge_list[i][2] + 1
             updated.append((e[0],e[1],w))
         else:
