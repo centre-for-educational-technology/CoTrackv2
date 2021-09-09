@@ -1040,11 +1040,17 @@ def getEdgeWidth(edge_weight, total_weight):
     elif percentage >= 50:
         return 13
     elif percentage >= 40:
+        return 11
+    elif percentage >= 30:
         return 10
     elif percentage >= 20:
         return 8
-    else:
+    elif percentage >= 10:
         return 5
+    elif percentage >= 6:
+        return 4
+    else:
+        return 3
 
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
