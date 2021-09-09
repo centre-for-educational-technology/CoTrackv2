@@ -1029,9 +1029,6 @@ def updateWeight(edge_list, edge):
 
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
-    max_node_size = 40
-    min_node_size = 10
-    size_difference = max_node_size - min_node_size
     total_speaking = sum(speaking_data)
     #### create edge list_files
     edge_list = list()
@@ -1059,7 +1056,7 @@ def generateElements(user_sequence,speaking_data):
     for n in set(user_sequence):
         user_obj = User.objects.get(pk = n)
         #speak_ratio = 200*sp_time[n]/total_sp
-        node_width = min_node_size + size_difference * speaking_data[n]/total_speaking
+        node_width = 10 + (20 * speaking_data[n]/total_speaking)
         t = {'id':n,'name':user_obj.first_name,'size':node_width }
         ele_nodes.append(t)
     ele_edges = []
