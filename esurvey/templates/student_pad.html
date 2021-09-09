@@ -246,7 +246,7 @@
 
         if (typeof recognition != 'undefined') {
           //Speech to text if configured
-          if (conf_speech) {
+          if (conf_vad) {
            recognition.start();
          }
         }
@@ -265,14 +265,14 @@
         }
 
         if (typeof recognition != 'undefined') {
-          if (conf_speech) {
+          if (conf_vad) {
            recognition.start();
          }
         }
       }
 
       if (typeof audio_stream == 'undefined' && record_audio){
-        console.log('Chat is disablbed and capturing media for audio');
+        console.log('Chat is disabled and capturing media for audio');
         navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
         navigator.getUserMedia({audio: true}, getAudioStream, function(e) {
                 console.log("No live audio input in this browser: " + e);
@@ -322,19 +322,21 @@
         console.log('VAD start time:',voice_start_timestamp);
         console.log('Sending VAD data, duration:',voice_activity_duration);
 
-        var fd = new FormData();
-        fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
-        fd.append('session',{{session.id}});
-        fd.append('user',{{request.user.id}});
-        fd.append('group',{{group}});
-        fd.append('strDate',ServerDate.now());
-        fd.append('TextField',text);
+          if (conf_speech)
+          {
+            var fd = new FormData();
+            fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+            fd.append('session',{{session.id}});
+            fd.append('user',{{request.user.id}});
+            fd.append('group',{{group}});
+            fd.append('strDate',ServerDate.now());
+            fd.append('TextField',text);
 
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/speech_upload/', true);
-        xhr.send(fd);
-
-        console.log(' ===> Speech data sent:',text);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/speech_upload/', true);
+            xhr.send(fd);
+            console.log(' ===> Speech data sent:',text);
+          }
       }
 
       function captureMicrophone(callback) {
