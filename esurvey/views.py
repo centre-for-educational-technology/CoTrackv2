@@ -1032,15 +1032,15 @@ def getEdgeWidth(edge_weight, total_weight):
     if percentage >= 90:
         return 30
     elif percentage >= 80:
-        return 25
+        return 27
     elif percentage >= 70:
-        return 20
+        return 22
     elif percentage >= 60:
-        return 17
+        return 19
     elif percentage >= 50:
-        return 14
+        return 16
     elif percentage >= 40:
-        return 10
+        return 14
     elif percentage >= 20:
         return 8
     else:
