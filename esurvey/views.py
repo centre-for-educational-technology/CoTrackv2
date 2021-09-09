@@ -1027,6 +1027,25 @@ def updateWeight(edge_list, edge):
             updated.append(e)
     return updated
 
+def getEdgeWidth(edge_weight, total_weight):
+    percentage = int(edge_weight/total_weight)
+    if percentange >= 90:
+        return 30
+    elif percentage >= 80:
+        return 25
+    elif percentage >= 70:
+        return 20
+    elif percentage >= 60:
+        return 17
+    elif percentage >= 50:
+        return 14
+    elif percentage >= 40:
+        return 10
+    elif percentage >= 20:
+        return 8
+    else:
+        return 5
+
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
     total_speaking = sum(speaking_data)
@@ -1066,7 +1085,7 @@ def generateElements(user_sequence,speaking_data):
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
-        edge_width = 10 + 10 * (e[2]/total_weight)
+        edge_width = getEdgeWidth(e[2],total_weight)
         t = {'source':e[0],'to':e[1],'weight':edge_width}
         ele_edges.append(t)
     elements = {'nodes':ele_nodes,'edges':ele_edges}
