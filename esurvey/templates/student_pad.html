@@ -293,10 +293,12 @@
          voice_stop: function() {
            var speak_time = new Date() - voice_start_time;
            voice_activity_duration = speak_time;
+           console.log('Voice Stop');
          },
          voice_start: function() {
            voice_start_time = new Date();
            voice_start_timestamp = ServerDate.now();
+           console.log('Voice start');
 
          }
         };
