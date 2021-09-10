@@ -1049,8 +1049,10 @@ def getEdgeWidth(edge_weight, total_weight):
         return 5
     elif percentage >= 6:
         return 4
-    else:
+    elif percentage >= 4:
         return 3
+    else:
+        return 1
 
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
@@ -1091,7 +1093,7 @@ def generateElements(user_sequence,speaking_data):
         user_obj = User.objects.get(pk = n)
         #speak_ratio = 200*sp_time[n]/total_sp
         ratio = float(speaking_data[n]/total_speaking)
-        node_width = 10 + 60 * ratio
+        node_width = 10 + 100 * ratio
 
         t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':ratio}
         ele_nodes.append(t)
