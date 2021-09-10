@@ -1091,8 +1091,8 @@ def generateElements(user_sequence,speaking_data):
         user_obj = User.objects.get(pk = n)
         #speak_ratio = 200*sp_time[n]/total_sp
         node_width = 10 + (60 * (speaking_data[n]-avg_speaking)/total_speaking)
-        node_width2 = float(speaking_data[n]/total_speaking)*60
-        t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':node_width2 }
+        node_width2 = float(speaking_data[n]/total_speaking)
+        t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':node_width2,'speak':speaking_data[n] }
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
