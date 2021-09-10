@@ -1056,6 +1056,8 @@ def getEdgeWidth(edge_weight, total_weight):
 def generateElements(user_sequence,speaking_data):
     total_speaking = sum(speaking_data)
     avg_speaking = total_speaking/len(speaking_data)
+
+    per_speaking = [float(i)/total_speaking for i in speaking_data]
     #### create edge list_files
     edge_list = list()
 
@@ -1089,7 +1091,8 @@ def generateElements(user_sequence,speaking_data):
         user_obj = User.objects.get(pk = n)
         #speak_ratio = 200*sp_time[n]/total_sp
         node_width = 10 + (60 * (speaking_data[n]-avg_speaking)/total_speaking)
-        t = {'id':n,'name':user_obj.first_name,'size':node_width }
+        node_width2 = float(speaking_data[n]/total_speaking)*60
+        t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':node_width2 }
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
@@ -1153,7 +1156,7 @@ def getSpeakingStats(request,session_id):
             user_obj = User.objects.get(pk = user)
             speak_data['id'] = user
             speak_data['name'] = user_obj.first_name if user_obj.first_name else user_obj.username
-            speak_data['speaking'] = user_vads['activity__sum']
+            speak_data['speaking'] = user_vads['activity__sum'] * .001
             speaking_data[user] = user_vads['activity__sum'] * .001
             data.append(speak_data)
 
