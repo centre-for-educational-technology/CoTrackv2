@@ -1055,7 +1055,7 @@ def getEdgeWidth(edge_weight, total_weight):
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data):
     total_speaking = sum(speaking_data)
-    avg_speaking = total_speaking/len(total_speaking)
+    avg_speaking = total_speaking/len(speaking_data)
     #### create edge list_files
     edge_list = list()
 
