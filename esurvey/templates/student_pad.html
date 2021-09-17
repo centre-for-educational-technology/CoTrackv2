@@ -319,8 +319,8 @@
         fd.append('session',{{session.id}});
         fd.append('user',{{request.user.id}});
         fd.append('group',{{group}});
-        fd.append('strDate',voice_start_timestamp);
-        fd.append('activity',voice_activity_duration);
+        fd.append('strDate',vad.options.voice_start_time);
+        fd.append('activity',vad.options.voice_activity_duration);
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '/vad_upload/', true);
