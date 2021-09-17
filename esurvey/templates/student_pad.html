@@ -323,8 +323,8 @@
         xhr.open('POST', '/vad_upload/', true);
         xhr.send(fd);
         console.log(voice_data);
-        console.log('VAD start time:',voice_start_time);
-        console.log('Sending VAD data, duration:',voice_activity_duration);
+        console.log('VAD start time:',voice_data.voice_start_time);
+        console.log('Sending VAD data, duration:',voice_data.voice_activity_duration);
 
           if (conf_speech)
           {
