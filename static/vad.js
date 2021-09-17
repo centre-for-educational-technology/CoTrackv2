@@ -13,12 +13,11 @@
       energy_threshold_ratio_neg: 0.5, // Signal must be half the offset
       energy_integration: 1, // Size of integration change compared to the signal per second.
       filter: [
-        {f: 300, v:0}, // 0 -> 300 is 0
+        {f: 200, v:0}, // 0 -> 200 is 0
         {f: 2000, v:1} // 200 -> 2k is 1
       ],
       source: null,
-      context: null,
-
+      context: null
     };
 
     // User options
@@ -200,12 +199,10 @@
       if(start && !this.vadState) {
         this.vadState = true;
         this.options.voice_start();
-
       }
       if(end && this.vadState) {
         this.vadState = false;
         this.options.voice_stop();
-
       }
 
       this.log(
