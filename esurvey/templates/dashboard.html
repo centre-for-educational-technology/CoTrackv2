@@ -60,10 +60,10 @@
             <b class='text-muted'>{% trans 'Language:' %} </b>{{ session.language }} <br/>
             <b class='text-muted'>{% trans 'Duration:' %} </b>{{ session.duration }} <br/>
             <b class='text-muted'>{% trans 'Created:' %} </b>{{ session.created_at }} <br/>
-            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Etherpad:' %}</b> {% if all_data.useEtherpad %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
-            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Audio & Video chat:' %}</b> {% if all_data.useAVchat %}{% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
-            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record audio:' %}</b> {% if all_data.record_audio or all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
-            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record video:' %}</b> {% if all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Etherpad:' %}</b> {% if session.useEtherpad %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Audio & Video chat:' %}</b> {% if session.useAVchat %}{% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record audio:' %}</b> {% if session.record_audio or all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+            <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record video:' %}</b> {% if session.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
             <b></b> <a href="{% url 'session_page' session.id %}" target='_blank'>{% trans 'Activity monitoring' %}</a>
           </p>
         </div>
