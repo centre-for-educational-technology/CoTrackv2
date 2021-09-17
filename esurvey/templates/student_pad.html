@@ -74,8 +74,10 @@
 
 
       // variable for voice activity detection
-      var voice_start_timestamp;
+      var voice_start_times;
       var voice_activity_duration;
+      var vad;
+
 
       function loadFrame() {
         var iframe = document.getElementById("jitsi");
@@ -292,20 +294,22 @@
         var options = {
          source: source,
          voice_stop: function() {
-           var speak_time = new Date() - voice_start_time;
-           voice_activity_duration = speak_time;
+           //var speak_time = new Date() - voice_start_time;
+           //voice_activity_duration = speak_time;
            console.log('Voice Stop');
+           return ServerDate.now();
          },
          voice_start: function() {
-           voice_start_time = new Date();
-           voice_start_timestamp = ServerDate.now();
+           //voice_start_time = new Date();
+           //voice_start_timestamp = ServerDate.now();
            console.log('Voice start');
+           return ServerDate.now();
 
          }
         };
 
         // Create VAD
-        var vad = new VAD(options);
+        vad = new VAD(options);
       }
 
       function uploadSpeech(text)
@@ -322,8 +326,8 @@
         xhr.open('POST', '/vad_upload/', true);
         xhr.send(fd);
 
-        console.log('VAD start time:',voice_start_timestamp);
-        console.log('Sending VAD data, duration:',voice_activity_duration);
+        console.log('VAD start time:',vad.options.voice_start_time);
+        console.log('Sending VAD data, duration:',vad.options.voice_activity_duration);
 
           if (conf_speech)
           {
