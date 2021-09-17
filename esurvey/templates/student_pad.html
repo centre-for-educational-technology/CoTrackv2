@@ -74,10 +74,8 @@
 
 
       // variable for voice activity detection
-      var voice_start_times;
-      var voice_activity_duration;
-      //var vad;
-
+      //var voice_start_timestamp;
+      //  var voice_activity_duration;
 
       function loadFrame() {
         var iframe = document.getElementById("jitsi");
@@ -289,46 +287,43 @@
         console.log('Running VAD');
         // Create MediaStreamAudioSourceNode
         var source = audioContext.createMediaStreamSource(stream);
-        var voice_start_time = 0;
+
         // Setup options
         var options = {
          source: source,
          voice_stop: function() {
-           //var speak_time = new Date() - voice_start_time;
-           //voice_activity_duration = speak_time;
+           var speak_time = new Date() - voice_start_time;
+           voice_activity_duration = speak_time;
            console.log('Voice Stop');
-           return ServerDate.now();
          },
          voice_start: function() {
-           //voice_start_time = new Date();
-           //voice_start_timestamp = ServerDate.now();
+           voice_start_time = new Date();
+           voice_start_timestamp = ServerDate.now();
            console.log('Voice start');
-           return ServerDate.now();
 
          }
         };
 
         // Create VAD
-        vad = new VAD(options);
+        var vad = new VAD(options);
       }
 
       function uploadSpeech(text)
       {
-        console.log(vad);
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
         fd.append('user',{{request.user.id}});
         fd.append('group',{{group}});
-        fd.append('strDate',vad.voice_start_time);
-        fd.append('activity',vad.voice_activity_duration);
+        fd.append('strDate',voice_start_time);
+        fd.append('activity',voice_activity_duration);
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '/vad_upload/', true);
         xhr.send(fd);
 
-        console.log('VAD start time:',vad.voice_start_time);
-        console.log('Sending VAD data, duration:',vad.voice_activity_duration);
+        console.log('VAD start time:',voice_start_time);
+        console.log('Sending VAD data, duration:',voice_activity_duration);
 
           if (conf_speech)
           {

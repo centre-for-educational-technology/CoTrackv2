@@ -21,8 +21,6 @@
 
     };
 
-    this.voice_start_time = null;
-    this.voice_activity_duration = null;
     // User options
     for(var option in options) {
       if(options.hasOwnProperty(option)) {
@@ -201,13 +199,13 @@
       // Broadcast the messages
       if(start && !this.vadState) {
         this.vadState = true;
-        this.voice_start_time = this.options.voice_start();
+        this.options.voice_start();
 
       }
       if(end && this.vadState) {
         this.vadState = false;
-        temp = this.options.voice_stop();
-        this.voice_activity_duration = temp - this.voice_start_time;
+        this.options.voice_stop();
+
       }
 
       this.log(
