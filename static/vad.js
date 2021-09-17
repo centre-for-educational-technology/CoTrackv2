@@ -18,10 +18,11 @@
       ],
       source: null,
       context: null,
-      voice_start_time:null,
-      voice_activity_duration:null
+
     };
 
+    this.voice_start_time = null;
+    this.voice_activity_duration = null;
     // User options
     for(var option in options) {
       if(options.hasOwnProperty(option)) {
@@ -200,12 +201,13 @@
       // Broadcast the messages
       if(start && !this.vadState) {
         this.vadState = true;
-        this.options.voice_start_time = this.options.voice_start();
+        this.voice_start_time = this.options.voice_start();
 
       }
       if(end && this.vadState) {
         this.vadState = false;
-        this.options.voice_activity_duration = this.options.voice_stop() - this.options.voice_start_time;
+        temp = this.options.voice_stop();
+        this.voice_activity_duration = temp - this.voice_start_time;
       }
 
       this.log(

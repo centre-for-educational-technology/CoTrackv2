@@ -76,7 +76,7 @@
       // variable for voice activity detection
       var voice_start_times;
       var voice_activity_duration;
-      var vad;
+      //var vad;
 
 
       function loadFrame() {
@@ -314,20 +314,21 @@
 
       function uploadSpeech(text)
       {
+        console.log(vad);
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
         fd.append('user',{{request.user.id}});
         fd.append('group',{{group}});
-        fd.append('strDate',vad.options.voice_start_time);
-        fd.append('activity',vad.options.voice_activity_duration);
+        fd.append('strDate',vad.voice_start_time);
+        fd.append('activity',vad.voice_activity_duration);
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '/vad_upload/', true);
         xhr.send(fd);
 
-        console.log('VAD start time:',vad.options.voice_start_time);
-        console.log('Sending VAD data, duration:',vad.options.voice_activity_duration);
+        console.log('VAD start time:',vad.voice_start_time);
+        console.log('Sending VAD data, duration:',vad.voice_activity_duration);
 
           if (conf_speech)
           {
