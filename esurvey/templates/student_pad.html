@@ -10,11 +10,23 @@
     <div class="d-flex flex-row-reverse">
       <button id='exit'  class="btn btn-success btn-lg m-2">Finished</button>
       <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> {% trans 'Ask teacher for help'%}</a>
+      <a class="btn btn-primary btn-lg m-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        {% trans 'Task'%}
+      </a>
     </div>
     <form action="" method="post">
       {% csrf_token %}
       {{form}}
     </form>
+    <div class="row">
+      <div class="col">
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+          {{session.learning_problem | safe}}
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row" >
       <div id='avchat'  class='col col-12 col-lg-4 col-md-12 col-sm-12 col-xs-12 card shadow-lg' >
        <iframe id="jitsi" class='sticky-top' allow="camera https://www.cojitsi.website; microphone https://www.cojitsi.website; display-capture https://www.cojitsi.website; " style="height:40vh;"   frameBorder='0' src="" allowfullscreen>
@@ -22,17 +34,6 @@
       </div>
 
       <div id='etherpad' class="col  card  shadow-lg p-5 col-12 col-lg-8 col-md-12 col-sm-12 col-xs-12 col-lg-offset-4">
-          <h1>{% trans 'Learning space'%}</h1><hr/>
-          <div class='card'>
-            <h3 class='card-header text-white bg-info border-info'>
-              {% trans 'Task'%}
-            </h3>
-            <div class='card-body'>
-              {{session.learning_problem | safe}}
-            </div>
-          </div>
-          <br/>
-          <br/>
           <div class='card' id='space'>
             <h3 class='card-header text-white bg-info border-info'>
               {% trans 'Write solution here'%}
@@ -293,14 +294,15 @@
         var options = {
          source: source,
          voice_stop: function() {
+           console.log('Voice Stop');
            var speak_time = ServerDate.now() - voice_data.voice_start_time;
            voice_data.voice_activity_duration = speak_time;
            console.log('Voice Stop');
          },
          voice_start: function() {
-
-           voice_data.voice_start_time = ServerDate.now();
            console.log('Voice start');
+           voice_data.voice_start_time = ServerDate.now();
+
 
          }
         };
