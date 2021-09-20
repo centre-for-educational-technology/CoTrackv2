@@ -69,7 +69,7 @@
       var video_stream, audio_stream;
       //vad.js start
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
-      var audioContext = new AudioContext();
+
 
       window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
 
@@ -289,6 +289,7 @@
       {
         console.log('Running VAD');
         // Create MediaStreamAudioSourceNode
+        var audioContext = new AudioContext();
         var source = audioContext.createMediaStreamSource(stream);
 
         // Setup options
