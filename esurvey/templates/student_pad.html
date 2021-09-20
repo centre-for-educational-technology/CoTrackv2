@@ -166,7 +166,8 @@
             if (event.results[i].isFinal) {
               //final_transcript += event.results[i][0].transcript;
               uploadSpeech(event.results[i][0].transcript);
-              //console.log(event.results[i][0].transcript);
+              console.log('Uploading...');
+              console.log(event.results[i][0].transcript);
             } else {
               interim_transcript += event.results[i][0].transcript;
             }
@@ -313,6 +314,7 @@
 
       function uploadSpeech(text)
       {
+        console.log('uploadSpeech called');
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
