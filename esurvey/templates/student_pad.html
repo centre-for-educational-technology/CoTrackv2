@@ -74,7 +74,7 @@
       window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
 
       const chatSocket = new WebSocket(
-        'ws://'
+        'wss://'
         + window.location.host
         + '/ws/chat/'
         + '{{room}}'
