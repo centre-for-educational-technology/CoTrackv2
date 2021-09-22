@@ -866,7 +866,12 @@ def enterForm(request):
             return render(request,"session_student_entry_v2.html",{})
         else:
             session_obj = group_pin[0].session
-            print('Session:',session_obj)
+            if not session_obj.access_allowed:
+                messages.warning(request,'Session is disabled.')
+                return render(request,"session_student_entry_v2.html",{})
+            if session_obj.status:
+                messages.warning(request,'Access to this session is not allowed.')
+                return render(request,"session_student_entry_v2.html",{})
             user = request.user
             res = call('createAuthorIfNotExistsFor',{'authorMapper':user.id,'name':user.first_name})
             authorid = res['data']['authorID']

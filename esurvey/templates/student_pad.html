@@ -73,6 +73,22 @@
 
       window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
 
+      const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + '{{room}}'
+        + '/'
+      );
+
+      chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        document.querySelector('#chat-log').value += (data.message + '\n');
+      };
+
+      chatSocket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+      };
 
       // variable for voice activity detection
       //var voice_start_timestamp;
@@ -315,7 +331,8 @@
 
       function uploadSpeech(text)
       {
-        console.log('uploadSpeech called');
+        //console.log('uploadSpeech called');
+        /*
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
@@ -323,6 +340,7 @@
         fd.append('group',{{group}});
         fd.append('strDate',voice_data.voice_start_time);
         fd.append('activity',voice_data.voice_activity_duration);
+
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '/vad_upload/', true);
@@ -330,9 +348,18 @@
         console.log(voice_data);
         console.log('VAD start time:',voice_data.voice_start_time);
         console.log('Sending VAD data, duration:',voice_data.voice_activity_duration);
-
+        */
+        chatSocket.send(JSON.stringify({
+          'session':{{session.id}},
+          'user': {{request.user.id}},
+          'group': {{group}},
+          'strDate': voice_data.voice_start_time,
+          'activity':voice_data.voice_activity_duration,
+          'speech': text,
+        }));
           if (conf_speech)
           {
+            /*
             var fd = new FormData();
             fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
             fd.append('session',{{session.id}});
@@ -345,6 +372,7 @@
             xhr.open('POST', '/speech_upload/', true);
             xhr.send(fd);
             console.log(' ===> Speech data sent:',text);
+            */
           }
       }
 

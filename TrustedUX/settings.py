@@ -61,6 +61,7 @@ SOCIALACCOUNT_QUERY_EMAIL = True
 LOGIN_REDIRECT_URL = "/enter"
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -251,6 +252,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
@@ -329,3 +335,4 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = os.path.join(SETTINGS_PATH, '/static/')
+ASGI_APPLICATION = 'TrustedUX.asgi.application'
