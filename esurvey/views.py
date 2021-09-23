@@ -869,7 +869,7 @@ def enterForm(request):
             if not session_obj.access_allowed:
                 messages.warning(request,'Session is disabled.')
                 return render(request,"session_student_entry_v2.html",{})
-            if session_obj.status:
+            if not session_obj.status:
                 messages.warning(request,'Access to this session is not allowed.')
                 return render(request,"session_student_entry_v2.html",{})
             user = request.user
