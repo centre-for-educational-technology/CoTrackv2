@@ -312,8 +312,8 @@ async function main() {
       var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
     }
-    level = result.speaking_data[m].quality)
-    $('div.indicator-{{g}}').text("Collaboration quality:".concat(" ",level));
+    level = result.speaking_data[m].quality;
+    $('#indicator-{{g}}').text("Collaboration quality:".concat(" ",level));
 
     for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
       var edge_id =  result.speaking_data[m].graph.edges[n].id;
