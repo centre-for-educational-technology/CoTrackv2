@@ -1189,8 +1189,9 @@ def getSpeakingStats(request,session_id):
             speak_data['speaking'] = user_vads['activity__sum'] * .001
             speaking_data[user] = user_vads['activity__sum'] * .001
             data.append(speak_data)
-            last_minute_activity = user_vads_last_minute['activity__sum'] * .001
-            gini_data.append(last_minute_activity)
+            if not user_vads_last_minute is None:
+                last_minute_activity = user_vads_last_minute['activity__sum'] * .001
+                gini_data.append(last_minute_activity)
 
         group_speaking['data'] = data
         group_speaking['graph'] = generateElements(user_sequence,speaking_data)
