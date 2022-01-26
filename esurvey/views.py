@@ -31,7 +31,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import urllib, base64
-
+import numpy as np
 from esurvey.models import Role
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import User
