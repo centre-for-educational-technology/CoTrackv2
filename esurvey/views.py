@@ -1181,7 +1181,7 @@ def getSpeakingStats(request,session_id):
         for user in users:
             user_vads = vads.filter(group = group).filter(user = user).aggregate(Sum('activity'))
             time_condition = datetime.datetime.now() - datetime.timedelta(seconds=120)
-            user_vads_last_minute = vads.filter(group = group).filter(user = user,timestamp_gte = time_condition).aggregate(Sum('activity'))
+            user_vads_last_minute = vads.filter(group = group).filter(user = user,timestamp__gte = time_condition).aggregate(Sum('activity'))
             speak_data = {}
             user_obj = User.objects.get(pk = user)
             speak_data['id'] = user
