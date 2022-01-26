@@ -313,6 +313,7 @@ async function main() {
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
     }
     level = result.speaking_data[m].quality;
+    console.log("collaboration quality");
     console.log(level);
     $('#indicator-{{m}}').text("Collaboration quality:".concat(" ",level));
 
