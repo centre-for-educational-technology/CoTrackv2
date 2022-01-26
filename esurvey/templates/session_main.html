@@ -317,7 +317,7 @@ async function main() {
     console.log(indicator_msg);
     indicator_id = "#indicator-".concat("",m.toString())
     console.log(indicator_id);
-    $(indicator_id).text(indicator_msg);
+    //$(indicator_id).text(indicator_msg);
 
     for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
       var edge_id =  result.speaking_data[m].graph.edges[n].id;
