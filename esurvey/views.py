@@ -69,8 +69,6 @@ TEMPLATES = {"activity_info": "create_activity_info.html",
              "overview": "create_summary.html"}
 
 
-
-
 ################### Changeset Processing ######################
 def changeset_parse (c) :
     changeset_pat = re.compile(r'^Z:([0-9a-z]+)([><])([0-9a-z]+)(.+?)\$')
@@ -247,10 +245,6 @@ def error_404(request):
     return render(request,'error_404.html')
 
 
-
-
-
-
 def downloadSus(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -408,8 +402,6 @@ def downloadFileTimestamp(request,session_id):
         for v in vads:
             writer.writerow([v.description,v.user.authormap.authorid,v.group,v.sequence,v.fl.name])
     return response
-
-
 
 def downloadMapping(request,session_id):
     session = Session.objects.all().filter(id=session_id)
@@ -1117,6 +1109,28 @@ def generateElements(user_sequence,speaking_data):
     return elements
 
 
+def gini(array):
+    """Calculate the Gini coefficient of a numpy array."""
+    # based on bottom eq: http://www.statsdirect.com/help/content/image/stat0206_wmf.gif
+    # from: http://www.statsdirect.com/help/default.htm#nonparametric_methods/gini.htm
+    if array.size == 0:
+        return '--'
+
+    array = array.flatten() #all values are treated equally, arrays must be 1d
+    if np.amin(array) < 0:
+        array -= np.amin(array) #values cannot be negative
+    array += 0.0000001 #values cannot be 0
+    array = np.sort(array) #values must be sorted
+    index = np.arange(1,array.shape[0]+1) #index per array element
+    n = array.shape[0]#number of array elements
+    gini_coef =  ((np.sum((2 * index - n  - 1) * array)) / (n * np.sum(array))) #Gini coefficient
+    # Alarming level from this paper: https://arxiv.org/pdf/1409.3979.pdf
+    if gini_coef > .5:
+        return 'Low'
+    else:
+        return 'High'
+
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def getHelpQueries(request,session_id):
@@ -1163,9 +1177,11 @@ def getSpeakingStats(request,session_id):
         user_sequence = vads.filter(group = group).values_list('user',flat=True)
         data = []
         speaking_data = {}
-
+        gini_data = []
         for user in users:
             user_vads = vads.filter(group = group).filter(user = user).aggregate(Sum('activity'))
+            time_condition = datetime.datetime.now() - datetime.timedelta(seconds=120)
+            user_vads_last_minute = vads.filter(group = group).filter(user = user,timestamp_gte = time_condition).aggregate(Sum('activity'))
             speak_data = {}
             user_obj = User.objects.get(pk = user)
             speak_data['id'] = user
@@ -1173,9 +1189,12 @@ def getSpeakingStats(request,session_id):
             speak_data['speaking'] = user_vads['activity__sum'] * .001
             speaking_data[user] = user_vads['activity__sum'] * .001
             data.append(speak_data)
+            last_minute_activity = user_vads_last_minute['activity__sum'] * .001
+            gini_data.append(last_minute_activity)
 
         group_speaking['data'] = data
         group_speaking['graph'] = generateElements(user_sequence,speaking_data)
+        group_speaking['quality'] = gini(np.array(gini_data))
         groups_speaking.append(group_speaking)
 
     return Response({'speaking_data':groups_speaking})

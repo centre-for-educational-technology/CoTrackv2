@@ -1,4 +1,42 @@
-# Setting up CoTrack Server
+# CoTrack
+![image](https://user-images.githubusercontent.com/21138354/148179967-050475f8-87e6-4e70-bef3-dd769e160848.png)
+[CoTrack](https://www.cotrack.website/) is a web-based tool for conducting collaborative activities in the classroom. It support remote as well as physical settings.
+The tool is being developed as part of my research on building collaboration quality models using machine learning. 
+
+## CoTrack demo
+The tool has been presented in the CrossMMLA 2020 workshop held at Learning Analytics and Knowledge Conference, LAK'20.
+> Pankaj Chejara, Luis P. Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, Shashi Kant Shankar, Reet Kasepalu: CoTrack2: A Tool to Track Collaboration Across Physical and Digital Spaces with Real Time Activity Visualization. CrossMMLA@LAK'21. Companion Proceedings 11th International Conference on Learning Analytics and Knowledge, 406-406 2021. (Demo paper).
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IOH4S2doZTA/0.jpg)](https://www.youtube.com/watch?v=IOH4S2doZTA)
+
+## Features
+* Custom activity design
+
+  CoTrack allows teachers/researchers to cusomize the group activity and data recording. For example, CoTrack supports     
+  three different types of group activities: first, which only involves use of collaborative text editor; second, which 
+  only involves use of audio/video communication channels; third, which invovles both. The recording can also be 
+  ustomized, e.g., record only audio or video.
+  
+* Multimodal data collection
+
+  CoTrack captures following types of data and provides pre-processed features
+  
+  * *Voice activity detection (VAD):* Data indicating whether someone speaks or not.
+  * *Speech to text:* Transcript from audio data using Google speech-to-text api in real time (only supported in chrome
+  browser).
+  * *Head movement:* Data approximating head movement in 3D with coordinates X,Y,Z (In development).
+  * *Body pose:* Data approximating body pose movement using open-source machine learning models for web (In development).
+  * *Writing logs:* Log data of participants' writing in collaborative text editor.
+  Activity monitoring
+ 
+* CoTracks offers a real-time dashboard (updates every 30 seconds) presenting a social network (who is talking after whom network) and groups' writing activities in terms of number of revisions made.
+
+
+## Resources
+You can check additional resources about the tool [here](https://www.cotrack.website/en-gb/howto/).
+
+
+## Installation
 
 CoTrack server requires pre-configured Etherpad server in order to support Etherpad use.
 
@@ -150,3 +188,25 @@ CoTrack uses Jitsi server to offer audio-video communication functionality. Thus
 
 Follow guide from [this video](https://www.youtube.com/watch?v=jWPod5ubeUM) and [this guide](https://doganbros.com/index.php/jitsi/jitsi-installation-with-jwt-support-on-ubuntu-20-04-lts/).
 
+
+
+## License
+Copyright (c) 2022 Pankaj Chejara
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

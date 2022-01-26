@@ -54,6 +54,7 @@
         <div class="card">
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
+            <div id="indicator-{{g}}" style="min-width:300px;min-height:20px;"></div><br/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
@@ -65,6 +66,7 @@
         <div class="card">
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
+            <div id="indicator-{{g}}" style="min-width:300px;min-height:20px;"></div><br/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
@@ -76,6 +78,7 @@
         <div class="card">
           <div class='card-body'>
             <h4 class='card-title'> {% trans 'Group'%}-{{forloop.counter}} </h4><hr/>
+            <div id="indicator-{{g}}" style="min-width:300px;min-height:20px;"></div><br/>
             <div id="speak-{{g}}" style="min-width:300px;min-height:300px;"></div>
              <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{forloop.counter}}">Wordcloud</button>
           </div>
@@ -309,6 +312,9 @@ async function main() {
       var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
     }
+
+    $('div.indicator-{{m}}').html('Collaboration quality: {{result.speaking_data[m].quality}}');
+
     for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
       var edge_id =  result.speaking_data[m].graph.edges[n].id;
       console.log('Type:',typeof(node_id));
