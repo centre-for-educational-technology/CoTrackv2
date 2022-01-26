@@ -313,7 +313,7 @@ async function main() {
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
     }
     console.log(result.speaking_data[m])
-    $('div.indicator-{{m}}').html(result.speaking_data[m]);
+    $('div.indicator-{{m}}').html('<b> Collaboration quality: </b>{{result.speaking_data[m].quality}}');
 
     for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
       var edge_id =  result.speaking_data[m].graph.edges[n].id;
