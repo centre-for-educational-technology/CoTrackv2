@@ -1125,7 +1125,7 @@ def gini(array):
     n = array.shape[0]#number of array elements
     gini_coef =  ((np.sum((2 * index - n  - 1) * array)) / (n * np.sum(array))) #Gini coefficient
     # Alarming level from this paper: https://arxiv.org/pdf/1409.3979.pdf
-    if gini_coef > .5:
+    if gini_coef > .3:
         return 'Low'
     else:
         return 'High'
