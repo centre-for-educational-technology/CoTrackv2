@@ -10,7 +10,7 @@
     <div class="d-flex flex-row-reverse">
       <button id='exit'  class="btn btn-success btn-lg m-2">Finished</button>
       <a class="btn btn-warning btn-lg m-2" id='notify'> <span class="fa fa-hand-paper-o"></span> {% trans 'Ask teacher for help'%}</a>
-      <a class="btn btn-primary btn-lg m-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      <a class="btn btn-primary btn-lg m-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
         {% trans 'Task'%}
       </a>
     </div>
@@ -39,7 +39,6 @@
               {% trans 'Write solution here'%}
             </h3>
             <div class='cardbody'>
-
               <iframe id="demo" onload='autoResizeDiv()' allow="camera https://www.etherpad.website;microphone https://www.etherpad.website"  style="width:100%; height: 100%; position:relative; overflow:hidden; " frameBorder='0' src="https://www.etherpad.website/auth_session?sessionID={{sessionid}}&padName={{padname}}" allowfullscreen>
               </iframe>
             </div>
@@ -60,7 +59,6 @@
       var record_audio_video ={{session_obj.record_audio_video | lower}};
       var lang = "{{session_obj.language}}";
 
-
       var conf_vad = {{session_obj.conf_vad | lower}};
       var conf_speech = {{session_obj.conf_speech | lower}};
 
@@ -70,8 +68,7 @@
       //vad.js start
       window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-
-      window.onunload = function (event) { alert('do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
+      //window.onunload = function (event) { alert('Do you want to save file');console.log('CAlling unload function');if (record_status){stopRecording();}};
       /*
       const chatSocket = new WebSocket(
         'wss://'
@@ -101,7 +98,6 @@
           iframe.src = "https://www.cojitsi.website/{{room}}?jwt={{token}}"
         }
       };
-
       window.onload = setTimeout(loadFrame, 10000);
 
       function notifyRecording() {
@@ -112,7 +108,6 @@
         notification = "<div class='alert alert-success alert-dismissible fade show' role='alert'><strong>{% trans 'Notification sent!'%}</strong> {% trans 'A notification has been sent to the teacher. Teacher will join soon.'%}<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
         $('#teacher_msg').html(notification);
       }
-
 
       $("#notify").click(function(e){
         e.preventDefault();
@@ -127,7 +122,6 @@
         xhr.open('POST', '/help_upload/', true);
         xhr.send(fd);
         notifyAlertSent();
-
       });
 
       // Web Speech API code
@@ -183,7 +177,7 @@
               //final_transcript += event.results[i][0].transcript;
               uploadSpeech(event.results[i][0].transcript);
               console.log('Uploading...');
-              console.log(event.results[i][0].transcript);
+              //console.log(event.results[i][0].transcript);
             } else {
               interim_transcript += event.results[i][0].transcript;
             }
@@ -197,7 +191,6 @@
       function toLink(href){
         console.log('Time delay');
       }
-
 
       $('#exit').click(function(event){
         var button_text = $('#exit').text();
@@ -217,15 +210,10 @@
 
       if (! use_etherpad ) {
         console.log('-------------> Hiding etherpad');
-
         $("#etherpad").hide();
-
         $("#avchat").attr('class', '');
         $("#avchat").addClass("col  card  shadow-lg col-12");
-
         $("#jitsi").addClass(" min-vh-100")
-
-
       }
 
       if (! audio_video_chat ) {
@@ -280,7 +268,6 @@
           notifyRecording();
         }
         if (conf_vad) {
-
           startVAD(new MediaStream(audio_stream));
         }
 
@@ -298,8 +285,6 @@
                 console.log("No live audio input in this browser: " + e);
         });
       }
-
-
 
       function startVAD(stream)
       {
@@ -324,7 +309,6 @@
 
          }
         };
-
         // Create VAD
         var vad = new VAD(options);
       }
@@ -332,7 +316,6 @@
       function uploadSpeech(text)
       {
         //console.log('uploadSpeech called');
-
         var fd = new FormData();
         fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
         fd.append('session',{{session.id}});
@@ -361,7 +344,6 @@
         */
           if (conf_speech)
           {
-
             var fd = new FormData();
             fd.append('csrfmiddlewaretoken', "{{ csrf_token }}");
             fd.append('session',{{session.id}});
@@ -374,7 +356,6 @@
             xhr.open('POST', '/speech_upload/', true);
             xhr.send(fd);
             console.log(' ===> Speech data sent:',text);
-            
           }
       }
 
@@ -386,7 +367,6 @@
           console.error(error);
           });
         }
-
 
       function postBlob(blob,blobcount){
         console.log('postBlob called');
@@ -435,7 +415,7 @@
          recorder = RecordRTC(microphone, {
            recorderType: MediaStreamRecorder,
            mimeType: 'video/webm',
-           timeSlice: 60000, // Upload for every 10 minutes
+           timeSlice: 60000, // Upload for every 1 minutes
            ondataavailable: function(blob) {
              blobcount =  blobcount + 1;
              console.log('sending data:'+ blobcount);
@@ -466,8 +446,6 @@
            $('#exit').html('Exit');
            $('#exit').prop("disabled",false);
          }
-
-
     </script>
 
 {%endblock %}

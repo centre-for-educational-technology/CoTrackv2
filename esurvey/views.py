@@ -853,7 +853,7 @@ def overview(request):
 def enterForm(request):
     if request.method == "POST":
         s_pin = request.POST['pin']
-        print('Entered pin:',s_pin)
+        #print('Entered pin:',s_pin)
         group_pin = GroupPin.objects.all().filter(pin=s_pin)
         if group_pin.count() == 0:
             messages.error(request,'Entered pin is invalid.')
@@ -875,6 +875,7 @@ def enterForm(request):
             if session_obj.useEtherpad:
                 group = SessionGroupMap.objects.get(session=session_obj)
                 groupid = group.eth_groupid
+                # @createe session just for the duration of the activity
                 NextDay_Date = datetime.datetime.today() + datetime.timedelta(days=1)
                 res2 = call('createSession',{'authorID':authorid,'groupID':groupid,'validUntil':NextDay_Date.timestamp()})
                 request.session['ethsid'] = res2['data']['sessionID']
@@ -899,11 +900,9 @@ def enterForm(request):
             print('Jioned session exists:',request.session['joined'])
 
             token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
-
-            print('Fetched token:',token)
-
+            #print('Fetched token:',token)
             if Session.objects.filter(id=token['session']).count() == 0:
-                messages.error(request,'The session is corrupted. Please enter your access pin again.')
+                #messages.error(request,'The session is corrupted. Please enter your access pin again.')
                 del request.session['joined']
                 return render(request,"session_student_entry_v2.html",{})
             session_obj = Session.objects.get(id=token["session"])
@@ -920,7 +919,7 @@ def consentView(request):
     if 'joined' in request.session.keys():
         token = jwt.decode(request.session['joined'], settings.JW_SEC, algorithms=["HS256"])
         if Session.objects.filter(id=token['session']).count() == 0:
-            messages.error(request,'The cookie is corrupted.')
+            #messages.error(request,'The cookie is corrupted.')
             del request.session['joined']
             return render(request,"session_student_entry_v2.html",{})
         else:
@@ -938,7 +937,7 @@ def consentView(request):
                     if session.useEtherpad and 'ethsid' not in request.session:
                         del request.session['joined']
                         return render(request,"session_student_entry_v2.html",{})
-                    recordLog(session,request.user,'entered','learning_space')
+                    #recordLog(session,request.user,'entered','learning_space')
                     return redirect('student_anony')
                     #return getPad(request,session,token['group'])
                     #return render(request,'student_pad.html',{'session':session,'groups':session.groups,'lang':session.language,'etherpad_url':settings.ETHERPAD_URL,'padname':pad.eth_padid})
@@ -1551,8 +1550,6 @@ def getPad(request,session,group_id):
                     group_id = random_group[0]
                     rnd_obj = RandomGroup.objects.create(session=session,user=request.user,group= group_id)
 
-
-
     context_data = {}
     form = AudioflForm()
     payload = {}
@@ -1585,11 +1582,10 @@ def getPad(request,session,group_id):
         padname = pad.eth_padid.split('$')
         context_data['padname'] = pad.eth_padid
         context_data['sessionid'] = eth_session
-
     return render(request,'student_pad.html',context_data)
+
 def poseDemo(request):
     return render(request,'pose_demo.html',{})
-
 
 def activateSession(request,session_id):
     session = Session.objects.all().filter(id=session_id)
