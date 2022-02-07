@@ -278,7 +278,7 @@
         }
       }
 
-      if (typeof audio_stream == 'undefined' && record_audio){
+      if (typeof audio_stream == 'undefined' && (record_audio || conf_vad || conf_speech ){
         console.log('Chat is disabled and capturing media for audio');
         navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
         navigator.getUserMedia({audio: true}, getAudioStream, function(e) {
