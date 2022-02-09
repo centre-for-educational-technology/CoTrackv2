@@ -67,10 +67,13 @@
       var video_stream, audio_stream;
 
       // code to change text of hide button
-      $('#task').click(function(){ 
-        $(this).text(function(i,old){
-          return old=='Hide' ?  'Show' : 'Hide';
-        });
+      $('#task').click(function(){
+        if ($(this).hasClass('collapsed')) {
+          $(this).text('Show task');
+        } else {
+          $(this).text('Hide task');
+        }
+
       });
 
       //vad.js start
