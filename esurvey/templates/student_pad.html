@@ -68,10 +68,10 @@
 
       // code to change text of hide button
       $('#task').click(function(){
-        if ($(this).hasClass('collapsed')) {
-          $(this).text('Show task');
-        } else {
+        if ($('#collapseExample').hasClass('show')) {
           $(this).text('Hide task');
+        } else {
+          $(this).text('Show task');
         }
 
       });
