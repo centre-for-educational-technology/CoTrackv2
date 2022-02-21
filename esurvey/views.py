@@ -326,7 +326,7 @@ def downloadVad(request,session_id):
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
         writer = csv.writer(response)
-        writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
+        writer.writerow(['timestamp','user','group','speaking_time(ms)'])
         vads = VAD.objects.all().filter(session=session).distinct()
         for v in vads:
             writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
