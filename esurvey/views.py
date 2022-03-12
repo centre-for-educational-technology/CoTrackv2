@@ -328,7 +328,8 @@ def downloadVad(request,session_id):
         writer = csv.writer(response)
         writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
 
-        vads = VAD.objects.filter(session=session).distinct().order_by('timestamp')
+        vads = VAD.objects.raw('Select distinct timestamp, user, group, activity from esurvey_vad')
+        #vads = VAD.objects.filter(session=session).distinct().order_by('timestamp')
         for v in vads:
             writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
     return response
@@ -412,6 +413,10 @@ def downloadMapping(request,session_id):
     else:
         session = Session.objects.get(id=session_id)
         # Preparing csv data File#####
+        vads_authors = VAD.objects.filter(session=session).values('user').distinct()
+
+        vads_authors_ids = [obj.user.authormap.authorid for obj in vads_authors]
+
         fname = session.name + '_mapping.csv'
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
@@ -424,8 +429,12 @@ def downloadMapping(request,session_id):
             params = {'padID':padid}
             print('padid:',padid)
             authors = call('listAuthorsOfPad',params)
-            print(authors)
-            for auth in authors['data']['authorIDs']:
+
+            authorsIds = [x for x in authors['data']['authorIDs']] + vads_authors_ids
+
+
+            #for auth in authors['data']['authorIDs']:
+            for auth in set(authorsIds):
                 aid = auth
                 author = AuthorMap.objects.filter(authorid=aid)
                 print(author[0].user.username,author[0].user.email,aid)
