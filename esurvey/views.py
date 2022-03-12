@@ -332,15 +332,16 @@ def downloadVad(request,session_id):
         vads = VAD.objects.filter(session=session).distinct().order_by('timestamp')
 
         # remove duplicates
+        """
         vads_uniques = []
         for vad in vads:
             if vad not in vads_uniques:
                 vads_uniques.append(vad)
                 writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
         """
-        for v in vads_:
+        for v in vads:
             writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
-        """
+
     return response
 
 def downloadSpeech(request,session_id):
