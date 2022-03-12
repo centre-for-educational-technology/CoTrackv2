@@ -327,6 +327,7 @@ def downloadVad(request,session_id):
         response['Content-Disposition'] = 'attachment;filename="' + fname +'"'
         writer = csv.writer(response)
         writer.writerow(['timestamp','user','group','speaking_time(sec.)'])
+
         vads = VAD.objects.filter(session=session).distinct().order_by('timestamp')
         for v in vads:
             writer.writerow([v.timestamp,v.user.authormap.authorid,v.group,(v.activity/1000)])
@@ -1158,8 +1159,11 @@ def getSpeakingStats(request,session_id):
     global SPEECH_OBJECTS
     if len(VAD_OBJECTS) > 0:
         objs = VAD.objects.bulk_create(VAD_OBJECTS)
+        VAD_OBJECTS = []
+        
     if len(SPEECH_OBJECTS) > 0:
         objs = Speech.objects.bulk_create(SPEECH_OBJECTS)
+        SPEECH_OBJECTS = []
 
     s = Session.objects.get(id=session_id)
     groups = s.groups
@@ -1457,11 +1461,14 @@ def uploadVad(request):
             strDate = (int)(float(strDate)/1000)
             dt = datetime.datetime.fromtimestamp(strDate)
             print('Converted datetime:',dt)
+
+
             VAD_OBJECTS.append(VAD(session=session,user=user,group=group,timestamp=dt,activity=activity))
             print('Length:',len(VAD_OBJECTS))
             if len(VAD_OBJECTS) > VAD_LIMIT_WRITE:
                 writeVAD(VAD_OBJECTS)
                 VAD_OBJECTS = []
+
             return HttpResponse('Done')
         else:
             print('Form not valid')
@@ -1486,10 +1493,12 @@ def uploadSpeech(request):
 
             strDate = (int)(float(strDate)/1000)
             dt = datetime.datetime.fromtimestamp(strDate)
+
             SPEECH_OBJECTS.append(Speech(session=session,user=user,group=group,timestamp=dt,TextField=speech))
             if len(SPEECH_OBJECTS) > SPEECH_LIMIT_WRITE:
                 writeSpeech(SPEECH_OBJECTS)
                 SPEECH_OBJECTS = []
+
             return HttpResponse('Done')
         else:
             print('Form not valid')
