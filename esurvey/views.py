@@ -469,23 +469,23 @@ def downloadResponses(request,session_id):
             return redirect('project_home')
         else:
             pad = Pad.objects.all().filter(session=session)
+            filename = '%s_groups_response.html' % session.name
             files = {}
+            content = ""
             for p in pad:
-                group_file_name = 'group_' + str(p.group) + '.html'
+                content += "<h1> Group-" + str(p.group) + "</h1><br/>"
 
                 padid =  p.eth_padid
                 params = {'padID':padid}
                 response = call('getHTML',params)
-                files[group_file_name] = response['data']['html']
+                content += response['data']['html']
+                contnt += "<br/><br/>"
                 #print(response['data']['html'])
-            outfile = io.BytesIO()
-            zf = zipfile.ZipFile(outfile, 'w', compression=zipfile.ZIP_DEFLATED)
-            zf.writestr('one.txt',bytes('demo demo demo',encoding='utf8'))
-            zf.writestr('two.txt',bytes('dolly dolly dolly',encoding='utf8'))
+
             #for key in files.keys():
             #zf.writestr(key, bytes(files[key],encoding='utf8'))
-            response = HttpResponse(outfile.getvalue(), content_type="application/x-zip-compressed")
-            response['Content-Disposition'] = 'attachment; filename=%s_groups_response.zip' % session.name
+            response = HttpResponse(content, content_type='text/plain')
+            response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
             return response
 
 
