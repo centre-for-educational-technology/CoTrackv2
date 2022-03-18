@@ -477,6 +477,7 @@ def downloadResponses(request,session_id):
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 files[group_file_name] = response['data']['html']
+                print(response['data']['html'])
             outfile = io.BytesIO()
             zf = zipfile.ZipFile(outfile, 'w')
             for key in files.keys():
