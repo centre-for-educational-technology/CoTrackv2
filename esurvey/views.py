@@ -480,8 +480,10 @@ def downloadResponses(request,session_id):
                 #print(response['data']['html'])
             outfile = io.BytesIO()
             zf = zipfile.ZipFile(outfile, 'w', compression=zipfile.ZIP_DEFLATED)
-            for key in files.keys():
-                zf.writestr(key, bytes(files[key],encoding='utf8'))
+            zf.writestr('one.txt',bytes('demo demo demo',encoding='utf8'))
+            zf.writestr('two.txt',bytes('dolly dolly dolly',encoding='utf8'))
+            #for key in files.keys():
+            #zf.writestr(key, bytes(files[key],encoding='utf8'))
             response = HttpResponse(outfile.getvalue(), content_type="application/x-zip-compressed")
             response['Content-Disposition'] = 'attachment; filename=%s_groups_response.zip' % session.name
             return response
