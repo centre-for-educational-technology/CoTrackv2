@@ -40,7 +40,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 import random
 from django.utils.html import escape
-import StringIO, zipfile
+import zipfile
+from io import StringIO
 
 import uuid
 from datetime import date, timedelta
