@@ -22,6 +22,9 @@
       {% trans 'Download Data'%}
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+      <a class="dropdown-item" href="{% url 'download_task' session.id %}" data-toggle="tooltip" title="Download Learning task">{% trans 'Learning task'%}</a>
+      <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">{% trans 'Etherpad logs'%}</a>
       <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">{% trans 'Etherpad Chat'%}</a>
       <div class="dropdown-divider"></div>

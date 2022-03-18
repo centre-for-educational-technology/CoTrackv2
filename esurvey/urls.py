@@ -20,6 +20,7 @@ urlpatterns = [
     path("sessions/activate/<session_id>", login_required(views.activateSession), name="session_activate"),
     path("sessions/deactivate/<session_id>", login_required(views.deactivateSession), name="session_deactivate"),
     path("sessions/download/<session_id>", login_required(views.downloadLog), name="download_log"),
+    path("sessions/task/<session_id>", login_required(views.downlaodLearningTask), name="download_task"),
     path("sessions/mapping/<session_id>", login_required(views.downloadMapping), name="download_mapping"),
     path("sessions/chat/<session_id>", login_required(views.downloadChat), name="download_chat"),
     path("sessions/vad/<session_id>", login_required(views.downloadVad), name="download_vad"),

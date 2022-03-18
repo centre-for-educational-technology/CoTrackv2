@@ -425,7 +425,7 @@ def downloadMapping(request,session_id):
         # Preparing csv data File#####
         vads_authors = VAD.objects.filter(session=session).values('user').distinct()
 
-        vads_authors_ids = [obj.user.authormap.authorid for obj in vads_authors]
+        #vads_authors_ids = [obj.user.authormap.authorid for obj in vads_authors]
 
         fname = session.name + '_mapping.csv'
         response = HttpResponse(content_type='text/csv')
@@ -440,7 +440,7 @@ def downloadMapping(request,session_id):
             print('padid:',padid)
             authors = call('listAuthorsOfPad',params)
 
-            authorsIds = [x for x in authors['data']['authorIDs']] + vads_authors_ids
+            authorsIds = [x for x in authors['data']['authorIDs']] #+ vads_authors_ids
 
 
             #for auth in authors['data']['authorIDs']:
@@ -454,6 +454,19 @@ def downloadMapping(request,session_id):
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
 
+def downlaodLearningTask(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        content = session.learning_problem
+        filename = session.name + '_learning_task.txt'
+
+        response = HttpResponse(content, content_type='text/plain')
+        response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
+        return response
 
 def downloadLog(request,session_id):
     session = Session.objects.all().filter(id=session_id)
