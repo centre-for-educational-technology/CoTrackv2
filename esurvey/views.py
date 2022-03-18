@@ -40,6 +40,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 import random
 from django.utils.html import escape
+import StringIO, zipfile
 
 import uuid
 from datetime import date, timedelta
@@ -454,6 +455,35 @@ def downloadMapping(request,session_id):
                 writer.writerow([author[0].user.id,author[0].user.email,aid])
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
     return response
+
+def downloadResponses(request,session_id):
+    session = Session.objects.all().filter(id=session_id)
+    if session.count() == 0:
+        messages.error(request,'Specified session id is invalid')
+        return redirect('project_home')
+    else:
+        session = Session.objects.get(id=session_id)
+        if not session.useEtherpad:
+            messages.error(request,'Specified session does not have etherpad support.')
+            return redirect('project_home')
+        else:
+            pad = Pad.objects.all().filter(session=session)
+            files = {}
+            for p in pad:
+                group_file_name = 'group_' + str(p.group) + '.html'
+
+                padid =  p.eth_padid
+                params = {'padID':padid}
+                response = call('getHTML',params)
+                files[group_file_name] = response['data']['html']
+            outfile = StringIO.StringIO()
+            with zipfile.ZipFile(outfile, 'w') as zf:
+                for key in files.keys():
+                    zf.writestr("{}".format(key), files[key])
+                response = HttpResponse(outfile.getvalue(), content_type="application/octet-stream")
+                response['Content-Disposition'] = 'attachment; filename=%s.zip' % 'groups_response'
+                return response
+
 
 def downlaodLearningTask(request,session_id):
     session = Session.objects.all().filter(id=session_id)
