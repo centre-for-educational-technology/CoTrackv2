@@ -479,10 +479,8 @@ def downloadResponses(request,session_id):
                 files[group_file_name] = response['data']['html']
             outfile = io.BytesIO()
             zf = zipfile.ZipFile(outfile, 'w')
-            #for key in files.keys():
-            zf.writestr('one.txt','demo demo')
-            zf.writestr('two.txt','dully dully')
-                #zf.writestr(key, files[key])
+            for key in files.keys():
+                zf.writestr(key, bytes(files[key],encoding='utf8'))
             response = HttpResponse(outfile.getvalue(), content_type="application/x-zip-compressed")
             response['Content-Disposition'] = 'attachment; filename=%s.zip' % 'groups_response'
             return response
