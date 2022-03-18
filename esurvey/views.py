@@ -477,13 +477,13 @@ def downloadResponses(request,session_id):
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 files[group_file_name] = response['data']['html']
-            outfile = session.name + '_group_responses.zip'
-            with zipfile.ZipFile(outfile, 'w') as zf:
-                for key in files.keys():
-                    zf.writestr(key, files[key])
-                response = HttpResponse(outfile.getvalue(), content_type="application/octet-stream")
-                response['Content-Disposition'] = 'attachment; filename=%s.zip' % 'groups_response'
-                return response
+            outfile = io.BytesIO()
+            zf = zipfile.ZipFile(outfile, 'w')
+            for key in files.keys():
+                zf.writestr(key, files[key])
+            response = HttpResponse(outfile.getvalue(), content_type="application/x-zip-compressed")
+            response['Content-Disposition'] = 'attachment; filename=%s.zip' % 'groups_response'
+            return response
 
 
 def downlaodLearningTask(request,session_id):
