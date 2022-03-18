@@ -462,8 +462,8 @@ def downlaodLearningTask(request,session_id):
         return redirect('project_home')
     else:
         session = Session.objects.get(id=session_id)
-        content = escape(session.learning_problem)
-        filename = session.name + '_learning_task.txt'
+        content = session.learning_problem
+        filename = session.name + '_learning_task.html'
 
         response = HttpResponse(content, content_type='text/plain')
         response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
