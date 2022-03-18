@@ -477,7 +477,7 @@ def downloadResponses(request,session_id):
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 files[group_file_name] = response['data']['html']
-            outfile = StringIO.StringIO()
+            outfile = StringIO()
             with zipfile.ZipFile(outfile, 'w') as zf:
                 for key in files.keys():
                     zf.writestr("{}".format(key), files[key])
