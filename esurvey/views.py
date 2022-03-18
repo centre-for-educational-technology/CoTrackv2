@@ -39,6 +39,7 @@ from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 import random
+from django.utils.html import escape
 
 import uuid
 from datetime import date, timedelta
@@ -461,7 +462,7 @@ def downlaodLearningTask(request,session_id):
         return redirect('project_home')
     else:
         session = Session.objects.get(id=session_id)
-        content = session.learning_problem
+        content = escape(session.learning_problem)
         filename = session.name + '_learning_task.txt'
 
         response = HttpResponse(content, content_type='text/plain')
