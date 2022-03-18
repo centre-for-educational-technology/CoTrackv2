@@ -473,13 +473,13 @@ def downloadResponses(request,session_id):
             files = {}
             content = ""
             for p in pad:
-                content += "<h1> Group-" + str(p.group) + "</h1><br/>"
+                content += "<h1> Group-" + str(p.group) + "</h1><br/><hr/><br/>"
 
                 padid =  p.eth_padid
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 content += response['data']['html']
-                content += "<br/><br/>"
+                content += "<br/><hr/><br/><br/>"
                 #print(response['data']['html'])
 
             #for key in files.keys():
