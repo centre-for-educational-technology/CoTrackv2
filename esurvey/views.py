@@ -479,7 +479,7 @@ def downloadResponses(request,session_id):
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 content += response['data']['html']
-                contnt += "<br/><br/>"
+                content += "<br/><br/>"
                 #print(response['data']['html'])
 
             #for key in files.keys():
