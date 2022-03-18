@@ -477,13 +477,13 @@ def downloadResponses(request,session_id):
                 params = {'padID':padid}
                 response = call('getHTML',params)
                 files[group_file_name] = response['data']['html']
-                print(response['data']['html'])
+                #print(response['data']['html'])
             outfile = io.BytesIO()
-            zf = zipfile.ZipFile(outfile, 'w')
+            zf = zipfile.ZipFile(outfile, 'w', compression=zipfile.ZIP_DEFLATED)
             for key in files.keys():
                 zf.writestr(key, bytes(files[key],encoding='utf8'))
             response = HttpResponse(outfile.getvalue(), content_type="application/x-zip-compressed")
-            response['Content-Disposition'] = 'attachment; filename=%s.zip' % 'groups_response'
+            response['Content-Disposition'] = 'attachment; filename=%s_groups_response.zip' % session.name
             return response
 
 
