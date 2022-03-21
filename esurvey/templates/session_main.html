@@ -16,7 +16,7 @@
   <br/>
   <button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">{% trans 'Show dashboard'%}</button>
   <hr/>
-  {% if request.user.is_superuser or request.user.role.role == 'researcher' %}
+  {% if request.user.is_superuser or request.user.role.role == 'researcher' or request.user.is_staff %}
   <div class="dropdown">
     <button class="btn btn-warning dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {% trans 'Download Data'%}
