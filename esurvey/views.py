@@ -1328,26 +1328,32 @@ def getLogDf(session_id,group_id):
             log = log.append({'timestamp':datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),'author':ath['data'],'operation':cs['final_op'],'difference':cs['final_diff']},ignore_index=True)
         except:
             continue
-    return log,rev_count['data']['revisions']
+    log.timestamp = pd.to_datetime(log.timestamp,format="%H:%M:%S %d-%m-%Y")
+
+    return log
+
+def getVadDf(session_id,group_id):
+    vad = pd.DataFrame(columns=['timestamp','user','speaking'])
+    vads = VAD.objects.filter(ession=session_id,group=group_id).order_by('timestamp')
+
+    for v in vads:
+        vads =vads.append({'timestamp':v.timestamp,'user':v.user.authormap.authorid,'speaking':(v.activity/1000)},ignore_index=True)
+    vad.timestamp = pd.to_datetime(vad.timestamp)
+    vad['timestamp'] = vad['timestamp'].dt.tz_convert('UTC')
+    return vads
 
 
 def getActivityStartTime(session_id,group_id):
-    vads = VAD.objects.all().filter(session=session_id,group=group_id)
-    logs,rv = getLogDf(session_id,group_id)
-    logs['timestamp'] = logs['timestamp'].dt.tz_convert("UTC")
-    vt = vads[0].timestamp if len(vads)>0 else None
-    return vt,logs.shape[0],logs.shape[1],rv,logs
+    vads = getVadDf(session_id,group_id)
+    logs = getLogDf(session_id,group_id)
+    return logs,vads
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def getPredictionStat(request,session_id,group_id):
     data = {}
-    v,r,c,rev,logs = getActivityStartTime(session_id,group_id)
-    data['vad_start'] = v
-    data['log_records'] = r
-    data['log_columns'] = c
-    data['rev_count'] = rev
-    data['data'] = logs.to_dict()
+    logs,vads = getActivityStartTime(session_id,group_id)
+    data['vad_start'] = vads['timestamp'].tolist()[0]
     data['log_start'] = logs['timestamp'].tolist()[0]
     return Response(data)
 
