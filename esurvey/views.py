@@ -558,7 +558,7 @@ def downloadLog(request,session_id):
 
                     #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
                     #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
-                    writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,char_bank,rev['data'].replace('\n','<br/>'),cs['source_length'],cs['final_op'],cs['final_diff'],text])
+                    writer.writerow([datetime.datetime.fromtimestamp(d["data"]/1000,tz=timezone.utc).strftime('%H:%M:%S %d-%m-%Y'),ath['data'],p.group,char_bank,rev['data'].replace('\n','<br/>'),cs['source_length'],cs['final_op'],cs['final_diff'],text])
                 except:
                     continue
             #print(datetime.datetime.utcfromtimestamp(d["data"]/1000).strftime('%Y-%m-%d %H:%M:%S'),',',pad.group,',',cs["bank"],',',cs["source_length"],',',cs["final_diff"],',',cs["final_op"],',',rev["data"],',',ath["data"])
@@ -1469,7 +1469,7 @@ def uploadAudio(request):
             print(strDate)
             strDate = (int)(float(strDate)/1000)
 
-            dt = datetime.datetime.fromtimestamp(strDate)
+            dt = datetime.datetime.fromtimestamp(strDate,tz=timezone.utc)
             print('Datetime:',dt)
 
             newform = form.save(commit=False)
@@ -1479,7 +1479,7 @@ def uploadAudio(request):
 
             strDate = (int)(float(strDate)/1000)
 
-            dt = datetime.datetime.fromtimestamp(strDate)
+            dt = datetime.datetime.fromtimestamp(strDate,tz=timezone.utc)
             print('Datetime:',dt)
             newform.started_at = dt
             newform.save()
@@ -1526,7 +1526,7 @@ def uploadVad(request):
             milli = form.cleaned_data.get("milli")
             activity = form.cleaned_data.get("activity")
             strDate = (int)(float(strDate)/1000)
-            dt = datetime.datetime.fromtimestamp(strDate)
+            dt = datetime.datetime.fromtimestamp(strDate,tz=timezone.utc)
             print('Converted datetime:',dt)
 
 
@@ -1559,7 +1559,7 @@ def uploadSpeech(request):
             speech = form.cleaned_data.get("TextField")
 
             strDate = (int)(float(strDate)/1000)
-            dt = datetime.datetime.fromtimestamp(strDate)
+            dt = datetime.datetime.fromtimestamp(strDate,tz=timezone.utc)
 
             SPEECH_OBJECTS.append(Speech(session=session,user=user,group=group,timestamp=dt,TextField=speech))
             if len(SPEECH_OBJECTS) > SPEECH_LIMIT_WRITE:
