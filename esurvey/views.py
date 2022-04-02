@@ -59,8 +59,9 @@ import requests
 from celery.schedules import crontab
 from celery.task import periodic_task
 import jwt
-import pandas as pd
 
+import pandas as pd
+import pytz
 
 
 CREATE_FORMS = (
@@ -1333,6 +1334,7 @@ def getLogDf(session_id,group_id):
 def getActivityStartTime(session_id,group_id):
     vads = VAD.objects.all().filter(session=session_id,group=group_id)
     logs,rv = getLogDf(session_id,group_id)
+    logs['timestamp'] = logs['timestamp'].dt.tz_convert("UTC")
     vt = vads[0].timestamp if len(vads)>0 else None
     return vt,logs.shape[0],logs.shape[1],rv,logs
 
