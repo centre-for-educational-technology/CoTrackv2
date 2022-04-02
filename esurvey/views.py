@@ -1307,6 +1307,7 @@ def getLogDf(session_id,group_id):
     padid =  pad[0].eth_padid
     params = {'padID':padid}
     rev_count = call('getRevisionsCount',params)
+
     for r in range(rev_count['data']['revisions']):
         params = {'padID':padid,'rev':r+1}
         rev = call('getRevisionChangeset',params)
@@ -1326,23 +1327,24 @@ def getLogDf(session_id,group_id):
             log = log.append({'timestamp':datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),'author':ath['data'],'operation':cs['final_op'],'difference':cs['final_diff']},ignore_index=True)
         except:
             continue
-    return log
+    return log,rev_count
 
 
 def getActivityStartTime(session_id,group_id):
     vads = VAD.objects.all().filter(session=session_id,group=group_id)
-    logs = getLogDf(session_id,group_id)
+    logs,rv = getLogDf(session_id,group_id)
     vt = vads[0].timestamp if len(vads)>0 else None
     lt = logs.loc[0,:]
-    return vt,lt['timestamp'][0]
+    return vt,lt['timestamp'].to_dict(),rv
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def getPredictionStat(request,session_id,group_id):
     data = {}
-    v,l = getActivityStartTime(session_id,group_id)
+    v,l,r = getActivityStartTime(session_id,group_id)
     data['vad_start'] = v
     data['log_start'] = l
+    data['rev_count'] = r
     return Response(data)
 
 
