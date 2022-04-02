@@ -51,4 +51,5 @@ urlpatterns = [
     path("getTime/",views.getTime,name='time'),
     path("getSpeakingStats/<session_id>", views.getSpeakingStats),
     path("getHelpQueries/<session_id>", views.getHelpQueries),
+    path("getPredictionStat/<session_id>/<group_id>",views.getPredictionStat),
     ]
