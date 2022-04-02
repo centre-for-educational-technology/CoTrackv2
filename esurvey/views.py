@@ -1356,6 +1356,11 @@ def getPredictionStat(request,session_id,group_id):
     logs,vads = getActivityStartTime(session_id,group_id)
     data['vad_start'] = vads['timestamp'].tolist()[0]
     data['log_start'] = logs['timestamp'].tolist()[0]
+    if data['vad_start'] < data['log_start']:
+        ac = data['vad_start']
+    else:
+        ac = data['log_start']
+    data['activity_start'] = ac
     return Response(data)
 
 
