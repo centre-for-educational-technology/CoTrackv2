@@ -1340,9 +1340,10 @@ def getActivityStartTime(session_id,group_id):
 @permission_classes((permissions.AllowAny,))
 def getPredictionStat(request,session_id,group_id):
     data = {}
-    v,l,r = getActivityStartTime(session_id,group_id)
+    v,r,c,r = getActivityStartTime(session_id,group_id)
     data['vad_start'] = v
-    data['log_start'] = l
+    data['log_records'] = l
+    data['log_columns'] = c
     data['rev_count'] = r
     return Response(data)
 
