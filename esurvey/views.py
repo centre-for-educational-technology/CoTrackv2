@@ -1300,7 +1300,7 @@ def getWordCloud(request,session_id,group_id):
 
 
 def getLogDf(session_id,group_id):
-    pad = Pad.objects.all().filter(session=session,group=group_id)
+    pad = Pad.objects.all().filter(session=session_id,group=group_id)
     log = pd.DataFrame(columns=['timestamp','author','operation','difference'])
     if len(pad) == 0:
         return log
