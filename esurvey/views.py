@@ -1346,6 +1346,7 @@ def getPredictionStat(request,session_id,group_id):
     data['log_columns'] = c
     data['rev_count'] = rev
     data['data'] = logs.to_dict()
+    data['log_start'] = logs['timestamp'].tolist()[0]
     return Response(data)
 
 
