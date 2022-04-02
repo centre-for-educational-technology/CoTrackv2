@@ -1338,7 +1338,7 @@ def getActivityStartTime(session_id,group_id):
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-def getPredictionStats(request,session_id,group_id):
+def getPredictionStat(request,session_id,group_id):
     data = {}
     v,l = getActivityStartTime(session_id,group_id)
     data['vad_start'] = v
