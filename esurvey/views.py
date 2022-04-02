@@ -1327,15 +1327,14 @@ def getLogDf(session_id,group_id):
             log = log.append({'timestamp':datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),'author':ath['data'],'operation':cs['final_op'],'difference':cs['final_diff']},ignore_index=True)
         except:
             continue
-    return log,rev_count
+    return log,rev_count['data']['revisions']
 
 
 def getActivityStartTime(session_id,group_id):
     vads = VAD.objects.all().filter(session=session_id,group=group_id)
     logs,rv = getLogDf(session_id,group_id)
     vt = vads[0].timestamp if len(vads)>0 else None
-    lt = logs.loc[0,:]
-    return vt,lt.shape[0],rv
+    return vt,log.shape[0],log.shape[1],rv
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
