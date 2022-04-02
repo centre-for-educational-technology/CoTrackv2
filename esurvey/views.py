@@ -1334,7 +1334,7 @@ def getLogDf(session_id,group_id):
 
 def getVadDf(session_id,group_id):
     vad = pd.DataFrame(columns=['timestamp','user','speaking'])
-    vads = VAD.objects.filter(ession=session_id,group=group_id).order_by('timestamp')
+    vads = VAD.objects.filter(session=session_id,group=group_id).order_by('timestamp')
 
     for v in vads:
         vads =vads.append({'timestamp':v.timestamp,'user':v.user.authormap.authorid,'speaking':(v.activity/1000)},ignore_index=True)
