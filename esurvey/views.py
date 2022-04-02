@@ -59,6 +59,9 @@ import requests
 from celery.schedules import crontab
 from celery.task import periodic_task
 import jwt
+import pandas as pd
+
+
 
 CREATE_FORMS = (
     ("activity_info", CreateForm1),
@@ -1294,6 +1297,54 @@ def getWordCloud(request,session_id,group_id):
         #image_64 =  urllib.parse.quote(string)
     data = {'data':str(string.decode())}
     return Response(data)
+
+
+def getLogDf(session_id,group_id):
+    pad = Pad.objects.all().filter(session=session,group=group_id)
+    log = pd.DataFrame(columns=['timestamp','author','operation','difference'])
+    if len(pad) == 0:
+        return log
+    padid =  pad[0].eth_padid
+    params = {'padID':padid}
+    rev_count = call('getRevisionsCount',params)
+    for r in range(rev_count['data']['revisions']):
+        params = {'padID':padid,'rev':r+1}
+        rev = call('getRevisionChangeset',params)
+        ath = call('getRevisionAuthor',params)
+        d = call('getRevisionDate',params)
+        t = call('getText',params)
+
+        try:
+            cs = changeset_parse(rev['data'])
+            tp = int(d['data'])
+            text = t['data']['text']['text']
+            char_bank = cs['bank']
+            char_bank = "<br/>".join(char_bank.split("\n"))
+            text = "<br/>".join(text.split("\n"))
+            #print(datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'))
+            #print('   ',datetime.datetime.fromtimestamp(tp/1000).strftime('%H:%M:%S %d-%m-%Y'));
+            log = log.append({'timestamp':datetime.datetime.fromtimestamp(d["data"]/1000).strftime('%H:%M:%S %d-%m-%Y'),'author':ath['data'],'operation':cs['final_op'],'difference':cs['final_diff']},ignore_index=True)
+        except:
+            continue
+    return log
+
+
+def getActivityStartTime(session_id,group_id):
+    vads = VAD.objects.all().filter(session=session_id,group=group_id)
+    logs = getLogDf(session_id,group_id)
+    vt = vads[0].timestamp if len(vads)>0 else None
+    lt = logs[0].timestamp if len(logs)>0 else None
+    return vt,lt
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def getPredictionStats(request,session_id,group_id):
+    data = {}
+    v,l = getActivityStartTime(session_id,group_id)
+    data['vad_start'] = v
+    data['log_start'] = l
+    return data
+
 
 
 @api_view(['GET'])
