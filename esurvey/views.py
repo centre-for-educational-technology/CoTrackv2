@@ -1333,7 +1333,7 @@ def getActivityStartTime(session_id,group_id):
     vads = VAD.objects.all().filter(session=session_id,group=group_id)
     logs = getLogDf(session_id,group_id)
     vt = vads[0].timestamp if len(vads)>0 else None
-    lt = len(logs)
+    lt = logs.iloc[0,'timestamp'].to_dict()
     return vt,lt
 
 @api_view(['GET'])
