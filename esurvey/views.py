@@ -1343,7 +1343,7 @@ def getPredictionStat(request,session_id,group_id):
     v,l = getActivityStartTime(session_id,group_id)
     data['vad_start'] = v
     data['log_start'] = l
-    return data
+    return Response(data)
 
 
 
