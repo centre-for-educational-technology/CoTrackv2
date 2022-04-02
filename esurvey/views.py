@@ -1333,14 +1333,14 @@ def getLogDf(session_id,group_id):
     return log
 
 def getVadDf(session_id,group_id):
-    vad = pd.DataFrame(columns=['timestamp','user','speaking'])
+    vad_df = pd.DataFrame(columns=['timestamp','user','speaking'])
     vads = VAD.objects.filter(session=session_id,group=group_id).order_by('timestamp')
 
     for v in vads:
-        vads =vads.append({'timestamp':v.timestamp,'user':v.user.authormap.authorid,'speaking':(v.activity/1000)},ignore_index=True)
-    vad.timestamp = pd.to_datetime(vad.timestamp)
-    vad['timestamp'] = vad['timestamp'].dt.tz_convert('UTC')
-    return vads
+        vad_df =vad_df.append({'timestamp':v.timestamp,'user':v.user.authormap.authorid,'speaking':(v.activity/1000)},ignore_index=True)
+    vad_df.timestamp = pd.to_datetime(vad_df.timestamp)
+    vad_df['timestamp'] = vad_df['timestamp'].dt.tz_convert('UTC')
+    return vad_df
 
 
 def getActivityStartTime(session_id,group_id):
