@@ -1473,7 +1473,10 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     response = requests.post('http://127.0.0.1:5001',headers=headers,json={'file':file_name})
     response_json = response.json()
     result = {}
-    result['CO'] = response_json['prediction']
+    result['CO'] = response_json['co']
+    result['SMU'] = response_json['smu']
+    result['ITO'] = response_json['ito']
+    result['CQ'] = response_json['cq']
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
