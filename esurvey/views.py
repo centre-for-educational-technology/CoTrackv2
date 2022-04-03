@@ -1445,22 +1445,31 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     frame_relative = .8 * last_frame_no/60
     frame1.set_facecolor((0.5, (1- frame_relative),0.5 ))
 
-    file_name = "/home/cotrack/CoTrack-Web-mvps/static/assets/images/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
+    file_name = "./" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
 
+
+    plt.savefig(file_name, format="png")
 
     image = io.BytesIO()
     plt.savefig(image,format="png")
     image.seek(0)
+    new_X = (img_to_array(image.read()))
+    image.seek(0)
     string = base64.b64encode(image.read())
-    new_X = (img_to_array(image))
+
     n = new_X.reshape((1,72,185,3))
     result = {}
-    result['CO'] = model_CO.predict(n)[0][0]
-    result['SMU'] = model_SMU.predict(n)[0][0]
-    result['ITO'] = model_ITO.predict(n)[0][0]
+    result['btye_CO'] = model_CO.predict(n)[0][0]
+    #result['SMU'] = model_SMU.predict(n)[0][0]
+    #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
     #data = {'data':str(string.decode())}
-    #plt.savefig(file_name, format="png")
+    #
+
+    img = load_img(file_name)
+    new_X = (img_to_array(img))
+    n = new_X.reshape((1,72,185,3))
+    result['image_CO'] = model_CO.predict(n)[0][0]
 
     return result,str(string.decode())
     #plt.show()
