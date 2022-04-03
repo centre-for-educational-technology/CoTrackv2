@@ -1454,7 +1454,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(3)
 
 
-    plt.savefig(file_name, format="png",dpi=72)
+    plt.savefig(file_name, format="png",bbox_inches='tight')
 
     #rimg = load_img(file_name,target_size=(72,185))
     #new_X = (img_to_array(rimg))
