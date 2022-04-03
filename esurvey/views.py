@@ -1473,10 +1473,10 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     response = requests.post('http://127.0.0.1:5002',headers=headers,json={'file':file_name})
     response_json = response.json()
     result = {}
-    result['CO'] = "low" if response_json['co'] < .5 else "high"
-    result['SMU'] = "low" if response_json['smu'] < .5 else "high"
-    result['ITO'] = "low" if response_json['ito'] < .6 else "high"
-    result['CQ'] = "low" if response_json['cq'] < .6 else "high"
+    result['CO'] = "low" if float(response_json['co']) < .5 else "high"
+    result['SMU'] = "low" if float(response_json['smu']) < .5 else "high"
+    result['ITO'] = "low" if float(response_json['ito']) < .6 else "high"
+    result['CQ'] = "low" if float(response_json['cq']) < .6 else "high"
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
