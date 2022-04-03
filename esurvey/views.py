@@ -1500,7 +1500,10 @@ def getVadDf(session_id,group_id):
     for v in vads:
         vad_df =vad_df.append({'timestamp':v.timestamp,'user':v.user.authormap.authorid,'speaking':(v.activity/1000)},ignore_index=True)
     vad_df.timestamp = pd.to_datetime(vad_df.timestamp)
-    vad_df['timestamp'] = vad_df['timestamp'].dt.tz_convert('Europe/Helsinki')
+    try:
+        vad_df['timestamp'] = vad_df['timestamp'].dt.tz_convert('Europe/Helsinki')
+    except:
+        vad_df['timestamp'] = vad_df['timestamp'].dt.tz_localize('Europe/Helsinki')
     vad_df['timestamp'] = vad_df['timestamp'].dt.tz_localize(None)
     vad_df.drop_duplicates(inplace=True)
     return vad_df
