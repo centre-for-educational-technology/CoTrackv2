@@ -1430,7 +1430,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     users = vad_df['user'].unique().tolist()
     print(users)
     last_time = vad_df['diff'].tolist()[-1]
-    last_frame_no = last_time % 30
+    last_frame_no = int(last_time % 30)
 
     fig = plt.figure(figsize=(3,1),edgecolor='white', linewidth=0)
     plt.xlim(0,31)
@@ -1448,10 +1448,10 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
 
 
-    plt.savefig(file_name, format="png")
+    plt.savefig(file_name, format="png",dpi=72)
 
     image = io.BytesIO()
-    plt.savefig(image,format="png")
+    plt.savefig(image,format="png",dpi=72)
     image.seek(0)
     #new_X = (img_to_array(image.read()))
     #image.seek(0)
