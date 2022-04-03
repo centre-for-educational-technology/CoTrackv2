@@ -1332,7 +1332,117 @@ def getLogDf(session_id,group_id):
 
     return log
 
+# plotting vad
+def plotFrame2(vdf,colors,frame):
+    #print('Frame:',frame,'Instance:',df.shape)
+    df = vdf.copy()
+
+    df = df.loc[df['diff'] > (frame-1)*30,:]
+    df = df.loc[df['diff'] < (frame)*30]
+
+    df['diff'] = df['diff'] - (frame-1) * 30
+    df['end'] = df['end'] - (frame-1) *30
+
+    plt.yticks(list(range(0,41,5)))
+    for row in df.itertuples():
+        y = [1,1]
+        x = [row.diff ,row.end ]
+        color = colors[users.index(row.user)]
+        plt.plot(x,y,color,linewidth=8,alpha=.3)
+
+
+def plotFrameLog(vdf,colors,users,frame):
+    df= vdf.copy()
+    print(df.columns)
+    df['timestamp'] = df['diff']
+    for user in users:
+        log_op = df.loc[df['author']==user,:]
+        if log_op.shape[0] == 0:
+            continue
+        #print('User:',user,' Frame:',frame,' Shape:',log_op2.shape)
+        pre_op = None
+        pre_time = None
+        x = []
+        y = []
+        area = []
+        marker = []
+        for row in log_op.itertuples():
+            #print(row.timestamp,row.difference,row.operation)
+            if row.difference > 25 and row.operation == '>':
+                x.append(row.timestamp)
+                marker.append("o")
+                pre_op = "o"
+                pre_time = row.timestamp
+                area.append(row.difference)
+            elif row.operation == pre_op and row.timestamp - pre_time < 5:
+                area[-1] = area[-1] + row.difference
+                pre_op = row.operation
+                pre_time = row.timestamp
+            else:
+                x.append(row.timestamp)
+                marker.append(row.operation)
+                area.append(row.difference)
+                pre_op = row.operation
+                pre_time = row.timestamp
+
+        x_data = x.copy()
+        for op in ['>','<',"o"]:
+            x = x_data
+            add_ind = np.where(np.array(marker)==op)
+            if len(add_ind) == 0:
+                continue
+            x = np.array(x)
+            #print('X:',x,' Index:',add_ind)
+            x = x[add_ind]
+            #print(' Before:',x)
+            area_cur = np.array(area)[add_ind]
+            x = x - (frame-1) * 30
+            y = [1] * len(x)
+
+            #print(' Data:',x,marker,area)
+
+            if op == '>':
+                mk_op = '+'
+            if op == '<':
+                mk_op = '_'
+            if op == 'o':
+                mk_op = 'o'
+
+            area_cur = 50 * area_cur / sum(area_cur)
+
+
+            plt.scatter(x,y,marker=mk_op,
+                        c=colors[users.index(user)],s=area_cur,alpha=.8)
+
+def getImageLogVad(log,vad_df,target_dir,session,group):
+    colors = ['b','g','c','m','y']
+    users = vad_df['user'].unique().tolist()
+    print(users)
+    last_time = vad_df['diff'].tolist()[-1]
+    last_frame_no = last_time % 30
+
+    fig = plt.figure(figsize=(3,1),edgecolor='white', linewidth=0)
+    plt.xlim(0,31)
+    plotFrame2(vad_df,colors,1)
+    plotFrameLog(log,colors,users,1)
+
+    frame1 = plt.gca()
+
+    frame1.axes.get_xaxis().set_visible(False)
+    frame1.axes.get_yaxis().set_visible(False)
+
+    frame_relative = .8 * last_frame_no/60
+    frame1.set_facecolor((0.5, (1- frame_relative),0.5 ))
+
+    file_name = target_dir + "/" + str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
+
+    plt.savefig(filename, format="png")
+
+    return file_name
+    #plt.show()
+
 def getVadDf(session_id,group_id):
+
     vad_df = pd.DataFrame(columns=['timestamp','user','speaking'])
     vads = VAD.objects.filter(session=session_id,group=group_id).order_by('timestamp')
 
@@ -1341,10 +1451,10 @@ def getVadDf(session_id,group_id):
     vad_df.timestamp = pd.to_datetime(vad_df.timestamp)
     vad_df['timestamp'] = vad_df['timestamp'].dt.tz_convert('Europe/Helsinki')
     vad_df['timestamp'] = vad_df['timestamp'].dt.tz_localize(None)
+    vad_df.drop_duplicates(inplace=True)
     return vad_df
 
-
-def getActivityStartTime(session_id,group_id):
+def vadAndLogDf(session_id,group_id):
     vads = getVadDf(session_id,group_id)
     logs = getLogDf(session_id,group_id)
     return logs,vads
@@ -1353,7 +1463,7 @@ def getActivityStartTime(session_id,group_id):
 @permission_classes((permissions.AllowAny,))
 def getPredictionStat(request,session_id,group_id):
     data = {}
-    logs,vads = getActivityStartTime(session_id,group_id)
+    logs,vads = vadAndLogDf(session_id,group_id)
     data['vad_start'] = vads['timestamp'].tolist()[0]
     data['log_start'] = logs['timestamp'].tolist()[0]
     if data['vad_start'] < data['log_start']:
@@ -1361,6 +1471,18 @@ def getPredictionStat(request,session_id,group_id):
     else:
         ac = data['log_start']
     data['activity_start'] = ac
+
+    logs['start_time'] = ac
+    vads['start_time'] = ac
+
+    logs['diff'] = logs['timestamp'] - logs['start_time']
+    vads['diff'] = vads['timestamp'] - vads['start_time']
+
+    target = "../../static/"
+
+    f = getImageLogVad(logs,vads,target,session_id,group_id)
+    data['image'] = f
+    
     return Response(data)
 
 
