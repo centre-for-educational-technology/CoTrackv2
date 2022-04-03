@@ -1451,7 +1451,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     frame_relative = .8 * last_frame_no/60
     frame1.set_facecolor((0.5, (1- frame_relative),0.5 ))
 
-    file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(2)
+    file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(3)
 
 
     plt.savefig(file_name, format="png",dpi=72)
