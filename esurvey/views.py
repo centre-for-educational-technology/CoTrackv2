@@ -62,16 +62,19 @@ import jwt
 
 import pandas as pd
 import pytz
-#from tensorflow.keras.preprocessing.image import img_to_array
+
+from tensorflow.keras.preprocessing.image import img_to_array, load_img
+from tensorflow import keras
+import tensorflow_addons as tfa
 #from tensorflow.keras.models import Sequential
 #from tensorflow.keras.layers import Conv2D, MaxPooling2D
 #from tensorflow.keras.layers import Activation, Dropout, Flatten, Dense
 #from tensorflow.keras.losses import BinaryCrossentropy
 #from sklearn.metrics import cohen_kappa_score
 #import tensorflow_addons as tfa
-#from tensorflow import keras
 
-#model_CO  = keras.models.load_model('model_CO')
+
+model_CO  = keras.models.load_model('/home/cotrack/CoTrack-Web-mvps/media/model_CO')
 #model_ITO  = keras.models.load_model('model_ITO')
 #model_SMU  = keras.models.load_model('model_SMU')
 
@@ -1434,8 +1437,8 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     fig = plt.figure(figsize=(3,1),edgecolor='white', linewidth=0)
     plt.xlim(0,31)
-    plotFrame2(vad_df,colors,users,1)
-    plotFrameLog(log,colors,users,1)
+    plotFrame2(vad_df,colors,users,2)
+    plotFrameLog(log,colors,users,2)
 
     frame1 = plt.gca()
 
@@ -1445,10 +1448,15 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     frame_relative = .8 * last_frame_no/60
     frame1.set_facecolor((0.5, (1- frame_relative),0.5 ))
 
-    file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
+    file_name = "/home/cotrack/CoTrack-Web-mvps/media/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(2)
 
 
     plt.savefig(file_name, format="png",dpi=72)
+
+    rimg = load_img(file_name,target_size=(72,185))
+    new_X = (img_to_array(img))
+    n = new_X.reshape((1,72,185,3))
+
 
     image = io.BytesIO()
     plt.savefig(image,format="png",dpi=72)
@@ -1459,7 +1467,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     #n = new_X.reshape((1,72,185,3))
     #result = {}
-    #result['btye_CO'] = model_CO.predict(n)[0][0]
+    result['CO'] = model_CO.predict(n)[0][0]
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
@@ -1470,7 +1478,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     #new_X = (img_to_array(img))
     #n = new_X.reshape((1,72,185,3))
     #result['image_CO'] = model_CO.predict(n)[0][0]
-    return 'None',str(string.decode())
+    return result,str(string.decode())
 
     #return result,str(string.decode())
     #plt.show()
