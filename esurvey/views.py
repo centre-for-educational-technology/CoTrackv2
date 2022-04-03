@@ -62,6 +62,8 @@ import jwt
 
 import pandas as pd
 import pytz
+
+import requests
 #from esurvey.predict_CO import predict
 #from tensorflow.keras.preprocessing.image import img_to_array, load_img
 #from tensorflow import keras
@@ -1468,7 +1470,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     #n = new_X.reshape((1,72,185,3))
     #result = {}
-    #result['CO'] = predict(file_name)
+    result['CO'] = requests.post('http://127.0.0.1:5000',data={'file':file_name})
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
