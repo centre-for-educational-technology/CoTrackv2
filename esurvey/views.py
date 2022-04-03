@@ -1436,7 +1436,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     file_name = target_dir + "/" + str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
 
-    plt.savefig(filename, format="png")
+    plt.savefig(file_name, format="png")
 
     return file_name
     #plt.show()
