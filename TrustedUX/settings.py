@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 from django.utils.translation import ugettext_lazy as _
 
-
+import os
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
 ETHERPAD_URL ="https://www.etherpad.website"
