@@ -1456,9 +1456,9 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     plt.savefig(file_name, format="png",dpi=72)
 
-    rimg = load_img(file_name,target_size=(72,185))
-    new_X = (img_to_array(rimg))
-    n = new_X.reshape((1,72,185,3))
+    #rimg = load_img(file_name,target_size=(72,185))
+    #new_X = (img_to_array(rimg))
+    #n = new_X.reshape((1,72,185,3))
 
 
     image = io.BytesIO()
@@ -1474,8 +1474,8 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
-    #data = {'data':str(string.decode())}
-    #
+    data = {'data':str(string.decode())}
+    
 
     #img = load_img(file_name)
     #new_X = (img_to_array(img))
