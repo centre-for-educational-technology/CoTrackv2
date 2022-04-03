@@ -1,0 +1,92 @@
+
+{% extends "base_teacher.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load my_tags %}
+{% block title %}Automated Estimation of Collaboration Quality Dimensions {% endblock %}
+{% block content %}
+<style>
+  #traffic-signal{
+      border: 3px solid black;
+      padding: 10px 7px;
+      width: 70px;
+      border-radius: 50px;
+  }
+  #traffic-signal > div{
+      width:50px;
+      height: 50px;
+      border-radius: 50%;
+      opacity: .1;
+  }
+  #green{
+    background-color: green;
+  }
+
+  #red{
+    background-color: red;
+  }
+</style>
+<p> Estimating Collaboration quality sub-dimensions using group's speaking and writing behaviors.</p><br/><br/>
+  <p>
+    <h5 class='text-muted'>{% trans 'Group:'%}  {{ group }} </h5><br/>
+  </p>
+  {% if request.user.is_superuser or request.user.role.role == 'researcher' or request.user.is_staff %}
+  <div class="dropdown">
+    <button class="btn btn-warning dropdown-toggle float-right" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {% trans 'Download Data'%}
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+      <a class="dropdown-item" href="{% url 'download_task' session.id %}" data-toggle="tooltip" title="Download Learning task">{% trans 'Learning task'%}</a>
+      <a class="dropdown-item" href="{% url 'download_response' session.id %}" data-toggle="tooltip" title="Download task responses">{% trans 'Group response'%}</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'download_log' session.id %}" data-toggle="tooltip" title="Download Etherpad logs in CSV format">{% trans 'Etherpad logs'%}</a>
+      <a class="dropdown-item" href="{% url 'download_chat' session.id %}" data-toggle="tooltip" title="Download Etherpad chat logs in CSV format">{% trans 'Etherpad Chat'%}</a>
+
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'download_vad' session.id %}" data-toggle="tooltip" title="Download voice activity detection">{% trans 'VAD data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_speech' session.id %}" data-toggle="tooltip" title="Download speech data">{% trans 'Speech data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_fileTimestamp' session.id %}" data-toggle="tooltip" title="Download file metadata">{% trans 'File metadata'%}</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'download_sus' session.id %}" data-toggle="tooltip" title="Download system usability survey data">{% trans 'Sus survey data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_engage' session.id %}" data-toggle="tooltip" title="Download collaboration  survey data">{% trans 'Engagement survey data'%}</a>
+      <a class="dropdown-item" href="{% url 'download_demographics' session.id %}" data-toggle="tooltip" title="Download demographics">{% trans 'Demographics'%}</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{% url 'download_mapping' session.id %}" data-toggle="tooltip" title="Download User mapping for Etherpad">{% trans 'User mapping'%}</a>
+    </div>
+  </div>
+  {% endif %}
+
+  <hr/>
+  <div class='container'>
+    <div id="result">
+
+    </div>
+  </div>
+<script>
+  // idea from https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
+  function makeGetRequest(path) {
+    return new Promise(function (resolve, reject) {
+      axios.get(path).then(
+        (response) => {
+          var result = response.data;
+          console.log('Processing Request');
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+
+async function main() {
+  var url = '{{request.site.base_url}}/getPrediction/' + {{session_id}} + "/" +{{group_id}} ;
+  var result = await makeGetRequest(url);
+  console.log('Results from prediction');
+  console.log(result);
+  $('result').html(JSON.stringify(result, undefined, 2));
+}
+setInterval(main,40000); // run every 5 minutes
+</script>
+{% endblock %}

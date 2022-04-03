@@ -44,6 +44,8 @@ urlpatterns = [
     path("audio/", views.model_form_upload, name='views.model_form_upload'),
     path("audiolist/", views.list_files, name='views.list_files'),
     path("leave/",views.LeaveSession, name='leave_session'),
+    path("predict/<session_id>/<group_id>", views.predict, name='predict'),
+    
     #restapi
     path("getStats/<padid>", views.getGroupPadStats),
     path("sessions/word_cloud/<session_id>/<group_id>", views.getWordCloud, name='group_word_cloud'),
