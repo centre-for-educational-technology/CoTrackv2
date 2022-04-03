@@ -59,7 +59,7 @@ async function main() {
   var result = await makeGetRequest(url);
   console.log('Results from prediction');
   console.log(result);
-  $('result').html(JSON.stringify(result, undefined, 2));
+  $('#result').html(JSON.stringify(result, undefined, 2));
 }
 setInterval(main,40000); // run every 5 minutes
 </script>
