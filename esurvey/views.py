@@ -1475,14 +1475,14 @@ def getPredictionStat(request,session_id,group_id):
     logs['start_time'] = ac
     vads['start_time'] = ac
 
-    logs['diff'] = logs['timestamp'] - logs['start_time']
-    vads['diff'] = vads['timestamp'] - vads['start_time']
+    logs['diff'] = (logs['timestamp'] - logs['start_time']).dt.total_seconds()
+    vads['diff'] = (vads['timestamp'] - vads['start_time']).dt.total_seconds()
 
     target = "../../static/"
 
     f = getImageLogVad(logs,vads,target,session_id,group_id)
     data['image'] = f
-    
+
     return Response(data)
 
 
