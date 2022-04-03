@@ -1469,8 +1469,11 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     string = base64.b64encode(image.read())
 
     #n = new_X.reshape((1,72,185,3))
+    headers = {'Content-type':'application/json'}
+    response = requests.post('http://127.0.0.1:5001',headers=headers,json={'file':file_name})
+    response_json = response.json()
     result = {}
-    result['CO'] = requests.post('http://127.0.0.1:5000',data={'file':file_name})
+    result['CO'] = response_json['prediction']
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
