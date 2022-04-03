@@ -1469,13 +1469,13 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     string = base64.b64encode(image.read())
 
     #n = new_X.reshape((1,72,185,3))
-    #result = {}
+    result = {}
     result['CO'] = requests.post('http://127.0.0.1:5000',data={'file':file_name})
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
     data = {'data':str(string.decode())}
-    
+
 
     #img = load_img(file_name)
     #new_X = (img_to_array(img))
