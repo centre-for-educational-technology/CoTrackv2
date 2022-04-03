@@ -62,10 +62,10 @@ import jwt
 
 import pandas as pd
 import pytz
-
-from tensorflow.keras.preprocessing.image import img_to_array, load_img
-from tensorflow import keras
-import tensorflow_addons as tfa
+from predict_CO import predict
+#from tensorflow.keras.preprocessing.image import img_to_array, load_img
+#from tensorflow import keras
+#import tensorflow_addons as tfa
 #from tensorflow.keras.models import Sequential
 #from tensorflow.keras.layers import Conv2D, MaxPooling2D
 #from tensorflow.keras.layers import Activation, Dropout, Flatten, Dense
@@ -1468,7 +1468,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     #n = new_X.reshape((1,72,185,3))
     #result = {}
-    #result['CO'] = model_CO.predict(n)[0][0]
+    result['CO'] = predict(file_name)
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
