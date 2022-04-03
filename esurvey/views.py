@@ -1518,12 +1518,18 @@ def vadAndLogDf(session_id,group_id):
 def getPredictionStat(request,session_id,group_id):
     data = {}
     logs,vads = vadAndLogDf(session_id,group_id)
+    if len(vads['timestamp'].tolist()) == 0:
+        return Response({'data':'No vad data available for prediction'})
+
     data['vad_start'] = vads['timestamp'].tolist()[0]
-    data['log_start'] = logs['timestamp'].tolist()[0]
-    if data['vad_start'] < data['log_start']:
+    if len(logs['timestamp'].tolist()) == 0:
         ac = data['vad_start']
     else:
-        ac = data['log_start']
+        data['log_start'] = logs['timestamp'].tolist()[0]
+        if data['vad_start'] < data['log_start']:
+            ac = data['vad_start']
+        else:
+            ac = data['log_start']
     data['activity_start'] = ac
 
     logs['start_time'] = ac
