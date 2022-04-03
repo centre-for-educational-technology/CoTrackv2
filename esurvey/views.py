@@ -1453,13 +1453,13 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     image = io.BytesIO()
     plt.savefig(image,format="png")
     image.seek(0)
-    new_X = (img_to_array(image.read()))
-    image.seek(0)
+    #new_X = (img_to_array(image.read()))
+    #image.seek(0)
     string = base64.b64encode(image.read())
 
-    n = new_X.reshape((1,72,185,3))
-    result = {}
-    result['btye_CO'] = model_CO.predict(n)[0][0]
+    #n = new_X.reshape((1,72,185,3))
+    #result = {}
+    #result['btye_CO'] = model_CO.predict(n)[0][0]
     #result['SMU'] = model_SMU.predict(n)[0][0]
     #result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
