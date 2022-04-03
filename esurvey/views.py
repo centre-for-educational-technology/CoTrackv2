@@ -1478,6 +1478,8 @@ def getPredictionStat(request,session_id,group_id):
     logs['diff'] = (logs['timestamp'] - logs['start_time']).dt.total_seconds()
     vads['diff'] = (vads['timestamp'] - vads['start_time']).dt.total_seconds()
 
+    vads['end'] = vads['diff'] + vads['speaking']
+
     target = "../../static/"
 
     f = getImageLogVad(logs,vads,target,session_id,group_id)
