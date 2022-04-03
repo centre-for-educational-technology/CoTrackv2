@@ -1549,7 +1549,7 @@ def getPredictionStat(request,session_id,group_id):
     return Response(data)
 
 def predict(request,session_id,group_id):
-    return render('prediction_dim.html',context={'session_id':session_id,'group_id':group_id})
+    return render(request,'prediction_dim.html',{'session_id':session_id,'group_id':group_id})
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
