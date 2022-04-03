@@ -63,9 +63,9 @@ import jwt
 import pandas as pd
 import pytz
 
-#from tensorflow.keras.preprocessing.image import img_to_array, load_img
-#from tensorflow import keras
-#import tensorflow_addons as tfa
+from tensorflow.keras.preprocessing.image import img_to_array, load_img
+from tensorflow import keras
+import tensorflow_addons as tfa
 #from tensorflow.keras.models import Sequential
 #from tensorflow.keras.layers import Conv2D, MaxPooling2D
 #from tensorflow.keras.layers import Activation, Dropout, Flatten, Dense
