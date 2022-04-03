@@ -1440,8 +1440,8 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     fig = plt.figure(figsize=(3,1),edgecolor='white', linewidth=0)
     plt.xlim(0,31)
-    plotFrame2(vad_df,colors,users,2)
-    plotFrameLog(log,colors,users,2)
+    plotFrame2(vad_df,colors,users,3)
+    plotFrameLog(log,colors,users,3)
 
     frame1 = plt.gca()
 
