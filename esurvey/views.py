@@ -1470,7 +1470,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     #n = new_X.reshape((1,72,185,3))
     headers = {'Content-type':'application/json'}
-    response = requests.post('http://127.0.0.1:5001',headers=headers,json={'file':file_name})
+    response = requests.post('http://127.0.0.1:5002',headers=headers,json={'file':file_name})
     response_json = response.json()
     result = {}
     result['CO'] = response_json['co']
