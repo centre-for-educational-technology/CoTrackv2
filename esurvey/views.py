@@ -1436,9 +1436,16 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
 
     file_name = "/home/cotrack/CoTrack-Web-mvps/static/assets/images/" +  str(session) +"_"+ str(group)+"_" + "%s.png"%str(last_frame_no)
 
-    plt.savefig(file_name, format="png")
 
-    return file_name
+    image = io.BytesIO()
+    plt.savefig(image,format="png")
+    image.seek(0)
+    string = base64.b64encode(image.read())
+    #image_64 =  urllib.parse.quote(string)
+    #data = {'data':str(string.decode())}
+    #plt.savefig(file_name, format="png")
+
+    return str(string.decode())
     #plt.show()
 
 def getVadDf(session_id,group_id):
