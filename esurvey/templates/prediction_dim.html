@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load my_tags %}
-{% block title %}Automated Estimation of Collaboration Quality Dimensions {% endblock %}
+{% block title %}Automated Estimation of Collaboration Quality Dimensions - Prototype {% endblock %}
 {% block content %}
 <style>
   #traffic-signal{
@@ -28,14 +28,14 @@
 </style>
 <p> Estimating Collaboration quality sub-dimensions using group's speaking and writing behaviors.</p><br/><br/>
   <p>
-    <h5 class='text-muted'>{% trans 'Group:'%}  {{ group }} </h5><br/>
+    <h5 class='text-muted'>{% trans 'Group:'%}  {{ group_id }} </h5><br/>
   </p>
 
   <hr/>
   <div class='container'>
-    <div id="result">
+    <pre id="result">
 
-    </div>
+    </pre>
   </div>
 <script>
   // idea from https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
