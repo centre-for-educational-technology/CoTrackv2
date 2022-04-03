@@ -71,9 +71,9 @@ from sklearn.metrics import cohen_kappa_score
 import tensorflow_addons as tfa
 from tensorflow import keras
 
-model_CO  = keras.models.load_model('model_CO')
-model_ITO  = keras.models.load_model('model_ITO')
-model_SMU  = keras.models.load_model('model_SMU')
+#model_CO  = keras.models.load_model('model_CO')
+#model_ITO  = keras.models.load_model('model_ITO')
+#model_SMU  = keras.models.load_model('model_SMU')
 
 CREATE_FORMS = (
     ("activity_info", CreateForm1),
@@ -1466,12 +1466,13 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     #data = {'data':str(string.decode())}
     #
 
-    img = load_img(file_name)
-    new_X = (img_to_array(img))
-    n = new_X.reshape((1,72,185,3))
-    result['image_CO'] = model_CO.predict(n)[0][0]
+    #img = load_img(file_name)
+    #new_X = (img_to_array(img))
+    #n = new_X.reshape((1,72,185,3))
+    #result['image_CO'] = model_CO.predict(n)[0][0]
+    return 'None',str(string.decode())
 
-    return result,str(string.decode())
+    #return result,str(string.decode())
     #plt.show()
 
 def getVadDf(session_id,group_id):
