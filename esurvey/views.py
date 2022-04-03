@@ -73,8 +73,9 @@ import tensorflow_addons as tfa
 #from sklearn.metrics import cohen_kappa_score
 #import tensorflow_addons as tfa
 
-
+print('Before loading model:----------->')
 model_CO  = keras.models.load_model('/home/cotrack/CoTrack-Web-mvps/media/model_CO')
+print('Model is loaded successfully------>')
 #model_ITO  = keras.models.load_model('model_ITO')
 #model_SMU  = keras.models.load_model('model_SMU')
 
