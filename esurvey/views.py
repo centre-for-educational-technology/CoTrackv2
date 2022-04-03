@@ -72,9 +72,9 @@ import tensorflow_addons as tfa
 #from tensorflow.keras.losses import BinaryCrossentropy
 #from sklearn.metrics import cohen_kappa_score
 #import tensorflow_addons as tfa
-
+model_co = settings.MODEL_CO
 print('Before loading model:----------->')
-model_CO  = keras.models.load_model('/home/cotrack/CoTrack-Web-mvps/media/model_CO')
+#model_CO  = keras.models.load_model('/home/cotrack/CoTrack-Web-mvps/media/model_CO')
 print('Model is loaded successfully------>')
 #model_ITO  = keras.models.load_model('model_ITO')
 #model_SMU  = keras.models.load_model('model_SMU')

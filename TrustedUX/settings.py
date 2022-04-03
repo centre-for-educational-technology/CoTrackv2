@@ -12,8 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.utils.translation import ugettext_lazy as _
-
-
+from tensorflow import keras
+import tensorflow_addons as tfa
+MODEL_CO = keras.models.load_model('model_CO.h5')
 
 ETHERPAD_KEY = "19a6d96ea14df62331708d6e68cf043267c6e4a96ce177bac6d34bb94db19c9d"
 ETHERPAD_URL ="https://www.etherpad.website"
@@ -42,7 +43,7 @@ CKEDITOR_RESTRICT_BY_USER = True
 SECRET_KEY = '0abn2aukso9r5!7zuk$tk7q%0%=$jxuocgfm%pu_lsgq!$+*e+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['www.cotrack.website']
 
