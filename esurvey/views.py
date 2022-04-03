@@ -1455,7 +1455,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     plt.savefig(file_name, format="png",dpi=72)
 
     rimg = load_img(file_name,target_size=(72,185))
-    new_X = (img_to_array(img))
+    new_X = (img_to_array(rimg))
     n = new_X.reshape((1,72,185,3))
 
 
