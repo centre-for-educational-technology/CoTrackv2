@@ -62,7 +62,18 @@ import jwt
 
 import pandas as pd
 import pytz
+from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D
+from tensorflow.keras.layers import Activation, Dropout, Flatten, Dense
+from tensorflow.keras.losses import BinaryCrossentropy
+from sklearn.metrics import cohen_kappa_score
+import tensorflow_addons as tfa
+from tensorflow import keras
 
+model_CO  = keras.models.load_model('model_CO')
+model_ITO  = keras.models.load_model('model_ITO')
+model_SMU  = keras.models.load_model('model_SMU')
 
 CREATE_FORMS = (
     ("activity_info", CreateForm1),
@@ -1441,11 +1452,17 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     plt.savefig(image,format="png")
     image.seek(0)
     string = base64.b64encode(image.read())
+    new_X = (img_to_array(image))
+    n = new_X.reshape((1,72,185,3))
+    result = {}
+    result['CO'] = model_CO.predict(n)[0][0]
+    result['SMU'] = model_SMU.predict(n)[0][0]
+    result['ITO'] = model_ITO.predict(n)[0][0]
     #image_64 =  urllib.parse.quote(string)
     #data = {'data':str(string.decode())}
     #plt.savefig(file_name, format="png")
 
-    return str(string.decode())
+    return result,str(string.decode())
     #plt.show()
 
 def getVadDf(session_id,group_id):
@@ -1489,8 +1506,9 @@ def getPredictionStat(request,session_id,group_id):
 
     target = "../../static/"
 
-    f = getImageLogVad(logs,vads,target,session_id,group_id)
+    results,f = getImageLogVad(logs,vads,target,session_id,group_id)
     data['image'] = f
+    data['prediction'] = results
 
     return Response(data)
 
