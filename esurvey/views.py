@@ -1483,7 +1483,7 @@ def getImageLogVad(log,vad_df,target_dir,session,group):
     #new_X = (img_to_array(image.read()))
     #image.seek(0)
     string = base64.b64encode(image.read())
-
+    plt.close()
     #n = new_X.reshape((1,72,185,3))
     headers = {'Content-type':'application/json'}
     response = requests.post('http://127.0.0.1:5002',headers=headers,json={'file':file_name})
