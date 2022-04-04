@@ -1080,7 +1080,8 @@ def getWordCloud(request,session_id,group_id):
         data = {'data':'empty'};
     else:
         wc = WordCloud(background_color = 'white', max_words=2000, stopwords = stopwords)
-        #fig = plt.figure(figsize=(6,8))
+
+        fig = plt.figure(figsize=(6,8))
         cloud = wc.generate(speeches)
         print('Word cloud generated')
         plt.imshow(wc,interpolation ='bilinear')
