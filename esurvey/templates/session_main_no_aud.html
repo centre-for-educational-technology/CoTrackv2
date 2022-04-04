@@ -110,58 +110,7 @@
           );
       });
   }
-  /*
-  var cy = [];
 
-  console.log('Loop starting....');
-  cyt_groups = {{no_group}};
-
-  for (var i=0; i<cyt_groups.length;i++) {
-
-
-  var id_label = 'speak-' + i;
-  console.log(id_label);
-  // cytoscape js
-  cy_tmp = cytoscape({
-  				container: document.getElementById(id_label),
-  				style: [
-          {
-            selector: 'node',
-            css: {
-                  'content': 'data(name)',
-                  'text-valign': 'center',
-                  'color': 'white',
-                  'text-outline-width': 2,
-                  'text-outline-color': '#888'
-            }
-          },
-  					{
-  						selector: '[size]',
-  						css: {
-                'width': 'data(size)',
-                'height': 'data(size)',
-  						}
-  					},
-            {
-  						selector: '[weight]',
-  						css: {
-                'width':'data(weight)',
-                'color': 'black',
-  						}
-  					},
-  				],
-  				layout: {
-              name: 'circle',
-
-  				   // color: "#ffff00",
-  				    fit: true
-  				}
-  			});
-
-    cy.push(cy_tmp);
-  }
-
-*/
   var ctx = document.getElementById('overall').getContext('2d');
   var myChart = new Chart(ctx, {
       type: 'bar',
@@ -191,116 +140,41 @@
   });
 
 
-async function main() {
-
-/*
-  var url2 = 'https://www.cotrack.website/getSpeakingStats/' + {{session.id}} ;
-  var result = await makeGetRequest(url2);
-  console.log('Results from Speaking activity');
-
-  console.log(result);
-
-
-  for(m = 0; m < cyt_groups.length ; m++) {
-
-    cy_tmp = cy[m];
-    cy_tmp.elements().remove();
-    console.log('Before:',cy_tmp.json());
-
-    var updated_graph = [];
-
-    for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
-      var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
-
-      cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name, size:result.speaking_data[m].graph.nodes[n].size } });
+  async function main() {
+    var chart = myChart
+    var revs = [];
+    var groups = [];
+    var group_list = {{no_group}};
+    console.log('Dataset--------')
+    console.log(chart.data.datasets[0].data);
+    for (var i=0; i<group_list.length;i++) {
+      etherpad_group = '{{eth_group}}';
+      session_id = {{session.id}};
+      number = parseInt(i) + 1;
+      console.log('before:'+i+' after:'+number);
+      group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
+      // sending ajax request
+      url = '{{request.site.base_url}}/getRevCount/'+group_pad;
+      revisions = 0;
+      var result = await makeGetRequest(url);
+      revs.push(result.revisions);
+      group = 'group-' + number
+      groups.push(group);
+      chart.data.datasets[0].data[i]= result.revisions;
+      chart.data.labels[i]=group;
+      chart.update();
+      console.log('function called');
+      console.log(result);
+      data = result.revisions;
+      console.log(data);
+      //  revisions = data['revisions'];
+      console.log('Recieved:' + data);
     }
-
-    for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
-      var edge_id =  result.speaking_data[m].graph.edges[n].id;
-      console.log('Type:',typeof(node_id));
-      cy_tmp.add({ group: 'edges', data: { source: result.speaking_data[m].graph.edges[n].source, target: result.speaking_data[m].graph.edges[n].to, weight:result.speaking_data[m].graph.edges[n].weight } });
-    }
-    cy_tmp.layout()
-    console.log('After:',cy_tmp.json());
-
+    console.log(revs);
+    console.log(groups);
   }
+  setInterval(main,5000,myChart); // run every 5 minutes
 
-*/
-
-
-
-
-
-var chart = myChart
-var revs = [];
-var groups = [];
-
-var group_list = {{no_group}};
-
-console.log('Dataset--------')
-console.log(chart.data.datasets[0].data);
-/*
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-chart.data.datasets[0].data.pop();
-
-
-chart.data.labels.pop();
-chart.data.labels.pop();
-chart.data.labels.pop();
-chart.data.labels.pop();
-*/
-
-for (var i=0; i<group_list.length;i++) {
-
-etherpad_group = '{{eth_group}}';
-session_id = {{session.id}};
-number = parseInt(i) + 1;
-console.log('before:'+i+' after:'+number);
-group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
-
-// sending ajax request
-
-
-
-url = '{{protocol}}://{{request.get_host}}/getRevCount/'+group_pad;
-revisions = 0;
-
-
-var result = await makeGetRequest(url);
-
-  revs.push(result.revisions);
-  group = 'group-' + number
-  groups.push(group);
-
-
-  chart.data.datasets[0].data[i]= result.revisions;
-  chart.data.labels[i]=group;
-
-  chart.update();
-  console.log('function called');
-  console.log(result);
-  data = result.revisions;
-  console.log(data);
-//  revisions = data['revisions'];
-  console.log('Recieved:' + data);
-
-
-
-
-
-
-
-
-}
-console.log(revs);
-console.log(groups);
-
-
-}
-main();
-setInterval(main,3000,myChart);
 
 </script>
 
