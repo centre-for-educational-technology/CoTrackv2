@@ -1083,15 +1083,27 @@ def getWordCloud(request,session_id,group_id):
         """
         new code
         """
+        fig2, ax = plt.subplots(1,1,figsize=(6,8))
+        ax.imshow(img)
+        ax.spines['top'].set_visible(False)
+        ax.spines['left'].set_visible(False)
+        ax.spines['bottom'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        cloud = wc.generate(speeches)
+        print('Word cloud generated')
+        ax.imshow(wc,interpolation ='bilinear')
 
-        fig1 = plt.figure(figsize=(6,8))
+        """
+        fig = plt.figure(figsize=(6,8))
         cloud = wc.generate(speeches)
         print('Word cloud generated')
         plt.imshow(wc,interpolation ='bilinear')
         plt.axis('off')
-
+        """
         image = io.BytesIO()
-        fig1.savefig(image,format="png")
+        fig2.savefig(image,format="png")
         image.seek(0)
         string = base64.b64encode(image.read())
         #image_64 =  urllib.parse.quote(string)
