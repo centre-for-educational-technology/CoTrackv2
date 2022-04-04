@@ -1973,6 +1973,9 @@ def getSession(request,session_id):
             context_data['eth_group'] = eth_group
             return render(request,'session_main.html',context_data)
         elif session.useEtherpad:
+            session_group = SessionGroupMap.objects.get(session=session)
+            eth_group = session_group.eth_groupid
+            context_data['eth_group'] = eth_group
             return render(request,'session_main_no_aud.html',context_data)
         else:
             return render(request,'session_main_only_av_chat.html',context_data)
