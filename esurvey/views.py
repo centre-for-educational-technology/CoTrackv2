@@ -1967,11 +1967,13 @@ def getSession(request,session_id):
     else:
         session = Session.objects.get(id=session_id)
         context_data = {'session':session,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL}
-        if session.useEtherpad:
+        if session.useEtherpad and (session.useAVchat or session.conf_vad or session.conf_speech):
             session_group = SessionGroupMap.objects.get(session=session)
             eth_group = session_group.eth_groupid
             context_data['eth_group'] = eth_group
             return render(request,'session_main.html',context_data)
+        elif session.useEtherpad:
+            return render(request,'session_main_no_aud.html',context_data)
         else:
             return render(request,'session_main_only_av_chat.html',context_data)
 
