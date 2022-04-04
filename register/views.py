@@ -113,7 +113,7 @@ def login(request):
                         AuthorMap.objects.create(user=request.user,authorid=authorid)
                     user_role = Role.objects.all().filter(user=request.user)
                     print(user_role)
-                    if user_role[0].role == 'teacher':
+                    if user_role[0].role == 'teacher' or request.user.is_superuser or request.user.is_staff:
                         return redirect('project_home')
                     else:
                         return redirect('student_entry')
