@@ -11,7 +11,7 @@ from django.forms import ModelForm
 from django_toggle_switch_widget.widgets import DjangoToggleSwitchWidget
 from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from django.utils.translation import gettext as _
+from django.utils.translation import ugettext_lazy as _
 
 setattr(Field, 'is_checkbox', lambda self: isinstance(self.widget, forms.CheckboxInput ))
 
