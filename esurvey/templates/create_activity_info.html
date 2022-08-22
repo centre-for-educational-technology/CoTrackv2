@@ -60,7 +60,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">
-            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Session name</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Session name' %}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -81,17 +81,17 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">
-            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Number of groups</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Number of groups' %}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class='modal-body'>
 
-            <b> Individual </b> <br/>
-            <p> If you are creating a session for entire class then you can simply specify number of groups as one.</p><br/>
-            <b> Collaborative learning </b> <br/>
-            <p> If you are creating a session for group learning then you can specify the number of groups which will be in the session. You can later change the number of groups. </p><br/>
+            <b> {% trans 'Individual' %} </b> <br/>
+            <p> {% blocktrans %} If you are creating a session for entire class then you can simply specify number of groups as one.{% endblocktrans %}</p><br/>
+            <b> {% trans 'Collaborative learning' %} </b> <br/>
+            <p> {% blocktrans %} If you are creating a session for group learning then you can specify the number of groups which will be in the session. You can later change the number of groups.{% endblocktrans %} </p><br/>
 
           </div>
 
@@ -104,7 +104,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">
-            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Language</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Language'%}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -124,7 +124,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">
-            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>Duration</h5>
+            <h5 class="modal-title" id="exampleModalLabel"><span><i style='color:#007bff;' class='fa fa-info-circle mr-2'></i></span>{% trans 'Duration'%}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

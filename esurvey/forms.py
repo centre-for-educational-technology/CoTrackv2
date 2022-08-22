@@ -68,13 +68,13 @@ class SessionForm(ModelForm):
         """
 
 class CreateForm1(forms.Form):
-    CHOICES = [('En','English'),('Et','Estonian')]
+    CHOICES = [('En',_('English')),('Et',_('Estonian'))]
     name = forms.CharField(label=_('Session name'),widget=forms.TextInput(attrs={'class':'form-control'}))
     groups = forms.IntegerField(label=_('Number of groups'),widget=forms.NumberInput(attrs={'class':'form-control'}))
-    language=forms.CharField(widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
-    duration_days = forms.IntegerField(label=_('Days'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Days'}))
-    duration_hours = forms.IntegerField(label=_('Hours'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Hours'}))
-    duration_minutes = forms.IntegerField(label=_('Minutes'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Minutes'}))
+    language=forms.CharField(label=_('Language'),widget=forms.Select(choices=CHOICES,attrs={'class':'form-control'}))
+    duration_days = forms.IntegerField(label=_('Days'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':_('Days')}))
+    duration_hours = forms.IntegerField(label=_('Hours'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':_('Hours')}))
+    duration_minutes = forms.IntegerField(label=_('Minutes'),widget=forms.NumberInput(attrs={'class':'form-control','placeholder':_('Minutes')}))
     new = forms.IntegerField(widget=forms.HiddenInput(),required=False,initial=-1) # store -1 if session is new otherwise contains session id
 
 class CreateForm2(forms.Form):

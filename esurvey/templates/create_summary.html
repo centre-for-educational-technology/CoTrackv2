@@ -23,7 +23,7 @@
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Record video:' %}</b> {% if all_data.record_audio_video %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <br/>
         {% if request.user.is_staff or request.user.role.role == 'researcher'%}
-        <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add VAD:' %}</b> {% if all_data.conf_vad %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
+        <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add Voice Activity Detection:' %}</b> {% if all_data.conf_vad %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add Speech-to-Text:' %}</b> {% if all_data.conf_speech %}{% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add engagement questionnaire:' %}</b> {% if all_data.conf_engage %}{% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
         <p class="card-text pt-2"><b class='text-muted'>{% trans 'Add system usability questionnaire:' %}</b> {% if all_data.conf_sus  %} {% trans 'Yes' %} {% else %} {% trans 'No' %} {% endif %}</p>
