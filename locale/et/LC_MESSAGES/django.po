@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-17 20:47+0530\n"
+"POT-Creation-Date: 2022-09-14 18:00+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,10 +38,11 @@ msgstr ""
 #: esurvey/templates/create.html:53
 #: esurvey/templates/create_activity_info.html:145
 #: esurvey/templates/create_config.html:374
-#: esurvey/templates/create_summary.html:78
+#: esurvey/templates/create_summary.html:75
 #: esurvey/templates/create_task.html:51
 #: esurvey/templates/survey_form_updated_backup23apr21.html:1260
 #: esurvey/templates/survey_form_usability.html:721
+#: esurvey/templates/teacher_group_analytics_dummy.html:6
 msgid "Back"
 msgstr "Tagasi"
 
@@ -62,7 +63,7 @@ msgstr "Jätkama"
 #: esurvey/templates/create.html:56
 #: esurvey/templates/create_activity_info.html:142
 #: esurvey/templates/create_config.html:371
-#: esurvey/templates/create_summary.html:76
+#: esurvey/templates/create_summary.html:73
 #: esurvey/templates/create_task.html:49 esurvey/templates/overview.html:127
 msgid "Cancel"
 msgstr "Tühistama"
@@ -1155,11 +1156,11 @@ msgstr ""
 msgid "Doctorate"
 msgstr ""
 
-#: esurvey/overview.html:183 esurvey/templates/create_summary.html:81
+#: esurvey/overview.html:183 esurvey/templates/create_summary.html:78
 msgid "Create"
 msgstr "Luua"
 
-#: esurvey/overview.html:185 esurvey/templates/create_summary.html:83
+#: esurvey/overview.html:185 esurvey/templates/create_summary.html:80
 msgid "Update"
 msgstr "Uuenda "
 
@@ -1437,6 +1438,10 @@ msgid ""
 "group seperately and that pin will be use by corresponding group to enter "
 "into learning space."
 msgstr ""
+"Kui see on valitud, kasutavad kõik õpilased ja CoTrack ainult ühte "
+"nööpnõelarühmitab need automaatselt. <br/> Vastasel juhul luuakse iga  jaoks "
+"PIN-koodrühm eraldi ja seda PIN-koodi kasutab vastav rühm "
+"sisenemiseksõpperuumi."
 
 #: esurvey/templates/create_config.html:256
 msgid "Audio & Video chat"
@@ -1659,15 +1664,15 @@ msgstr "Lisage süsteemi kasutatavuse küsimustik:"
 msgid "Add consent form:"
 msgstr "Lisa nõusolekuvorm:"
 
-#: esurvey/templates/create_summary.html:40
+#: esurvey/templates/create_summary.html:37
 msgid "Session access for participants"
 msgstr "Osalejatele juurdepääs seansile"
 
-#: esurvey/templates/create_summary.html:45
+#: esurvey/templates/create_summary.html:42
 msgid "Session access"
 msgstr "Juurdepääs seansile"
 
-#: esurvey/templates/create_summary.html:51
+#: esurvey/templates/create_summary.html:48
 msgid ""
 "Participants can only join the session if it is enabled. Instructors can "
 "control parcipants access to the session."
@@ -1675,13 +1680,15 @@ msgstr ""
 "Osalejad saavad seansiga liituda ainult siis, kui see on lubatud. Juhendajad "
 "saavadkontrollige parcipantide juurdepääsu seansile."
 
-#: esurvey/templates/create_summary.html:53
+#: esurvey/templates/create_summary.html:50
 msgid "It can be changed later."
 msgstr "Seda saab hiljem muuta."
 
 #: esurvey/templates/create_task.html:23 esurvey/templates/create_task.html:40
 #: esurvey/templates/session_main.html:26
 #: esurvey/templates/session_main_no_aud.html:25
+#: esurvey/templates/session_main_redesign.html:20
+#: esurvey/templates/session_main_redesign_dummy.html:21
 msgid "Learning task"
 msgstr "Õppimisruum"
 
@@ -1739,6 +1746,11 @@ msgstr "Juurdepääsu tihvt "
 #: esurvey/templates/session_main.html:85
 #: esurvey/templates/session_main.html:108
 #: esurvey/templates/session_main_no_aud.html:53
+#: esurvey/templates/session_main_redesign.html:90
+#: esurvey/templates/session_main_redesign.html:100
+#: esurvey/templates/session_main_redesign_dummy.html:81
+#: esurvey/templates/session_main_redesign_dummy.html:91
+#: esurvey/templates/teacher_group_analytics_dummy.html:9
 msgid "Group"
 msgstr "Grupp"
 
@@ -1818,6 +1830,7 @@ msgstr ""
 
 #: esurvey/templates/pad_only_no_audio.html:94
 #: esurvey/templates/student_pad.html:39 esurvey/templates/teacher_pad.html:32
+#: esurvey/templates/teacher_pad_redesign.html:30
 msgid "Write solution here"
 msgstr "Kirjutage lahendus siia"
 
@@ -1848,16 +1861,22 @@ msgid "Edit Session"
 msgstr "Seansi muutmine"
 
 #: esurvey/templates/session_main.html:17
+#: esurvey/templates/session_main_redesign.html:11
+#: esurvey/templates/session_main_redesign_dummy.html:12
 msgid "Show dashboard"
 msgstr ""
 
 #: esurvey/templates/session_main.html:22
 #: esurvey/templates/session_main_no_aud.html:21
+#: esurvey/templates/session_main_redesign.html:16
+#: esurvey/templates/session_main_redesign_dummy.html:17
 msgid "Download Data"
 msgstr "Andmete allalaadimine"
 
 #: esurvey/templates/session_main.html:27
 #: esurvey/templates/session_main_no_aud.html:26
+#: esurvey/templates/session_main_redesign.html:21
+#: esurvey/templates/session_main_redesign_dummy.html:22
 #, fuzzy
 #| msgid "General Information"
 msgid "Group response"
@@ -1865,43 +1884,61 @@ msgstr "Üldine informatsioon"
 
 #: esurvey/templates/session_main.html:29
 #: esurvey/templates/session_main_no_aud.html:28
+#: esurvey/templates/session_main_redesign.html:23
+#: esurvey/templates/session_main_redesign_dummy.html:24
 msgid "Etherpad logs"
 msgstr "Etherpadi logid"
 
 #: esurvey/templates/session_main.html:30
 #: esurvey/templates/session_main_no_aud.html:29
+#: esurvey/templates/session_main_redesign.html:24
+#: esurvey/templates/session_main_redesign_dummy.html:25
 msgid "Etherpad Chat"
 msgstr "Etherpadi vestlus"
 
 #: esurvey/templates/session_main.html:33
+#: esurvey/templates/session_main_redesign.html:27
+#: esurvey/templates/session_main_redesign_dummy.html:28
 msgid "VAD data"
 msgstr "VAD andmed"
 
 #: esurvey/templates/session_main.html:34
+#: esurvey/templates/session_main_redesign.html:28
+#: esurvey/templates/session_main_redesign_dummy.html:29
 msgid "Speech data"
 msgstr "Kõne andmed"
 
 #: esurvey/templates/session_main.html:35
+#: esurvey/templates/session_main_redesign.html:29
+#: esurvey/templates/session_main_redesign_dummy.html:30
 msgid "File metadata"
 msgstr "Faili metaandmed"
 
 #: esurvey/templates/session_main.html:37
 #: esurvey/templates/session_main_no_aud.html:32
+#: esurvey/templates/session_main_redesign.html:31
+#: esurvey/templates/session_main_redesign_dummy.html:32
 msgid "Sus survey data"
 msgstr "Sus uuringu andmed"
 
 #: esurvey/templates/session_main.html:38
 #: esurvey/templates/session_main_no_aud.html:33
+#: esurvey/templates/session_main_redesign.html:32
+#: esurvey/templates/session_main_redesign_dummy.html:33
 msgid "Engagement survey data"
 msgstr "Kaasamisuuringu andmed"
 
 #: esurvey/templates/session_main.html:39
 #: esurvey/templates/session_main_no_aud.html:34
+#: esurvey/templates/session_main_redesign.html:33
+#: esurvey/templates/session_main_redesign_dummy.html:34
 msgid "Demographics"
 msgstr "Demograafia"
 
 #: esurvey/templates/session_main.html:41
 #: esurvey/templates/session_main_no_aud.html:36
+#: esurvey/templates/session_main_redesign.html:35
+#: esurvey/templates/session_main_redesign_dummy.html:36
 msgid "User mapping"
 msgstr "Kasutaja kaardistamine"
 
@@ -1930,6 +1967,9 @@ msgstr "Lisage Etherpad "
 
 #: esurvey/templates/session_main.html:128
 #: esurvey/templates/session_main_only_av_chat.html:79
+#: esurvey/templates/teacher_group_analytics.html:135
+#: esurvey/templates/teacher_group_analytics.html:151
+#: esurvey/templates/teacher_group_analytics_dummy.html:187
 msgid "Word cloud"
 msgstr ""
 
@@ -1962,6 +2002,66 @@ msgstr ""
 #: esurvey/templates/session_main_no_aud.html:112
 msgid "Join group"
 msgstr "Liitu grupiga"
+
+#: esurvey/templates/session_main_redesign.html:49
+#: esurvey/templates/session_main_redesign_dummy.html:50
+msgid "Total Groups"
+msgstr "Grupid"
+
+#: esurvey/templates/session_main_redesign.html:59
+#: esurvey/templates/session_main_redesign_dummy.html:60
+msgid "Activity Duration"
+msgstr "Tegevuse kestus "
+
+#: esurvey/templates/session_main_redesign.html:69
+#: esurvey/templates/session_main_redesign_dummy.html:70
+msgid "Active Groups"
+msgstr "Aktiivsed rühmad"
+
+#: esurvey/templates/session_main_redesign.html:79
+msgid "Help Requested"
+msgstr "Abi paluti"
+
+#: esurvey/templates/session_main_redesign.html:91
+msgid "Social dynamics"
+msgstr "Sotsiaalne dünaamika"
+
+#: esurvey/templates/session_main_redesign.html:92
+#: esurvey/templates/session_main_redesign_dummy.html:83
+msgid "Writing behavior"
+msgstr "Kirjutamiskäitumine"
+
+#: esurvey/templates/session_main_redesign.html:93
+#: esurvey/templates/session_main_redesign_dummy.html:84
+#: esurvey/templates/teacher_group_analytics_dummy.html:107
+msgid "Collaboration quality"
+msgstr "Koostöö kvaliteet"
+
+#: esurvey/templates/session_main_redesign.html:94
+msgid "Controls"
+msgstr "Juhtnupud"
+
+#: esurvey/templates/session_main_redesign.html:105
+#, fuzzy
+#| msgid "Group analytics"
+msgid "Group anlytics"
+msgstr "Grupianalüüs"
+
+#: esurvey/templates/session_main_redesign.html:106
+msgid "Check artifact"
+msgstr "Kontrollige artefakti"
+
+#: esurvey/templates/session_main_redesign_dummy.html:82
+msgid "Speaking behavior"
+msgstr "Rääkimiskäitumine"
+
+#: esurvey/templates/session_main_redesign_dummy.html:85
+msgid "Links"
+msgstr "Link"
+
+#: esurvey/templates/session_main_redesign_dummy.html:121
+msgid "Group analytics"
+msgstr "Rühmaanalüüs"
 
 #: esurvey/templates/session_student_entry.html:27
 #: esurvey/templates/session_student_entry_v2.html:221
@@ -2005,8 +2105,7 @@ msgstr ""
 "juhendajalt."
 
 #: esurvey/templates/student_pad.html:3
-#, fuzzy
-#| msgid "Sessions"
+#: esurvey/templates/teacher_group_analytics_dummy.html:10
 msgid "Session"
 msgstr "Seansid"
 
@@ -2941,9 +3040,9 @@ msgstr ""
 #: esurvey/templates/survey_form_updated_engagement.html:7
 #: esurvey/templates/survey_form_updated_engagement0.html:7
 #, fuzzy
-#| msgid "Configuration"
+#| msgid "Collaborative learning"
 msgid "Collaboration"
-msgstr "Konfiguratsioon"
+msgstr "Koostöös õppimine"
 
 #: esurvey/templates/survey_form_updated_engagement.html:90
 #: esurvey/templates/survey_form_updated_engagement0.html:90
@@ -3116,30 +3215,222 @@ msgid ""
 msgstr ""
 "Kasutan CoTrackV2-d, et olla kursis õpilaste tegevustega koostöös õppimine. "
 
-#: esurvey/views.py:691
+#: esurvey/templates/teacher_group_analytics.html:60
+#: esurvey/templates/teacher_group_analytics_dummy.html:14
+#: esurvey/templates/teacher_group_analytics_dummy.html:59
+msgid "Speaking analytics"
+msgstr "Rääkides analüütikast"
+
+#: esurvey/templates/teacher_group_analytics.html:83
+#: esurvey/templates/teacher_group_analytics_dummy.html:30
+#: esurvey/templates/teacher_group_analytics_dummy.html:86
+msgid "Writing analytics"
+msgstr "Analüütika kirjutamine"
+
+#: esurvey/templates/teacher_group_analytics.html:98
+#: esurvey/templates/teacher_group_analytics_dummy.html:105
+msgid "Prediction"
+msgstr "Ennustus"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:11
+msgid "Participants"
+msgstr "Osalejad"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:12
+msgid "Configure Dashboard"
+msgstr "Seadistage armatuurlaud"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:19
+#: esurvey/templates/teacher_group_analytics_dummy.html:62
+msgid "Group dynamics"
+msgstr "Rühma dünaamika"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:26
+#: esurvey/templates/teacher_group_analytics_dummy.html:66
+msgid "Speaking time"
+msgstr "Kõneaeg"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:35
+#: esurvey/templates/teacher_group_analytics_dummy.html:89
+msgid "Writing stats"
+msgstr "Statistika kirjutamine"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:41
+msgid "Individual writing contribution"
+msgstr "Individuaalne kirjutamise panus"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:72
+#: esurvey/templates/teacher_group_analytics_dummy.html:80
+msgid "Speech text"
+msgstr "Kõne tekst"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:93
+msgid "Individual contribution"
+msgstr "Individuaalne panus"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:98
+#: esurvey/templates/teacher_group_analytics_dummy.html:203
+msgid "Group Document"
+msgstr "Grupi dokument"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:115
+#: esurvey/templates/teacher_group_analytics_dummy.html:120
+#: esurvey/templates/teacher_group_analytics_dummy.html:125
+msgid ""
+" <p class=\"h5 text-dark\"> chance of <span class=\"badge badge-success text-"
+"white\">High</span> level of collaboration quality "
+msgstr ""
+" <p class=\"h5 text-dark\"> Võimalus <span class=\"badge badge-success text-"
+"white\">Kõrge</span> koostöö kvaliteedi tase"
+
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:129
+msgid "Dimensions"
+msgstr "Mõõtmed"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:135
+#: esurvey/templates/teacher_group_analytics_dummy.html:148
+#: esurvey/templates/teacher_group_analytics_dummy.html:161
+#: esurvey/templates/teacher_group_analytics_dummy.html:238
+#: esurvey/templates/teacher_group_analytics_dummy.html:245
+#: esurvey/templates/teacher_group_analytics_dummy.html:252
+msgid "Argumentation"
+msgstr "Argumenteerimine"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:136
+#: esurvey/templates/teacher_group_analytics_dummy.html:140
+#: esurvey/templates/teacher_group_analytics_dummy.html:153
+#: esurvey/templates/teacher_group_analytics_dummy.html:157
+#: esurvey/templates/teacher_group_analytics_dummy.html:238
+msgid "High"
+msgstr "Kõrge"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:139
+#: esurvey/templates/teacher_group_analytics_dummy.html:152
+#: esurvey/templates/teacher_group_analytics_dummy.html:165
+#: esurvey/templates/teacher_group_analytics_dummy.html:248
+#: esurvey/templates/teacher_group_analytics_dummy.html:255
+msgid "Cooperative orientation"
+msgstr "Koostööle orienteeritud"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:143
+#: esurvey/templates/teacher_group_analytics_dummy.html:156
+#: esurvey/templates/teacher_group_analytics_dummy.html:169
+#: esurvey/templates/teacher_group_analytics_dummy.html:241
+#: esurvey/templates/teacher_group_analytics_dummy.html:258
+msgid "Sustaining mutual understanding"
+msgstr "Vastastikuse mõistmise säilitamine"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:144
+#: esurvey/templates/teacher_group_analytics_dummy.html:241
+msgid "Medium"
+msgstr "Keskmine"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:149
+#: esurvey/templates/teacher_group_analytics_dummy.html:162
+#: esurvey/templates/teacher_group_analytics_dummy.html:166
+#: esurvey/templates/teacher_group_analytics_dummy.html:170
+#: esurvey/templates/teacher_group_analytics_dummy.html:245
+#: esurvey/templates/teacher_group_analytics_dummy.html:248
+#: esurvey/templates/teacher_group_analytics_dummy.html:252
+#: esurvey/templates/teacher_group_analytics_dummy.html:255
+#: esurvey/templates/teacher_group_analytics_dummy.html:258
+msgid "Low"
+msgstr "Madal"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:176
+msgid "Intervention Suggestions"
+msgstr "Sekkumise soovitused"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:219
+msgid "Intevenstion suggestions"
+msgstr "Sekkumise soovitused"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:226
+msgid ""
+"You can use following strategies for the current state collaboration behavior"
+msgstr ""
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:231
+#, fuzzy
+#| msgid "Sessions"
+msgid "Dimension"
+msgstr "dimensioon"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:232
+msgid "Current state"
+msgstr "Praegune seis"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:233
+msgid "Suggestions"
+msgstr "Ettepanekud"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:238
+#: esurvey/templates/teacher_group_analytics_dummy.html:248
+msgid "Praise the students"
+msgstr "Kiida õpilasi"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:241
+#: esurvey/templates/teacher_group_analytics_dummy.html:258
+msgid "To promote, specify common rewards for the group, such as group marks"
+msgstr ""
+"Ettepaneku tegemiseks määrake rühmale tavalised preemiad, näiteks rühmamärgid"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:245
+msgid ""
+" Make sure there is someone in the group with the role of orienting (raising "
+"questions with the direction of discussion)"
+msgstr ""
+"Veenduge, et rühmas oleks keegi, kelle roll on orienteeruda (küsimuste "
+"tõstatamine koos arutelu suunaga)"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:252
+msgid ""
+"Make sure there is someone in the group with the role of orienting (raising "
+"questions with the direction of discussion)"
+msgstr ""
+"Veenduge, et rühmas on keegi, kelle roll on orienteeruda (kasvatadaküsimused "
+"arutelu suunaga)"
+
+#: esurvey/templates/teacher_group_analytics_dummy.html:255
+msgid ""
+"Go and talk to the group aabout the issue, guide them to solve their own "
+"problem; Ask about the role divisions, if possible assign a leader whose "
+"task is to make sure everyone has shared their thougts and feelings."
+msgstr ""
+"Minge ja rääkige grupiga probleemist, suunake neid ise lahendama.probleem; "
+"Küsige rollijaotuse kohta, võimalusel määrake juht, kelle ülesanne on "
+"veenduda, et kõik on oma mõtteid ja tundeid jaganud."
+
+#: esurvey/templates/teacher_pad_redesign.html:17
+msgid "Learning sapce"
+msgstr "Õppimisruum"
+
+#: esurvey/templates/teacher_pad_redesign.html:20
+msgid "Learning Task"
+msgstr "Õppimisruum"
+
+#: esurvey/views.py:695
 msgid "There are no archived project"
 msgstr "Arhiveeritud projekte pole"
 
-
-#: esurvey/views.py:693
+#: esurvey/views.py:697
 msgid "Archived sessions are fetched successfully!"
 msgstr "Arhiveeritud seansside laadimine õnnestus!"
 
-#: esurvey/views.py:698
+#: esurvey/views.py:702
 msgid "All sessions are fetched successfully"
 msgstr "Kõik seansid on edukalt laaditud"
 
-#: esurvey/views.py:812 esurvey/views.py:815
+#: esurvey/views.py:816 esurvey/views.py:819
 msgid "Your responses are saved. Thank you for the submission."
 msgstr "Teie vastused salvestatakse. Täname esitamise eest."
 
-#: esurvey/views.py:831
+#: esurvey/views.py:835
 msgid "Thank you for your participation."
 msgstr "Täname teid osalemise eest."
 
 #: templates/base_form.html:120 templates/base_teacher.html:103
-#, fuzzy
-#| msgid "New session"
 msgid "My sessions"
 msgstr "Uus seanss"
 
@@ -3199,6 +3490,9 @@ msgstr ""
 #: templates/index_soft.html:91
 msgid "Try it now"
 msgstr "Proovige kohe"
+
+#~ msgid "Speech Text"
+#~ msgstr "Kõne Tekst"
 
 #~ msgid "New session"
 #~ msgstr "Uus seanss"

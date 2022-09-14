@@ -2,74 +2,74 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load my_tags %}
-{% block title %}
-<a href="{% url 'session_page' session.id %}" class="btn btn-link"> Back </a>
-
+{% block title %} 
+<a href="{% url 'session_page' session.id %}" class="btn btn-link"> {% trans 'Back' %} </a>
+ 
   <div>
-    <p class="h3 text-left"><span class="text-secondary">Group:</span> Group-{{group}}</p>
-    <p class="h5 text-left"> <span class="text-secondary">Session:</span> {{session.name | upper}} <br/> </p>
-    <p class="h5 text-left"> <span class="text-secondary">Participants:</span> <span id="members"></span> </p>
-    <a  data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample"> <p class="h6 text-right btn btn-sm btn-warning"> <span class="text-dark"> <i class="fa fa-sliders" aria-hidden="true"></i> Configure Dashboard </p> </a>
+    <p class="h3 text-left"><span class="text-secondary">{% trans 'Group' %}-{{group}}</p>
+    <p class="h5 text-left"> <span class="text-secondary">{% trans 'Session' %}:</span> {{session.name | upper}} <br/> </p>
+    <p class="h5 text-left"> <span class="text-secondary">{% trans 'Participants' %}:</span> <span id="members"></span> </p>
+    <a  data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample"> <p class="h6 text-right btn btn-sm btn-warning"> <span class="text-dark"> <i class="fa fa-sliders" aria-hidden="true"></i> {% trans 'Configure Dashboard' %} </p> </a>
       <div class="collapse h6 shadow border-radius-3 p-4" id="collapseExample" >
-        <label class="font-bold"> Speaking analytics </label>
+        <label class="font-bold"> {% trans 'Speaking analytics' %} </label>
         <div class="form-check">
-
+          
           <input checked  class="form-check-input" type="checkbox" value="" id="group_show">
           <label class="form-check-label" for="flexCheckDefault">
-            Group dynamics
+            {% trans 'Group dynamics' %}
           </label>
         </div>
         <div class="form-check">
-
+          
           <input checked class="form-check-input" type="checkbox" value="c" id="speak_show">
           <label class="form-check-label" for="flexCheckDefault2">
-            Speaking time
+            {% trans 'Speaking time' %}
           </label>
         </div>
        <br/>
-      <label class="font-bold"> Writing analytics </label>
+      <label class="font-bold"> {% trans 'Writing analytics' %} </label>
         <div class="form-check">
-
+          
           <input checked  class="form-check-input" type="checkbox" value="" id="write_show">
           <label class="form-check-label" for="flexCheckDefault">
-            Writing stats
+            {% trans 'Writing stats' %}
           </label>
         </div>
         <div class="form-check">
           <input checked  class="form-check-input" type="checkbox" value="" id="ind_show">
           <label class="form-check-label" for="flexCheckDefault2">
-            Individual writing contribution
+            {% trans 'Individual writing contribution' %}
           </label>
         </div>
       </div>
 
-
+    
   </div>
 
-
+  
   {% endblock %}
   {% block content %}
-
+  
 
   <div class="container">
-
+    
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-4">
             <div class="card  order-card boder-0">
               <div class="card-header bg-c-blue">{% trans 'Speaking analytics'%}</div>
               <div class="card-block d-flex flex-column">
                 <div id="group_div">
-                <p class="h5 text-secondary">Group dynamics</p>
+                <p class="h5 text-secondary">{% trans 'Group dynamics' %}</p>
                 <div id="speak-dynamics" class="m-0 pr-5" style="min-width:200px;min-height:200px;"></div>
                 </div>
                 <div id="speak_div">
-                <p class="h5 text-secondary mb-3">Speaking time</p>
+                <p class="h5 text-secondary mb-3">{% trans 'Speaking time' %}</p>
                 <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
                   <canvas id="speak-bar"></canvas>
                 </div>
                 </div>
                 <!--
-                <p class="h5 text-secondary">Speech text</p>
+                <p class="h5 text-secondary">{% trans 'Speech text' %}</p>
                 <p class="text-secondary"><small> Click on below image to enlarge </small></p>
                 <div class="card-block" style="overflow:auto;">
                   <a href="#" class="pop">
@@ -77,7 +77,7 @@
                   </a>
                 </div>
                 -->
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{group}}"><i class="fa fa-comments-o" aria-hidden="true"> </i>  Speech Text</button>
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{group}}"><i class="fa fa-comments-o" aria-hidden="true"> </i>  {% trans 'Speech text' %}</button>
               </div>
             </div>
         </div>
@@ -86,16 +86,16 @@
             <div class="card-header bg-c-blue">{% trans 'Writing analytics'%}</div>
             <div class="card-block">
               <div id="write_div">
-              <p class="h5 text-secondary">Writing stats</p>
+              <p class="h5 text-secondary">{% trans 'Writing stats' %}</p>
               <div id="write-stats" style="min-width:200px;min-height:200px;"></div>
               </div>
               <div id="ind_div">
-              <p class="h5 text-secondary mb-3">Individual contribution</p>
+              <p class="h5 text-secondary mb-3">{% trans 'Individual contribution' %}</p>
               <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
                 <canvas style="min-width:200px;min-height:150px;" id="write-contri"></canvas>
               </div>
             </div>
-              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#text" data-whatever="{{group}}"><i class="fa fa-file-text-o" aria-hidden="true"> </i>  Group Document</button>
+              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#text" data-whatever="{{group}}"><i class="fa fa-file-text-o" aria-hidden="true"> </i>  {% trans 'Group Document' %}</button>
             </div>
           </div>
       </div>
@@ -104,77 +104,77 @@
         <div class="card  order-card">
             <div class="card-header bg-c-blue">{% trans 'Prediction'%}</div>
             <div class="card-block">
-              <p class="h5 text-secondary mb-3">Collaboration quality</p>
+              <p class="h5 text-secondary mb-3">{% trans 'Collaboration quality' %}</p>
               <div class="m-0 d-flex flex-column" style="min-width:200px;min-height:200px;">
-
-                <div>
+                
+                <div> 
                   {% if group == '1' %}
                   <p class="display-3 text-success text-center" style='font-family: "Tahoma", Times, serif;'>83%</p>
-
+                  
                 </div>
-                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                <div class="mt-2"> {% blocktrans %} <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality {% endblocktrans %}</p></div>
                   {% elif group == '2' %}
                   <p class="display-3 text-warning text-center" style='font-family: "Tahoma", Times, serif;'>57%</p>
-
+                  
                 </div>
-                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                <div class="mt-2"> {% blocktrans %} <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality {% endblocktrans %}</p></div>
                   {% else %}
                   <p class="display-3 text-danger text-center" style='font-family: "Tahoma", Times, serif;'>23%</p>
-
+                  
                 </div>
-                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                <div class="mt-2"> {% blocktrans %} <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality {% endblocktrans %}</p></div>
                   {% endif%}
 
               </div>
-              <p class="h5 text-secondary">Dimensions</p>
+              <p class="h5 text-secondary">{% trans 'Dimensions' %}</p>
               <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
                 <ul class="text-dark list-group border-0">
 
                   {% if group == '1' %}
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    Argumentation
-                    <span class="badge badge-success badge-pill">High</span>
+                    {% trans 'Argumentation' %}
+                    <span class="badge badge-success badge-pill">{% trans 'High' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Cooperative orientation
-                    <span class="badge badge-success badge-pill">High</span>
+                    {% trans 'Cooperative orientation' %}
+                    <span class="badge badge-success badge-pill">{% trans 'High' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Sustaining mutual understanding
-                    <span class="badge badge-warning badge-pill">Medium</span>
+                    {% trans 'Sustaining mutual understanding' %}
+                    <span class="badge badge-warning badge-pill">{% trans 'Medium' %}</span>
                   </li>
                   {% elif group == '2' %}
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    Argumentation
-                    <span class="badge badge-danger badge-pill">Low</span>
+                    {% trans 'Argumentation' %}
+                    <span class="badge badge-danger badge-pill">{% trans 'Low' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Cooperative orientation
-                    <span class="badge badge-success badge-pill">High</span>
+                    {% trans 'Cooperative orientation' %}
+                    <span class="badge badge-success badge-pill">{% trans 'High' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Sustaining mutual understanding
-                    <span class="badge badge-success badge-pill">High</span>
+                    {% trans 'Sustaining mutual understanding' %}
+                    <span class="badge badge-success badge-pill">{% trans 'High' %}</span>
                   </li>
                   {% else %}
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0">
-                    Argumentation
-                    <span class="badge badge-danger badge-pill">Low</span>
+                    {% trans 'Argumentation' %}
+                    <span class="badge badge-danger badge-pill">{% trans 'Low' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Cooperative orientation
-                    <span class="badge badge-danger badge-pill">Low</span>
+                    {% trans 'Cooperative orientation' %}
+                    <span class="badge badge-danger badge-pill">{% trans 'Low' %}</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
-                    Sustaining mutual understanding
-                    <span class="badge badge-danger badge-pill">Low</span>
+                    {% trans 'Sustaining mutual understanding' %}
+                    <span class="badge badge-danger badge-pill">{% trans 'Low' %}</span>
                   </li>
                   {% endif %}
-
+                  
                 </ul>
               </div>
-              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#suggestions" data-whatever="{{group}}"><i class="fa fa-lightbulb-o" aria-hidden="true"> </i>  Intervention Suggestions</button>
-
+              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#suggestions" data-whatever="{{group}}"><i class="fa fa-lightbulb-o" aria-hidden="true"> </i>  {% trans 'Intervention Suggestions' %}</button>
+              
             </div>
         </div>
       </div>
@@ -200,7 +200,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header border-bottom-0">
-          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Group response'%}</h5>
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Group Document' %}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -223,39 +223,39 @@
         </div>
         <div class='modal-content p-2'>
            <br/>
-            You can use following strategies for the current state collaboration behavior.
+           {% trans 'You can use following strategies for the current state collaboration behavior'%}.
             <br/><hr/>
             <table class='table borderless'>
               <thead>
                 <tr>
-                  <th scope="col">Dimension</th>
-                  <th scope="col">Current state</th>
-                  <th scope="col">Suggestions</th>
+                  <th scope="col">{% trans 'Dimension'%}</th>
+                  <th scope="col">{% trans 'Current state'%}</th>
+                  <th scope="col">{% trans 'Suggestions'%}</th>
                 </tr>
               </thead>
               {% if group == '1'%}
               <tr>
-                <td> Argumentation </td> <td><span class="badge badge-success badge-pill">High</span></td><td> Praise the students</td>
+                <td> {% trans 'Argumentation'%} </td> <td><span class="badge badge-success badge-pill">{% trans 'High'%}</span></td><td> {% trans 'Praise the students'%}</td>
               </tr>
               <tr>
-                <td> Sustaining mutual understanding </td> <td><span class="badge badge-warning badge-pill">Medium</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
+                <td> {% trans 'Sustaining mutual understanding'%} </td> <td><span class="badge badge-warning badge-pill">{% trans 'Medium'%}</span></td><td> {% trans 'To promote, specify common rewards for the group, such as group marks'%}</td>
               </tr>
               {%elif group == '2' %}
               <tr>
-                <td> Argumentation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)</td>
+                <td> {% trans 'Argumentation'%}</td> <td><span class="badge badge-danger badge-pill">{% trans 'Low'%}</span></td><td>{% trans ' Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)'%}</td>
               </tr>
               <tr>
-                <td> Cooperative orientation </td> <td><span class="badge badge-success badge-pill">High</span></td><td> Praise the group</td>
+                <td> {% trans 'Cooperative orientation'%} </td> <td><span class="badge badge-success badge-pill">{% trans 'Low'%}</span></td><td> {% trans 'Praise the students'%}</td>
               </tr>
               {% else %}
               <tr>
-                <td> Argumentation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)</td>
+                <td> {% trans 'Argumentation'%} </td> <td><span class="badge badge-danger badge-pill">{% trans 'Low'%}</span></td><td> {% trans 'Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)'%}</td>
               </tr>
               <tr>
-                <td> Cooperative orientation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Go and talk to the group aabout the issue, guide them to solve their own problem; Ask about the role divisions, if possible assign a leader whose task is to make sure everyone has shared their thougts and feelings.</td>
+                <td> {% trans 'Cooperative orientation'%} </td> <td><span class="badge badge-danger badge-pill">{% trans 'Low'%}</span></td><td> {% trans 'Go and talk to the group aabout the issue, guide them to solve their own problem; Ask about the role divisions, if possible assign a leader whose task is to make sure everyone has shared their thougts and feelings.'%}</td>
               </tr>
               <tr>
-                <td> Sustaining mutual understanding </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
+                <td> {% trans 'Sustaining mutual understanding'%} </td> <td><span class="badge badge-danger badge-pill">{% trans 'Low'%}</span></td><td>{% trans 'To promote, specify common rewards for the group, such as group marks'%}</td>
               </tr>
               {%endif%}
             </table>
@@ -266,7 +266,7 @@
   <!--
   <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content">              
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <img src="" class="imagepreview" style="width: 100%;" >
@@ -333,11 +333,11 @@ table th:last-child{
   $(function() {
 		$('.pop').on('click', function() {
 			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
-			$('#imagemodal').modal('show');
-		});
+			$('#imagemodal').modal('show');   
+		});		
 });
 
-$('#group_show').on('change', function() {
+$('#group_show').on('change', function() { 
   // From the other examples
   if (!this.checked) {
       $('#group_div').hide();
@@ -347,7 +347,7 @@ $('#group_show').on('change', function() {
     }
 });
 
-$('#speak_show').on('change', function() {
+$('#speak_show').on('change', function() { 
   // From the other examples
   if (!this.checked) {
       $('#speak_div').hide();
@@ -357,7 +357,7 @@ $('#speak_show').on('change', function() {
     }
 });
 
-$('#write_show').on('change', function() {
+$('#write_show').on('change', function() { 
   // From the other examples
   if (!this.checked) {
       $('#write_div').hide();
@@ -367,7 +367,7 @@ $('#write_show').on('change', function() {
     }
 });
 
-$('#ind_show').on('change', function() {
+$('#ind_show').on('change', function() { 
   // From the other examples
   if (!this.checked) {
       $('#ind_div').hide();
@@ -392,7 +392,7 @@ $('#text').on('show.bs.modal', function (event) {
     {
         console.log(data.data);
         if (data.data != "empty") {
-
+          
           $('#etherpad_text').html(data.data);
         }
     }
@@ -413,7 +413,7 @@ $('#text').on('show.bs.modal', function (event) {
     });
   }
   // Initializing social dynamics graphs
-
+ 
     cy_tmp = cytoscape({
   	   container: document.getElementById("speak-dynamics"),
        style: [
@@ -524,8 +524,8 @@ $('#text').on('show.bs.modal', function (event) {
 
     group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
     // sending ajax request
-
-
+  
+    
     var url2 = '{{request.site.base_url}}/getSpeakingStats/' + {{session.id}} ;
     var result = {
       "speaking_data": [
@@ -533,19 +533,19 @@ $('#text').on('show.bs.modal', function (event) {
               "data": [
                   {
                       "color": "rgb(255, 205, 86)",
-                      "speaking": 87727.348,
+                      "speaking": 87727.3,
                       "name": "Liisa",
                       "id": 525
                   },
                   {
                       "color": "rgb(54, 162, 235)",
-                      "speaking": 90573.709,
+                      "speaking": 90573.7,
                       "name": "Evely",
                       "id": 524
                   },
                   {
                       "color": "rgb(255, 99, 132)",
-                      "speaking": 65028.491,
+                      "speaking": 65028.4,
                       "name": "Anastasia",
                       "id": 533
                   }
@@ -587,22 +587,22 @@ $('#text').on('show.bs.modal', function (event) {
                   "nodes": [
                       {
                           "color": "rgb(54, 162, 235)",
-                          "size": 47.2226512334622,
-                          "ratio": 0.372226512334622,
+                          "size": 47.22,
+                          "ratio": 0.37,
                           "name": "Evely",
                           "id": 524
                       },
                       {
                           "color": "rgb(255, 205, 86)",
-                          "size": 46.05289563929161,
-                          "ratio": 0.36052895639291616,
+                          "size": 46.05,
+                          "ratio": 0.36,
                           "name": "Liisa",
                           "id": 525
                       },
                       {
                           "color": "rgb(255, 99, 132)",
-                          "size": 36.724453127246186,
-                          "ratio": 0.26724453127246184,
+                          "size": 36.72,
+                          "ratio": 0.26,
                           "name": "Anastasia",
                           "id": 533
                       }
@@ -614,25 +614,25 @@ $('#text').on('show.bs.modal', function (event) {
               "data": [
                   {
                       "color": "rgb(255, 99, 132)",
-                      "speaking": 52976.297,
+                      "speaking": 52976.2,
                       "name": "Kristiina",
                       "id": 529
                   },
                   {
                       "color": "rgb(54, 162, 235)",
-                      "speaking": 89953.306,
+                      "speaking": 89953.3,
                       "name": "Angela",
                       "id": 530
                   },
                   {
                       "color": "rgb(0, 255, 191)",
-                      "speaking": 45449.471,
+                      "speaking": 45449.4,
                       "name": "Hele-Liis",
                       "id": 527
                   },
                   {
                       "color": "rgb(255, 205, 86)",
-                      "speaking": 19958.577,
+                      "speaking": 19958.5,
                       "name": "Brigitty",
                       "id": 526
                   }
@@ -704,29 +704,29 @@ $('#text').on('show.bs.modal', function (event) {
                   "nodes": [
                       {
                           "color": "rgb(255, 205, 86)",
-                          "size": 19.57991841810677,
-                          "ratio": 0.0957991841810677,
+                          "size": 19.57,
+                          "ratio": 0.09,
                           "name": "Brigitty",
                           "id": 526
                       },
                       {
                           "color": "rgb(0, 255, 191)",
-                          "size": 31.81529396239569,
-                          "ratio": 0.21815293962395688,
+                          "size": 31.81,
+                          "ratio": 0.21,
                           "name": "Hele-Liis",
                           "id": 527
                       },
                       {
                           "color": "rgb(255, 99, 132)",
-                          "size": 35.428095567804974,
-                          "ratio": 0.25428095567804976,
+                          "size": 35.42,
+                          "ratio": 0.25,
                           "name": "Kristiina",
                           "id": 529
                       },
                       {
                           "color": "rgb(54, 162, 235)",
-                          "size": 53.17669205169257,
-                          "ratio": 0.43176692051692567,
+                          "size": 53.17,
+                          "ratio": 0.43,
                           "name": "Angela",
                           "id": 530
                       }
@@ -792,22 +792,22 @@ $('#text').on('show.bs.modal', function (event) {
                   "nodes": [
                       {
                           "color": "rgb(255, 99, 132)",
-                          "size": 58.62702473630843,
-                          "ratio": 0.4862702473630843,
+                          "size": 58.62,
+                          "ratio": 0.48,
                           "name": "Sandra",
                           "id": 528
                       },
                       {
                           "color": "rgb(54, 162, 235)",
-                          "size": 18.227029877839282,
-                          "ratio": 0.08227029877839283,
+                          "size": 18.22,
+                          "ratio": 0.08,
                           "name": "Enely",
                           "id": 531
                       },
                       {
                           "color": "rgb(255, 205, 86)",
-                          "size": 53.145945385852286,
-                          "ratio": 0.43145945385852286,
+                          "size": 53.14,
+                          "ratio": 0.43,
                           "name": "Helina",
                           "id": 532
                       }
@@ -819,7 +819,7 @@ $('#text').on('show.bs.modal', function (event) {
   }
 
     console.log(url2);
-
+  
     var members = "";
 
     for (n = 0 ; n < result.speaking_data[m].data.length; n ++) {
@@ -850,7 +850,7 @@ $('#text').on('show.bs.modal', function (event) {
 
     cy_tmp.elements().remove();
     var updated_graph = [];
-
+    
     for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
       var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name,color:result.speaking_data[m].graph.nodes[n].color, size:result.speaking_data[m].graph.nodes[n].size } });
@@ -882,12 +882,12 @@ $('#text').on('show.bs.modal', function (event) {
         content += "<p class='text-secondary font-weight-bold'> Total words: <span class='text-dark'>141</span></p>"
         content += "<p class='text-secondary font-weight-bold'> Total characters: <span class='text-dark'>1274</span></p>"
         $('#write-stats').html(content);
-        }
-
+        } 
+  
     url = '{{request.site.base_url}}/getStats/'+group_pad;
     console.log(url);
 
-
+    
     if (number == 1) {
       result2 = {
         "0": {
@@ -969,7 +969,7 @@ $('#text').on('show.bs.modal', function (event) {
     }
 
     }
-
+    
 
     console.log(result2);
     Object.keys(result2).forEach(function(key) {
@@ -979,7 +979,7 @@ $('#text').on('show.bs.modal', function (event) {
       myChart2.data.labels[key]=result2[key].name;
       myChart2.data.datasets[0].backgroundColor[key]=result2[key].color;
       myChart2.update();
-
+      
   });
 
 
@@ -989,4 +989,4 @@ main();
 // run every 5 minutes
 </script>
 
-{% endblock %}
+{% endblock %}  

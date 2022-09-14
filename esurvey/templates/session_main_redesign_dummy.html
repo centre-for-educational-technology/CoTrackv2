@@ -79,10 +79,10 @@
             <thead class="bg-c-blue ">
               <tr class="rounded">
                 <th scope="col" class="text-white h6">{% trans 'Group'%}</th>
-                <th scope="col" class="text-white text-center h6">{% trans 'Social dynamics'%}</th>
+                <th scope="col" class="text-white text-center h6">{% trans 'Speaking behavior'%}</th>
                 <th scope="col" class="text-white text-center  h6">{% trans 'Writing behavior'%}</th>
                 <th scope="col" class="text-white text-center  h6">{% trans 'Collaboration quality'%}</th>
-                <th scope="col" class="text-white text-center  h6">{% trans 'links'%}</th>
+                <th scope="col" class="text-white text-center  h6">{% trans 'Links'%}</th>
               </tr>
             </thead>
             <tbody>
@@ -118,7 +118,7 @@
                   {% endif %}
                   </td>
                 <td class="text-center">
-                  <a href="{% url 'dummy_group' session.id forloop.counter %}" class="btn btn-link">{% trans 'Group anlytics'%}</a> 
+                  <a href="{% url 'dummy_group' session.id forloop.counter %}" class="btn btn-link">{% trans 'Group analytics'%}</a> 
                 </td>
               </tr>
               {% endfor %}
