@@ -1,0 +1,992 @@
+{% extends "base_teacher.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load my_tags %}
+{% block title %} 
+<a href="{% url 'session_page' session.id %}" class="btn btn-link"> Back </a>
+ 
+  <div>
+    <p class="h3 text-left"><span class="text-secondary">Group:</span> Group-{{group}}</p>
+    <p class="h5 text-left"> <span class="text-secondary">Session:</span> {{session.name | upper}} <br/> </p>
+    <p class="h5 text-left"> <span class="text-secondary">Participants:</span> <span id="members"></span> </p>
+    <a  data-toggle="collapse" href="#collapseExample" aria-expanded="true" aria-controls="collapseExample"> <p class="h6 text-right btn btn-sm btn-warning"> <span class="text-dark"> <i class="fa fa-sliders" aria-hidden="true"></i> Configure Dashboard </p> </a>
+      <div class="collapse h6 shadow border-radius-3 p-4" id="collapseExample" >
+        <label class="font-bold"> Speaking analytics </label>
+        <div class="form-check">
+          
+          <input checked  class="form-check-input" type="checkbox" value="" id="group_show">
+          <label class="form-check-label" for="flexCheckDefault">
+            Group dynamics
+          </label>
+        </div>
+        <div class="form-check">
+          
+          <input checked class="form-check-input" type="checkbox" value="c" id="speak_show">
+          <label class="form-check-label" for="flexCheckDefault2">
+            Speaking time
+          </label>
+        </div>
+       <br/>
+      <label class="font-bold"> Writing analytics </label>
+        <div class="form-check">
+          
+          <input checked  class="form-check-input" type="checkbox" value="" id="write_show">
+          <label class="form-check-label" for="flexCheckDefault">
+            Writing stats
+          </label>
+        </div>
+        <div class="form-check">
+          <input checked  class="form-check-input" type="checkbox" value="" id="ind_show">
+          <label class="form-check-label" for="flexCheckDefault2">
+            Individual writing contribution
+          </label>
+        </div>
+      </div>
+
+    
+  </div>
+
+  
+  {% endblock %}
+  {% block content %}
+  
+
+  <div class="container">
+    
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-xl-4">
+            <div class="card  order-card boder-0">
+              <div class="card-header bg-c-blue">{% trans 'Speaking analytics'%}</div>
+              <div class="card-block d-flex flex-column">
+                <div id="group_div">
+                <p class="h5 text-secondary">Group dynamics</p>
+                <div id="speak-dynamics" class="m-0 pr-5" style="min-width:200px;min-height:200px;"></div>
+                </div>
+                <div id="speak_div">
+                <p class="h5 text-secondary mb-3">Speaking time</p>
+                <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
+                  <canvas id="speak-bar"></canvas>
+                </div>
+                </div>
+                <!--
+                <p class="h5 text-secondary">Speech text</p>
+                <p class="text-secondary"><small> Click on below image to enlarge </small></p>
+                <div class="card-block" style="overflow:auto;">
+                  <a href="#" class="pop">
+                    <img class="img img-responsive" style='height: 100%; width: 100%; object-fit: contain' id="word_cloud_img"></img>
+                  </a>
+                </div>
+                -->
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#word-cloud" data-whatever="{{group}}"><i class="fa fa-comments-o" aria-hidden="true"> </i>  Speech Text</button>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-4">
+          <div class="card  order-card">
+            <div class="card-header bg-c-blue">{% trans 'Writing analytics'%}</div>
+            <div class="card-block">
+              <div id="write_div">
+              <p class="h5 text-secondary">Writing stats</p>
+              <div id="write-stats" style="min-width:200px;min-height:200px;"></div>
+              </div>
+              <div id="ind_div">
+              <p class="h5 text-secondary mb-3">Individual contribution</p>
+              <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
+                <canvas style="min-width:200px;min-height:150px;" id="write-contri"></canvas>
+              </div>
+            </div>
+              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#text" data-whatever="{{group}}"><i class="fa fa-file-text-o" aria-hidden="true"> </i>  Group Document</button>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-sm-12 col-md-12 col-xl-4">
+        <div class="card  order-card">
+            <div class="card-header bg-c-blue">{% trans 'Prediction'%}</div>
+            <div class="card-block">
+              <p class="h5 text-secondary mb-3">Collaboration quality</p>
+              <div class="m-0 d-flex flex-column" style="min-width:200px;min-height:200px;">
+                
+                <div> 
+                  {% if group == '1' %}
+                  <p class="display-3 text-success text-center" style='font-family: "Tahoma", Times, serif;'>83%</p>
+                  
+                </div>
+                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                  {% elif group == '2' %}
+                  <p class="display-3 text-warning text-center" style='font-family: "Tahoma", Times, serif;'>57%</p>
+                  
+                </div>
+                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                  {% else %}
+                  <p class="display-3 text-danger text-center" style='font-family: "Tahoma", Times, serif;'>23%</p>
+                  
+                </div>
+                <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
+                  {% endif%}
+
+              </div>
+              <p class="h5 text-secondary">Dimensions</p>
+              <div class="m-0 p-0" style="min-width:200px;min-height:200px;">
+                <ul class="text-dark list-group border-0">
+
+                  {% if group == '1' %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    Argumentation
+                    <span class="badge badge-success badge-pill">High</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Cooperative orientation
+                    <span class="badge badge-success badge-pill">High</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Sustaining mutual understanding
+                    <span class="badge badge-warning badge-pill">Medium</span>
+                  </li>
+                  {% elif group == '2' %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    Argumentation
+                    <span class="badge badge-danger badge-pill">Low</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Cooperative orientation
+                    <span class="badge badge-success badge-pill">High</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Sustaining mutual understanding
+                    <span class="badge badge-success badge-pill">High</span>
+                  </li>
+                  {% else %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0">
+                    Argumentation
+                    <span class="badge badge-danger badge-pill">Low</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Cooperative orientation
+                    <span class="badge badge-danger badge-pill">Low</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 boder-top-1">
+                    Sustaining mutual understanding
+                    <span class="badge badge-danger badge-pill">Low</span>
+                  </li>
+                  {% endif %}
+                  
+                </ul>
+              </div>
+              <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#suggestions" data-whatever="{{group}}"><i class="fa fa-lightbulb-o" aria-hidden="true"> </i>  Intervention Suggestions</button>
+              
+            </div>
+        </div>
+      </div>
+    </div>
+	</div>
+  <div class="modal fade" id="word-cloud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Word cloud'%}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-content'>
+          <img class="img img-responsive" id="word_cloud_img"></img>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="text" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Group response'%}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-content p-2'>
+          <div id="etherpad_text"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="suggestions" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title" id="exampleModalLabel"><span>{% trans 'Intevenstion suggestions'%}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-content p-2'>
+           <br/>
+            You can use following strategies for the current state collaboration behavior.
+            <br/><hr/>
+            <table class='table borderless'>
+              <thead>
+                <tr>
+                  <th scope="col">Dimension</th>
+                  <th scope="col">Current state</th>
+                  <th scope="col">Suggestions</th>
+                </tr>
+              </thead>
+              {% if group == '1'%}
+              <tr>
+                <td> Argumentation </td> <td><span class="badge badge-success badge-pill">High</span></td><td> Praise the students</td>
+              </tr>
+              <tr>
+                <td> Sustaining mutual understanding </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
+              </tr>
+              {%elif group == '2' %}
+              <tr>
+                <td> Argumentation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)</td>
+              </tr>
+              <tr>
+                <td> Cooperative orientation </td> <td><span class="badge badge-success badge-pill">Low</span></td><td> Praise the group</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td> Argumentation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)</td>
+              </tr>
+              <tr>
+                <td> Cooperative orientation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Go and talk to the group aabout the issue, guide them to solve their own problem; Ask about the role divisions, if possible assign a leader whose task is to make sure everyone has shared their thougts and feelings.</td>
+              </tr>
+              <tr>
+                <td> Sustaining mutual understanding </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
+              </tr>
+              {%endif%}
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+  <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">              
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <img src="" class="imagepreview" style="width: 100%;" >
+        </div>
+      </div>
+    </div>
+  </div-->
+  <style>
+    .order-card {
+    color: #fff;
+}
+table th:first-child{
+  border-radius:5px 0 0 5px;
+}
+
+table th:last-child{
+  border-radius:0 5px 5px 0;
+}
+.bg-c-blue {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+}
+
+.bg-c-green {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: 25px;
+}
+
+.order-card i {
+    font-size: 26px;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+  </style>
+
+<script>
+  $(function() {
+		$('.pop').on('click', function() {
+			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
+			$('#imagemodal').modal('show');   
+		});		
+});
+
+$('#group_show').on('change', function() { 
+  // From the other examples
+  if (!this.checked) {
+      $('#group_div').hide();
+  } else
+    {
+      $('#group_div').show();
+    }
+});
+
+$('#speak_show').on('change', function() { 
+  // From the other examples
+  if (!this.checked) {
+      $('#speak_div').hide();
+  } else
+    {
+      $('#speak_div').show();
+    }
+});
+
+$('#write_show').on('change', function() { 
+  // From the other examples
+  if (!this.checked) {
+      $('#write_div').hide();
+  } else
+    {
+      $('#write_div').show();
+    }
+});
+
+$('#ind_show').on('change', function() { 
+  // From the other examples
+  if (!this.checked) {
+      $('#ind_div').hide();
+  } else
+    {
+      $('#ind_div').show();
+    }
+});
+
+$('#text').on('show.bs.modal', function (event) {
+  console.log('Running function');
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var recipient = button.data('whatever');
+  console.log(recipient); // Extract info from data-* attributes
+  var URL = "/en/getText/{{session.id}}/{{group}}";
+  console.log(URL);
+  $.ajax(
+  {
+    type:"GET",
+    url: URL,
+    success: function( data )
+    {
+        console.log(data.data);
+        if (data.data != "empty") {
+          
+          $('#etherpad_text').html(data.data);
+        }
+    }
+ })
+});
+   function makeGetRequest(path) {
+    return new Promise(function (resolve, reject) {
+      axios.get(path).then(
+        (response) => {
+          var result = response.data;
+          console.log('Processing Request');
+          resolve(result);
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
+  }
+  // Initializing social dynamics graphs
+ 
+    cy_tmp = cytoscape({
+  	   container: document.getElementById("speak-dynamics"),
+       style: [
+          {
+            selector: 'node',
+            css: {
+                  'content': 'data(name)',
+                  'text-valign': 'bottom',
+            }
+          },
+          {
+            selector: '[color]',
+            css: {
+               'background-color': 'data(color)',
+
+            }
+          },
+          {
+            selector: 'edge',
+            css: {
+                  'curve-style': 'bezier',
+                  'target-arrow-shape': 'triangle',
+                  'line-color': '#abb2b9 ',
+                  'target-arrow-color': '#abb2b9 '
+                }
+          },
+  				{
+  					selector: '[size]',
+  					css: {
+                'width': 'data(size)',
+                'height': 'data(size)',
+  				  }
+  				},
+          {
+  					selector: '[weight]',
+  					css: {
+                'width':'data(weight)',
+                'color': 'black',
+  					}
+  				},
+        ],
+        layout: {
+            name: 'circle',
+  				   /* color: "#ffff00",*/
+  				  fit: true
+  				}
+  			});
+
+  var ctx = document.getElementById('speak-bar').getContext('2d');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'Speaking time',
+              data: [],
+              borderWidth: 1,
+              backgroundColor:[],
+          }]
+      },
+      options: {
+        indexAxis: 'y',
+        plugins: {
+          colorschemes: {
+            scheme: 'brewer.Paired12'
+          }
+        },
+        legend: {display:false},
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'speaking (sec.)'
+            }
+          }]
+        }
+      }
+  });
+
+  var ctx = document.getElementById('write-contri').getContext('2d');
+  var myChart2 = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+          labels: [],
+          datasets: [{
+              label: 'Writing contribution',
+              data: [],
+              backgroundColor:[],
+              borderWidth: 1
+          }]
+      },
+      options:{
+        legend:{
+          display:false
+        }
+      }
+  });
+
+  async function main() {
+
+    etherpad_group = '{{eth_group}}';
+    session_id = {{session.id}};
+    number = {{group}};
+    m = number-1;
+
+    group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
+    // sending ajax request
+  
+    
+    var url2 = '{{request.site.base_url}}/getSpeakingStats/' + {{session.id}} ;
+    var result = {
+      "speaking_data": [
+          {
+              "data": [
+                  {
+                      "color": "rgb(255, 205, 86)",
+                      "speaking": 87727.348,
+                      "name": "Liisa",
+                      "id": 525
+                  },
+                  {
+                      "color": "rgb(54, 162, 235)",
+                      "speaking": 90573.709,
+                      "name": "Evely",
+                      "id": 524
+                  },
+                  {
+                      "color": "rgb(255, 99, 132)",
+                      "speaking": 65028.491,
+                      "name": "Anastasia",
+                      "id": 533
+                  }
+              ],
+              "quality": "--",
+              "graph": {
+                  "edges": [
+                      {
+                          "source": 525,
+                          "weight": 5,
+                          "to": 524
+                      },
+                      {
+                          "source": 524,
+                          "weight": 8,
+                          "to": 525
+                      },
+                      {
+                          "source": 525,
+                          "weight": 5,
+                          "to": 533
+                      },
+                      {
+                          "source": 533,
+                          "weight": 5,
+                          "to": 525
+                      },
+                      {
+                          "source": 524,
+                          "weight": 5,
+                          "to": 533
+                      },
+                      {
+                          "source": 533,
+                          "weight": 5,
+                          "to": 524
+                      }
+                  ],
+                  "nodes": [
+                      {
+                          "color": "rgb(54, 162, 235)",
+                          "size": 47.2226512334622,
+                          "ratio": 0.372226512334622,
+                          "name": "Evely",
+                          "id": 524
+                      },
+                      {
+                          "color": "rgb(255, 205, 86)",
+                          "size": 46.05289563929161,
+                          "ratio": 0.36052895639291616,
+                          "name": "Liisa",
+                          "id": 525
+                      },
+                      {
+                          "color": "rgb(255, 99, 132)",
+                          "size": 36.724453127246186,
+                          "ratio": 0.26724453127246184,
+                          "name": "Anastasia",
+                          "id": 533
+                      }
+                  ]
+              },
+              "group": 1
+          },
+          {
+              "data": [
+                  {
+                      "color": "rgb(255, 99, 132)",
+                      "speaking": 52976.297,
+                      "name": "Kristiina",
+                      "id": 529
+                  },
+                  {
+                      "color": "rgb(54, 162, 235)",
+                      "speaking": 89953.306,
+                      "name": "Angela",
+                      "id": 530
+                  },
+                  {
+                      "color": "rgb(0, 255, 191)",
+                      "speaking": 45449.471,
+                      "name": "Hele-Liis",
+                      "id": 527
+                  },
+                  {
+                      "color": "rgb(255, 205, 86)",
+                      "speaking": 19958.577,
+                      "name": "Brigitty",
+                      "id": 526
+                  }
+              ],
+              "quality": "--",
+              "graph": {
+                  "edges": [
+                      {
+                          "source": 529,
+                          "weight": 5,
+                          "to": 530
+                      },
+                      {
+                          "source": 530,
+                          "weight": 5,
+                          "to": 529
+                      },
+                      {
+                          "source": 529,
+                          "weight": 4,
+                          "to": 527
+                      },
+                      {
+                          "source": 527,
+                          "weight": 3,
+                          "to": 529
+                      },
+                      {
+                          "source": 529,
+                          "weight": 1,
+                          "to": 526
+                      },
+                      {
+                          "source": 526,
+                          "weight": 3,
+                          "to": 529
+                      },
+                      {
+                          "source": 530,
+                          "weight": 5,
+                          "to": 527
+                      },
+                      {
+                          "source": 527,
+                          "weight": 5,
+                          "to": 530
+                      },
+                      {
+                          "source": 530,
+                          "weight": 4,
+                          "to": 526
+                      },
+                      {
+                          "source": 526,
+                          "weight": 3,
+                          "to": 527
+                      },
+                      {
+                          "source": 526,
+                          "weight": 4,
+                          "to": 530
+                      },
+                      {
+                          "source": 527,
+                          "weight": 4,
+                          "to": 526
+                      }
+                  ],
+                  "nodes": [
+                      {
+                          "color": "rgb(255, 205, 86)",
+                          "size": 19.57991841810677,
+                          "ratio": 0.0957991841810677,
+                          "name": "Brigitty",
+                          "id": 526
+                      },
+                      {
+                          "color": "rgb(0, 255, 191)",
+                          "size": 31.81529396239569,
+                          "ratio": 0.21815293962395688,
+                          "name": "Hele-Liis",
+                          "id": 527
+                      },
+                      {
+                          "color": "rgb(255, 99, 132)",
+                          "size": 35.428095567804974,
+                          "ratio": 0.25428095567804976,
+                          "name": "Kristiina",
+                          "id": 529
+                      },
+                      {
+                          "color": "rgb(54, 162, 235)",
+                          "size": 53.17669205169257,
+                          "ratio": 0.43176692051692567,
+                          "name": "Angela",
+                          "id": 530
+                      }
+                  ]
+              },
+              "group": 2
+          },
+          {
+              "data": [
+                  {
+                      "color": "rgb(255, 99, 132)",
+                      "speaking": 76645.151,
+                      "name": "Sandra",
+                      "id": 528
+                  },
+                  {
+                      "color": "rgb(255, 205, 86)",
+                      "speaking": 68005.96,
+                      "name": "Helina",
+                      "id": 532
+                  },
+                  {
+                      "color": "rgb(54, 162, 235)",
+                      "speaking": 12967.315,
+                      "name": "Enely",
+                      "id": 531
+                  }
+              ],
+              "quality": "--",
+              "graph": {
+                  "edges": [
+                      {
+                          "source": 528,
+                          "weight": 10,
+                          "to": 532
+                      },
+                      {
+                          "source": 532,
+                          "weight": 10,
+                          "to": 528
+                      },
+                      {
+                          "source": 532,
+                          "weight": 3,
+                          "to": 531
+                      },
+                      {
+                          "source": 531,
+                          "weight": 4,
+                          "to": 528
+                      },
+                      {
+                          "source": 528,
+                          "weight": 5,
+                          "to": 531
+                      },
+                      {
+                          "source": 531,
+                          "weight": 4,
+                          "to": 532
+                      }
+                  ],
+                  "nodes": [
+                      {
+                          "color": "rgb(255, 99, 132)",
+                          "size": 58.62702473630843,
+                          "ratio": 0.4862702473630843,
+                          "name": "Sandra",
+                          "id": 528
+                      },
+                      {
+                          "color": "rgb(54, 162, 235)",
+                          "size": 18.227029877839282,
+                          "ratio": 0.08227029877839283,
+                          "name": "Enely",
+                          "id": 531
+                      },
+                      {
+                          "color": "rgb(255, 205, 86)",
+                          "size": 53.145945385852286,
+                          "ratio": 0.43145945385852286,
+                          "name": "Helina",
+                          "id": 532
+                      }
+                  ]
+              },
+              "group": 3
+          }
+      ]
+  }
+
+    console.log(url2);
+  
+    var members = "";
+
+    for (n = 0 ; n < result.speaking_data[m].data.length; n ++) {
+      myChart.data.datasets[0].data[n]= result.speaking_data[m].data[n].speaking / 60;
+      myChart.data.labels[n]=result.speaking_data[m].data[n].name;
+      members = members + result.speaking_data[m].data[n].name + ", ";
+      myChart.data.datasets[0].backgroundColor[n]= result.speaking_data[m].data[n].color;
+      myChart.update();
+    }
+    $('#members').html(members);
+
+    var URL = "/en/sessions/word_cloud/"+{{session.id}}+"/"+number;
+    console.log(URL);
+    $.ajax(
+    {
+      type:"GET",
+      url: URL,
+      success: function( data )
+      {
+
+          if (data.data != "empty") {
+            image_data = "data:image/png;base64," + data.data;
+            $('#word_cloud_img').attr('src',image_data);
+          }
+      }
+   })
+
+
+    cy_tmp.elements().remove();
+    var updated_graph = [];
+    
+    for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
+      var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
+      cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name,color:result.speaking_data[m].graph.nodes[n].color, size:result.speaking_data[m].graph.nodes[n].size } });
+    }
+
+    for (n = 0 ; n < result.speaking_data[m].graph.edges.length; n ++) {
+      var edge_id =  result.speaking_data[m].graph.edges[n].id;
+      console.log('Type:',typeof(node_id));
+      cy_tmp.add({ group: 'edges', data: { source: result.speaking_data[m].graph.edges[n].source, target: result.speaking_data[m].graph.edges[n].to, weight:result.speaking_data[m].graph.edges[n].weight } });
+    }
+    cy_tmp.layout();
+    group_pad = '{{eth_group}}' + '$' + 'session_' + '{{session.id}}' + '_group_' + '{{group}}';
+    // sending ajax request
+    url = '{{request.site.base_url}}/getRevCount/'+group_pad;
+    console.log(url);
+    revisions = 0;
+    if (number == 1) {
+    content = "<p class='text-secondary font-weight-bold'> Total updates: <span class='text-dark'>396</span></p>";
+    content += "<p class='text-secondary font-weight-bold'> Total words: <span class='text-dark'>44</span></p>"
+    content += "<p class='text-secondary font-weight-bold'> Total characters: <span class='text-dark'>407</span></p>"
+    $('#write-stats').html(content);
+    } else if (number == 2) {
+      content = "<p class='text-secondary font-weight-bold'> Total updates: <span class='text-dark'>1085</span></p>";
+      content += "<p class='text-secondary font-weight-bold'> Total words: <span class='text-dark'>283</span></p>"
+      content += "<p class='text-secondary font-weight-bold'> Total characters: <span class='text-dark'>2656</span></p>"
+      $('#write-stats').html(content);
+      } else  {
+        content = "<p class='text-secondary font-weight-bold'> Total updates: <span class='text-dark'>214</span></p>";
+        content += "<p class='text-secondary font-weight-bold'> Total words: <span class='text-dark'>141</span></p>"
+        content += "<p class='text-secondary font-weight-bold'> Total characters: <span class='text-dark'>1274</span></p>"
+        $('#write-stats').html(content);
+        } 
+  
+    url = '{{request.site.base_url}}/getStats/'+group_pad;
+    console.log(url);
+
+    
+    if (number == 1) {
+      result2 = {
+        "0": {
+            "deletion": 4,
+            "color": "rgb(54, 162, 235)",
+            "addition": 10,
+            "name": "Evely",
+            "authorid": "a.eLtKwnIANUnkUxni"
+        },
+        "1": {
+            "deletion": 1,
+            "color": "rgb(255, 99, 132)",
+            "addition": 4,
+            "name": "Anastasia",
+            "authorid": "a.ZaP06TMsRTAy7Ufx"
+        },
+        "2": {
+            "deletion": 0,
+            "color": "rgb(255, 205, 86)",
+            "addition": 5,
+            "name": "Liisa",
+            "authorid": "a.jhpE6dz1hAE9CRBw"
+        }
+    }
+    } else if (number==2){
+      result2 = {
+        "0": {
+            "addition": 1,
+            "authorid": "a.xqVXuUIX6wGp0szf",
+            "deletion": 0,
+            "name": "Brigitty",
+            "color": "rgb(255, 205, 86)"
+        },
+        "1": {
+            "addition": 23,
+            "authorid": "a.mbJojv7rUUMgZJL4",
+            "deletion": 31,
+            "name": "Kristiina",
+            "color": "rgb(255, 99, 132)"
+        },
+        "2": {
+            "addition": 0,
+            "authorid": "a.2FrGKSctwoBicKOw",
+            "deletion": 0,
+            "name": "Hele-Liis",
+            "color": "rgb(0, 255, 191)"
+        },
+        "3": {
+            "addition": 16,
+            "authorid": "a.EdmTyDFhbIsfUG7Y",
+            "deletion": 9,
+            "name": "Angela",
+            "color": "rgb(54, 162, 235)"
+        }
+    }
+    } else {
+      result2= {
+        "0": {
+            "addition": 157,
+            "authorid": "a.cf795WBnRc1GeMGd",
+            "deletion": 2,
+            "name": "Helina",
+            "color": "rgb(255, 205, 86)"
+        },
+        "1": {
+            "addition": 3,
+            "authorid": "a.wmUCJOomOjNcA8su",
+            "deletion": 2,
+            "name": "Enely",
+            "color": "rgb(54, 162, 235)"
+        },
+        "2": {
+            "addition": 66,
+            "authorid": "a.Kh2JtNVapXDVjqdb",
+            "deletion": 3,
+            "name": "Sandra",
+            "color": "rgb(255, 99, 132)"
+        }
+    }
+
+    }
+    
+
+    console.log(result2);
+    Object.keys(result2).forEach(function(key) {
+      console.log(key);
+      console.log('---->>>>>');
+      myChart2.data.datasets[0].data[key]= result2[key].addition + result2[key].deletion;
+      myChart2.data.labels[key]=result2[key].name;
+      myChart2.data.datasets[0].backgroundColor[key]=result2[key].color;
+      myChart2.update();
+      
+  });
+
+
+
+}
+main();
+// run every 5 minutes
+</script>
+
+{% endblock %}  

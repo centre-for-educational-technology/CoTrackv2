@@ -45,7 +45,9 @@ urlpatterns = [
     path("audiolist/", views.list_files, name='views.list_files'),
     path("leave/",views.LeaveSession, name='leave_session'),
     path("predict/<session_id>/<group_id>", views.predict, name='predict'),
-    
+    path("dashboard/<session_id>/<group_id>", views.dummyGroupDashboard, name='dummy_group'),
+    path("dashboard/<session_id>", views.dummySessionDashboard, name='dummy_main'),
+
     #restapi
     path("getStats/<padid>", views.getGroupPadStats),
     path("sessions/word_cloud/<session_id>/<group_id>", views.getWordCloud, name='group_word_cloud'),
@@ -54,4 +56,7 @@ urlpatterns = [
     path("getSpeakingStats/<session_id>", views.getSpeakingStats),
     path("getHelpQueries/<session_id>", views.getHelpQueries),
     path("getPrediction/<session_id>/<group_id>",views.getPredictionStat),
+
+    path("getText/<session_id>/<group_id>",views.getText),
+
     ]

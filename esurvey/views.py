@@ -1158,7 +1158,10 @@ def getEdgeWidth(edge_weight, total_weight):
         return 1
 
 # function to get elements for cytoscape.js to draw network
-def generateElements(user_sequence,speaking_data):
+def generateElements(user_sequence,speaking_data,session,group):
+
+    color_mapping,t = getUsers(session,group)
+
     total_speaking = sum(speaking_data.values())
     avg_speaking = 0
     if len(speaking_data.values()) != 0:
@@ -1202,7 +1205,7 @@ def generateElements(user_sequence,speaking_data):
         ratio = float(speaking_data[n]/total_speaking)
         node_width = 10 + 100 * ratio
 
-        t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':ratio}
+        t = {'id':n,'name':user_obj.first_name,'color':color_mapping[n],'size':node_width,'ratio':ratio}
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
@@ -1234,6 +1237,18 @@ def gini(array):
     else:
         return 'High'
 
+def dummyGroupDashboard(request,session_id,group_id):
+    session = Session.objects.get(id=session_id)
+    session_group = SessionGroupMap.objects.get(session=session)
+    eth_group = session_group.eth_groupid
+    context_data = {'group':group_id,'session':session,'eth_group':eth_group}
+
+    return render(request,'teacher_group_analytics_dummy.html',context_data)
+
+def dummySessionDashboard(request,session_id):
+    session = Session.objects.get(id=session_id)
+    context_data = {'session':session,'no_group':list(range(session.groups)),'protocol':settings.PROTOCOL}
+    return render(request,'session_main_redesign_dummy.html',context_data)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -1253,6 +1268,47 @@ def getHelpQueries(request,session_id):
         groups_queries.append(group_query)
     return Response({'queries':groups_queries})
 
+def getUsers(session_id,group_id):
+    s = Session.objects.get(id=session_id)
+    tmp_users = VAD.objects.filter(session=s,group = group_id).values('user').distinct()
+    sp_users = [user['user'] for user in tmp_users]
+    et_users = []
+    pad = Pad.objects.filter(session=s).filter(group=group_id)
+    padid =  pad[0].eth_padid
+    params = {'padID':padid}
+
+    author_list = call('listAuthorsOfPad',params)['data']['authorIDs']
+
+    id_to_author = {}
+
+    for author in author_list:
+        author_mapping = AuthorMap.objects.filter(authorid=author)
+        id_to_author[author_mapping[0].user.id] = author
+        et_users.append(author_mapping[0].user.id)
+
+    final_list = list(set(sp_users + et_users))
+
+    user_to_color = {}
+    author_to_color = {}
+
+    for index,user in enumerate(final_list):
+        user_to_color[user] = COLORS[index]
+        try:
+            author_to_color[id_to_author[user]] = COLORS[index]
+        except:
+            print('')
+    return user_to_color,author_to_color
+
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def getText(request,session_id,group_id):
+    pad = Pad.objects.all().filter(session=session_id,group=group_id)
+    padid =  pad[0].eth_padid
+    params = {'padID':padid}
+    t = call('getHTML',params)
+    content = t['data']['html']
+    return Response({'data':content})
 
 
 @api_view(['GET'])
@@ -1276,6 +1332,8 @@ def getSpeakingStats(request,session_id):
         group = group + 1
         vads = VAD.objects.all().filter(session=session_id)
 
+        color_mapping,t = getUsers(session_id,group)
+
         group_speaking = {}
         group_speaking['group'] = group
 
@@ -1294,6 +1352,7 @@ def getSpeakingStats(request,session_id):
             speak_data['id'] = user
             speak_data['name'] = user_obj.first_name if user_obj.first_name else user_obj.username
             speak_data['speaking'] = user_vads['activity__sum'] * .001
+            speak_data['color'] = color_mapping[user]
             speaking_data[user] = user_vads['activity__sum'] * .001
             data.append(speak_data)
             if not user_vads_last_minute['activity__sum'] is None:
@@ -1301,7 +1360,7 @@ def getSpeakingStats(request,session_id):
                 gini_data.append(last_minute_activity)
 
         group_speaking['data'] = data
-        group_speaking['graph'] = generateElements(user_sequence,speaking_data)
+        group_speaking['graph'] = generateElements(user_sequence,speaking_data,session_id,group)
         group_speaking['quality'] = gini(np.array(gini_data))
         groups_speaking.append(group_speaking)
 
@@ -1570,6 +1629,12 @@ def predict(request,session_id,group_id):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def getGroupPadStats(request,padid):
+
+    pad = Pad.objects.filter(eth_padid = padid)[0]
+    session = pad.session
+    group = pad.group
+    t,color_mapping = getUsers(session.id,group)
+
     params = {'padID':padid}
     rev_count = call('getRevisionsCount',params)
     # get user wise Info
@@ -1616,6 +1681,7 @@ def getGroupPadStats(request,padid):
             'name':author_names[v],
             'addition':addition[v],
             'deletion':deletion[v],
+            'color':color_mapping[v]
         }
 
     #######################
