@@ -44,6 +44,7 @@ urlpatterns = i18n_patterns(
     path('activate/<slug:uidb64>/<slug:token>/',v.activate, name='activate'),
     path('',views.index,name='index'),  # <-- added
     path('aboutus/',views.about,name='about'),
+    path('workshop/',views.workshop,name='workshop'),
     path('howto/',views.how,name='how'), # <-- added
     path('login/', v.login,name='login'),
     path('logout/',v.logout,name='logout'),

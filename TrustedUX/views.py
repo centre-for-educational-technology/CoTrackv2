@@ -19,6 +19,9 @@ def index(request):
 def about(request):
     return render(request,'index_soft_aboutus.html')
 
+def workshop(request):
+    return render(request,'index_soft_workshop.html')
+
 def how(request):
     return render(request,'index_soft_resources.html')
 

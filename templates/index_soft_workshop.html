@@ -1,0 +1,200 @@
+{% extends 'base_form.html'%}
+{% load static%}
+{%block content%}
+<style>
+  .author {
+    left: 275px;
+    top: 1127px;
+  border:2px solid #fff;
+
+  -moz-box-shadow: 20px -20px  #EBF5FF;
+;
+  -webkit-box-shadow: 20px -20px  #EBF5FF;
+  box-shadow: 20px -20px  #EBF5FF;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+  border-radius:15px;
+}
+
+@media (max-width: 991px) {
+  .author {
+    left: 75px;
+    top: 112px;
+  border:2px solid #fff;
+
+  -moz-box-shadow: 20px -20px  #EBF5FF;
+;
+  -webkit-box-shadow: 20px -20px  #EBF5FF;
+  box-shadow: 20px -20px  #EBF5FF;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+  border-radius:15px;
+}
+}
+
+.table td {
+   text-align: center;
+}
+
+.card{
+border:none;
+border-radius:8px;
+
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 32px;
+
+/* or 200% */
+letter-spacing: 0.2px;
+
+}
+.nav-tabs {
+  border-bottom: 0px solid transparent;
+}
+
+
+.contact-area {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(/static/assets/images/email_bg.png);
+  background-position: center center;
+  background-size: cover;
+  height:40vh;
+  padding-top:99px;
+}
+
+.team {
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+</style>
+
+
+<!-- ***** Header Area End ***** -->
+<div class=" min-vh-100">
+
+<!-- ***** Welcome Area End ***** -->
+
+<!-- ***** Features Small Start ***** -->
+<div >
+
+
+    <!-- ***** Header Text End ***** -->
+</div>
+<!-- ***** Features Small End ***** -->
+<section id="aboutus" >
+ <div class='container justify-center p-5'>
+
+      <h3 class='text-primary' style="text-align:center;"> Workshop Guidelines </h3>
+      <p class='line-height:30px;' style="text-align:center;">We thank you for participating in the workshop. 
+        Your feedback will help us to better understand the user's perspective on the use of CoTrack. </p>
+      
+        <br/><br/>
+
+      <p class="m-1">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#pre" aria-expanded="false" aria-controls="collapseExample">
+          1. Fill the pre-workshop Questionnaire
+        </button>
+      </p>
+      <div class="collapse" id="pre">
+        <div class="card card-body">
+          Please fill the following questionnaire <br/>
+             <a href="https://forms.gle/HXDH1dXQthScbNRc6" target="_blank"> English version</a>
+            <a href="https://forms.gle/D1mUeqHmb2Gtnhk58" target="_blank"> Estonian version  </a>
+        </div>
+      </div>
+      <p class="m-1">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#grp" aria-expanded="false" aria-controls="collapseExample">
+         2. Group tasks
+        </button>
+      </p>
+      <div class="collapse" id="grp">
+        <div class="card card-body">
+          <p>Go to <a href="https://www.cotrack.website/login" target="_blank"> login page</a>  and login using your Google account. <br/>
+          </p>
+          <p> Use the session pins to enter into group activity space. </p>
+        </div>
+      </div>
+
+      <p class="m-1">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#act" aria-expanded="false" aria-controls="collapseExample">
+          3. Individual tasks
+        </button>
+      </p>
+      <div class="collapse" id="act">
+        <div class="card card-body">
+          <p>Go to <a href="https://www.cotrack.website/logout" target="_blank"> login page</a>  and login using <b>the credentials</b> shared by the workshop coordinator. <br/>
+          Complete the individual tasks </p>
+          <ul>
+            <li> <b> Task-1:</b>Create a learning session/activity with  following details  <br/>
+              Name: workshop_participant_N<br/>
+              Number of groups: 4<br/>
+              Language of instruction: English<br/>
+              Duration: 30 minutes<br/>
+            
+              Also add following functionality to your session:<br/>
+              Add Etherpad (it’s a text editor like Google Doc)<br/>
+              Add Audio and Video recording<br/>
+              Add voice activity detection and speech to text tracking features<br/>
+              Add consent form </li>
+     
+
+
+    
+            <li><b>Task-2:</b>  Edit your session and change the number of groups from 4 to 6. </li>
+            <li><b>Task-3:</b>  Create one more session by copying the first session.</li>
+            <li><b>Task-4:</b>  Interact with the  <a href="https://www.cotrack.website/dashboard/38">dashboard</a></li>
+
+        </div>
+      </div>
+
+      <p class="m-1">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#post" aria-expanded="false" aria-controls="collapseExample">
+          4. Fill the post-workshop questionnaire
+        </button>
+      </p>
+      <div class="collapse" id="post">
+        <div class="card card-body">
+          Please fill the following questionnaire <br/>
+             <a href="https://forms.gle/C3kqd9A2pBEcSvk96" target="_blank"> English version </a>
+             <a href="https://forms.gle/qJdQ3QbNwKw3o5ZcA" target="_blank"> Estonian version </a>
+        </div>
+      </div>
+
+  </div>
+    <!-- end -->
+</div>
+
+
+
+</section>
+
+<section class='contact-area'>
+  <div class="container">
+    <div class='row pl-5'>
+      <div class='col col-3'>
+        <img  src="{% static 'assets/images/email.png' %}" class="rounded img-fluid d-block mx-auto" alt="App">
+      </div>
+      <div class='col col-9'>
+        <h5 class='text-primary'> Contact us </h5><br/>
+         <p class='text-muted'><span class=' text-primary fa fa-envelope pr-3'></span>pankajch@tlu.ee </p><br/>
+         <p class='text-muted'><span class=' text-primary fa fa-map-marker pr-3'></span>Tallinn University, School of Digital Technologies <br/>
+Narva rd. 29, 10120 Tallinn, Estonia</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ***** Footer Start ***** -->
+
+
+</div>
+
+{% endblock%}
