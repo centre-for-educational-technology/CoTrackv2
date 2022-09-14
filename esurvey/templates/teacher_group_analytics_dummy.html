@@ -2,9 +2,9 @@
 {% load i18n %}
 {% load crispy_forms_tags %}
 {% load my_tags %}
-{% block title %} 
+{% block title %}
 <a href="{% url 'session_page' session.id %}" class="btn btn-link"> Back </a>
- 
+
   <div>
     <p class="h3 text-left"><span class="text-secondary">Group:</span> Group-{{group}}</p>
     <p class="h5 text-left"> <span class="text-secondary">Session:</span> {{session.name | upper}} <br/> </p>
@@ -13,14 +13,14 @@
       <div class="collapse h6 shadow border-radius-3 p-4" id="collapseExample" >
         <label class="font-bold"> Speaking analytics </label>
         <div class="form-check">
-          
+
           <input checked  class="form-check-input" type="checkbox" value="" id="group_show">
           <label class="form-check-label" for="flexCheckDefault">
             Group dynamics
           </label>
         </div>
         <div class="form-check">
-          
+
           <input checked class="form-check-input" type="checkbox" value="c" id="speak_show">
           <label class="form-check-label" for="flexCheckDefault2">
             Speaking time
@@ -29,7 +29,7 @@
        <br/>
       <label class="font-bold"> Writing analytics </label>
         <div class="form-check">
-          
+
           <input checked  class="form-check-input" type="checkbox" value="" id="write_show">
           <label class="form-check-label" for="flexCheckDefault">
             Writing stats
@@ -43,16 +43,16 @@
         </div>
       </div>
 
-    
+
   </div>
 
-  
+
   {% endblock %}
   {% block content %}
-  
+
 
   <div class="container">
-    
+
     <div class="row">
         <div class="col-sm-12 col-md-12 col-xl-4">
             <div class="card  order-card boder-0">
@@ -106,21 +106,21 @@
             <div class="card-block">
               <p class="h5 text-secondary mb-3">Collaboration quality</p>
               <div class="m-0 d-flex flex-column" style="min-width:200px;min-height:200px;">
-                
-                <div> 
+
+                <div>
                   {% if group == '1' %}
                   <p class="display-3 text-success text-center" style='font-family: "Tahoma", Times, serif;'>83%</p>
-                  
+
                 </div>
                 <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
                   {% elif group == '2' %}
                   <p class="display-3 text-warning text-center" style='font-family: "Tahoma", Times, serif;'>57%</p>
-                  
+
                 </div>
                 <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
                   {% else %}
                   <p class="display-3 text-danger text-center" style='font-family: "Tahoma", Times, serif;'>23%</p>
-                  
+
                 </div>
                 <div class="mt-2"> <p class="h5 text-dark"> chance of <span class="badge badge-success text-white">High</span> level of collaboration quality </p></div>
                   {% endif%}
@@ -170,11 +170,11 @@
                     <span class="badge badge-danger badge-pill">Low</span>
                   </li>
                   {% endif %}
-                  
+
                 </ul>
               </div>
               <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#suggestions" data-whatever="{{group}}"><i class="fa fa-lightbulb-o" aria-hidden="true"> </i>  Intervention Suggestions</button>
-              
+
             </div>
         </div>
       </div>
@@ -238,14 +238,14 @@
                 <td> Argumentation </td> <td><span class="badge badge-success badge-pill">High</span></td><td> Praise the students</td>
               </tr>
               <tr>
-                <td> Sustaining mutual understanding </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
+                <td> Sustaining mutual understanding </td> <td><span class="badge badge-warning badge-pill">Medium</span></td><td> To propote, specify common rewards for the group, such as group marks</td>
               </tr>
               {%elif group == '2' %}
               <tr>
                 <td> Argumentation </td> <td><span class="badge badge-danger badge-pill">Low</span></td><td> Make sure there is someone in the group with the role of orienting (raising questions with the direction of discussion)</td>
               </tr>
               <tr>
-                <td> Cooperative orientation </td> <td><span class="badge badge-success badge-pill">Low</span></td><td> Praise the group</td>
+                <td> Cooperative orientation </td> <td><span class="badge badge-success badge-pill">High</span></td><td> Praise the group</td>
               </tr>
               {% else %}
               <tr>
@@ -266,7 +266,7 @@
   <!--
   <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">              
+      <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
           <img src="" class="imagepreview" style="width: 100%;" >
@@ -333,11 +333,11 @@ table th:last-child{
   $(function() {
 		$('.pop').on('click', function() {
 			$('.imagepreview').attr('src', $(this).find('img').attr('src'));
-			$('#imagemodal').modal('show');   
-		});		
+			$('#imagemodal').modal('show');
+		});
 });
 
-$('#group_show').on('change', function() { 
+$('#group_show').on('change', function() {
   // From the other examples
   if (!this.checked) {
       $('#group_div').hide();
@@ -347,7 +347,7 @@ $('#group_show').on('change', function() {
     }
 });
 
-$('#speak_show').on('change', function() { 
+$('#speak_show').on('change', function() {
   // From the other examples
   if (!this.checked) {
       $('#speak_div').hide();
@@ -357,7 +357,7 @@ $('#speak_show').on('change', function() {
     }
 });
 
-$('#write_show').on('change', function() { 
+$('#write_show').on('change', function() {
   // From the other examples
   if (!this.checked) {
       $('#write_div').hide();
@@ -367,7 +367,7 @@ $('#write_show').on('change', function() {
     }
 });
 
-$('#ind_show').on('change', function() { 
+$('#ind_show').on('change', function() {
   // From the other examples
   if (!this.checked) {
       $('#ind_div').hide();
@@ -392,7 +392,7 @@ $('#text').on('show.bs.modal', function (event) {
     {
         console.log(data.data);
         if (data.data != "empty") {
-          
+
           $('#etherpad_text').html(data.data);
         }
     }
@@ -413,7 +413,7 @@ $('#text').on('show.bs.modal', function (event) {
     });
   }
   // Initializing social dynamics graphs
- 
+
     cy_tmp = cytoscape({
   	   container: document.getElementById("speak-dynamics"),
        style: [
@@ -524,8 +524,8 @@ $('#text').on('show.bs.modal', function (event) {
 
     group_pad = etherpad_group + '$' + 'session_' + session_id + '_group_' + number;
     // sending ajax request
-  
-    
+
+
     var url2 = '{{request.site.base_url}}/getSpeakingStats/' + {{session.id}} ;
     var result = {
       "speaking_data": [
@@ -819,7 +819,7 @@ $('#text').on('show.bs.modal', function (event) {
   }
 
     console.log(url2);
-  
+
     var members = "";
 
     for (n = 0 ; n < result.speaking_data[m].data.length; n ++) {
@@ -850,7 +850,7 @@ $('#text').on('show.bs.modal', function (event) {
 
     cy_tmp.elements().remove();
     var updated_graph = [];
-    
+
     for (n = 0 ; n < result.speaking_data[m].graph.nodes.length; n ++) {
       var node_id = "" + result.speaking_data[m].graph.nodes[n].id;
       cy_tmp.add({ group: 'nodes', data: { id: node_id,  name: result.speaking_data[m].graph.nodes[n].name,color:result.speaking_data[m].graph.nodes[n].color, size:result.speaking_data[m].graph.nodes[n].size } });
@@ -882,12 +882,12 @@ $('#text').on('show.bs.modal', function (event) {
         content += "<p class='text-secondary font-weight-bold'> Total words: <span class='text-dark'>141</span></p>"
         content += "<p class='text-secondary font-weight-bold'> Total characters: <span class='text-dark'>1274</span></p>"
         $('#write-stats').html(content);
-        } 
-  
+        }
+
     url = '{{request.site.base_url}}/getStats/'+group_pad;
     console.log(url);
 
-    
+
     if (number == 1) {
       result2 = {
         "0": {
@@ -969,7 +969,7 @@ $('#text').on('show.bs.modal', function (event) {
     }
 
     }
-    
+
 
     console.log(result2);
     Object.keys(result2).forEach(function(key) {
@@ -979,7 +979,7 @@ $('#text').on('show.bs.modal', function (event) {
       myChart2.data.labels[key]=result2[key].name;
       myChart2.data.datasets[0].backgroundColor[key]=result2[key].color;
       myChart2.update();
-      
+
   });
 
 
@@ -989,4 +989,4 @@ main();
 // run every 5 minutes
 </script>
 
-{% endblock %}  
+{% endblock %}
