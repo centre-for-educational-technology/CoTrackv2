@@ -2129,8 +2129,9 @@ class CompleteForm(SessionWizardView):
         if (old_use) and (not new_use):
             self.deleteEtherpad(s)
         if (old_use and new_use):
+            sgm = SessionGroupMap.objects.filter(session=s)
             if (group_diff > 0):
-                sgm = SessionGroupMap.objects.filter(session=s)
+                
                 print('group-diff',group_diff)
                 for g in range(group_diff):
                     g =  g +  old_groups + 1
