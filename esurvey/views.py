@@ -1160,7 +1160,10 @@ def getEdgeWidth(edge_weight, total_weight):
 # function to get elements for cytoscape.js to draw network
 def generateElements(user_sequence,speaking_data,session,group):
 
-    color_mapping,t = getUsers(session,group)
+    try:
+        color_mapping,t = getUsers(session,group)
+    except:
+        color_mapping = {}
 
     total_speaking = sum(speaking_data.values())
     avg_speaking = 0
@@ -1205,7 +1208,10 @@ def generateElements(user_sequence,speaking_data,session,group):
         ratio = float(speaking_data[n]/total_speaking)
         node_width = 10 + 100 * ratio
 
-        t = {'id':n,'name':user_obj.first_name,'color':color_mapping[n],'size':node_width,'ratio':ratio}
+        if len(color_mapping) !=0:
+            t = {'id':n,'name':user_obj.first_name,'color':color_mapping[n],'size':node_width,'ratio':ratio}
+        else:
+            t = {'id':n,'name':user_obj.first_name,'size':node_width,'ratio':ratio}
         ele_nodes.append(t)
     ele_edges = []
     for e in edge_list:
@@ -1332,7 +1338,10 @@ def getSpeakingStats(request,session_id):
         group = group + 1
         vads = VAD.objects.all().filter(session=session_id)
 
-        color_mapping,t = getUsers(session_id,group)
+        try:
+            color_mapping,t = getUsers(session_id,group)
+        except:
+            color_mapping = {}
 
         group_speaking = {}
         group_speaking['group'] = group
@@ -1352,7 +1361,8 @@ def getSpeakingStats(request,session_id):
             speak_data['id'] = user
             speak_data['name'] = user_obj.first_name if user_obj.first_name else user_obj.username
             speak_data['speaking'] = user_vads['activity__sum'] * .001
-            speak_data['color'] = color_mapping[user]
+            if len(color_mapping) != 0:
+                speak_data['color'] = color_mapping[user]
             speaking_data[user] = user_vads['activity__sum'] * .001
             data.append(speak_data)
             if not user_vads_last_minute['activity__sum'] is None:
