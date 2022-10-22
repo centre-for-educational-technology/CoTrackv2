@@ -14,7 +14,10 @@
     <b class='text-muted'>{% trans 'Duration:'%} </b>{{ session.duration }} <br/>
   </p>
   <br/>
-  <button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">{% trans 'Show dashboard'%}</button>
+  <!--<button id='dash_vis' style="height:30px;font-size:0.5em;" type="button" class="btn btn-success py-0">{% trans 'Show dashboard'%}</button>-->
+  <a id="task" style="height:30px;font-size:0.5em;" class="btn btn-primary btn-lg m-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="true" aria-controls="collapseExample">
+    Show task
+  </a>
   <hr/>
   {% if request.user.is_superuser or request.user.role.role == 'teacher' or request.user.is_staff %}
   <div class="dropdown">
@@ -179,6 +182,14 @@
       }
    })
 });
+$('#collapseExample').on('show.bs.collapse', function() {
+  console.log('trigger show');
+  $('#task.collapsed').html('Hide task');
+})
+$('#collapseExample').on('hide.bs.collapse', function() {
+  console.log('trigger hide');
+  $('#task').html('Show task');
+})
   $('#dash_vis').click(function(event){
     var button_text = $('#dash_vis').text();
     if (button_text == 'Show dashboard') {
