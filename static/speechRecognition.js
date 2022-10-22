@@ -17,7 +17,7 @@ if ("webkitSpeechRecognition" in window) {
   };
   speechRecognition.onend = () => {
     document.querySelector("#status").style.display = "none";
-    if (flag_end) {
+    if (end_flag) {
       console.log("Speech Recognition Ended");
     } else {
       speechRecognition.start();
