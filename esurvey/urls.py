@@ -47,6 +47,7 @@ urlpatterns = [
     path("predict/<session_id>/<group_id>", views.predict, name='predict'),
     path("dashboard/<session_id>/<group_id>", views.dummyGroupDashboard, name='dummy_group'),
     path("dashboard/<session_id>", views.dummySessionDashboard, name='dummy_main'),
+    path("speechtest/", views.speechtest, name='speechtest'),
 
     #restapi
     path("getStats/<padid>", views.getGroupPadStats),

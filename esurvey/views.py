@@ -2010,6 +2010,9 @@ def getPad(request,session,group_id):
 def poseDemo(request):
     return render(request,'pose_demo.html',{})
 
+def speechtest(request):
+    return render(request,'chrome_browser.html',{})
+
 def activateSession(request,session_id):
     session = Session.objects.all().filter(id=session_id)
     if session.count() == 0:
@@ -2141,7 +2144,7 @@ class CompleteForm(SessionWizardView):
         if (old_use and new_use):
             sgm = SessionGroupMap.objects.filter(session=s)
             if (group_diff > 0):
-                
+
                 print('group-diff',group_diff)
                 for g in range(group_diff):
                     g =  g +  old_groups + 1
