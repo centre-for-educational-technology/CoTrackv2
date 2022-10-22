@@ -2,7 +2,7 @@ if ("webkitSpeechRecognition" in window) {
   let speechRecognition = new webkitSpeechRecognition();
   let final_transcript = "";
 
-  end_flag = False;
+  end_flag = false;
 
   speechRecognition.continuous = true;
   speechRecognition.interimResults = true;
@@ -42,7 +42,7 @@ if ("webkitSpeechRecognition" in window) {
     speechRecognition.start();
   };
   document.querySelector("#stop").onclick = () => {
-    end_flag = True;
+    end_flag = true;
     speechRecognition.stop();
   };
 } else {
