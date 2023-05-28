@@ -6,6 +6,7 @@ The tool is being developed as part of my research on building collaboration qua
 ## CoTrack demo
 The tool has been presented in the CrossMMLA 2020 workshop held at Learning Analytics and Knowledge Conference, LAK'20 and LAK'23.
 > Pankaj Chejara, Luis P. Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, Shashi Kant Shankar, Reet Kasepalu: CoTrack2: A Tool to Track Collaboration Across Physical and Digital Spaces with Real Time Activity Visualization. CrossMMLA@LAK'21. Companion Proceedings 11th International Conference on Learning Analytics and Knowledge, 2021. (Demo paper).
+
 > Pankaj Chejara, Reet Kasepalu, Luis P. Prieto, Adolfo Ruiz-Calleja, María Jesús Rodríguez-Triana, : CoTrack: A Multimodal Learning Analytics tool to guide teachers during collaborative learning activities with intervention suggestions in classroom. LAK'23. Companion Proceedings 13th International Conference on Learning Analytics and Knowledge, 2023. (Demo paper).
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/IOH4S2doZTA/0.jpg)](https://youtu.be/blyln4v5dCQ)
