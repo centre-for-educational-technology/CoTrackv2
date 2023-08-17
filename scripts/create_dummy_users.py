@@ -4,7 +4,7 @@ def run():
     for i in range(50):
         user_name = 'user' + str(i)
         user_email = 'user' + str(i) + '@demo.ee'
-        user_pwd = make_password("abc1234#")
+        user_pwd = make_password("")
         first_name = user_name
         last_name = 'demo'
         try:
