@@ -26,7 +26,7 @@ def run(codes):
     for i in codes:
         user_name = 'user_' + str(i)
         user_email = 'user_' + str(i) + '@demo.ee'
-        user_pwd = make_password(str(i))
+        user_pwd = make_password()
         first_name = user_name
         last_name = 'demo'
         try:
